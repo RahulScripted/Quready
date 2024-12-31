@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.Custom{
+    position: relative;
+    overflow: hidden;
+}
+.Custom::before{
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: #000;
+    top: -10%;
+    right: -10%;
+    border-radius: 50%;
+    z-index: -1;
+    transition: all 0.4s ease-in-out;
+}
+.Custom:hover::before{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    border-radius: 0;
+}
