@@ -1,6 +1,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 import { TopicsData } from '../../assets/asset'
+import { ArrowBigLeftDash, ArrowBigRightDash} from 'lucide-react';
 
 const Topics = () => {
   const topicRoutes = {
@@ -38,7 +39,11 @@ const Topics = () => {
     <div className='flex flex-col gap-10 items-center justify-center w-full'>
 
         {/* Heading */}
-        <h2 className='bg-gradient-to-b from-black to-gray-400 text-transparent bg-clip-text text-2xl text-center md:text-5xl font-bold md:font-semibold'>Question Topics</h2>
+        <div className='flex items-center justify-center space-x-4'>
+          <ArrowBigRightDash className='w-6 h-6 md:w-8 md:h-8 text-indigo-600' />
+          <h2 className='bg-gradient-to-b from-black to-gray-400 text-transparent bg-clip-text text-2xl text-center md:text-5xl font-bold md:font-semibold'>Question Topics</h2>
+          <ArrowBigLeftDash className='w-6 h-6 md:w-8 md:h-8 text-indigo-600' />
+        </div>
 
         {/* Topics */}
         <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center justify-center gap-x-10 gap-y-4'>

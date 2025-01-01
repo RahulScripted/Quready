@@ -1,15 +1,17 @@
 import React from 'react'
 import { whyChooseData } from '../../assets/asset'
+import { Tangent, TrophyIcon, } from 'lucide-react'
 
 const WhyUs = () => {
   return (
     <div className='flex flex-col items-center justify-center gap-10'>
 
         {/* Top Part */}
-        <h1 className='text-2xl text-center md:text-5xl font-bold md:font-semibold'> 
-            <span className='bg-gradient-to-b from-black to-gray-400 text-transparent bg-clip-text'>Why choose Us?</span> 
-            🤔
-        </h1>
+        <div className='flex items-center justify-center space-x-4'>
+            <TrophyIcon className='w-6 h-6 md:w-8 md:h-8 text-indigo-600' />
+            <h1 className='text-2xl text-center md:text-5xl font-bold md:font-semibold bg-gradient-to-b from-black to-gray-400 text-transparent bg-clip-text'>Why choose Us </h1>
+            <Tangent className='w-6 h-6 md:w-8 md:h-8 text-indigo-600' />
+        </div>
 
         {/* Bottom Part */}
         <div className='flex flex-wrap items-center justify-center gap-10'>

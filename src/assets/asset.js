@@ -5,7 +5,6 @@ import whyUs1 from './whyUs1.png'
 import whyUs2 from './whyUs2.png'
 import whyUs3 from './whyUs3.png'
 import share from './share.png'
-import arrows from './arrows.png'
 
 
 const asset = {
@@ -16,7 +15,6 @@ const asset = {
     whyUs2,
     whyUs3,
     share,
-    arrows
 }
 export default asset;
 
@@ -2306,42 +2304,58 @@ export const TriesData = [
 export const TipsTricksData = [
     {
         condition: "If input array is sorted then",
-        options:['Binary Search or Two Pointers']
+        options:['Binary Search' , 'Two Pointers'],
+        examples: "Example: Finding a target value, finding pair with sum K"
     },
     {
         condition: "If asked for all permutations/subsets then",
-        options:['Backtracking']
+        options:['Backtracking'],
+        examples: "Example: Generate all possible subsets, letter combinations of phone number"
     },
     {
         condition: "If given a tree then",
-        options:['BFS','DFS']
+        options:['BFS','DFS'],
+        examples: "Example: Tree traversal, find path sum, max depth"
     },
     {
         condition: "If given a graphs then",
-        options:['BFS','DFS']
+        options:['BFS','DFS'],
+        examples: "Example: Find connected components, shortest path"
     },
     {
         condition: "If given a linked list then",
-        options:['Linked List']
+        options:['Linked List'],
+        examples: "Example: Find cycle, find middle node"
     },
     {
         condition: "If recursion is banned then",
-        options:['Stack']
+        options:['Stack'],
+        examples: "Example: Iterative tree traversal, evaluate expression"
     },
     {
         condition: "If must solve in-place then",
-        options:['Swap corresponding values', 'Store one or more different values in the same pointer']
+        options:['Swap corresponding values', 'Store one or more different values in the same pointer'],
+        examples: "Example: Array manipulation, matrix rotation"
     },
     {
         condition: "If asked for maximum/minimum subarray/subset/options then",
-        options:['Dynamic Programming']
+        options:['Dynamic Programming'],
+        examples: "Example: Maximum subarray sum, longest increasing subsequence"
     },
     {
         condition: "If asked for top/least K items then",
-        options:['Heap','QuickSelect']
+        options:['Heap','QuickSelect'],
+        examples: "Example: K largest elements, K closest points"
     },
     {
         condition: "If asked for common strings then",
-        options:['Map','Trie','Map/Set for O(1) time & O(n) space', 'Sort input for O(nlogn) time and O(1) space']
-    }
+        options:['Map','Trie'],
+        examples: "Example: Longest common prefix, word search"
+    },
+    {
+        condition: "Else condition for common string",
+        options:["Map/Set for O(1) time & O(n) space",
+        "Sort input for O(nlogn) time and O(1) space"],
+        examples: "Example: Two sum, contains duplicate"
+    },
 ]
