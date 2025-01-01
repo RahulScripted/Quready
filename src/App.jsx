@@ -26,9 +26,11 @@ import Greedy from "./components/Topics/Greedy/Greedy"
 import Graphs from "./components/Topics/Graphs/Graphs"
 import Tries from "./components/Topics/Tries/Tries"
 import Footer from "./components/Footer/Footer"
+import ScrollToTop from "./components/Scroll To Top/ScrollToTop"
 
 
 function App() {
+
   return (
     <div className="relative w-full min-h-screen z-0 px-4 py-3 md:px-12 overflow-x-hidden mb-5">
 
@@ -37,7 +39,8 @@ function App() {
 
       <div className="z-10">
         <Navbar />
-        <Routes>
+        <ScrollToTop />
+        <Routes onNavigate={() => window.scrollTo(0,0)}>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/topics/math" element={<Maths />} />

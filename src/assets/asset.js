@@ -5,6 +5,7 @@ import whyUs1 from './whyUs1.png'
 import whyUs2 from './whyUs2.png'
 import whyUs3 from './whyUs3.png'
 import share from './share.png'
+import contact from './contact.png'
 
 
 const asset = {
@@ -15,6 +16,7 @@ const asset = {
     whyUs2,
     whyUs3,
     share,
+    contact
 }
 export default asset;
 
