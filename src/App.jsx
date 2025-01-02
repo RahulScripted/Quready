@@ -27,48 +27,68 @@ import Graphs from "./components/Topics/Graphs/Graphs"
 import Tries from "./components/Topics/Tries/Tries"
 import Footer from "./components/Footer/Footer"
 import ScrollToTop from "./components/Scroll To Top/ScrollToTop"
+import { useEffect, useState } from "react"
+import Preloader from "./components/Preloader/Preloader"
 
 
 function App() {
+  // For Pre loader
+  const [loading,setLoading] = useState(true)
+  
+  // Use Effect Hook
+  useEffect(() =>{
+    const timer = setTimeout(() => setLoading(false),3000)
+    return () => clearTimeout(timer)
+  },[])
 
   return (
-    <div className="relative w-full min-h-screen z-0 px-4 py-3 md:px-12 overflow-x-hidden mb-5">
+    <>
+      {loading? 
+        ( <div className='flex items-center justify-center bg-black text-white w-full h-screen'>
+            <Preloader />
+          </div>
+        )
+        : (
+          <div className="relative w-full min-h-screen z-0 px-4 py-3 md:px-12 overflow-x-hidden mb-5">
 
-      {/* Background Image */}
-      <img className="absolute top-0 left-0 w-screen -z-10" src={asset.bg} alt="bg" />
+            {/* Background Image */}
+            <img className="absolute top-0 left-0 w-screen -z-10" src={asset.bg} alt="bg" />
 
-      <div className="z-10">
-        <Navbar />
-        <ScrollToTop />
-        <Routes onNavigate={() => window.scrollTo(0,0)}>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/topics/math" element={<Maths />} />
-          <Route path="/topics/pattern" element={<Patterns />} />
-          <Route path="/topics/array" element={<Array />} />
-          <Route path="/topics/string" element={<String />} />
-          <Route path="/topics/sorting" element={<Sorting />} />
-          <Route path="/topics/searching" element={<Searching />} />
-          <Route path="/topics/matrix" element={<Matrix />} />
-          <Route path="/topics/hashing" element={<Hashing />} />
-          <Route path="/topics/two_Pointers" element={<TwoPointers />} />
-          <Route path="/topics/prefix_Sum" element={<PrefixSum />} />
-          <Route path="/topics/backtracking" element={<Backtracking />} />
-          <Route path="/topics/linkedList" element={<LinkedList />} />
-          <Route path="/topics/trees" element={<Trees />} />
-          <Route path="/topics/heap" element={<Heap />} />
-          <Route path="/topics/stack" element={<Stack />} />
-          <Route path="/topics/queue" element={<Queue />} />
-          <Route path="/topics/sliding_window" element={<SlidingWindow />} />
-          <Route path="/topics/bit_manipulation" element={<BitManipulation />} />
-          <Route path="/topics/dynamic_programming" element={<DynamicProgramming />} />
-          <Route path="/topics/greedy" element={<Greedy />} />
-          <Route path="/topics/graphs" element={<Graphs />} />
-          <Route path="/topics/tries" element={<Tries />} />
-        </Routes>
-        <Footer />
-      </div>
-    </div>
+            <div className="z-10">
+              <Navbar />
+              <ScrollToTop />
+              <Routes onNavigate={() => window.scrollTo(0,0)}>
+                <Route path="/" element={<Home />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/topics/math" element={<Maths />} />
+                <Route path="/topics/pattern" element={<Patterns />} />
+                <Route path="/topics/array" element={<Array />} />
+                <Route path="/topics/string" element={<String />} />
+                <Route path="/topics/sorting" element={<Sorting />} />
+                <Route path="/topics/searching" element={<Searching />} />
+                <Route path="/topics/matrix" element={<Matrix />} />
+                <Route path="/topics/hashing" element={<Hashing />} />
+                <Route path="/topics/two_Pointers" element={<TwoPointers />} />
+                <Route path="/topics/prefix_Sum" element={<PrefixSum />} />
+                <Route path="/topics/backtracking" element={<Backtracking />} />
+                <Route path="/topics/linkedList" element={<LinkedList />} />
+                <Route path="/topics/trees" element={<Trees />} />
+                <Route path="/topics/heap" element={<Heap />} />
+                <Route path="/topics/stack" element={<Stack />} />
+                <Route path="/topics/queue" element={<Queue />} />
+                <Route path="/topics/sliding_window" element={<SlidingWindow />} />
+                <Route path="/topics/bit_manipulation" element={<BitManipulation />} />
+                <Route path="/topics/dynamic_programming" element={<DynamicProgramming />} />
+                <Route path="/topics/greedy" element={<Greedy />} />
+                <Route path="/topics/graphs" element={<Graphs />} />
+                <Route path="/topics/tries" element={<Tries />} />
+              </Routes>
+              <Footer />
+            </div>
+          </div>
+        )
+      }
+    </>
   )
 }
 
