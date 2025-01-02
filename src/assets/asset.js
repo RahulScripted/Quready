@@ -445,28 +445,28 @@ export const ArrayData = [
         url: "https://leetcode.com/problems/spiral-matrix/"
     },
     {
-        id: 12,
+        id: 13,
         name: "Sort Colors",
         img: share,
         level: "Medium",
         url: "https://leetcode.com/problems/sort-colors/"
     },
     {
-        id: 13,
+        id: 14,
         name: "First Missing Positive",
         img: share,
         level: "Hard",
         url: "https://leetcode.com/problems/first-missing-positive/"
     },
     {
-        id: 14,
+        id: 15,
         name: "Text Justification",
         img: share,
         level: "Hard",
         url: "https://leetcode.com/problems/text-justification/"
     },
     {
-        id: 15,
+        id: 16,
         name: "Trapping Rain Water",
         img: share,
         level: "Hard",
