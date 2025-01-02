@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BookOpen, ChevronDown, ChevronUp, Lightbulb } from 'lucide-react'
 import { TipsTricksData } from '../../assets/asset'
+import { motion } from 'framer-motion'
 
 const TipsTricks = () => {
   const [expandSection,setExpandSection] = useState(null)
@@ -8,6 +9,11 @@ const TipsTricks = () => {
   const toggleSection = (index) => {
     setExpandSection(expandSection === index ? null : index)
   } 
+
+  const sectionVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: { opacity: 1, height: 'auto', transition: { duration: 0.3 } },
+  };
 
   return (
     <div className='px-4 sm:px-6 lg:px-8 py-6 w-full flex items-center justify-center gap-10 flex-col'>
@@ -37,6 +43,12 @@ const TipsTricks = () => {
                     </button>
 
                     {/* Show Content */}
+                    <motion.div
+                        initial="hidden"
+                        animate={expandSection === index ? "visible" : "hidden"}
+                        variants={sectionVariants}
+                        className="px-4 sm:px-6 pb-3"
+                    >
                     {expandSection === index && (
                         <div className='px-4 sm:px-6 pb-3 '>
                             <div className='mb-2'>
@@ -51,6 +63,7 @@ const TipsTricks = () => {
                             <div className='text-xs sm:text-sm'>{item.examples}</div>
                         </div>
                     )}
+                    </motion.div>
                 </div>
             ))}
         </div>
