@@ -61,6 +61,7 @@ const ReusableTopic = ({title,description,data}) => {
                 <th className='border-[4px] border-white px-4 py-2'>Lists</th>
                 <th className='border-[4px] border-white px-4 py-2 text-left'>Questions</th>
                 <th className='border-[4px] border-white px-4 py-2'>Level</th>
+                <th className='border-[4px] border-white px-4 py-2'>Solution</th>
               </tr>
             </thead>
 
@@ -90,6 +91,11 @@ const ReusableTopic = ({title,description,data}) => {
                     className={`font-semibold border-[4px] border-white text-sm md:text-[1.1rem] px-4 py-2 text-center ${item.level === 'Easy'? 'text-green-600' : item.level === 'Medium' ? 'text-yellow-500' : 'text-red-600'}`}
                   >
                     {item.level}
+                  </td>
+                  <td 
+                    className='font-medium text-black border-[4px] border-white text-sm md:text-[1.1rem] px-4 py-2 text-center hover:text-violet-500 transition-all duration-150 cursor-pointer'
+                  >
+                    View
                   </td>
                 </tr>
               ))}
