@@ -2302,6 +2302,266 @@ export const TriesData = [
     },
 ]
 
+
+// Challenge
+export const ChallengeData = [
+    {
+        id : 1,
+        title : 'Challenge - 1 : Data Structure & Algorithm',
+        description : 'Solve the problem within 30 minutes to earn points and rank up.',
+        timeLimit : 30,
+        Questions : [
+            {
+                question: 'How can we describe an array in the best possible way?',
+                options: [
+                    'The Array shows a hierarchical structure.',
+                    'Arrays are immutable.',
+                    'Container that stores the elements of similar types',
+                    'The Array is not a data structure'
+                ],
+                correct: 3
+            },
+            {
+                question: 'Which data structure uses LIFO principle?',
+                options: ['Queue', 'Stack', 'Linked List', 'Array'],
+                correct: 1
+            },
+            {
+                question: 'Which one of the following is the process of inserting an element in the stack?',
+                options: ['Insert', 'Add', 'Push', 'None of the above'],
+                correct: 3
+            },
+            {
+                question: 'Which of the following sorting algorithms can be used to sort a random linked list with minimum time complexity?',
+                options: ['Insertion Sort', 'Quick Sort', 'Heap Sort', 'Merge Sort'],
+                correct: 4
+            },
+            {
+                question: 'What is a data structure?',
+                options: [' A programming language', 'A collection of algorithms', 'A way to store and organize data', 'A type of computer hardware'],
+                correct: 3
+            },
+            {
+                question: 'Which data structure is used for implementing recursion?',
+                options: ['Stack', 'Queue', 'List', 'Array'],
+                correct: 1
+            },
+            {
+                question: 'What is the value of the postfix expression 6 3 2 4 + - *?',
+                options: ['74', '-18', '22', '40'],
+                correct: 2
+            },
+            {
+                question: 'The data structure required for Breadth First Traversal on a graph is?',
+                options: ['Array', 'Stack', 'Tree', 'Queue'],
+                correct: 4
+            },
+            {
+                question: 'Which of the following application makes use of a circular linked list?',
+                options: ['Recursive function calls', 'Undo operation in a text editor', 'Implement Hash Tables', 'Allocating CPU to resources'],
+                correct: 4
+            },
+            {
+                question: 'Which of the following tree data structures is not a balanced binary tree?',
+                options: ['Splay tree', 'B-tree', 'AVL tree', 'Red-black tree'],
+                correct: 3
+            },
+            {
+                question: 'Which of the following is not the type of queue?',
+                options: ['Priority queue', 'Circular queue', 'Single ended queue', 'Ordinary queue'],
+                correct: 4
+            },
+            {
+                question: 'The optimal data structure used to solve Tower of Hanoi is _________',
+                options: ['Tree', 'Heap', 'Priority queue', 'Stack'],
+                correct: 4
+            },
+            {
+                question: 'Which of the following cases does not exist in complexity theory?',
+                options: ['Best case', 'Average case', 'Worst case', 'Empty case'],
+                correct: 4
+            },
+            {
+                question: "What's the worst-case scenario in a linear search algorithm?",
+                options: ['The element is somewhere in the middle of the array', 'The element is not present in the array', 'The element is the last in the array', 'Either the element is the last in the array or is not there'],
+                correct: 4
+            },
+            {
+                question: 'The time complexity of the dequeue operation in a queue is',
+                options: ['O(1)', 'O(n)', 'O(logn)', 'O(nlogn)'],
+                correct: 1
+            },
+        ]
+    },
+    {
+        id : 2,
+        title : 'Challenge - 2 : Data Structure & Algorithm',
+        description : 'Solve the problem within 30 minutes to earn points and rank up.',
+        timeLimit : 30,
+        Questions : [
+            {
+                question: 'What would be the time complexity to find an element in the linked list?',
+                options: ['O(n)', 'O(log n)', 'O(1)', 'O(n²)'],
+                correct: 1
+            },
+            {
+                question: 'Which algorithm stops the execution when it finds the solution otherwise start the problem from the top?',
+                options: ['Backtracking', 'Divide and conquer', 'Branch and Bound', 'Dynamic programming'],
+                correct: 1
+            },
+            {
+                question: 'A graph with all vertices having equal degree is known as a',
+                options: ['Multi Graph', 'Regular Graph', 'Simple Graph', 'Complete Graph'],
+                correct: 2
+            },
+            {
+                question: 'A graph with all vertices having equal degree is known as a',
+                options: ['Multi Graph', 'Regular Graph', 'Simple Graph', 'Complete Graph'],
+                correct: 2
+            },
+            {
+                question: 'A full binary tree can be generated using',
+                options: ['post-order and pre-order traversal', 'pre-order traversal', 'post-order traversal', 'in-order traversal'],
+                correct: 1
+            },
+            {
+                question: 'Which algorithm type is used in solving the 4 Queens problem?',
+                options: ['Dynamic programming', 'Branch and Bound', 'Backtracking', 'Greedy'],
+                correct: 3
+            },
+            {
+                question: 'Given an undirected graph G with V vertices and E edges, what will be the sum of the degrees of all vertices?',
+                options: ['E', '2E', 'V + E', '2V'],
+                correct: 2
+            },
+            {
+                question: 'The necessary condition to be checked before deletion from the queue is',
+                options: ['Overflow', 'Rear value', 'Front value', 'Underflow'],
+                correct: 4
+            },
+            {
+                question: 'BFS is best compared to DFS in the case of',
+                options: ["The graph's width is large", "The graph's depth is large", 'The graph consists of many nodes', 'The graph is complex'],
+                correct: 2
+            },
+            {
+                question: 'Which array operations have a time complexity of O(1)?',
+                options: ['Searching any element', 'Inserting an element', 'Accessing any element', 'deleting an element'],
+                correct: 3
+            },
+            {
+                question: ' O(n) means computing time is',
+                options: ['Constant', 'Quadratic', 'Linear', 'Cubic'],
+                correct: 3
+            },
+            {
+                question: 'A linearly ordered sequence of memory cells is known as',
+                options: ['node', 'link', 'variable', 'null'],
+                correct: 1
+            },
+            {
+                question: 'Which of the given applications are Topological Sorts of a graph?',
+                options: ['OD Deadlock Detection', 'Sentence Ordering', 'Course Scheduling', 'All of the above'],
+                correct: 4
+            },
+            {
+                question: 'Which algorithms are used for string and pattern-matching problems?',
+                options: ['KMP Algorithm', 'Greedy', 'Dynamic Programming', 'None of the above'],
+                correct: 1
+            },
+            {
+                question: 'If the Queue is non-empty, choose the correct application condition from the following.',
+                options: ['Rear = front', 'Unpredictable', 'Rear > front', 'Rear < front'],
+                correct: 3
+            },
+        ]
+    },
+    {
+        id : 3,
+        title : 'Challenge - 3 : Data Structure & Algorithm',
+        description : 'Solve the problem within 30 minutes to earn points and rank up.',
+        timeLimit : 30,
+        Questions : [
+            {
+                question: 'What is the time complexity of accessing an element in a HashMap (best and worst case)?',
+                options: ['O(1) O(1)', 'O(n) O(n)', 'O(1) O(n)', 'O(n) O(1)'],
+                correct: 3
+            },
+            {
+                question: 'Which data structure is used to perform level-order traversal on a binary tree?',
+                options: ['Queue', 'Stack', 'Linked List', 'Array'],
+                correct: 1
+            },
+            {
+                question: 'What is the minimum number of queues required for implementing a stack?',
+                options: ['1', '2', '3', '4'],
+                correct: 2
+            },
+            {
+                question: 'Which data structure is used to check a palindrome?',
+                options: ['Queue', 'Stack', 'Linked List', 'Array'],
+                correct: 2
+            },
+            {
+                question: 'Which among the following data structures is used to implement a priority queue?',
+                options: ['Queue', 'Stack', 'Linked List', 'Heap'],
+                correct: 4
+            },
+            {
+                question: 'What is the maximum depth of a trie with n strings of length m?',
+                options: ['m', 'log2 n', 'log2 m', 'n'],
+                correct: 1
+            },
+            {
+                question: 'How many nodes does a full binary tree with n leaves contains?',
+                options: ['2*n - 1', '2n ', 'n', '1'],
+                correct: 1
+            },
+            {
+                question: 'Which is faster in search operation among the AA trees and Red-black trees?',
+                options: ['AA-tree', 'Red black tree', 'Equally faster', 'None of these'],
+                correct: 1
+            },
+            {
+                question: 'Consider the following numbers 8,1,2,4,3,9,6,5 to be inserted into the empty binary search tree. What will be the sequence of in-order traversal of the resultant binary search tree?',
+                options: ['8 1 3 5 6 9 2 4', '1 2 3 4 5 6 8 9', '5 6 9 3 4 2 1 8', '8 1 2 4 3 9 6 5'],
+                correct: 2
+            },
+            {
+                question: "The amount of memory needs to run to completion is known as_____________",
+                options: ['Worst case', 'Best case', 'Time complexity', 'Space complexity'],
+                correct: 4
+            },
+            {
+                question: 'Data by itself is not useful unless',
+                options: ['It is massive', 'It is processed to obtain information', 'It is collected from diverse sources', 'It is properly stated'],
+                correct: 2
+            },
+            {
+                question: 'A linear list in which each node has pointers to point to the predecessor and successors nodes is called as _______________',
+                options: ['Singly Linked List', 'Circular Linked List', 'Doubly Linked List', 'Linear Linked List'],
+                correct: 3
+            },
+            {
+                question: 'Which of the following involves arranging the records in a logical order?',
+                options: ['Merging', 'Sorting', 'Traversing', 'Searching'],
+                correct: 2
+            },
+            {
+                question: 'Which of the following refers to a single unit of values?',
+                options: ['Group item', 'Basic item', 'Data item', 'Elementary item'],
+                correct: 3
+            },
+            {
+                question: 'The values in which field uniquely determine the record in a file',
+                options: ['Primary key', 'Secondary key', 'Pointer', 'Key'],
+                correct: 1
+            },
+        ]
+    }
+]
+
+
 // All Tips & Tricks Data
 export const TipsTricksData = [
     {

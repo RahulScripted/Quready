@@ -3,6 +3,7 @@ import Header from '../components/Header/Header'
 import WhyUs from '../components/Why Us/WhyUs'
 import Topics from '../components/Topics/Topics'
 import TipsTricks from '../components/Tips Tricks/TipsTricks'
+import Challenge from '../components/Challenges/Challenge'
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
         <Header />
         <WhyUs />
         <Topics />
+        <Challenge />
         <TipsTricks />
     </div>
   )
