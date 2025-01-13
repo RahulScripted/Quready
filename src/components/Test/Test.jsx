@@ -46,18 +46,19 @@ const Test = () => {
   const calculateResult = () => {
     const endTime = Date.now();
     const timeTaken = Math.floor((endTime - startTime) / 1000);
-    const correctAnswer = 0;
+    let correctAnswer = 0;
 
     challenge.Questions.forEach((question,idx) => {
-      if(answer[idx] === question.correct){
-         correctAnswer++;
+      if(answer[idx] === question.correct - 1){
+        correctAnswer++;
       }
     })
     
-    const accuracy = (correctAnswer / challenge.Questions.length) / 100;
+    const accuracy = (correctAnswer / challenge.Questions.length) * 100;
 
     return {
       timeTaken,
+      timeLeft,
       correctAnswer,
       totalQuestions: challenge.Questions.length,
       accuracy,
@@ -91,23 +92,23 @@ const Test = () => {
       return <div>Loading result...</div>
     }
     return (
-      <div className='p-6 bg-white rounded-lg shadow-lg'>
-        <h2 className='text-2xl font-bold mb-6 text-center'>Quiz Result</h2>
+      <div className='p-6 bg-white rounded-lg '>
+        <h2 className='text-3xl font-bold mb-6 text-center'>Quiz Result</h2>
 
         <div className='space-y-4'>
-          <div className='bg-violet-200 p-4 rounded-lg'>
+          <div className='bg-white p-4 rounded-lg'>
             <h3 className='font-semibold mb-2'>Time Information</h3>
             <p>Time taken : {formatTime(result.timeTaken)}</p>
             <p>Time remaining : {formatTime(result.timeLeft)}</p>
           </div>
 
-          <div className='bg-violet-200 p-4 rounded-lg'>
+          <div className='bg-white p-4 rounded-lg'>
           <h3 className='font-semibold mb-2'>Performance</h3>
             <p>Correct Answer : {result.correctAnswer} out of {result.totalQuestions}</p>
             <p>Accuracy : {result.accuracy.toFixed(1)}%</p>
           </div>
 
-          <div className='bg-violet-200 rounded-lg'>
+          <div className='bg-white rounded-lg'>
             <h3 className='font-semibold mb-2'>Question Analysis</h3>
             {challenge.Questions.map((question,index) => (
               <div key={index} className='mb-4 border-b pb-2 last:border-b-0'>
@@ -115,11 +116,11 @@ const Test = () => {
                 <p className='text-sm text-gray-600'>
                   Your answer: {
                     answer[index] !== undefined 
-                      ? question.options[answer[index] - 1]
+                      ? question.options[answer[index]]
                       : 'Not answered'
                   }
                 </p>
-                <p className={`text-sm ${answer[index] === question.correctAnswer ? 'text-gray-600' : 'text-red-600'}`}>
+                <p className={`text-sm ${answer[index] === question.correct - 1 ? 'text-green-600' : 'text-red-600'}`}>
                   Correct answer : {question.options[question.correct - 1]}
                 </p>
               </div>
@@ -132,7 +133,7 @@ const Test = () => {
 
 
   if(isSubmitted){
-    return <ResultView />
+    return <ResultView result={result} />
   }
 
   const currentQuestion = challenge.Questions[currentQuestionIndex]
@@ -164,7 +165,7 @@ const Test = () => {
         {/* Options */}
         <div className='space-y-3'>
           {currentQuestion.options.map((option,i) => (
-            <div key={i + 1} className='flex items-center space-x-3'>
+            <div key={i} className='flex items-center space-x-3'>
               <input 
                 type="radio" 
                 name={`question-${currentQuestionIndex}`}
@@ -173,7 +174,7 @@ const Test = () => {
                 onChange={() => handleOptionSelect(currentQuestionIndex,i)}
                 className='w-4 h-4'
               />
-              <label htmlFor={`option-${currentQuestionIndex}-${1}`} className='text-gray-700 cursor-pointer'>
+              <label htmlFor={`option-${currentQuestionIndex}-${i}`} className='text-gray-700 cursor-pointer'>
                 {option}
               </label>
             </div>

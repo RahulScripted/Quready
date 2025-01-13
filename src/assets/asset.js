@@ -2324,7 +2324,7 @@ export const ChallengeData = [
             {
                 question: 'Which data structure uses LIFO principle?',
                 options: ['Queue', 'Stack', 'Linked List', 'Array'],
-                correct: 1
+                correct: 2
             },
             {
                 question: 'Which one of the following is the process of inserting an element in the stack?',
