@@ -1,10 +1,14 @@
-import { div } from 'framer-motion/client';
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import 'chart.js/auto'
+import { Clock, Brain, Target, Award } from 'lucide-react';
+import { Pie } from 'react-chartjs-2';
 
 const Test = () => {
   const location = useLocation();
   const challenge = location.state;
+
+  const navigate = useNavigate();
 
   const [currentQuestionIndex,setCurrentQuestionIndex] = useState(0);
   const [answer,setAnswer] = useState({});
@@ -12,6 +16,7 @@ const Test = () => {
   const [startTime] = useState(Date.now())
   const [isSubmitted,SetIsSubmitted] = useState(false)
   const [result,setResult] = useState(null)
+  const [loading,setLoading] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -80,57 +85,113 @@ const Test = () => {
     setCurrentQuestionIndex(prev => Math.min(challenge.Questions.length - 1,prev + 1))
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
+    setLoading(true);
     const results = calculateResult();
-    setResult(results);
-    SetIsSubmitted(true)
+    setTimeout(() => {
+      setResult(results);
+      SetIsSubmitted(true);
+      setLoading(false)
+    },[2000])
   }
+
+  // Loading animation
+  const LoadingOverlay = () => (
+    <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
+      <div className='loader border-4 border-t-violet-600 rounded-full w-16 h-16 animate-spin'></div>
+    </div>
+  );
 
 
   const ResultView = ({result}) => {
     if(!result){
       return <div>Loading result...</div>
     }
+
+    const Stat = [
+      {
+        icon: Clock,
+        label: "Time Taken",
+        value: formatTime(result?.timeTaken || 0)
+      },
+      {
+        icon: Brain,
+        label: "Questions",
+        value: `${result?.correctAnswer || 0}/${result?.totalQuestions || 0}`
+      },
+      {
+        icon: Target,
+        label: "Accuracy",
+        value: `${result?.accuracy?.toFixed(1) || 0}%`
+      },
+      {
+        icon: Award,
+        label: "Time Left",
+        value: formatTime(result?.timeLeft || 0)
+      }
+    ];
+
+    const pieData = {
+      labels: ["Solved", "Unsolved"],
+      datasets: [
+        {
+          label : "Questions",
+          data: [result?.correctAnswer || 0, result?.totalQuestions - (result?.correctAnswer || 0)] ,
+          backgroundColor: ["#4CAF50", "#F44336"],
+          borderWidth: 1
+        }
+      ]
+    }
+
+    
+    const pieOption = {
+      responsive: true,
+      plugins:{
+        legend: {
+          display: true,
+          position: "bottom"
+        },
+      },
+      animation: {
+        duration: 0
+      }
+    }
+    
     return (
       <div className='p-6 bg-white rounded-lg '>
         <h2 className='text-3xl font-bold mb-6 text-center'>Quiz Result</h2>
 
-        <div className='space-y-4'>
-          <div className='bg-white p-4 rounded-lg'>
-            <h3 className='font-semibold mb-2'>Time Information</h3>
-            <p>Time taken : {formatTime(result.timeTaken)}</p>
-            <p>Time remaining : {formatTime(result.timeLeft)}</p>
-          </div>
-
-          <div className='bg-white p-4 rounded-lg'>
-          <h3 className='font-semibold mb-2'>Performance</h3>
-            <p>Correct Answer : {result.correctAnswer} out of {result.totalQuestions}</p>
-            <p>Accuracy : {result.accuracy.toFixed(1)}%</p>
-          </div>
-
-          <div className='bg-white rounded-lg'>
-            <h3 className='font-semibold mb-2'>Question Analysis</h3>
-            {challenge.Questions.map((question,index) => (
-              <div key={index} className='mb-4 border-b pb-2 last:border-b-0'>
-                <p className='font-medium'>Q{index + 1} : {question.question}</p>
-                <p className='text-sm text-gray-600'>
-                  Your answer: {
-                    answer[index] !== undefined 
-                      ? question.options[answer[index]]
-                      : 'Not answered'
-                  }
-                </p>
-                <p className={`text-sm ${answer[index] === question.correct - 1 ? 'text-green-600' : 'text-red-600'}`}>
-                  Correct answer : {question.options[question.correct - 1]}
-                </p>
+        <div className='grid grid-cols-2 md:grid-cols-4 mb-8 gap-4'>
+          {Stat.map((val,index) => (
+            <div key={index} className='bg-violet-50 p-4 rounded-lg hover:scale-105 duration-150 transition-all cursor-pointer'>
+              <div className='flex items-center gap-2 mb-2'>
+                <val.icon className="w-5 h-5 md:w-7 md:h-7 text-violet-600" />
+                <span className='text-sm md:text-[1rem] text-gray-600'>{val.label}</span>
               </div>
-            ))}
+              <div className='text-xl font-semibold text-violet-900 text-center'>{val.value}</div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Chart */}
+        <div className='flex items-center justify-center mb-8'>
+          <div className='w-full max-w-xs'>
+            <Pie data={pieData} options={pieOption} />
           </div>
+        </div>
+
+        {/* Back button */}
+        <div className='flex items-center justify-center'>
+          <button className='px-4 py-2 bg-violet-500 hover:bg-violet-600 transition-colors duration-150 text-white rounded-lg' onClick={() => navigate('/')}>Back to test</button>
         </div>
       </div>
     )
   }
 
+
+  if(loading){
+    return <LoadingOverlay />
+  }
 
   if(isSubmitted){
     return <ResultView result={result} />

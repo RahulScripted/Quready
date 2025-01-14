@@ -2561,7 +2561,6 @@ export const ChallengeData = [
     }
 ]
 
-
 // All Tips & Tricks Data
 export const TipsTricksData = [
     {
