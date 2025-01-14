@@ -235,7 +235,7 @@ const Test = () => {
                 onChange={() => handleOptionSelect(currentQuestionIndex,i)}
                 className='w-4 h-4'
               />
-              <label htmlFor={`option-${currentQuestionIndex}-${i}`} className='text-gray-700 cursor-pointer'>
+              <label htmlFor={`option-${currentQuestionIndex}-${i}`} className={`text-gray-700 font-semibold cursor-pointer hover:text-green-600 transition-all duration-150 ${answer[currentQuestionIndex] === i ? 'text-green-600' : ''}`}>
                 {option}
               </label>
             </div>
