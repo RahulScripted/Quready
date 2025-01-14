@@ -33,7 +33,7 @@ const WhyUs = () => {
             variants={itemVariants}
         >
             <TrophyIcon className='w-6 h-6 md:w-8 md:h-8 text-indigo-600' />
-            <h1 className='text-2xl text-center md:text-5xl font-bold md:font-semibold bg-gradient-to-b from-black to-gray-400 text-transparent bg-clip-text'>Why choose Us </h1>
+            <h1 className='text-2xl text-center md:text-5xl font-bold md:font-semibold bg-gradient-to-b from-black to-gray-400 text-transparent bg-clip-text h-auto md:h-[55px]'>Why choose Us </h1>
             <Tangent className='w-6 h-6 md:w-8 md:h-8 text-indigo-600' />
         </motion.div>
 

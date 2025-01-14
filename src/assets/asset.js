@@ -184,21 +184,225 @@ export const MathData = [
         name: "Palindrome Number",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/palindrome-number/"
+        url: "https://leetcode.com/problems/palindrome-number/",
+        solution: {
+            description: "Given an integer x, return true if x is a palindrome, and false otherwise.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            bool isPalindrome(int x) {
+                                if (x < 0) return false;
+
+                                long reverse = 0;
+                                int xCopy = x;
+
+                                while (x > 0) {
+                                    reverse = (reverse * 10) + (x % 10);
+                                    x /= 10;
+                                }
+
+                                return reverse == xCopy;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                        def isPalindrome(self, x: int) -> bool:
+                            if x < 0: return False
+
+                            reverse = 0
+                            xCopy = x
+
+                            while x > 0:
+                                reverse = (reverse * 10) + (x % 10)
+                                x //= 10
+        
+                            return reverse == xCopy
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public boolean isPalindrome(int x) {
+                                if (x < 0) return false;
+
+                                int reverse = 0;
+                                int xCopy = x;
+
+                                while (x > 0) {
+                                    reverse = (reverse * 10) + (x % 10);
+                                    x /= 10;
+                                }
+
+                                return reverse == xCopy;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Roman to Integer",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/roman-to-integer/"
+        url: "https://leetcode.com/problems/roman-to-integer/",
+        solution: {
+            description: "Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M. For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II. Given a roman numeral, convert it to an integer.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int romanToInt(string s) {
+                                int res = 0;
+                                unordered_map<char, int> roman = {
+                                    {'I', 1},
+                                    {'V', 5},
+                                    {'X', 10}, 
+                                    {'L', 50},
+                                    {'C', 100},
+                                    {'D', 500},
+                                    {'M', 1000}
+                                };
+
+                                for (int i = 0; i < s.size() - 1; i++) {
+                                    if (roman[s[i]] < roman[s[i + 1]]) {
+                                        res -= roman[s[i]];
+                                    } else {
+                                        res += roman[s[i]];
+                                    }
+                                }
+
+                                return res + roman[s[s.size() - 1]];        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                        def romanToInt(self, s: str) -> int:
+                            res = 0
+                            roman = {
+                                'I': 1,
+                                'V': 5,
+                                'X': 10,
+                                'L': 50,
+                                'C': 100,
+                                'D': 500,
+                                'M': 1000
+                            }
+
+                            for a, b in zip(s, s[1:]):
+                                if roman[a] < roman[b]:
+                                    res -= roman[a]
+                                else:
+                                    res += roman[a]
+
+                            return res + roman[s[-1]] 
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int romanToInt(String s) {
+                                int res = 0;
+                                Map<Character, Integer> roman = new HashMap<>();
+                                roman.put('I', 1);
+                                roman.put('V', 5);
+                                roman.put('X', 10);
+                                roman.put('L', 50);
+                                roman.put('C', 100);
+                                roman.put('D', 500);
+                                roman.put('M', 1000);
+
+                                for (int i = 0; i < s.length() - 1; i++) {
+                                    if (roman.get(s.charAt(i)) < roman.get(s.charAt(i + 1))) {
+                                        res -= roman.get(s.charAt(i));
+                                    } else {
+                                        res += roman.get(s.charAt(i));
+                                    }
+                                }
+
+                                return res + roman.get(s.charAt(s.length() - 1));        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 3,
         name: "Plus One",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/plus-one/"
+        url: "https://leetcode.com/problems/plus-one/",
+        solution: {
+            description: "You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.Increment the large integer by one and return the resulting array of digits.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            vector<int> plusOne(vector<int>& digits) {
+                                for (int i = digits.size() - 1; i >= 0; i--) {
+                                    if (digits[i] + 1 != 10) {
+                                        digits[i] += 1;
+                                        return digits;
+                                    }
+                                    digits[i] = 0;
+                                    if (i == 0) {
+                                        digits.insert(digits.begin(), 1);
+                                        return digits;
+                                    }
+                                }
+                                return digits;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def plusOne(self, digits: List[int]) -> List[int]:
+
+                                for i in range(len(digits) - 1, -1, -1):
+
+                                    if digits[i] + 1 != 10:
+                                        digits[i] += 1
+                                        return digits
+                                    
+                                    digits[i] = 0
+
+                                    if i == 0:
+                                        return [1] + digits
+                    `
+                ,
+                java:
+                   `
+                        class Solution {
+                            public int[] plusOne(int[] digits) {
+                                for (int i = digits.length - 1; i >= 0; i--) {
+                                    if (digits[i] + 1 != 10) {
+                                        digits[i] += 1;
+                                        return digits;
+                                    }
+                                    digits[i] = 0;
+                                }
+                                
+                                int[] newDigits = new int[digits.length + 1];
+                                newDigits[0] = 1;
+                                return newDigits;        
+                            }
+                        }
+                   `
+            },
+        }
     },
     {
         id: 4,
