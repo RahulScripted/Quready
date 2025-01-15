@@ -18,6 +18,7 @@
     "react-confetti": "^6.2.2",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.1",
+    "react-toastify": "^11.0.2",
     "react-vertical-timeline-component": "^3.5.3"
   },
   "devDependencies": {

@@ -1,5 +1,6 @@
 import logo from './logo.svg'
 import bg from './bg.svg'
+import copy from './copy.svg'
 import header from './header.png'
 import whyUs1 from './whyUs1.png'
 import whyUs2 from './whyUs2.png'
@@ -16,7 +17,8 @@ const asset = {
     whyUs2,
     whyUs3,
     share,
-    contact
+    contact,
+    copy
 }
 export default asset;
 
