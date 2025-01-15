@@ -2067,112 +2067,1386 @@ export const ArrayData = [
         name: "Two Sum",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/two-sum/"
+        url: "https://leetcode.com/problems/two-sum/",
+        solution: {
+            description: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            vector<int> twoSum(vector<int>& nums, int target) {
+                                unordered_map<int, int> pairIdx;
+
+                                for (int i = 0; i < nums.size(); ++i) {
+                                    int num = nums[i];
+                                    if (pairIdx.find(target - num) != pairIdx.end()) {
+                                        return {i, pairIdx[target - num]};
+                                    }
+                                    pairIdx[num] = i;
+                                }
+
+                                return {};        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def twoSum(self, nums: List[int], target: int) -> List[int]:
+                                pair_idx = {}
+
+                                for i, num in enumerate(nums):
+                                    if target - num in pair_idx:
+                                        return [i, pair_idx[target - num]]
+                                    pair_idx[num] = i
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int[] twoSum(int[] nums, int target) {
+                                Map<Integer, Integer> pairIdx = new HashMap<>();
+
+                                for (int i = 0; i < nums.length; i++) {
+                                    int num = nums[i];
+                                    if (pairIdx.containsKey(target - num)) {
+                                        return new int[] { i, pairIdx.get(target - num) };
+                                    }
+                                    pairIdx.put(num, i);
+                                }
+
+                                return new int[] {};        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Remove Duplicates from Sorted Array",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/remove-duplicates-from-sorted-array/"
+        url: "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+        solution: {
+            description: "Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int removeDuplicates(vector<int>& nums) {
+                                if (nums.empty()) return 0;
+
+                                int i = 1;
+
+                                for (int j = 1; j < nums.size(); j++) {
+                                    if (nums[j] != nums[i - 1]) {
+                                        nums[i] = nums[j];
+                                        i++;
+                                    }
+                                }
+
+                                return i;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def removeDuplicates(self, nums: List[int]) -> int:
+                                i = 1
+
+                                for j in range(1, len(nums)):
+                                    if nums[j] != nums[i - 1]:
+                                        nums[i] = nums[j]
+                                        i += 1
+                                
+                                return i
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int removeDuplicates(int[] nums) {
+                                if (nums.length == 0) return 0;
+
+                                int i = 1;
+
+                                for (int j = 1; j < nums.length; j++) {
+                                    if (nums[j] != nums[i - 1]) {
+                                        nums[i] = nums[j];
+                                        i++;
+                                    }
+                                }
+
+                                return i;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 3,
         name: "Search Insert Position",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/search-insert-position/"
+        url: "https://leetcode.com/problems/search-insert-position/",
+        solution: {
+            description: "Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int searchInsert(vector<int>& nums, int target) {
+                                int left = 0;
+                                int right = nums.size() - 1;
+
+                                while (left <= right) {
+                                    int mid = left + (right - left) / 2;
+
+                                    if (nums[mid] == target) {
+                                        return mid;
+                                    } else if (nums[mid] > target) {
+                                        right = mid - 1;
+                                    } else {
+                                        left = mid + 1;
+                                    }
+                                }
+
+                                return left;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def searchInsert(self, nums: List[int], target: int) -> int:
+                                left = 0
+                                right = len(nums) - 1
+
+                                while left <= right:
+                                    mid = (left + right) // 2
+
+                                    if nums[mid] == target:
+                                        return mid
+                                    elif nums[mid] > target:
+                                        right = mid - 1
+                                    else:
+                                        left = mid + 1
+                                return left
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int searchInsert(int[] nums, int target) {
+                                int left = 0;
+                                int right = nums.length - 1;
+
+                                while (left <= right) {
+                                    int mid = left + (right - left) / 2;
+
+                                    if (nums[mid] == target) {
+                                        return mid;
+                                    } else if (nums[mid] > target) {
+                                        right = mid - 1;
+                                    } else {
+                                        left = mid + 1;
+                                    }
+                                }
+
+                                return left;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 4,
         name: "Merge Sorted Array",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/merge-sorted-array/"
+        url: "https://leetcode.com/problems/merge-sorted-array/",
+        solution: {
+            description: "You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively. Merge nums1 and nums2 into a single array sorted in non-decreasing order.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+                                int mIdx = m - 1;
+                                int nIdx = n - 1;
+                                int right = m + n - 1;
+
+                                while (nIdx >= 0) {
+                                    if (mIdx >= 0 && nums1[mIdx] > nums2[nIdx]) {
+                                        nums1[right] = nums1[mIdx];
+                                        mIdx--;
+                                    } else {
+                                        nums1[right] = nums2[nIdx];
+                                        nIdx--;
+                                    }
+                                    right--;
+                                }        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+                                mIdx = m - 1
+                                nIdx = n - 1 
+                                right = m + n - 1
+
+                                while nIdx >= 0:
+                                    if mIdx >= 0 and nums1[mIdx] > nums2[nIdx]:
+                                        nums1[right] = nums1[mIdx]
+                                        mIdx -= 1
+                                    else:
+                                        nums1[right] = nums2[nIdx]
+                                        nIdx -= 1
+
+                                    right -= 1
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void merge(int[] nums1, int m, int[] nums2, int n) {
+                                int mIdx = m - 1;
+                                int nIdx = n - 1;
+                                int right = m + n - 1;
+
+                                while (nIdx >= 0) {
+                                    if (mIdx >= 0 && nums1[mIdx] > nums2[nIdx]) {
+                                        nums1[right] = nums1[mIdx];
+                                        mIdx--;
+                                    } else {
+                                        nums1[right] = nums2[nIdx];
+                                        nIdx--;
+                                    }
+                                    right--;
+                                }        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 5,
         name: "Pascal's Triangle",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/pascals-triangle/"
+        url: "https://leetcode.com/problems/pascals-triangle/",
+        solution: {
+            description: "Given an integer numRows, return the first numRows of Pascal's triangle.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            vector<vector<int>> generate(int numRows) {
+                                std::vector<std::vector<int>> res;
+                                res.push_back({1});
+
+                                for (int i = 0; i < numRows - 1; i++) {
+                                    std::vector<int> dummyRow = {0};
+                                    dummyRow.insert(dummyRow.end(), res.back().begin(), res.back().end());
+                                    dummyRow.push_back(0);
+                                    std::vector<int> row;
+
+                                    for (int j = 0; j < dummyRow.size() - 1; j++) {
+                                        row.push_back(dummyRow[j] + dummyRow[j + 1]);
+                                    }
+
+                                    res.push_back(row);
+                                }
+
+                                return res;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def generate(self, numRows: int) -> List[List[int]]:
+                                res = [[1]]
+
+                                for _ in range(numRows - 1):
+                                    dummy_row = [0] + res[-1] + [0]
+                                    row = []
+
+                                    for i in range(len(res[-1]) + 1):
+                                        row.append(dummy_row[i] + dummy_row[i+1])
+                                    res.append(row)
+                                
+                                return res
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public List<List<Integer>> generate(int numRows) {
+                                List<List<Integer>> res = new ArrayList<>();
+                                res.add(List.of(1));
+
+                                for (int i = 0; i < numRows - 1; i++) {
+                                    List<Integer> dummyRow = new ArrayList<>();
+                                    dummyRow.add(0);
+                                    dummyRow.addAll(res.get(res.size() - 1));
+                                    dummyRow.add(0);
+                                    List<Integer> row = new ArrayList<>();
+
+                                    for (int j = 0; j < dummyRow.size() - 1; j++) {
+                                        row.add(dummyRow.get(j) + dummyRow.get(j + 1));
+                                    }
+
+                                    res.add(row);
+                                }
+
+                                return res;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 6,
         name: "Best Time to Buy and Sell Stock",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"
+        url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+        solution: {
+            description: "You are given an array prices where prices[i] is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int maxProfit(vector<int>& prices) {
+                                int buyPrice = prices[0];
+                                int profit = 0;
+
+                                for (int i = 1; i < prices.size(); i++) {
+                                    if (buyPrice > prices[i]) {
+                                        buyPrice = prices[i];
+                                    }
+
+                                    profit = max(profit, prices[i] - buyPrice);
+                                }
+
+                                return profit;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def maxProfit(self, prices: List[int]) -> int:
+                                buy_price = prices[0]
+                                profit = 0
+
+                                for p in prices[1:]:
+                                    if buy_price > p:
+                                        buy_price = p
+                                    
+                                    profit = max(profit, p - buy_price)
+                                
+                                return profit
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int maxProfit(int[] prices) {
+                                int buyPrice = prices[0];
+                                int profit = 0;
+
+                                for (int i = 1; i < prices.length; i++) {
+                                    if (buyPrice > prices[i]) {
+                                        buyPrice = prices[i];
+                                    }
+
+                                    profit = Math.max(profit, prices[i] - buyPrice);
+                                }
+
+                                return profit;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 7,
         name: "Container With Most Water",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/container-with-most-water/"
+        url: "https://leetcode.com/problems/container-with-most-water/",
+        solution: {
+            description: "You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]). Find two lines that together with the x-axis form a container, such that the container contains the most water. Return the maximum amount of water a container can store.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int maxArea(vector<int>& height) {
+                                int maxArea = 0;
+                                int left = 0;
+                                int right = height.size() - 1;
+
+                                while (left < right) {
+                                    maxArea = max(maxArea, (right - left) * min(height[left], height[right]));
+
+                                    if (height[left] < height[right]) {
+                                        left++;
+                                    } else {
+                                        right--;
+                                    }
+                                }
+
+                                return maxArea;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def maxArea(self, height: List[int]) -> int:
+                                max_area = 0
+                                left = 0
+                                right = len(height) - 1
+
+                                while left < right:
+                                    max_area = max(max_area, (right - left) * min(height[left], height[right]))
+
+                                    if height[left] < height[right]:
+                                        left += 1
+                                    else:
+                                        right -= 1
+                                
+                                return max_area
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int maxArea(int[] height) {
+                                int maxArea = 0;
+                                int left = 0;
+                                int right = height.length - 1;
+
+                                while (left < right) {
+                                    maxArea = Math.max(maxArea, (right - left) * Math.min(height[left], height[right]));
+
+                                    if (height[left] < height[right]) {
+                                        left++;
+                                    } else {
+                                        right--;
+                                    }
+                                }
+
+                                return maxArea;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 8,
         name: "Next Permutation",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/next-permutation/"
+        url: "https://leetcode.com/problems/next-permutation/",
+        solution: {
+            description: "Given an array of integers nums, find the next permutation of nums.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void nextPermutation(vector<int>& nums) {
+                                int n = nums.size(), i = n - 2;
+                                
+                                while (i >= 0 && nums[i] >= nums[i + 1]) {
+                                    i--;
+                                }
+                                
+                                if (i >= 0) {
+                                    int j = n - 1;
+                                    while (nums[j] <= nums[i]) {
+                                        j--;
+                                    }
+                                    swap(nums[i], nums[j]);
+                                }
+                                
+                                reverse(nums.begin() + i + 1, nums.end());
+                            }
+                        };
+                    `
+                ,
+                python:
+                   `
+                        class Solution:
+                            def nextPermutation(self, nums: List[int]) -> None:
+                                n = len(nums)
+                                i = n - 2
+                                
+                                while i >= 0 and nums[i] >= nums[i + 1]:
+                                    i -= 1
+                                
+                                if i >= 0:
+                                    j = n - 1
+                                    while nums[j] <= nums[i]:
+                                        j -= 1
+                                    nums[i], nums[j] = nums[j], nums[i]
+                                
+                                nums[i + 1:] = reversed(nums[i + 1:])
+                   `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void nextPermutation(int[] nums) {
+                                int n = nums.length, i = n - 2;
+                                
+                                while (i >= 0 && nums[i] >= nums[i + 1]) {
+                                    i--;
+                                }
+                                
+                                if (i >= 0) {
+                                    int j = n - 1;
+                                    while (nums[j] <= nums[i]) {
+                                        j--;
+                                    }
+                                    int temp = nums[i];
+                                    nums[i] = nums[j];
+                                    nums[j] = temp;
+                                }
+                                
+                                reverse(nums, i + 1, n - 1);
+                            }
+                            
+                            private void reverse(int[] nums, int start, int end) {
+                                while (start < end) {
+                                    int temp = nums[start];
+                                    nums[start] = nums[end];
+                                    nums[end] = temp;
+                                    start++;
+                                    end--;
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 9,
         name: "Search in Rotated Sorted Array",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+        url: "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+        solution: {
+            description: "Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int search(vector<int>& nums, int target) {
+                                int left = 0;
+                                int right = nums.size() - 1;
+
+                                while (left <= right) {
+                                    int mid = (left + right) / 2;
+
+                                    if (nums[mid] == target) {
+                                        return mid;
+                                    } else if (nums[mid] >= nums[left]) {
+                                        if (nums[left] <= target && target <= nums[mid]) {
+                                            right = mid - 1;
+                                        } else {
+                                            left = mid + 1;
+                                        }
+                                    } else {
+                                        if (nums[mid] <= target && target <= nums[right]) {
+                                            left = mid + 1;
+                                        } else {
+                                            right = mid - 1;
+                                        }
+                                    }
+                                }
+
+                                return -1;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                   `
+                        class Solution:
+                            def search(self, nums: List[int], target: int) -> int:
+
+                                left = 0
+                                right = len(nums) - 1
+
+                                while left <= right:
+                                    mid = (left + right) // 2
+
+                                    if nums[mid] == target:
+                                        return mid
+                                    elif nums[mid] >= nums[left]:
+                                        if nums[left] <= target <= nums[mid]:
+                                            right = mid - 1
+                                        else:
+                                            left = mid + 1
+                                    else:
+                                        if nums[mid] <= target <= nums[right]:
+                                            left = mid + 1
+                                        else:
+                                            right = mid - 1
+                                
+                                return -1
+                   `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int search(int[] nums, int target) {
+                                int left = 0;
+                                int right = nums.length - 1;
+
+                                while (left <= right) {
+                                    int mid = (left + right) / 2;
+
+                                    if (nums[mid] == target) {
+                                        return mid;
+                                    } else if (nums[mid] >= nums[left]) {
+                                        if (nums[left] <= target && target <= nums[mid]) {
+                                            right = mid - 1;
+                                        } else {
+                                            left = mid + 1;
+                                        }
+                                    } else {
+                                        if (nums[mid] <= target && target <= nums[right]) {
+                                            left = mid + 1;
+                                        } else {
+                                            right = mid - 1;
+                                        }
+                                    }
+                                }
+
+                                return -1;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 10,
         name: "Valid Sudoku",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/valid-sudoku/"
+        url: "https://leetcode.com/problems/valid-sudoku/",
+        solution: {
+            description: "Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules: 1. Each row must contain the digits 1-9 without repetition. 2. Each column must contain the digits 1-9 without repetition. 3. Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            bool isValidSudoku(vector<vector<char>>& board) {
+                                unordered_set<char> rows[9];
+                                unordered_set<char> cols[9];
+                                unordered_set<char> boxes[9];
+
+                                for (int r = 0; r < 9; ++r) {
+                                    for (int c = 0; c < 9; ++c) {
+                                        if (board[r][c] == '.') {
+                                            continue;
+                                        }
+
+                                        char value = board[r][c];
+                                        int boxIndex = (r / 3) * 3 + (c / 3);
+
+                                        if (rows[r].count(value) || cols[c].count(value) || boxes[boxIndex].count(value)) {
+                                            return false;
+                                        }
+
+                                        rows[r].insert(value);
+                                        cols[c].insert(value);
+                                        boxes[boxIndex].insert(value);
+                                    }
+                                }
+
+                                return true;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                   `
+                        class Solution:
+                            def isValidSudoku(self, board: List[List[str]]) -> bool:
+                                rows = defaultdict(set)
+                                cols = defaultdict(set)
+                                boxes = defaultdict(set)
+                                
+                                for r in range(9):
+                                    for c in range(9):
+                                        if board[r][c] == ".":
+                                            continue
+                                        
+                                        if board[r][c] in rows[r] or board[r][c] in cols[c] or board[r][c] in boxes[(r // 3, c // 3)]:
+                                            return False
+                                        
+                                        rows[r].add(board[r][c])
+                                        cols[c].add(board[r][c])
+                                        boxes[(r // 3, c // 3)].add(board[r][c])
+                                
+                                return True
+                   `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public boolean isValidSudoku(char[][] board) {
+                                HashSet<Character>[] rows = new HashSet[9];
+                                HashSet<Character>[] cols = new HashSet[9];
+                                HashSet<Character>[] boxes = new HashSet[9];
+
+                                for (int i = 0; i < 9; i++) {
+                                    rows[i] = new HashSet<>();
+                                    cols[i] = new HashSet<>();
+                                    boxes[i] = new HashSet<>();
+                                }
+
+                                for (int r = 0; r < 9; r++) {
+                                    for (int c = 0; c < 9; c++) {
+                                        if (board[r][c] == '.') {
+                                            continue;
+                                        }
+
+                                        char value = board[r][c];
+                                        int boxIndex = (r / 3) * 3 + (c / 3);
+
+                                        if (rows[r].contains(value) || cols[c].contains(value) || boxes[boxIndex].contains(value)) {
+                                            return false;
+                                        }
+
+                                        rows[r].add(value);
+                                        cols[c].add(value);
+                                        boxes[boxIndex].add(value);
+                                    }
+                                }
+
+                                return true;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 11,
         name: "Rotate Image",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/rotate-image/"
+        url: "https://leetcode.com/problems/rotate-image/",
+        solution: {
+            description: "You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void rotate(vector<vector<int>>& matrix) {
+                                int edgeLength = matrix.size();
+
+                                int top = 0;
+                                int bottom = edgeLength - 1;
+
+                                while (top < bottom) {
+                                    for (int col = 0; col < edgeLength; col++) {
+                                        int temp = matrix[top][col];
+                                        matrix[top][col] = matrix[bottom][col];
+                                        matrix[bottom][col] = temp;
+                                    }
+                                    top++;
+                                    bottom--;
+                                }
+
+                                for (int row = 0; row < edgeLength; row++) {
+                                    for (int col = row + 1; col < edgeLength; col++) {
+                                        int temp = matrix[row][col];
+                                        matrix[row][col] = matrix[col][row];
+                                        matrix[col][row] = temp;
+                                    }
+                                }        
+                            }
+                        };
+                    `
+                ,
+                python:
+                   `
+                        class Solution:
+                            def rotate(self, matrix: List[List[int]]) -> None:
+                                edge_length = len(matrix)
+
+                                top = 0
+                                bottom = edge_length - 1
+
+                                while top < bottom:
+                                    for col in range(edge_length):
+                                        temp = matrix[top][col]
+                                        matrix[top][col] = matrix[bottom][col]
+                                        matrix[bottom][col] = temp
+                                    top += 1
+                                    bottom -= 1
+
+                                for row in range(edge_length):
+                                    for col in range(row+1, edge_length):
+                                        temp = matrix[row][col]
+                                        matrix[row][col] = matrix[col][row]
+                                        matrix[col][row] = temp
+                                
+                                return matrix
+                   `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void rotate(int[][] matrix) {
+                                int edgeLength = matrix.length;
+
+                                int top = 0;
+                                int bottom = edgeLength - 1;
+
+                                while (top < bottom) {
+                                    for (int col = 0; col < edgeLength; col++) {
+                                        int temp = matrix[top][col];
+                                        matrix[top][col] = matrix[bottom][col];
+                                        matrix[bottom][col] = temp;
+                                    }
+                                    top++;
+                                    bottom--;
+                                }
+
+                                for (int row = 0; row < edgeLength; row++) {
+                                    for (int col = row + 1; col < edgeLength; col++) {
+                                        int temp = matrix[row][col];
+                                        matrix[row][col] = matrix[col][row];
+                                        matrix[col][row] = temp;
+                                    }
+                                }        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 12,
         name: "Spiral Matrix",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/spiral-matrix/"
+        url: "https://leetcode.com/problems/spiral-matrix/",
+        solution: {
+            description: "Given an m x n matrix, return all elements of the matrix in spiral order.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            vector<int> spiralOrder(vector<vector<int>>& matrix) {
+                                int rows = matrix.size();
+                                int cols = matrix[0].size();
+                                int x = 0;
+                                int y = 0;
+                                int dx = 1;
+                                int dy = 0;
+                                vector<int> res;
+
+                                for (int i = 0; i < rows * cols; i++) {
+                                    res.push_back(matrix[y][x]);
+                                    matrix[y][x] = -101;
+
+                                    if (!(0 <= x + dx && x + dx < cols && 0 <= y + dy && y + dy < rows) || matrix[y+dy][x+dx] == -101) {
+                                        int temp = dx;
+                                        dx = -dy;
+                                        dy = temp;
+                                    }
+
+                                    x += dx;
+                                    y += dy;
+                                }
+
+                                return res;
+                            }        
+                        };
+                    `
+                ,
+                python:
+                   `
+                        class Solution:
+                            def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+                                rows, cols = len(matrix), len(matrix[0])
+                                x, y, dx, dy = 0, 0, 1, 0
+                                res = []
+
+                                for _ in range(rows * cols):
+                                    res.append(matrix[y][x])
+                                    matrix[y][x] = "."
+
+                                    if not 0 <= x + dx < cols or not 0 <= y + dy < rows or matrix[y+dy][x+dx] == ".":
+                                        dx, dy = -dy, dx
+                                    
+                                    x += dx
+                                    y += dy
+                                
+                                return res
+                   `
+                ,
+                java:
+                    `
+                        class Solution {
+                        public List<Integer> spiralOrder(int[][] matrix) {
+                            int rows = matrix.length;
+                            int cols = matrix[0].length;
+                            int x = 0;
+                            int y = 0;
+                            int dx = 1;
+                            int dy = 0;
+                            List<Integer> res = new ArrayList<>();
+
+                            for (int i = 0; i < rows * cols; i++) {
+                                res.add(matrix[y][x]);
+                                matrix[y][x] = -101; // the range of numbers in matrix is from -100 to 100
+
+                                if (!(0 <= x + dx && x + dx < cols && 0 <= y + dy && y + dy < rows) || matrix[y+dy][x+dx] == -101) {
+                                    int temp = dx;
+                                    dx = -dy;
+                                    dy = temp;
+                                }
+
+                                x += dx;
+                                y += dy;
+                            }
+
+                            return res;        
+                        }
+                    }
+                    `
+            },
+        }
     },
     {
         id: 13,
         name: "Sort Colors",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/sort-colors/"
+        url: "https://leetcode.com/problems/sort-colors/",
+        solution: {
+            description: "Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void sortColors(vector<int>& nums) {
+                                int red = 0;
+                                int white = 0;
+                                int blue = nums.size() - 1;
+                                
+                                while (white <= blue) {
+                                    if (nums[white] == 0) {
+                                        swap(nums[white], nums[red]);
+                                        red++;
+                                        white++;
+                                    } else if (nums[white] == 1) {
+                                        white++;
+                                    } else {
+                                        swap(nums[white], nums[blue]);
+                                        blue--;
+                                    }
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                   `
+                        class Solution:
+                            def sortColors(self, nums: List[int]) -> None:
+                                red = 0
+                                white = 0
+                                blue = len(nums) - 1
+                                
+                                while white <= blue:
+                                    if nums[white] == 0:
+                                        nums[white], nums[red] = nums[red], nums[white]
+                                        red += 1
+                                        white += 1
+                                    elif nums[white] == 1:
+                                        white += 1
+                                    else:
+                                        nums[white], nums[blue] = nums[blue], nums[white]
+                                        blue -= 1
+                   `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void sortColors(int[] nums) {
+                                int red = 0;
+                                int white = 0;
+                                int blue = nums.length - 1;
+                                
+                                while (white <= blue) {
+                                    if (nums[white] == 0) {
+                                        int temp = nums[white];
+                                        nums[white] = nums[red];
+                                        nums[red] = temp;
+                                        red++;
+                                        white++;
+                                    } else if (nums[white] == 1) {
+                                        white++;
+                                    } else {
+                                        int temp = nums[white];
+                                        nums[white] = nums[blue];
+                                        nums[blue] = temp;
+                                        blue--;
+                                    }
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 14,
         name: "First Missing Positive",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/first-missing-positive/"
+        url: "https://leetcode.com/problems/first-missing-positive/",
+        solution: {
+            description: "Given an unsorted integer array nums. Return the smallest positive integer that is not present in nums.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int firstMissingPositive(vector<int>& nums) {
+
+                                nums.erase(remove_if(nums.begin(), nums.end(), [](int n) { return n <= 0; }), nums.end());
+
+                                for (int i = 0; i < nums.size(); i++) {
+                                    int n = abs(nums[i]);
+                                    if (n <= nums.size() && nums[n - 1] > 0) {
+                                        nums[n - 1] = -nums[n - 1];
+                                    }
+                                }
+
+                                for (int i = 0; i < nums.size(); i++) {
+                                    if (nums[i] > 0) {
+                                        return i + 1;
+                                    }
+                                }
+
+                                return nums.size() + 1;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                   `
+                        class Solution:
+                            def firstMissingPositive(self, nums: List[int]) -> int:
+
+                                nums = [n for n in nums if n > 0]
+
+                                for n in nums:
+                                    idx = abs(n) - 1
+                                    if idx < len(nums) and nums[idx] > 0:
+                                        nums[idx] *= -1
+                                
+                                for i in range(len(nums)):
+                                    if nums[i] > 0:
+                                        return i + 1
+                                
+                                return len(nums) + 1
+                   `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int firstMissingPositive(int[] nums) {
+                            List<Integer> numsList = new ArrayList<Integer>();
+                                
+                                for (int i = 0; i < nums.length; i++) {
+                                    if (nums[i] > 0) {
+                                        numsList.add(nums[i]);
+                                    }
+                                }
+                                
+                                for (int i = 0; i < numsList.size(); i++) {
+                                    int n = Math.abs(numsList.get(i));
+                                    if (n <= numsList.size() && numsList.get(n - 1) > 0) {
+                                        numsList.set(n - 1, -numsList.get(n - 1));
+                                    }
+                                }
+                                
+                                for (int i = 0; i < numsList.size(); i++) {
+                                    if (numsList.get(i) > 0) {
+                                        return i + 1;
+                                    }
+                                }
+                                
+                                return numsList.size() + 1;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 15,
         name: "Text Justification",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/text-justification/"
+        url: "https://leetcode.com/problems/text-justification/",
+        solution: {
+            description: "Given an array of strings words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) justified. You should pack your words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces ' ' when necessary so that each line has exactly maxWidth characters. Extra spaces between words should be distributed as evenly as possible. If the number of spaces on a line does not divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right. For the last line of text, it should be left-justified, and no extra space is inserted between words.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            vector<string> fullJustify(vector<string>& words, int maxWidth) {
+                                vector<string> res;
+                                const int n = words.size();
+                                int begin = 0, len = 0;
+                                for (int i = 0; i < n; ++i) {
+                                    if (len + words[i].size() + (i - begin) > maxWidth) {
+                                        res.emplace_back(connect(words, maxWidth, begin, i, len, false));
+                                        begin = i;
+                                        len = 0;
+                                    }
+                                    len += words[i].size();
+                                }
+                                res.emplace_back(connect(words, maxWidth, begin, n, len, true));
+                                return res;
+                            }
+                        private:
+                            string connect(const vector<string>& words, int maxWidth,
+                                        int begin, int end, int len,
+                                        bool is_last) {
+                                string s;
+                                int n = end - begin;
+                                for (int i = 0; i < n; ++i) {
+                                    s += words[begin + i];
+                                    addSpaces(i, n - 1, maxWidth - len, is_last, &s);
+                                }
+                                if (s.size() < maxWidth) {
+                                    s.append(maxWidth - s.size(), ' ');
+                                }
+                                return s;
+                            }
+                            void addSpaces(int i, int spaceCnt, int maxWidth, bool is_last, string *s) {
+                                if (i < spaceCnt) {
+                                    int spaces = is_last ? 1 : maxWidth / spaceCnt + (i < maxWidth % spaceCnt);
+                                    s->append(spaces, ' ');
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                   `
+                        class Solution:
+                            def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
+                                res = []
+                                
+                                cur_wlist  = []
+                                cur_ch_cnt = 0   # for the space consideration
+                            
+                                for w in words: 
+                                    if cur_ch_cnt + len(cur_wlist) + len(w) > maxWidth:
+                                        for i in range(maxWidth - cur_ch_cnt):  # insert space
+                                            cur_wlist[i%(len(cur_wlist) - 1 or 1)] += ' '
+                                    
+                                        res.append(''.join(cur_wlist)) # insert a this row 
+                                        cur_wlist, cur_ch_cnt = [], 0 # prepare a new row, resetting
+                                        
+                                    cur_wlist += [w]
+                                    cur_ch_cnt += len(w)
+                                    
+                                return res + [' '.join(cur_wlist).ljust(maxWidth)]
+                   `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public List<String> fullJustify(String[] words, int maxWidth) {
+
+                                List<String> result = new ArrayList<>();
+
+                                int word = 0;
+
+                                while(word<words.length){
+
+                                    int j = word-1;
+                                    int characters = 0;
+
+
+                                    while(j+1<words.length && characters+words[j+1].length() + j+1-word<=maxWidth)
+                                    {
+                                        j++;
+                                        characters+=words[j].length();
+                                    }
+                                    result.add(line(words , word , j, characters , maxWidth));
+                                    word = j+1;
+                                }
+                                return result;
+                            }
+                            public String line(String words[],int start,int end, int Linelen,int max)
+                            {
+                                StringBuilder a = new StringBuilder();
+                                int p=1,q=0;
+                                if(end!=start)
+                                {
+                                    p=(max-Linelen)/(end-start);
+                                    q=(max-Linelen)%(end-start);
+                                }
+                                
+                                for(int i=start;i<=end;i++)
+                                {
+                                    a.append(words[i]);
+                                    if(i!=end)
+                                    {
+                                        if(end==words.length-1) a.append(" ");
+                                        else {
+                                            for(int j=1;j<=p;j++) a.append(" ");
+                                            if(q-->=1) a.append(" ");
+                                        }
+                                    }
+                                }
+                                while(a.length()<max) a.append(" ");
+                                return a.toString();
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 16,
         name: "Trapping Rain Water",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/trapping-rain-water/"
+        url: "https://leetcode.com/problems/trapping-rain-water/",
+        solution: {
+            description: "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int trap(vector<int>& height) {
+                                int left = 0;
+                                int right = height.size() - 1;
+                                int leftMax = height[left];
+                                int rightMax = height[right];
+                                int water = 0;
+
+                                while (left < right) {
+                                    if (leftMax < rightMax) {
+                                        left++;
+                                        leftMax = max(leftMax, height[left]);
+                                        water += leftMax - height[left];
+                                    } else {
+                                        right--;
+                                        rightMax = max(rightMax, height[right]);
+                                        water += rightMax - height[right];
+                                    }
+                                }
+
+                                return water;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                   `
+                        class Solution:
+                            def trap(self, height: List[int]) -> int:
+                                left = 0
+                                right = len(height) - 1
+                                left_max = height[left]
+                                right_max = height[right]
+                                water = 0
+
+                                while left < right:
+                                    if left_max < right_max:
+                                        left += 1
+                                        left_max = max(left_max, height[left])
+                                        water += left_max - height[left]
+                                    else:
+                                        right -= 1
+                                        right_max = max(right_max, height[right])
+                                        water += right_max - height[right]
+                                
+                                return water
+                   `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int trap(int[] height) {
+                                int left = 0;
+                                int right = height.length - 1;
+                                int leftMax = height[left];
+                                int rightMax = height[right];
+                                int water = 0;
+
+                                while (left < right) {
+                                    if (leftMax < rightMax) {
+                                        left++;
+                                        leftMax = Math.max(leftMax, height[left]);
+                                        water += leftMax - height[left];
+                                    } else {
+                                        right--;
+                                        rightMax = Math.max(rightMax, height[right]);
+                                        water += rightMax - height[right];
+                                    }
+                                }
+
+                                return water;        
+                            }
+                        }
+                    `
+            },
+        }
     },
 ]
 
@@ -2182,105 +3456,1389 @@ export const StringData = [
         name: "Valid Anargam",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/valid-anagram/"
+        url: "https://leetcode.com/problems/valid-anagram/",
+        url: "https://leetcode.com/problems/two-sum/",
+        solution: {
+            description: "Given two strings s and t, return true if t is an anagram of s, and false otherwise.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            bool isAnagram(string s, string t) {
+                                if (s.length() != t.length()) {
+                                    return false;
+                                }
+
+                                unordered_map<char, int> sCount, tCount;
+
+                                for (int i = 0; i < s.length(); i++) {
+                                    sCount[s[i]] = 1 + sCount[s[i]];
+                                    tCount[t[i]] = 1 + tCount[t[i]];
+                                }
+
+                                return sCount == tCount;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def isAnagram(self, s: str, t: str) -> bool:    
+                                if len(s) != len(t):
+                                    return False
+                                
+                                s_count = {}
+                                t_count = {}
+                                
+                                for i in range(len(s)):
+                                    s_count[s[i]] = 1 + s_count.get(s[i], 0)
+                                    t_count[t[i]] = 1 + t_count.get(t[i], 0)
+                                
+                                return s_count == t_count
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public boolean isAnagram(String s, String t) {
+                                if (s.length() != t.length()) {
+                                    return false;
+                                }
+
+                                HashMap<Character, Integer> sCount = new HashMap<>();
+                                HashMap<Character, Integer> tCount = new HashMap<>();
+
+                                for (int i = 0; i < s.length(); i++) {
+                                    sCount.put(s.charAt(i), 1 + sCount.getOrDefault(s.charAt(i), 0));
+                                    tCount.put(t.charAt(i), 1 + tCount.getOrDefault(t.charAt(i), 0));
+                                }
+
+                                return sCount.equals(tCount);        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Increasing Decreasing String",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/increasing-decreasing-string/"
+        url: "https://leetcode.com/problems/increasing-decreasing-string/",
+        solution: {
+            description: "You are given a string s. Reorder the string using the following algorithm: Remove the smallest character from s and append it to the result. Remove the smallest character from s that is greater than the last appended character, and append it to the result. Repeat step 2 until no more characters can be removed. Remove the largest character from s and append it to the result. Remove the largest character from s that is smaller than the last appended character, and append it to the result. Repeat step 5 until no more characters can be removed. Repeat steps 1 through 6 until all characters from s have been removed. If the smallest or largest character appears more than once, you may choose any occurrence to append to the result. Return the resulting string after reordering s using this algorithm.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            string sortString(string s) {
+                                string result = "";
+                                while (!s.empty()) {
+                                    set<char> unique(s.begin(), s.end());
+                                    for (char letter : unique) {
+                                        s.erase(remove(s.begin(), s.end(), letter), s.end());
+                                        result += letter;
+                                    }
+                                    unique = set<char>(s.begin(), s.end());
+                                    for (auto it = unique.rbegin(); it != unique.rend(); ++it) {
+                                        s.erase(remove(s.begin(), s.end(), *it), s.end());
+                                        result += *it;
+                                    }
+                                }
+                                return result;
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def sortString(self, s: str) -> str:
+                                s = list(s)
+                                result = ''
+                                while s:
+                                    for letter in sorted(set(s)):
+                                        s.remove(letter)
+                                        result += letter
+                                    for letter in sorted(set(s), reverse=True):
+                                        s.remove(letter)
+                                        result += letter
+                                return result
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public String sortString(String s) {
+                                StringBuilder result = new StringBuilder();
+                                List<Character> charList = new ArrayList<>();
+                                for (char c : s.toCharArray()) {
+                                    charList.add(c);
+                                }
+                                
+                                while (!charList.isEmpty()) {
+                                    TreeSet<Character> unique = new TreeSet<>(charList);
+                                    for (char letter : unique) {
+                                        charList.remove(Character.valueOf(letter));
+                                        result.append(letter);
+                                    }
+                                    
+                                    TreeSet<Character> reversedUnique = new TreeSet<>(Collections.reverseOrder());
+                                    reversedUnique.addAll(charList);
+                                    for (char letter : reversedUnique) {
+                                        charList.remove(Character.valueOf(letter));
+                                        result.append(letter);
+                                    }
+                                }
+                                
+                                return result.toString();
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 3,
         name: "Valid Palindrome",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/valid-palindrome/"
+        url: "https://leetcode.com/problems/valid-palindrome/",
+        solution: {
+            description: "Given a string s, return true if it is a palindrome, or false otherwise.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            bool isPalindrome(string s) {
+                                string filtered;
+                                for (char c : s) {
+                                    if (isalnum(c)) {
+                                        filtered += tolower(c);
+                                    }
+                                }
+
+                                int left = 0;
+                                int right = filtered.size() - 1;
+
+                                while (left < right) {
+                                    if (filtered[left] != filtered[right]) {
+                                        return false;
+                                    }
+                                    left++;
+                                    right--;
+                                }
+
+                                return true;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def isPalindrome(self, s: str) -> bool:
+                                s = ''.join(c.lower() for c in s if c.isalnum())
+                                left = 0 
+                                right = len(s) - 1
+
+                                while left < right:
+                                    if s[left] != s[right]:
+                                        return False
+                                    left += 1
+                                    right -= 1
+
+                                return True
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public boolean isPalindrome(String s) {
+                                s = s.toLowerCase().replaceAll("[^a-z0-9]", "");
+                                int left = 0;
+                                int right = s.length() - 1;
+
+                                while (left < right) {
+                                    if (s.charAt(left) != s.charAt(right)) {
+                                        return false;
+                                    }
+                                    left++;
+                                    right--;
+                                }
+                                return true;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 4,
         name: "Longest Common Prefix",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/longest-common-prefix/"
+        url: "https://leetcode.com/problems/longest-common-prefix/",
+        solution: {
+            description: "Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            string longestCommonPrefix(vector<string>& strs) {
+                                if (strs.empty()) return "";
+
+                                string pref = strs[0];
+                                int prefLen = pref.length();
+
+                                for (int i = 1; i < strs.size(); i++) {
+                                    string s = strs[i];
+                                    while (prefLen > s.length() || pref != s.substr(0, prefLen)) {
+                                        prefLen--;
+                                        if (prefLen == 0) {
+                                            return "";
+                                        }
+                                        pref = pref.substr(0, prefLen);
+                                    }
+                                }
+
+                                return pref;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def longestCommonPrefix(self, strs: List[str]) -> str:
+                                pref = strs[0]
+                                pref_len = len(pref)
+
+                                for s in strs[1:]:
+                                    while pref != s[0:pref_len]:
+                                        pref_len -= 1
+                                        if pref_len == 0:
+                                            return ""
+                                        
+                                        pref = pref[0:pref_len]
+                                
+                                return pref
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public String longestCommonPrefix(String[] strs) {
+                                if (strs == null || strs.length == 0) return "";
+                                
+                                String pref = strs[0];
+                                int prefLen = pref.length();
+
+                                for (int i = 1; i < strs.length; i++) {
+                                    String s = strs[i];
+                                    while (prefLen > s.length() || !pref.equals(s.substring(0, prefLen))) {
+                                        prefLen--;
+                                        if (prefLen == 0) {
+                                            return "";
+                                        }
+                                        pref = pref.substring(0, prefLen);
+                                    }
+                                }
+
+                                return pref;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 5,
         name: "Length of Last Word",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/length-of-last-word/"
+        url: "https://leetcode.com/problems/length-of-last-word/",
+        solution: {
+            description: "Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int lengthOfLastWord(string s) {
+                                int end = s.length() - 1;
+
+                                while (end >= 0 && s[end] == ' ') {
+                                    end--;
+                                }
+
+                                int start = end;
+                                while (start >= 0 && s[start] != ' ') {
+                                    start--;
+                                }
+
+                                return end - start;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def lengthOfLastWord(self, s: str) -> int:                
+                                end = len(s) - 1
+
+                                while s[end] == " ":
+                                    end -= 1
+                                
+                                start = end
+                                while start >= 0 and s[start] != " ":
+                                    start -= 1
+                                
+                                return end - start
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int lengthOfLastWord(String s) {
+                                int end = s.length() - 1;
+
+                                while (end >= 0 && s.charAt(end) == ' ') {
+                                    end--;
+                                }
+
+                                int start = end;
+                                while (start >= 0 && s.charAt(start) != ' ') {
+                                    start--;
+                                }
+
+                                return end - start;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 6,
         name: "Simplify Path",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/simplify-path/"
+        url: "https://leetcode.com/problems/simplify-path/",
+        solution: {
+            description: "You are given an absolute path for a Unix-style file system, which always begins with a slash '/'. Your task is to transform this absolute path into its simplified canonical path. Return the simplified canonical path.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            string simplifyPath(string path) {
+                                vector<string> components;
+                                stringstream ss(path);
+                                string comp;
+                                while (getline(ss, comp, '/')) {
+                                    if (comp == "" || comp == ".") {
+                                        continue;
+                                    }
+
+                                    if (comp == "..") {
+                                        if (!st.empty()) {
+                                            st.pop_back();
+                                        }
+                                    } else {
+                                        st.push_back(comp);
+                                    }
+                                }
+
+                                stringstream simplifiedPath;
+                                for (const string& s : st) {
+                                    simplifiedPath << "/" << s;
+                                }
+
+                                return simplifiedPath.str().empty() ? "/" : simplifiedPath.str();        
+                            }
+
+                        private:
+                            vector<string> st;    
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def simplifyPath(self, path: str) -> str:
+                                components = path.split("/")
+                                st = []
+
+                                for comp in components:
+                                    if comp == "" or comp == ".":
+                                        continue
+                                    
+                                    if comp == "..":
+                                        if st:
+                                            st.pop()
+                                    else:
+                                        st.append(comp)
+                                
+                                return "/" + "/".join(st)
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public String simplifyPath(String path) {
+                                String[] components = path.split("/");
+                                Stack<String> st = new Stack<>();
+
+                                for (String comp : components) {
+                                    if (comp.equals("") || comp.equals(".")) {
+                                        continue;
+                                    }
+
+                                    if (comp.equals("..")) {
+                                        if (!st.isEmpty()) {
+                                            st.pop();
+                                        }
+                                    } else {
+                                        st.push(comp);
+                                    }
+                                }
+
+                                StringBuilder sb = new StringBuilder();
+                                while (!st.isEmpty()) {
+                                    sb.insert(0, "/" + st.pop());
+                                }
+
+                                return sb.length() == 0 ? "/" : sb.toString();        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 7,
         name: "Word Search",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/word-search/"
+        url: "https://leetcode.com/problems/word-search/",
+        solution: {
+            description: "Given an m x n grid of characters board and a string word, return true if word exists in the grid.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            bool exist(vector<vector<char>>& board, string word) {
+                                int rows = board.size();
+                                int cols = board[0].size();
+                                unordered_set<string> visited;
+
+                                auto dfs = [&](int r, int c, int k, auto& dfs) -> bool {
+                                    if (k == word.length()) {
+                                        return true;
+                                    }
+
+                                    if (r < 0 || r >= rows || c < 0 || c >= cols || visited.count(to_string(r) + "," + to_string(c)) || board[r][c] != word[k]) {
+                                        return false;
+                                    }
+
+                                    visited.insert(to_string(r) + "," + to_string(c));
+                                    bool res = dfs(r + 1, c, k + 1, dfs) || dfs(r - 1, c, k + 1, dfs) || dfs(r, c + 1, k + 1, dfs) || dfs(r, c - 1, k + 1, dfs);
+                                    visited.erase(to_string(r) + "," + to_string(c));
+                                    return res;
+                                };
+
+                                unordered_map<char, int> count;
+                                for (char c : word) {
+                                    count[c]++;
+                                }
+
+                                if (count[word[0]] > count[word.back()]) {
+                                    reverse(word.begin(), word.end());
+                                }
+
+                                for (int r = 0; r < rows; r++) {
+                                    for (int c = 0; c < cols; c++) {
+                                        if (dfs(r, c, 0, dfs)) {
+                                            return true;
+                                        }
+                                    }
+                                }
+
+                                return false;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def exist(self, board: List[List[str]], word: str) -> bool:
+                            
+                                rows, cols = len(board), len(board[0])
+                                visited = set()
+
+                                def dfs(r, c, k):
+                                    if k == len(word):
+                                        return True
+
+                                    if not (0 <= r < rows) or not (0 <= c < cols) or (r,c) in visited or board[r][c] != word[k]:
+                                        return False
+                                    
+                                    visited.add((r,c))
+                                    res = dfs(r+1, c, k+1) or dfs(r-1, c, k+1) or dfs(r, c+1, k+1) or dfs(r, c-1, k+1)
+                                    visited.remove((r,c))
+                                    return res
+                                    
+                                count = {}
+                                for c in word:
+                                    count[c] = 1 + count.get(c, 0)
+                                
+                                if count[word[0]] > count[word[-1]]:
+                                    word = word[::-1]
+                                
+                                for r in range(rows):
+                                    for c in range(cols):
+                                        if dfs(r, c, 0): return True
+                                
+                                return False
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            private int rows;
+                            private int cols;
+                            private Set<String> visited;
+
+                            public boolean exist(char[][] board, String word) {
+                                rows = board.length;
+                                cols = board[0].length;
+                                visited = new HashSet<>();
+
+                                Map<Character, Integer> count = new HashMap<>();
+                                for (char c : word.toCharArray()) {
+                                    count.put(c, count.getOrDefault(c, 0) + 1);
+                                }
+
+                                if (count.getOrDefault(word.charAt(0), 0) > count.getOrDefault(word.charAt(word.length() - 1), 0)) {
+                                    word = new StringBuilder(word).reverse().toString();
+                                }
+
+                                for (int r = 0; r < rows; r++) {
+                                    for (int c = 0; c < cols; c++) {
+                                        if (dfs(board, word, r, c, 0)) {
+                                            return true;
+                                        }
+                                    }
+                                }
+
+                                return false;
+                            }
+
+                            private boolean dfs(char[][] board, String word, int r, int c, int k) {
+                                if (k == word.length()) {
+                                    return true;
+                                }
+
+                                if (r < 0 || r >= rows || c < 0 || c >= cols || visited.contains(r + "," + c) || board[r][c] != word.charAt(k)) {
+                                    return false;
+                                }
+
+                                visited.add(r + "," + c);
+                                boolean res = dfs(board, word, r + 1, c, k + 1) ||
+                                            dfs(board, word, r - 1, c, k + 1) ||
+                                            dfs(board, word, r, c + 1, k + 1) ||
+                                            dfs(board, word, r, c - 1, k + 1);
+                                visited.remove(r + "," + c);
+                                return res;
+                            }    
+                        }
+                    `
+            },
+        }
     },
     {
         id: 8,
         name: "Longest Substring Without Repeating Characters",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+        url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+        solution: {
+            description: "Given a string s, find the length of the longest substring without repeating characters.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int lengthOfLongestSubstring(string s) {
+                                int maxLength = 0;
+                                int left = 0;
+                                unordered_map<char, int> lastSeen;
+
+                                for (int right = 0; right < s.length(); right++) {
+                                    char c = s[right];
+                                    if (lastSeen.find(c) != lastSeen.end() && lastSeen[c] >= left) {
+                                        left = lastSeen[c] + 1;
+                                    }
+                                    maxLength = max(maxLength, right - left + 1);
+                                    lastSeen[c] = right;
+                                }
+
+                                return maxLength;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def lengthOfLongestSubstring(self, s: str) -> int:
+                                max_length = 0
+                                left = 0
+                                last_seen = {}
+
+                                for right, c in enumerate(s):
+                                    if c in last_seen and last_seen[c] >= left:
+                                        left = last_seen[c] + 1
+                                    
+                                    max_length = max(max_length, right - left + 1)
+                                    last_seen[c] = right
+
+                                return max_length
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int lengthOfLongestSubstring(String s) {
+                                int maxLength = 0;
+                                int left = 0;
+                                Map<Character, Integer> lastSeen = new HashMap<>();
+
+                                for (int right = 0; right < s.length(); right++) {
+                                    char c = s.charAt(right);
+                                    if (lastSeen.containsKey(c) && lastSeen.get(c) >= left) {
+                                        left = lastSeen.get(c) + 1;
+                                    }
+                                    maxLength = Math.max(maxLength, right - left + 1);
+                                    lastSeen.put(c, right);
+                                }
+
+                                return maxLength;       
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 9,
         name: "Zigzag Conversion",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/zigzag-conversion/"
+        url: "https://leetcode.com/problems/zigzag-conversion/",
+        solution: {
+            description: "Write the code that will take a string and make this conversion given a number of rows:",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            string convert(string s, int numRows) {
+                                if (numRows == 1 || numRows >= s.length()) {
+                                    return s;
+                                }
+
+                                int idx = 0, d = 1;
+                                vector<vector<char>> rows(numRows);
+
+                                for (char c : s) {
+                                    rows[idx].push_back(c);
+                                    if (idx == 0) {
+                                        d = 1;
+                                    } else if (idx == numRows - 1) {
+                                        d = -1;
+                                    }
+                                    idx += d;
+                                }
+
+                                string result;
+                                for (const auto& row : rows) {
+                                    for (char c : row) {
+                                        result += c;
+                                    }
+                                }
+
+                                return result;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                        def convert(self, s: str, numRows: int) -> str:
+                            if numRows == 1 or numRows >= len(s):
+                                return s
+
+                            idx, d = 0, 1
+                            rows = [[] for _ in range(numRows)]
+
+                            for char in s:
+                                rows[idx].append(char)
+                                if idx == 0:
+                                    d = 1
+                                elif idx == numRows - 1:
+                                    d = -1
+                                idx += d
+
+                            for i in range(numRows):
+                                rows[i] = ''.join(rows[i])
+
+                            return ''.join(rows)   
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public String convert(String s, int numRows) {
+                            if (numRows == 1 || numRows >= s.length()) {
+                                    return s;
+                                }
+
+                                int idx = 0, d = 1;
+                                List<Character>[] rows = new ArrayList[numRows];
+                                for (int i = 0; i < numRows; i++) {
+                                    rows[i] = new ArrayList<>();
+                                }
+
+                                for (char c : s.toCharArray()) {
+                                    rows[idx].add(c);
+                                    if (idx == 0) {
+                                        d = 1;
+                                    } else if (idx == numRows - 1) {
+                                        d = -1;
+                                    }
+                                    idx += d;
+                                }
+
+                                StringBuilder result = new StringBuilder();
+                                for (List<Character> row : rows) {
+                                    for (char c : row) {
+                                        result.append(c);
+                                    }
+                                }
+
+                                return result.toString();        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 10,
         name: "Generate Parentheses",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/generate-parentheses/"
+        url: "https://leetcode.com/problems/generate-parentheses/",
+        solution: {
+            description: "Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            vector<string> generateParenthesis(int n) {
+                                vector<string> res;
+                                dfs(0, 0, "", n, res);
+                                return res;        
+                            }
+
+                        private:
+                            void dfs(int openP, int closeP, string s, int n, vector<string>& res) {
+                                if (openP == closeP && openP + closeP == n * 2) {
+                                    res.push_back(s);
+                                    return;
+                                }
+
+                                if (openP < n) {
+                                    dfs(openP + 1, closeP, s + "(", n, res);
+                                }
+
+                                if (closeP < openP) {
+                                    dfs(openP, closeP + 1, s + ")", n, res);
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def generateParenthesis(self, n: int) -> List[str]:
+                                res = []
+
+                                def dfs(openP, closeP, s):
+                                    if openP == closeP and openP + closeP == n * 2:
+                                        res.append(s)
+                                        return
+                                    
+                                    if openP < n:
+                                        dfs(openP + 1, closeP, s + "(")
+                                    
+                                    if closeP < openP:
+                                        dfs(openP, closeP + 1, s + ")")
+
+                                dfs(0, 0, "")
+
+                                return res
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public List<String> generateParenthesis(int n) {
+                                List<String> res = new ArrayList<>();
+
+                                dfs(0, 0, "", n, res);
+
+                                return res;        
+                            }
+
+                            private void dfs(int openP, int closeP, String s, int n, List<String> res) {
+                                if (openP == closeP && openP + closeP == n * 2) {
+                                    res.add(s);
+                                    return;
+                                }
+
+                                if (openP < n) {
+                                    dfs(openP + 1, closeP, s + "(", n, res);
+                                }
+
+                                if (closeP < openP) {
+                                    dfs(openP, closeP + 1, s + ")", n, res);
+                                }
+                            }    
+                        }
+                    `
+            },
+        }
     },
     {
         id: 11,
         name: "Palindrome Partitioning",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/palindrome-partitioning/"
+        url: "https://leetcode.com/problems/palindrome-partitioning/",
+        solution: {
+            description: "Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            vector<string> generateParenthesis(int n) {
+                                vector<string> res;
+                                dfs(0, 0, "", n, res);
+                                return res;        
+                            }
+
+                        private:
+                            void dfs(int openP, int closeP, string s, int n, vector<string>& res) {
+                                if (openP == closeP && openP + closeP == n * 2) {
+                                    res.push_back(s);
+                                    return;
+                                }
+
+                                if (openP < n) {
+                                    dfs(openP + 1, closeP, s + "(", n, res);
+                                }
+
+                                if (closeP < openP) {
+                                    dfs(openP, closeP + 1, s + ")", n, res);
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def generateParenthesis(self, n: int) -> List[str]:
+                                res = []
+
+                                def dfs(openP, closeP, s):
+                                    if openP == closeP and openP + closeP == n * 2:
+                                        res.append(s)
+                                        return
+                                    
+                                    if openP < n:
+                                        dfs(openP + 1, closeP, s + "(")
+                                    
+                                    if closeP < openP:
+                                        dfs(openP, closeP + 1, s + ")")
+
+                                dfs(0, 0, "")
+
+                                return res
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public List<String> generateParenthesis(int n) {
+                                List<String> res = new ArrayList<>();
+
+                                dfs(0, 0, "", n, res);
+
+                                return res;        
+                            }
+
+                            private void dfs(int openP, int closeP, String s, int n, List<String> res) {
+                                if (openP == closeP && openP + closeP == n * 2) {
+                                    res.add(s);
+                                    return;
+                                }
+
+                                if (openP < n) {
+                                    dfs(openP + 1, closeP, s + "(", n, res);
+                                }
+
+                                if (closeP < openP) {
+                                    dfs(openP, closeP + 1, s + ")", n, res);
+                                }
+                            }    
+                        }
+                    `
+            },
+        }
     },
     {
         id: 12,
         name: "Word Break",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/word-break/"
+        url: "https://leetcode.com/problems/word-break/",
+        solution: {
+            description: "Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            bool wordBreak(string s, vector<string>& wordDict) {
+                                vector<bool> dp(s.size() + 1, false);
+                                dp[0] = true;
+
+                                for (int i = 1; i <= s.size(); i++) {
+                                    for (const string& w : wordDict) {
+                                        int start = i - w.length();
+                                        if (start >= 0 && dp[start] && s.substr(start, w.length()) == w) {
+                                            dp[i] = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                return dp[s.size()];        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+                                dp = [True] + [False] * len(s)
+
+                                for i in range(1, len(s) + 1):
+                                    for w in wordDict:
+                                        start = i - len(w)
+                                        if start >= 0 and dp[start] and s[start:i] == w:
+                                            dp[i] = True
+                                            break
+                                
+                                return dp[-1]
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public boolean wordBreak(String s, List<String> wordDict) {
+                                boolean[] dp = new boolean[s.length() + 1];
+                                dp[0] = true;
+
+                                for (int i = 1; i <= s.length(); i++) {
+                                    for (String w : wordDict) {
+                                        int start = i - w.length();
+                                        if (start >= 0 && dp[start] && s.substring(start, i).equals(w)) {
+                                            dp[i] = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                return dp[s.length()];        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 13,
         name: "Regular Expression Matching",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/regular-expression-matching/"
+        url: "https://leetcode.com/problems/regular-expression-matching/",
+        solution: {
+            description: "Given an input string s and a pattern p, implement regular expression matching with support for '.' and '*' where: '.' Matches any single character  & '*' Matches zero or more of the preceding element. The matching should cover the entire input string (not partial)..",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            bool isMatch(string s, string p) {
+                                int n = s.length(), m = p.length();
+                                bool dp[n+1][m+1];
+                                memset(dp, false, sizeof(dp));
+                                dp[0][0] = true;
+                                
+                                for(int i=0; i<=n; i++){
+                                    for(int j=1; j<=m; j++){
+                                        if(p[j-1] == '*'){
+                                            dp[i][j] = dp[i][j-2] || (i > 0 && (s[i-1] == p[j-2] || p[j-2] == '.') && dp[i-1][j]);
+                                        }
+                                        else{
+                                            dp[i][j] = i > 0 && dp[i-1][j-1] && (s[i-1] == p[j-1] || p[j-1] == '.');
+                                        }
+                                    }
+                                }
+                                
+                                return dp[n][m];
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def isMatch(self, s: str, p: str) -> bool:
+                                i, j = len(s) - 1, len(p) - 1
+                                return self.backtrack({}, s, p, i, j)
+
+                            def backtrack(self, cache, s, p, i, j):
+                                key = (i, j)
+                                if key in cache:
+                                    return cache[key]
+
+                                if i == -1 and j == -1:
+                                    cache[key] = True
+                                    return True
+
+                                if i != -1 and j == -1:
+                                    cache[key] = False
+                                    return cache[key]
+
+                                if i == -1 and p[j] == '*':
+                                    k = j
+                                    while k != -1 and p[k] == '*':
+                                        k -= 2
+                                    
+                                    if k == -1:
+                                        cache[key] = True
+                                        return cache[key]
+                                    
+                                    cache[key] = False
+                                    return cache[key]
+                                
+                                if i == -1 and p[j] != '*':
+                                    cache[key] = False
+                                    return cache[key]
+
+                                if p[j] == '*':
+                                    if self.backtrack(cache, s, p, i, j - 2):
+                                        cache[key] = True
+                                        return cache[key]
+                                    
+                                    if p[j - 1] == s[i] or p[j - 1] == '.':
+                                        if self.backtrack(cache, s, p, i - 1, j):
+                                            cache[key] = True
+                                            return cache[key]
+                                
+                                if p[j] == '.' or s[i] == p[j]:
+                                    if self.backtrack(cache, s, p, i - 1, j - 1):
+                                        cache[key] = True
+                                        return cache[key]
+
+                                cache[key] = False
+                                return cache[key]
+                    `
+                ,
+                java:
+                    `
+                        enum Result {
+                            TRUE, FALSE
+                        }
+
+                        class Solution {
+                            Result[][] memo;
+
+                            public boolean isMatch(String text, String pattern) {
+                                memo = new Result[text.length() + 1][pattern.length() + 1];
+                                return dp(0, 0, text, pattern);
+                            }
+
+                            public boolean dp(int i, int j, String text, String pattern) {
+                                if (memo[i][j] != null) {
+                                    return memo[i][j] == Result.TRUE;
+                                }
+                                boolean ans;
+                                if (j == pattern.length()){
+                                    ans = i == text.length();
+                                } else{
+                                    boolean first_match = (i < text.length() &&
+                                                        (pattern.charAt(j) == text.charAt(i) ||
+                                                            pattern.charAt(j) == '.'));
+
+                                    if (j + 1 < pattern.length() && pattern.charAt(j+1) == '*'){
+                                        ans = (dp(i, j+2, text, pattern) ||
+                                            first_match && dp(i+1, j, text, pattern));
+                                    } else {
+                                        ans = first_match && dp(i+1, j+1, text, pattern);
+                                    }
+                                }
+                                memo[i][j] = ans ? Result.TRUE : Result.FALSE;
+                                return ans;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 14,
         name: "Longest Valid Parentheses",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/longest-valid-parentheses/description/"
+        url: "https://leetcode.com/problems/longest-valid-parentheses/description/",
+        solution: {
+            description: "Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed) parentheses substring.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int longestValidParentheses(string s) {
+                                stack<int> st;
+                                st.push(-1);
+                                int max_len = 0;
+
+                                for (int i = 0; i < s.length(); i++) {
+                                    if (s[i] == '(') {
+                                        st.push(i);
+                                    } else {
+                                        st.pop();
+                                        if (st.empty()) {
+                                            st.push(i);
+                                        } else {
+                                            max_len = max(max_len, i - st.top());
+                                        }
+                                    }
+                                }
+
+                                return max_len;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def longestValidParentheses(self, s: str) -> int:
+                                stack = [-1]
+                                max_len = 0
+
+                                for i in range(len(s)):
+                                    if s[i] == "(":
+                                        stack.append(i)
+                                    else:
+                                        stack.pop()
+                                        if len(stack) == 0:
+                                            stack.append(i)
+                                        else:
+                                            max_len = max(max_len, i - stack[-1])
+                                
+                                return max_len
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int longestValidParentheses(String s) {
+                                Stack<Integer> stack = new Stack<>();
+                                stack.push(-1);
+                                int max_len = 0;
+
+                                for (int i = 0; i < s.length(); i++) {
+                                    if (s.charAt(i) == '(') {
+                                        stack.push(i);
+                                    } else {
+                                        stack.pop();
+                                        if (stack.isEmpty()) {
+                                            stack.push(i);
+                                        } else {
+                                            max_len = Math.max(max_len, i - stack.peek());
+                                        }
+                                    }
+                                }
+
+                                return max_len;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 15,
         name: "Scramble String",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/scramble-string/"
+        url: "https://leetcode.com/problems/scramble-string/",
+        solution: {
+            description: "Given two strings s1 and s2 of the same length, return true if s2 is a scrambled string of s1, otherwise, return false.",
+            code:{
+                cpp: 
+                    `
+
+                        class Solution {
+                        public:
+                            unordered_map<string, bool> memo;
+
+                            bool solve(string s1, string s2) {
+                                string key = s1 + " " + s2;
+                                if (s1 == s2) return memo[key] = true;
+                                if (s1.size() <= 1 || s2.size() <= 1) return false;
+                                if (memo.find(key) != memo.end()) return memo[key];
+
+                                int n = s2.size();
+                                bool isScrambled = false;
+                                for (int i = 1; i < s1.size(); i++) {
+                                    bool cond1 = solve(s1.substr(0, i), s2.substr(n - i)) && solve(s1.substr(i), s2.substr(0, n - i));
+                                    bool cond2 = solve(s1.substr(0, i), s2.substr(0, i)) && solve(s1.substr(i), s2.substr(i));
+                                    if (cond1 || cond2) {
+                                        isScrambled = true;
+                                        break;
+                                    }
+                                }
+                                return memo[key] = isScrambled;
+                            }
+
+                            bool isScramble(string s1, string s2) {
+                                vector<int> freq(26, 0);
+                                for (int i = 0; i < s1.size(); i++) {
+                                    freq[s1[i] - 'a']++;
+                                    freq[s2[i] - 'a']--;
+                                }
+                                for (int count : freq) {
+                                    if (count != 0) return false;
+                                }
+                                return solve(s1, s2);
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def __init__(self):
+                                self.memo = {}
+
+                            def solve(self, s1: str, s2: str) -> bool:
+                                key = f"{s1} {s2}"
+                                if s1 == s2:
+                                    self.memo[key] = True
+                                    return True
+                                if len(s1) <= 1 or len(s2) <= 1:
+                                    return False
+                                if key in self.memo:
+                                    return self.memo[key]
+
+                                n = len(s2)
+                                is_scrambled = False
+                                for i in range(1, len(s1)):
+                                    cond1 = self.solve(s1[:i], s2[-i:]) and self.solve(s1[i:], s2[:-i])
+                                    cond2 = self.solve(s1[:i], s2[:i]) and self.solve(s1[i:], s2[i:])
+                                    if cond1 or cond2:
+                                        is_scrambled = True
+                                        break
+
+                                self.memo[key] = is_scrambled
+                                return is_scrambled
+
+                            def isScramble(self, s1: str, s2: str) -> bool:
+                                freq = [0] * 26
+                                for c1, c2 in zip(s1, s2):
+                                    freq[ord(c1) - ord('a')] += 1
+                                    freq[ord(c2) - ord('a')] -= 1
+                                if any(count != 0 for count in freq):
+                                    return False
+                                return self.solve(s1, s2)
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            private Map<String, Boolean> memo = new HashMap<>();
+
+                            private boolean solve(String s1, String s2) {
+                                String key = s1 + " " + s2;
+                                if (s1.equals(s2)) {
+                                    memo.put(key, true);
+                                    return true;
+                                }
+                                if (s1.length() <= 1 || s2.length() <= 1) return false;
+                                if (memo.containsKey(key)) return memo.get(key);
+
+                                int n = s2.length();
+                                boolean isScrambled = false;
+                                for (int i = 1; i < s1.length(); i++) {
+                                    boolean cond1 = solve(s1.substring(0, i), s2.substring(n - i)) && solve(s1.substring(i), s2.substring(0, n - i));
+                                    boolean cond2 = solve(s1.substring(0, i), s2.substring(0, i)) && solve(s1.substring(i), s2.substring(i));
+                                    if (cond1 || cond2) {
+                                        isScrambled = true;
+                                        break;
+                                    }
+                                }
+
+                                memo.put(key, isScrambled);
+                                return isScrambled;
+                            }
+
+                            public boolean isScramble(String s1, String s2) {
+                                int[] freq = new int[26];
+                                for (int i = 0; i < s1.length(); i++) {
+                                    freq[s1.charAt(i) - 'a']++;
+                                    freq[s2.charAt(i) - 'a']--;
+                                }
+                                for (int count : freq) {
+                                    if (count != 0) return false;
+                                }
+                                return solve(s1, s2);
+                            }
+                        }
+                    `
+            },
+        }
     },
 ]
 
