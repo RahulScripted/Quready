@@ -1391,77 +1391,673 @@ export const PatternData = [
         name: "Pattern 1",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/square-pattern/0"
+        url: "https://www.geeksforgeeks.org/problems/square-pattern/0",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a square pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void printSquare(int n) {
+                                for(int i = 0;i < n;i++){
+                                    for(int j = 0;j < n;j++){
+                                        cout<<"*"<<" ";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def isPalindrome(self, x: int) -> bool:
+                                if x < 0: return False
+
+                                reverse = 0
+                                x_copy = x
+
+                                while x > 0:
+                                    reverse = (reverse * 10) + (x % 10)
+                                    x //= 10
+
+                                return reverse == x_copy
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public boolean isPalindrome(int x) {
+                                if (x < 0) return false;
+
+                                long reverse = 0;
+                                int xCopy = x;
+
+                                while (x > 0) {
+                                    reverse = (reverse * 10) + (x % 10);
+                                    x /= 10;
+                                }
+
+                                return reverse == xCopy;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Pattern 2",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/right-triangle/0"
+        url: "https://www.geeksforgeeks.org/problems/right-triangle/0",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a pattern of triangle to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void printTriangle(int n) {
+                                for(int i = 0;i < n;i++){
+                                    for(int j = 0;j <= i;j++){
+                                        cout<<"*"<<" ";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def printTriangle(self, n: int) -> None:
+                                for i in range(n):
+                                    for j in range(i + 1):
+                                        print("*", end=" ")
+                                    print()
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void printTriangle(int n) {
+                                for (int i = 0; i < n; i++) {
+                                    for (int j = 0; j <= i; j++) {
+                                        System.out.print("* ");
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 3,
         name: "Pattern 3",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/triangle-number/1"
+        url: "https://www.geeksforgeeks.org/problems/triangle-number/1",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a  pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void printTriangle(int n) {
+                                for(int i = 1;i <= n;i++){
+                                    for(int j = 1;j <= i;j++){
+                                        cout<<j<<" ";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def printTriangle(self, n: int) -> None:
+                                for i in range(1, n + 1):
+                                    for j in range(1, i + 1):
+                                        print(j, end=" ")
+                                    print()
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void printTriangle(int n) {
+                                for (int i = 1; i <= n; i++) {
+                                    for (int j = 1; j <= i; j++) {
+                                        System.out.print(j + " ");
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 4,
         name: "Pattern 4",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/triangle-number-1661428795/1"
+        url: "https://www.geeksforgeeks.org/problems/triangle-number-1661428795/1",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a  pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void printTriangle(int n) {
+                                for(int i = 1;i <= n;i++){
+                                    for(int j = 1;j <= i;j++){
+                                        cout<<i<<" ";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def printTriangle(self, n: int) -> None:
+                                for i in range(1, n + 1):
+                                    for j in range(1, i + 1):
+                                        print(i, end=" ")
+                                    print()
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void printTriangle(int n) {
+                                for (int i = 1; i <= n; i++) {
+                                    for (int j = 1; j <= i; j++) {
+                                        System.out.print(i + " ");
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 5,
         name: "Pattern 5",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/triangle-pattern/0"
+        url: "https://www.geeksforgeeks.org/problems/triangle-pattern/0",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution{
+                        public:
+                            void printTriangle(int n) {
+                                for(int i = n; i > 0;i--){
+                                    for(int j = 0;j < i;j++){
+                                        cout<<"*"<<" ";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def printTriangle(self, n: int) -> None:
+                                for i in range(n, 0, -1):
+                                    for j in range(i):
+                                        print("*", end=" ")
+                                    print()
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void printTriangle(int n) {
+                                for (int i = n; i > 0; i--) {
+                                    for (int j = 0; j < i; j++) {
+                                        System.out.print("* ");
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 6,
         name: "Pattern 6",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/triangle-number-1661489840/0"
+        url: "https://www.geeksforgeeks.org/problems/triangle-number-1661489840/0",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution{
+                        public:
+                            
+                            void printTriangle(int n) {
+                                for(int i = n;i > 0;i--){
+                                    for(int j = 1;j <= i;j++){
+                                        cout<<j<<" ";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def isPalindrome(self, x: int) -> bool:
+                                if x < 0:
+                                    return False
+
+                                reverse = 0
+                                x_copy = x
+
+                                while x > 0:
+                                    reverse = (reverse * 10) + (x % 10)
+                                    x //= 10
+
+                                return reverse == x_copy
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public boolean isPalindrome(int x) {
+                                if (x < 0) return false;
+
+                                long reverse = 0;
+                                int xCopy = x;
+
+                                while (x > 0) {
+                                    reverse = (reverse * 10) + (x % 10);
+                                    x /= 10;
+                                }
+
+                                return reverse == xCopy;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 7,
         name: "Pattern 7",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/triangle-pattern-1661492263/0"
+        url: "https://www.geeksforgeeks.org/problems/triangle-pattern-1661492263/0",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void printTriangle(int n) {
+                                for(int i = 0;i < n;i++){
+                                    for(int j = 0;j < (n - i -1);j++){
+                                        cout<<" ";
+                                    }
+                                    for(int j = 0;j < (2 * i + 1);j++){
+                                        cout<<"*";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def printTriangle(self, n: int) -> None:
+                                for i in range(n):
+                                    # Print spaces
+                                    for j in range(n - i - 1):
+                                        print(" ", end="")
+                                    # Print stars
+                                    for j in range(2 * i + 1):
+                                        print("*", end="")
+                                    print()
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void printTriangle(int n) {
+                                for (int i = 0; i < n; i++) {
+                                    // Print spaces
+                                    for (int j = 0; j < (n - i - 1); j++) {
+                                        System.out.print(" ");
+                                    }
+                                    // Print stars
+                                    for (int j = 0; j < (2 * i + 1); j++) {
+                                        System.out.print("*");
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 8,
         name: "Pattern 8",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/triangle-pattern-1661493231/0"
+        url: "https://www.geeksforgeeks.org/problems/triangle-pattern-1661493231/0",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution{
+                        public:
+                            void printTriangle(int n) {
+                                for(int i = 0;i < n;i++){
+                                    for(int j = 0;j < i;j++){
+                                        cout<<" ";
+                                    }
+                                    for(int j = 0;j < (2 * (n - i) - 1);j++){
+                                        cout<<"*";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def printTriangle(self, n):
+                                for i in range(n):
+                                    # Print leading spaces
+                                    for j in range(i):
+                                        print(" ", end="")
+                                    # Print stars
+                                    for j in range(2 * (n - i) - 1):
+                                        print("*", end="")
+                                    print() 
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void printTriangle(int n) {
+                                for (int i = 0; i < n; i++) {
+                                    // Print leading spaces
+                                    for (int j = 0; j < i; j++) {
+                                        System.out.print(" ");
+                                    }
+                                    // Print stars
+                                    for (int j = 0; j < (2 * (n - i) - 1); j++) {
+                                        System.out.print("*");
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 9,
         name: "Pattern 9",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/pattern/0"
+        url: "https://www.geeksforgeeks.org/problems/pattern/0",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a star pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void printDiamond(int n) {
+                                // Upper Part
+                                for(int i = 0;i < n;i++){
+                                    for(int j = 0;j < (n - i - 1);j++){
+                                        cout<<" ";
+                                    }
+                                    for(int j = 0;j < (i + 1);j++){
+                                        if(j < i) cout<<"* ";
+                                        else cout<<"*";
+                                    }
+                                    cout<<endl;
+                                }
+                                
+                                // Lower Part
+                                for(int i = n;i > 0;i--){
+                                    for(int j = 0;j < (n - i);j++){
+                                        cout<<" ";
+                                    }
+                                    for(int j = 0;j < i;j++){
+                                        if(j < (i - 1)) cout<<"* ";
+                                        else cout<<"*";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def printDiamond(self, n):
+                                # Upper part of the diamond
+                                for i in range(n):
+                                    for j in range(n - i - 1):
+                                        print(" ", end="")
+                                    for j in range(i + 1):
+                                        if j < i: print("*", end=" ")
+                                        else: print("*", end="")
+                                    print()
+
+                                for i in range(n - 1, 0, -1):
+                                    for j in range(n - i):
+                                        print(" ", end="")
+                                    for j in range(i):
+                                        if j < i - 1: print("*", end=" ")
+                                        else: print("*", end="")
+                                    print() 
+
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void printDiamond(int n) {
+                                // Upper part of the diamond
+                                for (int i = 0; i < n; i++) {
+                                    for (int j = 0; j < (n - i - 1); j++) {
+                                        System.out.print(" ");
+                                    }
+                                    for (int j = 0; j < i + 1; j++) {
+                                        if (j < i) {
+                                            System.out.print("* ");
+                                        } else {
+                                            System.out.print("*");
+                                        }
+                                    }
+                                    System.out.println();
+                                }
+
+                                // Lower part of the diamond
+                                for (int i = n - 1; i > 0; i--) {
+                                    for (int j = 0; j < (n - i); j++) {
+                                        System.out.print(" ");
+                                    }
+                                    for (int j = 0; j < i; j++) {
+                                        if (j < i - 1) {
+                                            System.out.print("* ");
+                                        } else {
+                                            System.out.print("*");
+                                        }
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 10,
         name: "Pattern 10",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/triangle-pattern-1661718013/0"
+        url: "https://www.geeksforgeeks.org/problems/triangle-pattern-1661718013/0",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a star pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution{
+                        public:
+                            void printTriangle(int n) {
+                                for(int i = 0;i < n;i++){
+                                    for(int j = 0;j <= i;j++){
+                                        cout<<"* ";
+                                    }
+                                    cout<<endl;
+                                }
+                                for(int i = (n - 1);i > 0;i--){
+                                    for(int j = 0;j < i;j++){
+                                        cout<<"* ";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def printTriangle(self, n):
+                                for i in range(n):
+                                    for j in range(i + 1):
+                                        print("*", end=" ")
+                                    print()
+                                for i in range(n - 1, 0, -1):
+                                    for j in range(i):
+                                        print("*", end=" ")
+                                    print()
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void printTriangle(int n) {
+                                for (int i = 0; i < n; i++) {
+                                    for (int j = 0; j <= i; j++) {
+                                        System.out.print("* ");
+                                    }
+                                    System.out.println();
+                                }
+                                for (int i = n - 1; i > 0; i--) {
+                                    for (int j = 0; j < i; j++) {
+                                        System.out.print("* ");
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                    `
+            },
+        }
     },
     {
         id: 11,
         name: "Pattern 11",
         img: share,
         level: "Easy",
-        url: "https://www.geeksforgeeks.org/problems/triangle-pattern-1661718455/0"
+        url: "https://www.geeksforgeeks.org/problems/triangle-pattern-1661718455/0",
+        solution: {
+            description: "Geek is very fond of patterns. Once, his teacher gave him a pattern to solve. He gave Geek an integer n and asked him to build a pattern.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void printTriangle(int n) {
+                                for(int i = 0;i < n;i++){
+                                    for(int j = 0;j <= i;j++){
+                                        if((i + j) % 2 == 0) cout<<"1 ";
+                                        else cout<<"0 ";
+                                    }
+                                    cout<<endl;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def printTriangle(self, n):
+                                for i in range(n):
+                                    for j in range(i + 1):
+                                        if (i + j) % 2 == 0:
+                                            print("1", end=" ")
+                                        else:
+                                            print("0", end=" ")
+                                    print()
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void printTriangle(int n) {
+                                for (int i = 0; i < n; i++) {
+                                    for (int j = 0; j <= i; j++) {
+                                        if ((i + j) % 2 == 0) {
+                                            System.out.print("1 ");
+                                        } else {
+                                            System.out.print("0 ");
+                                        }
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                    `
+            },
+        }
     },
 ]
 
