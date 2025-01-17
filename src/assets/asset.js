@@ -3457,7 +3457,7 @@ export const StringData = [
         img: share,
         level: "Easy",
         url: "https://leetcode.com/problems/valid-anagram/",
-        url: "https://leetcode.com/problems/two-sum/",
+        url: "https://leetcode.com/problems/valid-anagram/",
         solution: {
             description: "Given two strings s and t, return true if t is an anagram of s, and false otherwise.",
             code:{
