@@ -7387,84 +7387,1000 @@ export const TwoPointerData = [
         name: "Remove Duplicates from Sorted Array",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/remove-duplicates-from-sorted-array/"
+        url: "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+        solution: {
+            description: "Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int removeDuplicates(vector<int>& nums) {
+                                if (nums.empty()) return 0;
+
+                                int i = 1;
+
+                                for (int j = 1; j < nums.size(); j++) {
+                                    if (nums[j] != nums[i - 1]) {
+                                        nums[i] = nums[j];
+                                        i++;
+                                    }
+                                }
+
+                                return i;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def removeDuplicates(self, nums: List[int]) -> int:
+                                i = 1
+
+                                for j in range(1, len(nums)):
+                                    if nums[j] != nums[i - 1]:
+                                        nums[i] = nums[j]
+                                        i += 1
+                                
+                                return i
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int removeDuplicates(int[] nums) {
+                                if (nums.length == 0) return 0;
+
+                                int i = 1;
+
+                                for (int j = 1; j < nums.length; j++) {
+                                    if (nums[j] != nums[i - 1]) {
+                                        nums[i] = nums[j];
+                                        i++;
+                                    }
+                                }
+
+                                return i;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Find the Index of the First Occurrence in a String",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/"
+        url: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/",
+        solution: {
+            description: "Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int strStr(string haystack, string needle) {
+                                if (haystack.length() < needle.length()) {
+                                    return -1;
+                                }
+                                
+                                for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+                                    if (haystack.substr(i, needle.length()) == needle) {
+                                        return i;
+                                    }
+                                }
+                                
+                                return -1;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def strStr(self, haystack: str, needle: str) -> int:
+
+                                if len(haystack) < len(needle):
+                                    return -1
+
+                                for i in range(len(haystack)):
+                                    if haystack[i:i+len(needle)] == needle:
+                                        return i
+
+                                return -1 
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int strStr(String haystack, String needle) {
+                                if (haystack.length() < needle.length()) {
+                                    return -1;
+                                }
+                                
+                                for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+                                    if (haystack.substring(i, i + needle.length()).equals(needle)) {
+                                        return i;
+                                    }
+                                }
+                                
+                                return -1;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 3,
         name: "Palindrome Linked List",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/palindrome-linked-list/"
+        url: "https://leetcode.com/problems/palindrome-linked-list/",
+        solution: {
+            description: "Given the head of a singly linked list, return true if it is a palindrome or false otherwise.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            bool isPalindrome(ListNode* head) {
+                                vector<int> listVals;
+                                while (head) {
+                                    listVals.push_back(head->val);
+                                    head = head->next;
+                                }
+                                
+                                int left = 0, right = listVals.size() - 1;
+                                while (left < right && listVals[left] == listVals[right]) {
+                                    left++;
+                                    right--;
+                                }
+                                return left >= right;
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def isPalindrome(self, head: Optional[ListNode]) -> bool:
+                                list_vals = []
+                                while head:
+                                    list_vals.append(head.val)
+                                    head = head.next
+                                
+                                left, right = 0, len(list_vals) - 1
+                                while left < right and list_vals[left] == list_vals[right]:
+                                    left += 1
+                                    right -= 1
+                                return left >= right
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public boolean isPalindrome(ListNode head) {
+                                List<Integer> list = new ArrayList();
+                                while(head != null) {
+                                    list.add(head.val);
+                                    head = head.next;
+                                }
+                                
+                                int left = 0;
+                                int right = list.size()-1;
+                                while(left < right && list.get(left) == list.get(right)) {
+                                    left++;
+                                    right--;
+                                }
+                                return left >= right;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 4,
         name: "Move Zeroes",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/move-zeroes/"
+        url: "https://leetcode.com/problems/move-zeroes/",
+        solution: {
+            description: "Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void moveZeroes(vector<int>& nums) {
+                                int left = 0;
+
+                                for (int right = 0; right < nums.size(); right++) {
+                                    if (nums[right] != 0) {
+                                        swap(nums[right], nums[left]);
+                                        left++;
+                                    }
+                                }        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def moveZeroes(self, nums: List[int]) -> None:
+                                left = 0
+
+                                for right in range(len(nums)):
+                                    if nums[right] != 0:
+                                        nums[right], nums[left] = nums[left], nums[right]
+                                        left += 1
+                                
+                                return nums
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void moveZeroes(int[] nums) {
+                                int left = 0;
+
+                                for (int right = 0; right < nums.length; right++) {
+                                    if (nums[right] != 0) {
+                                        int temp = nums[right];
+                                        nums[right] = nums[left];
+                                        nums[left] = temp;
+                                        left++;
+                                    }
+                                }        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 5,
         name: "Reverse String",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/reverse-string/"
+        url: "https://leetcode.com/problems/reverse-string/",
+        solution: {
+            description: "Write a function that reverses a string. The input string is given as an array of characters s.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            void reverseString(vector<char>& s) {
+                                int left = 0, right = s.size() - 1;
+                                while (left < right) {
+                                    swap(s[left], s[right]);
+                                    left++;
+                                    right--;
+                                }
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def reverseString(self, s: List[str]) -> None:
+                                left, right = 0, len(s) - 1
+                                while left < right:
+                                    s[left], s[right] = s[right], s[left]
+                                    left += 1
+                                    right -= 1
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public void reverseString(char[] s) {
+                                int left = 0, right = s.length - 1;
+                                while (left < right) {
+                                    char temp = s[left];
+                                    s[left] = s[right];
+                                    s[right] = temp;
+                                    left++;
+                                    right--;
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 6,
         name: "String Compression",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/string-compression/"
+        url: "https://leetcode.com/problems/string-compression/",
+        solution: {
+            description: "Given an array of characters chars, compress it using the following algorithm: Begin with an empty string s. For each group of consecutive repeating characters in chars: If the group's length is 1, append the character to s. Otherwise, append the character followed by the group's length.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int compress(vector<char>& c) {
+                                int n = c.size();
+                                if (n == 0) return 0;
+                                int w = 0,r = 0;
+                                while (r < n) {
+                                    char x = c[r];
+                                    int cnt = 0;
+                                    while (r < n && c[r] == x) {
+                                        r++,cnt++;
+                                    }
+                                    c[w++] = x;
+                                    if (cnt > 1) {
+                                        for (char d : to_string(cnt)) {
+                                            c[w++] = d;
+                                        }
+                                    }
+                                }
+                                return w;
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def compress(self, c: list[str]) -> int:
+                                n = len(c)
+                                if n == 0: return 0
+                                w = 0
+                                r = 0
+                                while r < n:
+                                    x = c[r]
+                                    cnt = 0
+                                    while r < n and c[r] == x:
+                                        r += 1
+                                        cnt += 1
+                                    c[w] = x
+                                    w += 1
+                                    if cnt > 1:
+                                        for d in str(cnt):
+                                            c[w] = d
+                                            w += 1
+                                return w
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int compress(char[] c) {
+                                int n = c.length;
+                                if (n == 0) return 0;
+                                int w = 0;
+                                int r = 0;
+                                while (r < n) {
+                                    char x = c[r];
+                                    int cnt = 0;
+                                    while (r < n && c[r] == x) {
+                                        r++;
+                                        cnt++;
+                                    }
+                                    c[w++] = x;
+                                    if (cnt > 1) {
+                                        for (char d : Integer.toString(cnt).toCharArray()) {
+                                            c[w++] = d;
+                                        }
+                                    }
+                                }
+                                return w;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 7,
         name: "Permutation in String",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/permutation-in-string/"
+        url: "https://leetcode.com/problems/permutation-in-string/",
+        solution: {
+            description: "Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise. In other words, return true if one of s1's permutations is the substring of s2.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            bool checkInclusion(string s1, string s2) {
+                                if (s1.length() > s2.length()) {
+                                    return false;
+                                }
+                                
+                                unordered_map<char, int> s1Count;
+                                unordered_map<char, int> s2Count;
+                                
+                                for (int i = 0; i < s1.length(); i++) {
+                                    s1Count[s1[i]]++;
+                                    s2Count[s2[i]]++;
+                                }
+                                
+                                if (s1Count == s2Count) {
+                                    return true;
+                                }
+                                
+                                int left = 0;
+                                for (int right = s1.length(); right < s2.length(); right++) {
+                                    s2Count[s2[right]]++;
+                                    s2Count[s2[left]]--;
+                                    
+                                    if (s2Count[s2[left]] == 0) {
+                                        s2Count.erase(s2[left]);
+                                    }
+                                    
+                                    left++;
+                                    
+                                    if (s1Count == s2Count) {
+                                        return true;
+                                    }
+                                }
+                                
+                                return false;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def checkInclusion(self, s1: str, s2: str) -> bool:
+                                if len(s1) > len(s2):
+                                    return False
+
+                                s1_count = {}
+                                s2_count = {}
+
+                                for i in range(len(s1)):
+                                    s1_count[s1[i]] = 1 + s1_count.get(s1[i], 0)
+                                    s2_count[s2[i]] = 1 + s2_count.get(s2[i], 0)
+
+                                if s1_count == s2_count:
+                                    return True
+
+                                left = 0
+                                for right in range(len(s1), len(s2)):
+                                    s2_count[s2[right]] = 1 + s2_count.get(s2[right], 0)
+                                    s2_count[s2[left]] -= 1
+
+                                    if s2_count[s2[left]] == 0:
+                                        del s2_count[s2[left]]
+
+                                    left += 1
+
+                                    if s1_count == s2_count:
+                                        return True
+
+                                return False
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public boolean checkInclusion(String s1, String s2) {
+                                if (s1.length() > s2.length()) {
+                                    return false;
+                                }
+                                
+                                HashMap<Character, Integer> s1Count = new HashMap<>();
+                                HashMap<Character, Integer> s2Count = new HashMap<>();
+                                
+                                for (int i = 0; i < s1.length(); i++) {
+                                    s1Count.put(s1.charAt(i), s1Count.getOrDefault(s1.charAt(i), 0) + 1);
+                                    s2Count.put(s2.charAt(i), s2Count.getOrDefault(s2.charAt(i), 0) + 1);
+                                }
+                                
+                                if (s1Count.equals(s2Count)) {
+                                    return true;
+                                }
+                                
+                                int left = 0;
+                                for (int right = s1.length(); right < s2.length(); right++) {
+                                    char charRight = s2.charAt(right);
+                                    s2Count.put(charRight, s2Count.getOrDefault(charRight, 0) + 1);
+                                    
+                                    char charLeft = s2.charAt(left);
+                                    s2Count.put(charLeft, s2Count.get(charLeft) - 1);
+                                    if (s2Count.get(charLeft) == 0) {
+                                        s2Count.remove(charLeft);
+                                    }
+                                    
+                                    left++;
+                                    
+                                    if (s1Count.equals(s2Count)) {
+                                        return true;
+                                    }
+                                }
+                                
+                                return false;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 8,
         name: "Next Greater Element III",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/next-greater-element-iii/"
+        url: "https://leetcode.com/problems/next-greater-element-iii/",
+        solution: {
+            description: "Given a positive integer n, find the smallest integer which has exactly the same digits existing in the integer n and is greater in value than n. If no such positive integer exists, return -1.",
+            code:{
+                cpp: 
+                   `
+                        class Solution {
+                        public:
+                            int nextGreaterElement(int n) {
+                                string temp=to_string(n);
+                                int p=temp.size();
+                                bool flag=false;
+                                for(int i=0;i<temp.size()-1;i++){
+                                    if((int)temp[i]<(int)temp[i+1]){
+                                        flag=true;
+                                        break;
+                                    }
+                                }
+                                if(flag==false){
+                                    return -1;
+                                }
+                                int lastDigit=temp[temp.size()-1];
+                                int i=p-2;
+                                int j;
+                                for( i=p-2;i>=0;i--){
+                                    if((int)lastDigit>(int)temp[i]){
+                                        break;
+                                    }
+                                    lastDigit=temp[i];
+                                }
+                                if(i>=0){
+                                    for( j=p-1;j>i;j--){
+                                        if((int)temp[j]>(int)temp[i]){
+                                            swap(temp[i],temp[j]);
+                                            break;
+
+                                        }
+                                        
+                                    }
+                                }
+                                sort(temp.begin()+i+1,temp.end());
+                                // if(temp.size()>=10) return -1;
+                                long long xx=stol(temp);
+                                if(xx>INT_MAX){
+                                    return -1;
+                                }
+                                
+                                return xx;
+                            
+                                
+
+                            }
+                        };
+                   `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def nextGreaterElement(self, n: int) -> int:
+                                temp = list(str(n))
+                                p = len(temp)
+                                flag = False
+
+                                for i in range(p - 1):
+                                    if int(temp[i]) < int(temp[i + 1]):
+                                        flag = True
+                                        break
+
+                                if not flag:
+                                    return -1
+
+                                lastDigit = temp[-1]
+                                i = p - 2
+
+                                while i >= 0:
+                                    if int(lastDigit) > int(temp[i]):
+                                        break
+                                    lastDigit = temp[i]
+                                    i -= 1
+
+                                if i >= 0:
+                                    for j in range(p - 1, i, -1):
+                                        if int(temp[j]) > int(temp[i]):
+                                            temp[i], temp[j] = temp[j], temp[i]
+                                            break
+
+                                temp = temp[:i + 1] + sorted(temp[i + 1:])
+                                xx = int("".join(temp))
+
+                                if xx > 2**31 - 1:
+                                    return -1
+
+                                return xx
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int nextGreaterElement(int n) {
+                                char[] temp = String.valueOf(n).toCharArray();
+                                int p = temp.length;
+                                boolean flag = false;
+
+                                for (int i = 0; i < p - 1; i++) {
+                                    if (temp[i] < temp[i + 1]) {
+                                        flag = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!flag) {
+                                    return -1;
+                                }
+
+                                int i = p - 2;
+                                char lastDigit = temp[p - 1];
+
+                                while (i >= 0) {
+                                    if (lastDigit > temp[i]) {
+                                        break;
+                                    }
+                                    lastDigit = temp[i];
+                                    i--;
+                                }
+
+                                if (i >= 0) {
+                                    for (int j = p - 1; j > i; j--) {
+                                        if (temp[j] > temp[i]) {
+                                            char tempChar = temp[i];
+                                            temp[i] = temp[j];
+                                            temp[j] = tempChar;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                Arrays.sort(temp, i + 1, p);
+                                long xx = Long.parseLong(new String(temp));
+
+                                if (xx > Integer.MAX_VALUE) {
+                                    return -1;
+                                }
+
+                                return (int) xx;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 9,
-        name: "String Compression",
-        img: share,
-        level: "Medium",
-        url: "https://leetcode.com/problems/string-compression/"
-    },
-    {
-        id: 10,
         name: "Shortest Subarray to be Removed to Make Array Sorted",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/shortest-subarray-to-be-removed-to-make-array-sorted/"
+        url: "https://leetcode.com/problems/shortest-subarray-to-be-removed-to-make-array-sorted/",
+        solution: {
+            description: "Given an integer array arr, remove a subarray (can be empty) from arr such that the remaining elements in arr are non-decreasing. Return the length of the shortest subarray to remove.",
+            code:{
+                cpp: 
+                   `
+                        class Solution {
+                        public:
+                            int findLengthOfShortestSubarray(vector<int>& arr) {
+                                int n = arr.size();
+                                
+                                int left = 0;
+                                while (left + 1 < n && arr[left] <= arr[left + 1]) {
+                                    left++;
+                                }
+                                
+                                if (left == n - 1) return 0;
+                                int right = n - 1;
+                                while (right > 0 && arr[right - 1] <= arr[right]) {
+                                    right--;
+                                }
+                                
+                                int result = min(n - left - 1, right);
+                                int i = 0, j = right;
+                                while (i <= left && j < n) {
+                                    if (arr[i] <= arr[j]) {
+                                        result = min(result, j - i - 1);
+                                        i++;
+                                    } else {
+                                        j++;
+                                    }
+                                }
+                                
+                                return result;
+                            }
+                        };
+                   `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
+                                n = len(arr)
+                                
+                                left = 0
+                                while left + 1 < n and arr[left] <= arr[left + 1]:
+                                    left += 1
+                                
+                                if left == n - 1:
+                                    return 0
+                                
+                                right = n - 1
+                                while right > 0 and arr[right - 1] <= arr[right]:
+                                    right -= 1
+                                
+                                result = min(n - left - 1, right)
+                                
+                                i, j = 0, right
+                                while i <= left and j < n:
+                                    if arr[i] <= arr[j]:
+                                        result = min(result, j - i - 1)
+                                        i += 1
+                                    else:
+                                        j += 1
+                                
+                                return result
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int findLengthOfShortestSubarray(int[] arr) {
+                                int n = arr.length;
+                                
+                                int left = 0;
+                                while (left + 1 < n && arr[left] <= arr[left + 1]) {
+                                    left++;
+                                }
+                                
+                                if (left == n - 1) return 0;
+                                int right = n - 1;
+                                while (right > 0 && arr[right - 1] <= arr[right]) {
+                                    right--;
+                                }
+                                
+                                int result = Math.min(n - left - 1, right);
+                                
+                                int i = 0, j = right;
+                                while (i <= left && j < n) {
+                                    if (arr[i] <= arr[j]) {
+                                        result = Math.min(result, j - i - 1);
+                                        i++;
+                                    } else {
+                                        j++;
+                                    }
+                                }
+                                
+                                return result;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
-        id: 11,
+        id: 10,
         name: "Sentence Similarity III",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/sentence-similarity-iii/"
+        url: "https://leetcode.com/problems/sentence-similarity-iii/",
+        solution: {
+            description: "Given two sentences sentence1 and sentence2, return true if sentence1 and sentence2 are similar. Otherwise, return false.",
+            code:{
+                cpp: 
+                   `
+                        class Solution {
+                        public:
+                            bool areSentencesSimilar(string sentence1, string sentence2) {
+                                auto splitWords = [](const string& sentence) {
+                                    vector<string> words;
+                                    string word = "";
+                                    for (char c : sentence) {
+                                        if (c == ' ') {
+                                            if (!word.empty()) {
+                                                words.push_back(word);
+                                                word = "";
+                                            }
+                                        } else {
+                                            word += c;
+                                        }
+                                    }
+                                    if (!word.empty()) words.push_back(word);
+                                    return words;
+                                };
+
+                                vector<string> words1 = splitWords(sentence1);
+                                vector<string> words2 = splitWords(sentence2);
+                                
+                                if (words1.size() < words2.size()) swap(words1, words2);
+                                
+                                int start = 0, end = 0;
+                                int n1 = words1.size(), n2 = words2.size();
+                                
+                                while (start < n2 && words1[start] == words2[start]) start++;
+                                while (end < n2 && words1[n1 - end - 1] == words2[n2 - end - 1]) end++;
+                                return start + end >= n2;
+                            }
+                        };
+                   `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def areSentencesSimilar(self, sentence1: str, sentence2: str) -> bool:
+                                words1 = sentence1.split()
+                                words2 = sentence2.split()
+
+                                if len(words1) < len(words2):
+                                    words1, words2 = words2, words1
+                                
+                                start, end = 0, 0
+                                n1, n2 = len(words1), len(words2)
+                                
+                                while start < n2 and words1[start] == words2[start]:
+                                    start += 1
+                                
+                                while end < n2 and words1[n1 - end - 1] == words2[n2 - end - 1]:
+                                    end += 1
+                                
+                                return start + end >= n2
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            private String[] splitWords(String sentence) {
+                                return sentence.split(" ");
+                            }
+
+                            public boolean areSentencesSimilar(String sentence1, String sentence2) {
+                                String[] words1 = splitWords(sentence1);
+                                String[] words2 = splitWords(sentence2);
+
+                                if (words1.length < words2.length) {
+                                    String[] temp = words1;
+                                    words1 = words2;
+                                    words2 = temp;
+                                }
+
+                                int start = 0, end = 0;
+                                int n1 = words1.length, n2 = words2.length;
+
+                                while (start < n2 && words1[start].equals(words2[start])) {
+                                    start++;
+                                }
+
+                                while (end < n2 && words1[n1 - end - 1].equals(words2[n2 - end - 1])) {
+                                    end++;
+                                }
+
+                                return start + end >= n2;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
-        id: 12,
+        id: 11,
         name: "Find Median from Data Stream",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/find-median-from-data-stream/"
+        url: "https://leetcode.com/problems/find-median-from-data-stream/",
+        solution: {
+            description: "The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.",
+            code:{
+                cpp: 
+                   `
+                        class MedianFinder {
+                        public:
+                            multiset<int> S;  
+                            multiset<int>::iterator mid;  
+
+                            MedianFinder() {
+                            }
+                            
+                            void addNum(int num) {
+                                if(S.size() == 0) {
+                                    S.insert(num);
+                                    mid = S.begin();
+                                } 
+                                else {
+                                    S.insert(num);  
+                                    if(S.size() % 2 == 0) {
+                                        if(num < *mid) 
+                                            mid--;
+                                    } 
+                                    else {
+                                        if(num >= *mid) 
+                                            mid++;
+                                    }
+                                }
+                            }
+                            
+                            double findMedian() {
+                                if(S.size() % 2 == 0) {
+                                    auto midP = mid; 
+                                    midP++;
+                                    return (double)(*mid + *midP) / 2;
+                                } 
+                                else {
+                                    return *mid;
+                                }
+                            }
+                        };
+                   `
+                ,
+                python:
+                    `
+                        class MedianFinder:
+                            def __init__(self):
+                                self.nums = []
+
+                            def addNum(self, num: int):
+                                bisect.insort(self.nums, num)
+
+                            def findMedian(self) -> float:
+                                n = len(self.nums)
+                                if n % 2 == 0:
+                                    return (self.nums[n // 2 - 1] + self.nums[n // 2]) / 2
+                                else:
+                                    return self.nums[n // 2]
+                    `
+                ,
+                java:
+                    `
+                        class MedianFinder {
+                            private PriorityQueue<Integer> lower;
+                            private PriorityQueue<Integer> upper;
+
+                            public MedianFinder() {
+                                lower = new PriorityQueue<>(Collections.reverseOrder());
+                                upper = new PriorityQueue<>();
+                            }
+
+                            public void addNum(int num) {
+                                if (lower.isEmpty() || num <= lower.peek()) {
+                                    lower.offer(num);
+                                } else {
+                                    upper.offer(num);
+                                }
+
+                                if (lower.size() > upper.size() + 1) {
+                                    upper.offer(lower.poll());
+                                } else if (upper.size() > lower.size()) {
+                                    lower.offer(upper.poll());
+                                }
+                            }
+
+                            public double findMedian() {
+                                if (lower.size() == upper.size()) {
+                                    return (lower.peek() + upper.peek()) / 2.0;
+                                } else {
+                                    return lower.peek();
+                                }
+                            }
+                        }
+                    `
+            },
+        }
     },
 ]
 
