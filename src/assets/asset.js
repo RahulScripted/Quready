@@ -4935,14 +4935,152 @@ export const SearchingData = [
         name: "Guess Number Higher or Lower",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/guess-number-higher-or-lower/"
+        url: "https://leetcode.com/problems/guess-number-higher-or-lower/",
+        solution: {
+            description: "We are playing the Guess Game. The game is as follows: pick a number from 1 to n. You have to guess which number I picked. Every time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess. You call a pre-defined API int guess(int num), which returns three possible results:.",
+            code:{
+                cpp: 
+                    `
+                    int guess(int num);
+
+class Solution {
+public:
+    int guessNumber(int n) {
+        int left = 1, right = n;
+        while (left <= right) {
+            int mid = left + (right - left) / 2; 
+            int result = guess(mid);
+            
+            if (result == 0) {
+                return mid; 
+            } else if (result == -1) {
+                right = mid - 1; 
+            } else {
+                left = mid + 1; 
+            }
+        }
+        return -1; 
+    }
+};
+                    `
+                ,
+                python:
+                    `
+                        def guess(num: int) -> int:
+    pass
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        left, right = 1, n
+        while left <= right:
+            mid = left + (right - left) // 2  # Avoid overflow
+            result = guess(mid)
+            if result == 0:
+                return mid  # Found the number
+            elif result == -1:
+                right = mid - 1  # The number is lower
+            else:
+                left = mid + 1  # The number is higher
+        return -1  
+                    `
+                ,
+                java:
+                    `
+                        int guess(int num);
+
+public class Solution {
+    public int guessNumber(int n) {
+        int left = 1, right = n;
+        while (left <= right) {
+            int mid = left + (right - left) / 2; 
+            int result = guess(mid);
+            if (result == 0) {
+                return mid; 
+            } else if (result == -1) {
+                right = mid - 1; 
+            } else {
+                left = mid + 1; 
+            }
+        }
+        return -1; 
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Binary Search",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/binary-search/"
+        url: "https://leetcode.com/problems/binary-search/",
+        solution: {
+            description: "Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.",
+            code:{
+                cpp: 
+                    `
+                    #include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int left = 0, right = nums.size() - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                return mid; 
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+                        from typing import List
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid = left + (right - left) // 2
+            if nums[mid] == target:
+                return mid  
+            elif nums[mid] < target:
+                left = mid + 1 
+            else:
+                right = mid - 1  
+        return -1  
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+    public int search(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2; 
+            if (nums[mid] == target) {
+                return mid; 
+            } else if (nums[mid] < target) {
+                left = mid + 1; 
+            } else {
+                right = mid - 1; 
+            }
+        }
+        return -1; 
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 3,
