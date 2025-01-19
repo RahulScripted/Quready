@@ -118,27 +118,27 @@ export const TopicsData = [
     },
     {
         id: 14,
-        name: "Trees",
-        Difficulty: "Medium",
-        key: "trees"
-    },
-    {
-        id: 15,
         name: "Heap",
         Difficulty: "Medium",
         key: "heap"
     },
     {
-        id: 16,
+        id: 15,
         name: "Stack",
         Difficulty: "Medium",
         key: "stack"
     },
     {
-        id: 17,
+        id: 16,
         name: "Queue",
         Difficulty: "Medium",
         key: "queue"
+    },
+    {
+        id: 17,
+        name: "Trees",
+        Difficulty: "Medium",
+        key: "trees"
     },
     {
         id: 18,
@@ -8390,63 +8390,855 @@ export const PrefixSumData = [
         name: "Find Pivot Index",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/find-pivot-index/"
+        url: "https://leetcode.com/problems/find-pivot-index/",
+        solution: {
+            description: "Given an array of integers nums, calculate the pivot index of this array. The pivot index is the index where the sum of all the numbers strictly to the left of the index is equal to the sum of all the numbers strictly to the index's right.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int pivotIndex(vector<int>& nums) {
+                                int total = accumulate(nums.begin(), nums.end(), 0);
+                                int leftTotal = 0;
+
+                                for (int i = 0; i < nums.size(); ++i) {
+                                    int rightTotal = total - leftTotal - nums[i];
+                                    if (rightTotal == leftTotal) {
+                                        return i;
+                                    }
+                                    leftTotal += nums[i];
+                                }
+
+                                return -1;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def pivotIndex(self, nums: List[int]) -> int:
+                                total = sum(nums)
+                                left_total = 0
+
+                                for i in range(len(nums)):
+                                    right_total = total - left_total - nums[i]
+
+                                    if right_total == left_total:
+                                        return i
+                                    
+                                    left_total += nums[i]
+                                
+                                return -1
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int pivotIndex(int[] nums) {
+                                int total = 0;
+                                for (int num : nums) {
+                                    total += num;
+                                }
+                                
+                                int leftTotal = 0;
+                                for (int i = 0; i < nums.length; i++) {
+                                    int rightTotal = total - leftTotal - nums[i];
+                                    if (rightTotal == leftTotal) {
+                                        return i;
+                                    }
+                                    leftTotal += nums[i];
+                                }
+
+                                return -1;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Running Sum of 1d Array",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/running-sum-of-1d-array/"
+        url: "https://leetcode.com/problems/running-sum-of-1d-array/",
+        solution: {
+            description: "Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]). Return the running sum of nums.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            vector<int> runningSum(vector<int>& nums) {
+                                for(int i=1;i<nums.size();i++){
+
+                                    nums[i]+=nums[i-1];
+
+                                }
+
+                                return nums;
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution(object):
+                            def runningSum(self, nums):
+                                for i in range(1,len(nums)):
+                                    nums[i]+=nums[i-1]
+                                return nums
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int[] runningSum(int[] nums) {
+
+                                for(int i=1;i<nums.length;i++){
+                                    nums[i]=nums[i-1]+nums[i];
+
+                                }
+                                return nums;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 3,
         name: "Find the Highest Altitude",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/find-the-highest-altitude/"
+        url: "https://leetcode.com/problems/find-the-highest-altitude/",
+        solution: {
+            description: "You are given an integer array gain of length n where gain[i] is the net gain in altitude between points i and i + 1 for all (0 <= i < n). Return the highest altitude of a point.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+
+                            int largestAltitude(vector<int>& gain) {
+
+                                int n = gain.size();
+
+                                vector<int> prefixSum(n + 1, 0);    
+
+                                for(int i = 1; i <= n; i++){
+                                    prefixSum[i] = prefixSum[i - 1] + gain[i - 1];
+                                }
+
+                                return *max_element(prefixSum.begin(), prefixSum.end());
+
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def largestAltitude(self, gain: List[int]) -> int:
+                                n = len(gain)
+                                prefix_sum = [0] * (n + 1)
+                                
+                                for i in range(1, n + 1):
+                                    prefix_sum[i] = prefix_sum[i - 1] + gain[i - 1]
+                                
+                                return max(prefix_sum)
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int largestAltitude(int[] gain) {
+                                int n = gain.length;
+                                int[] prefixSum = new int[n + 1];
+
+                                for (int i = 1; i <= n; i++) {
+                                    prefixSum[i] = prefixSum[i - 1] + gain[i - 1];
+                                }
+
+                                return Arrays.stream(prefixSum).max().getAsInt();
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 4,
         name: "Maximum Subarray Min-Product",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/maximum-subarray-min-product/"
+        url: "https://leetcode.com/problems/maximum-subarray-min-product/",
+        solution: {
+            description: "Given an array of integers nums, return the maximum min-product of any non-empty subarray of nums. Since the answer may be large, return it modulo 109 + 7.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int maxSumMinProduct(vector<int>& nums) {
+                                int mod = 1000000007;
+                                int n = nums.size();
+                                int lft[n], rgt[n];
+                                long long int sum[n + 1];
+                                sum[0] = 0;
+                                for (int i = 1; i < n + 1; i++)
+                                {
+                                    sum[i] = sum[i - 1] + nums[i - 1];
+                                }
+
+                                stack<pair<int, int>> s1, s2;        
+                                lft[0] = 0;
+                                s1.push({nums[0], 0});
+                                for (int i = 1; i < n; i++)
+                                {
+                                    int cur = 0;
+                                    while(!s1.empty() && (s1.top().first) >= nums[i])
+                                    {
+                                        cur += s1.top().second + 1;
+                                        s1.pop();
+                                    }
+                                    s1.push({nums[i], cur});
+                                    lft[i] = cur;
+                                }
+                                
+                                rgt[n - 1] = 0;
+                                s2.push({nums[n - 1], 0});
+                                for (int i = n - 2; i > -1; i--)
+                                {
+                                    int cur = 0;
+                                    while(!s2.empty() && (s2.top().first) >= nums[i])
+                                    {
+                                        cur += s2.top().second + 1;
+                                        s2.pop();
+                                    }
+                                    s2.push({nums[i], cur});
+                                    rgt[i] = cur;
+                                }
+
+                                long long int ans = 0;
+                                for (int i = 0; i < n; i++)
+                                {
+                                    ans = max(ans, nums[i] * (sum[i + rgt[i] + 1] - sum[i - lft[i]]));
+                                }
+                                return ans % mod;           
+                            }
+                        }
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def maxSumMinProduct(self, nums: List[int]) -> int:
+                                mod = 10**9 + 7
+                                n = len(nums)
+
+                                # Calculate prefix sum
+                                prefix_sum = [0] * (n + 1)
+                                for i in range(1, n + 1):
+                                    prefix_sum[i] = prefix_sum[i - 1] + nums[i - 1]
+
+                                # Calculate left boundaries
+                                left = [0] * n
+                                stack1 = []
+                                for i in range(n):
+                                    cur = 0
+                                    while stack1 and stack1[-1][0] >= nums[i]:
+                                        cur += stack1.pop()[1] + 1
+                                    stack1.append((nums[i], cur))
+                                    left[i] = cur
+
+                                # Calculate right boundaries
+                                right = [0] * n
+                                stack2 = []
+                                for i in range(n - 1, -1, -1):
+                                    cur = 0
+                                    while stack2 and stack2[-1][0] >= nums[i]:
+                                        cur += stack2.pop()[1] + 1
+                                    stack2.append((nums[i], cur))
+                                    right[i] = cur
+
+                                # Calculate the maximum sum of minimum product
+                                max_product = 0
+                                for i in range(n):
+                                    range_sum = prefix_sum[i + right[i] + 1] - prefix_sum[i - left[i]]
+                                    max_product = max(max_product, nums[i] * range_sum)
+
+                                return max_product % mod
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int maxSumMinProduct(int[] nums) {
+                                int mod = 1000000007;
+                                int n = nums.length;
+
+                                int[] left = new int[n];
+                                int[] right = new int[n];
+                                long[] prefixSum = new long[n + 1];
+
+                                // Calculate prefix sum
+                                prefixSum[0] = 0;
+                                for (int i = 1; i <= n; i++) {
+                                    prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+                                }
+
+                                // Calculate left boundaries
+                                Stack<int[]> stack1 = new Stack<>();
+                                left[0] = 0;
+                                stack1.push(new int[] { nums[0], 0 });
+                                for (int i = 1; i < n; i++) {
+                                    int cur = 0;
+                                    while (!stack1.isEmpty() && stack1.peek()[0] >= nums[i]) {
+                                        cur += stack1.pop()[1] + 1;
+                                    }
+                                    stack1.push(new int[] { nums[i], cur });
+                                    left[i] = cur;
+                                }
+
+                                // Calculate right boundaries
+                                Stack<int[]> stack2 = new Stack<>();
+                                right[n - 1] = 0;
+                                stack2.push(new int[] { nums[n - 1], 0 });
+                                for (int i = n - 2; i >= 0; i--) {
+                                    int cur = 0;
+                                    while (!stack2.isEmpty() && stack2.peek()[0] >= nums[i]) {
+                                        cur += stack2.pop()[1] + 1;
+                                    }
+                                    stack2.push(new int[] { nums[i], cur });
+                                    right[i] = cur;
+                                }
+
+                                // Calculate the maximum sum of minimum product
+                                long ans = 0;
+                                for (int i = 0; i < n; i++) {
+                                    long rangeSum = prefixSum[i + right[i] + 1] - prefixSum[i - left[i]];
+                                    ans = Math.max(ans, nums[i] * rangeSum);
+                                }
+
+                                return (int) (ans % mod);
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 5,
         name: "Product of Array Except Self",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/product-of-array-except-self/"
+        url: "https://leetcode.com/problems/product-of-array-except-self/",
+        solution: {
+            description: "Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            vector<int> productExceptSelf(vector<int>& nums) {
+                                vector<int> output(nums.size(), 1);
+
+                                int left = 1;
+                                for (int i = 0; i < nums.size(); i++) {
+                                    output[i] *= left;
+                                    left *= nums[i];
+                                }
+
+                                int right = 1;
+                                for (int i = nums.size() - 1; i >= 0; i--) {
+                                    output[i] *= right;
+                                    right *= nums[i];
+                                }
+
+                                return output;        
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def productExceptSelf(self, nums: List[int]) -> List[int]:
+                                output = [1] * len(nums)
+                                
+                                left = 1
+                                for i in range(len(nums)):
+                                    output[i] *= left
+                                    left *= nums[i]
+                                
+                                right = 1
+                                for i in range(len(nums) - 1, -1, -1):
+                                    output[i] *= right
+                                    right *= nums[i]
+                            
+                                return output        
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int[] productExceptSelf(int[] nums) {
+                                int[] output = new int[nums.length];
+                                for (int i = 0; i < nums.length; i++) {
+                                    output[i] = 1;
+                                }
+
+                                int left = 1;
+                                for (int i = 0; i < nums.length; i++) {
+                                    output[i] *= left;
+                                    left *= nums[i];
+                                }
+
+                                int right = 1;
+                                for (int i = nums.length - 1; i >= 0; i--) {
+                                    output[i] *= right;
+                                    right *= nums[i];
+                                }
+
+                                return output;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 6,
         name: "Subarray Sum Equals K",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/subarray-sum-equals-k/"
+        url: "https://leetcode.com/problems/subarray-sum-equals-k/",
+        solution: {
+            description: "Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int subarraySum(vector<int>& nums, int k) {
+                                unordered_map<int, int> subNum;
+                                subNum[0] = 1;
+                                int total = 0, count = 0;
+
+                                for (int n : nums) {
+                                    total += n;
+
+                                    if (subNum.find(total - k) != subNum.end()) {
+                                        count += subNum[total - k];
+                                    }
+
+                                    subNum[total]++;
+                                }
+
+                                return count;
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def subarraySum(self, nums: List[int], k: int) -> int:
+                                sub_num = {0:1}
+                                total = count = 0
+
+                                for n in nums:
+                                    total += n
+                                    
+                                    if total - k in sub_num:
+                                        count += sub_num[total-k]
+                                    
+                                    sub_num[total] = 1 + sub_num.get(total, 0)
+                                
+                                return count
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int subarraySum(int[] nums, int k) {
+                                HashMap<Integer, Integer> subNum = new HashMap<>();
+                                subNum.put(0, 1);
+                                int total = 0, count = 0;
+
+                                for (int n : nums) {
+                                    total += n;
+
+                                    if (subNum.containsKey(total - k)) {
+                                        count += subNum.get(total - k);
+                                    }
+
+                                    subNum.put(total, subNum.getOrDefault(total, 0) + 1);
+                                }
+
+                                return count;        
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 7,
         name: "Make Sum Divisible by P",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/make-sum-divisible-by-p/"
+        url: "https://leetcode.com/problems/make-sum-divisible-by-p/",
+        solution: {
+            description: "Given an array of positive integers nums, remove the smallest subarray (possibly empty) such that the sum of the remaining elements is divisible by p. It is not allowed to remove the whole array. Return the length of the smallest subarray that you need to remove, or -1 if it's impossible.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                                int minSubarray(vector<int>& A, int p) {
+                                int n = A.size(), res = n, need = 0, cur = 0;
+                                for (auto a : A)
+                                    need = (need + a) % p;
+                                unordered_map<int, int> last = {{0, -1}};
+                                for (int i = 0; i < n; ++i) {
+                                    cur = (cur + A[i]) % p;
+                                    last[cur] = i;
+                                    int want = (cur - need + p) % p;
+                                    if (last.count(want))
+                                        res = min(res, i - last[want]);
+                                }
+                                return res < n ? res : -1;
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def minSubarray(self, A: List[int], p: int) -> int:
+                                n = len(A)
+                                need = sum(A) % p
+                                if need == 0:
+                                    return 0
+                                
+                                last = {0: -1}  # Store remainder and its last occurrence
+                                cur = 0
+                                res = n
+
+                                for i, a in enumerate(A):
+                                    cur = (cur + a) % p
+                                    last[cur] = i
+                                    want = (cur - need + p) % p
+                                    if want in last:
+                                        res = min(res, i - last[want])
+                                
+                                return res if res < n else -1
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int minSubarray(int[] A, int p) {
+                                int n = A.length;
+                                int need = 0;
+                                for (int a : A) {
+                                    need = (need + a) % p;
+                                }
+                                if (need == 0) {
+                                    return 0;
+                                }
+
+                                Map<Integer, Integer> last = new HashMap<>();
+                                last.put(0, -1); // Store remainder and its last occurrence
+                                int cur = 0;
+                                int res = n;
+
+                                for (int i = 0; i < n; ++i) {
+                                    cur = (cur + A[i]) % p;
+                                    last.put(cur, i);
+                                    int want = (cur - need + p) % p;
+                                    if (last.containsKey(want)) {
+                                        res = Math.min(res, i - last.get(want));
+                                    }
+                                }
+
+                                return res < n ? res : -1;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 8,
         name: "Number of Sub-matrices That Sum to Target",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/"
+        url: "https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/",
+        solution: {
+            description: "Given a matrix and a target, return the number of non-empty submatrices that sum to target.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int subarraySum(vector<int>& nums, int k) {
+                                int count=0,sum=0;
+                                map<int,int>mp;
+                                for(int i=0;i<nums.size();i++)
+                                {
+                                    sum+=nums[i];
+                                    if(sum==k)
+                                    {
+                                        count++;
+                                    }
+                                    if(mp.find(sum-k)!=mp.end())
+                                    {
+                                    count+=mp[sum-k];  
+                                    }
+                                    mp[sum]++;
+                                }
+                                return count;
+                            }
+                            int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
+                            int count=0;
+                                for(int i=0; i<matrix.size(); i++){
+                                    
+                                    vector<int> sum(matrix[0].size(), 0);
+                                    for(int j=i; j<matrix.size(); j++){
+                                        for(int k=0; k<matrix[0].size(); k++){
+                                            sum[k] += matrix[j][k];
+                                        }
+                                        count += subarraySum(sum, target);
+                                    }
+                                }
+                            
+                            return count;
+                            }
+                        }; 
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def subarraySum(self, nums: List[int], k: int) -> int:
+                                count = 0
+                                sum_val = 0
+                                mp = defaultdict(int)
+
+                                for num in nums:
+                                    sum_val += num
+
+                                    if sum_val == k:
+                                        count += 1
+
+                                    if sum_val - k in mp:
+                                        count += mp[sum_val - k]
+
+                                    mp[sum_val] += 1
+
+                                return count
+
+                            def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
+                                count = 0
+
+                                for i in range(len(matrix)):
+                                    sum_val = [0] * len(matrix[0])
+
+                                    for j in range(i, len(matrix)):
+                                        for k in range(len(matrix[0])):
+                                            sum_val[k] += matrix[j][k]
+
+                                        count += self.subarraySum(sum_val, target)
+
+                                return count
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int subarraySum(int[] nums, int k) {
+                                int count = 0;
+                                int sum = 0;
+                                Map<Integer, Integer> mp = new HashMap<>();
+
+                                for (int i = 0; i < nums.length; i++) {
+                                    sum += nums[i];
+
+                                    if (sum == k) {
+                                        count++;
+                                    }
+
+                                    if (mp.containsKey(sum - k)) {
+                                        count += mp.get(sum - k);
+                                    }
+
+                                    mp.put(sum, mp.getOrDefault(sum, 0) + 1);
+                                }
+
+                                return count;
+                            }
+
+                            public int numSubmatrixSumTarget(int[][] matrix, int target) {
+                                int count = 0;
+
+                                for (int i = 0; i < matrix.length; i++) {
+                                    int[] sum = new int[matrix[0].length];
+
+                                    for (int j = i; j < matrix.length; j++) {
+                                        for (int k = 0; k < matrix[0].length; k++) {
+                                            sum[k] += matrix[j][k];
+                                        }
+
+                                        count += subarraySum(sum, target);
+                                    }
+                                }
+
+                                return count;
+                            }
+                        }
+                    `
+            },
+        }
     },
     {
         id: 9,
         name: "Minimum Adjacent Swaps for K Consecutive Ones",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/"
+        url: "https://leetcode.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/",
+        solution: {
+            description: "You are given an integer array, nums, and an integer k. nums comprises of only 0's and 1's. In one move, you can choose two adjacent indices and swap their values. Return the minimum number of moves required so that nums has k consecutive 1's.",
+            code:{
+                cpp: 
+                    `
+                        class Solution {
+                        public:
+                            int minMoves(vector<int>& nums, int k) {
+                                vector<int> pos;
+                                for (int i = 0; i < nums.size(); ++i) {
+                                    if (nums[i] == 1) {
+                                        pos.push_back(i);
+                                    }
+                                }
+
+                                for (int i = 0; i < pos.size(); ++i) {
+                                    pos[i] -= i;
+                                }
+
+                                int mid = k / 2;
+                                int sizeLeft = mid;
+                                int sizeRight = k - 1 - sizeLeft;
+
+                                long long curLeft = 0, curRight = 0;
+                                for (int i = 0; i < sizeLeft; ++i) {
+                                    curLeft += abs(pos[i] - pos[mid]);
+                                }
+                                for (int i = mid + 1; i < k; ++i) {
+                                    curRight += abs(pos[i] - pos[mid]);
+                                }
+
+                                long long minRes = curLeft + curRight;
+
+                                for (int ptr = 1; ptr <= pos.size() - k; ++ptr) {
+                                    curLeft -= (pos[ptr + mid - 1] - pos[ptr - 1]);
+                                    curLeft += (pos[ptr + mid] - pos[ptr + mid - 1]) * sizeLeft;
+
+                                    curRight -= (pos[ptr + mid] - pos[ptr + mid - 1]) * sizeRight;
+                                    curRight += (pos[ptr + k - 1] - pos[ptr + mid]);
+
+                                    minRes = min(minRes, curLeft + curRight);
+                                }
+
+                                return minRes;
+                            }
+                        };
+                    `
+                ,
+                python:
+                    `
+                        class Solution:
+                            def minMoves(self, nums: List[int], k: int) -> int:
+                                pos = [p for p,x in enumerate(nums) if x == 1]
+                                print(pos)
+
+                                pos = [p-i for i,p in enumerate(pos)]        
+                                print(pos)
+                                
+                                mid = k//2
+                                sizeleft = mid
+                                sizeright = k-1-sizeleft
+                                
+                                curleft = sum(abs(x - pos[mid]) for x in pos[:sizeleft])
+                                curright = sum(abs(x - pos[mid]) for x in pos[mid+1:k])        
+                                minres = curleft + curright
+                                
+                                print(curleft, curright, minres)
+                                
+                                for ptr in range(1, len(pos)-k+1):
+                                    # print("ptr", ptr, ptr+mid, ptr+k)
+                                    curleft -= (pos[ptr+mid-1] - pos[ptr-1])
+                                    curleft += (pos[ptr+mid] - pos[ptr+mid-1])*sizeleft
+                                
+                                    curright -= (pos[ptr+mid] - pos[ptr+mid-1])*sizeright
+                                    curright += (pos[ptr+k-1] - pos[ptr+mid])
+                                
+                                    minres = min(minres, curleft+curright)
+                                    # print(curleft, curright, minres)
+                                    
+                                print()
+                                return minres
+                    `
+                ,
+                java:
+                    `
+                        class Solution {
+                            public int minMoves(int[] nums, int k) {
+                                List<Integer> pos = new ArrayList<>();
+                                for (int i = 0; i < nums.length; ++i) {
+                                    if (nums[i] == 1) {
+                                        pos.add(i);
+                                    }
+                                }
+
+                                for (int i = 0; i < pos.size(); ++i) {
+                                    pos.set(i, pos.get(i) - i);
+                                }
+
+                                int mid = k / 2;
+                                int sizeLeft = mid;
+                                int sizeRight = k - 1 - sizeLeft;
+
+                                long curLeft = 0, curRight = 0;
+                                for (int i = 0; i < sizeLeft; ++i) {
+                                    curLeft += Math.abs(pos.get(i) - pos.get(mid));
+                                }
+                                for (int i = mid + 1; i < k; ++i) {
+                                    curRight += Math.abs(pos.get(i) - pos.get(mid));
+                                }
+
+                                long minRes = curLeft + curRight;
+
+                                for (int ptr = 1; ptr <= pos.size() - k; ++ptr) {
+                                    curLeft -= (pos.get(ptr + mid - 1) - pos.get(ptr - 1));
+                                    curLeft += (pos.get(ptr + mid) - pos.get(ptr + mid - 1)) * sizeLeft;
+
+                                    curRight -= (pos.get(ptr + mid) - pos.get(ptr + mid - 1)) * sizeRight;
+                                    curRight += (pos.get(ptr + k - 1) - pos.get(ptr + mid));
+
+                                    minRes = Math.min(minRes, curLeft + curRight);
+                                }
+
+                                return (int) minRes;
+                            }
+                        }
+                    `
+            },
+        }
     },
 ]
 
