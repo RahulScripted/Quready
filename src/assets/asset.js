@@ -112,15 +112,15 @@ export const TopicsData = [
     },
     {
         id: 13,
-        name: "Backtracking",
-        Difficulty: "Medium",
-        key: "backtracking"
-    },
-    {
-        id: 14,
         name: "Heap",
         Difficulty: "Medium",
         key: "heap"
+    },
+    {
+        id: 14,
+        name: "Sliding Window",
+        Difficulty: "Medium",
+        key: "slidingWindow"
     },
     {
         id: 15,
@@ -136,15 +136,15 @@ export const TopicsData = [
     },
     {
         id: 17,
-        name: "Trees",
+        name: "Backtracking",
         Difficulty: "Medium",
-        key: "trees"
+        key: "backtracking"
     },
     {
         id: 18,
-        name: "Sliding Window",
+        name: "Trees",
         Difficulty: "Medium",
-        key: "slidingWindow"
+        key: "trees"
     },
     {
         id: 19,
