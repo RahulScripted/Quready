@@ -5087,77 +5087,961 @@ class Solution:
         name: "First Bad Version",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/first-bad-version/"
+        url: "https://leetcode.com/problems/first-bad-version/",
+        solution: {
+            description: "You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad. Suppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad. You are given an API bool isBadVersion(version) which returns whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API..",
+            code:{
+                cpp: 
+                    `
+bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int left = 1, right = n;
+        while (left < right) {
+            int mid = left + (right - left) / 2; 
+            if (isBadVersion(mid)) {
+                right = mid; 
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left; 
+    }
+};
+                    `
+                ,
+                python:
+                    `
+  def firstBadVersion(n):
+    left, right = 1, n  
+    while left < right:
+        mid = left + (right - left) // 2  
+        if isBadVersion(mid):
+            right = mid  
+        else:
+            left = mid + 1  
+    return left 
+                    `
+                ,
+                java:
+                    `
+boolean isBadVersion(int version);
+
+public class Solution {
+    public int firstBadVersion(int n) {
+        int left = 1, right = n;
+        while (left < right) {
+            int mid = left + (right - left) / 2; // Prevent potential overflow
+            if (isBadVersion(mid)) {
+                right = mid; // Narrow the range to the left
+            } else {
+                left = mid + 1; // Narrow the range to the right
+            }
+        }
+        return left; // The first bad version
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 4,
         name: "Find First and Last Position of Element in Sorted Array",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/"
+        url: "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+        solution: {
+            description: "Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value. If target is not found in the array, return [-1, -1].",
+            code:{
+                cpp: 
+                    `
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        return {findBound(nums, target, true), findBound(nums, target, false)};
+    }
+
+private:
+    int findBound(const vector<int>& nums, int target, bool isFirst) {
+        int left = 0, right = nums.size() - 1, result = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                result = mid;
+                if (isFirst) right = mid - 1; // Narrow to the left
+                else left = mid + 1;         // Narrow to the right
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return result;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+  class Solution:
+    def searchRange(self, nums, target):
+        return [self.find_bound(nums, target, True), self.find_bound(nums, target, False)]
+    
+    def find_bound(self, nums, target, is_first):
+        left, right = 0, len(nums) - 1
+        result = -1
+        while left <= right:
+            mid = left + (right - left) // 2
+            if nums[mid] == target:
+                result = mid
+                if is_first:
+                    right = mid - 1  # Narrow to the left
+                else:
+                    left = mid + 1   # Narrow to the right
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return result
+
+                    `
+                ,
+                java:
+                    `
+import java.util.Arrays;
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        return new int[]{findBound(nums, target, true), findBound(nums, target, false)};
+    }
+
+    private int findBound(int[] nums, int target, boolean isFirst) {
+        int left = 0, right = nums.length - 1, result = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                result = mid;
+                if (isFirst) {
+                    right = mid - 1; // Narrow to the left
+                } else {
+                    left = mid + 1;  // Narrow to the right
+                }
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return result;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 5,
         name: "Find Minimum in Rotated Sorted Array",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/"
+        url: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+        solution: {
+            description: "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become: [4,5,6,7,0,1,2] if it was rotated 4 times. [0,1,2,4,5,6,7] if it was rotated 7 times. Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]]. Given the sorted rotated array nums of unique elements, return the minimum element of this array.",
+            code:{
+                cpp: 
+                    `
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int left = 0, right = nums.size() - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right]) {
+                left = mid + 1; // Minimum is in the right part
+            } else {
+                right = mid; // Minimum is in the left part (or mid itself)
+            }
+        }
+        return nums[left]; // The minimum element
+    }
+};
+                    `
+                ,
+                python:
+                    `
+ class Solution:
+    def findMin(self, nums):
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = left + (right - left) // 2
+            if nums[mid] > nums[right]:
+                left = mid + 1  # Minimum is in the right part
+            else:
+                right = mid  # Minimum is in the left part (or mid itself)
+        return nums[left]  # The minimum element
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int findMin(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right]) {
+                left = mid + 1; // Minimum is in the right part
+            } else {
+                right = mid; // Minimum is in the left part (or mid itself)
+            }
+        }
+        return nums[left]; // The minimum element
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 6,
         name: "Find Peak Element",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/find-peak-element/"
+        url: "https://leetcode.com/problems/find-peak-element/",
+        solution: {
+            description: "A peak element is an element that is strictly greater than its neighbors. Given a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks. You may imagine that nums[-1] = nums[n] = -∞. In other words, an element is always considered to be strictly greater than a neighbor that is outside the array.",
+            code:{
+                cpp: 
+                    `
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        int left = 0, right = nums.size() - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[mid + 1]) {
+                right = mid; // The peak is in the left part (including mid)
+            } else {
+                left = mid + 1; // The peak is in the right part
+            }
+        }
+        return left; // The peak element's index
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def findPeakElement(self, nums):
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = left + (right - left) // 2
+            if nums[mid] > nums[mid + 1]:
+                right = mid  # The peak is in the left part (including mid)
+            else:
+                left = mid + 1  # The peak is in the right part
+        return left  # The peak element's index
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int findPeakElement(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[mid + 1]) {
+                right = mid; // The peak is in the left part (including mid)
+            } else {
+                left = mid + 1; // The peak is in the right part
+            }
+        }
+        return left; // The peak element's index
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 7,
         name: "Search a 2D Matrix II",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/search-a-2d-matrix-ii/"
+        url: "https://leetcode.com/problems/search-a-2d-matrix-ii/",
+        solution: {
+            description: "Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix. This matrix has the following properties: Integers in each row are sorted in ascending from left to right. Integers in each column are sorted in ascending from top to bottom.",
+            code:{
+                cpp: 
+                    `
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        
+        // Start from the top-right corner
+        int row = 0, col = cols - 1;
+        
+        while (row < rows && col >= 0) {
+            if (matrix[row][col] == target) {
+                return true; // Target found
+            } else if (matrix[row][col] > target) {
+                col--; // Move left
+            } else {
+                row++; // Move down
+            }
+        }
+        
+        return false; // Target not found
+    }
+};
+                    `
+                ,
+                python:
+                    `
+  class Solution:
+    def searchMatrix(self, matrix, target):
+        rows, cols = len(matrix), len(matrix[0])
+        
+        # Start from the top-right corner
+        row, col = 0, cols - 1
+        
+        while row < rows and col >= 0:
+            if matrix[row][col] == target:
+                return True  # Target found
+            elif matrix[row][col] > target:
+                col -= 1  # Move left
+            else:
+                row += 1  # Move down
+        
+        return False  
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        
+        // Start from the top-right corner
+        int row = 0, col = cols - 1;
+        
+        while (row < rows && col >= 0) {
+            if (matrix[row][col] == target) {
+                return true; // Target found
+            } else if (matrix[row][col] > target) {
+                col--; // Move left
+            } else {
+                row++; // Move down
+            }
+        }
+        
+        return false; // Target not found
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 8,
         name: "Koko Eating Bananas",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/koko-eating-bananas/"
+        url: "https://leetcode.com/problems/koko-eating-bananas/",
+        solution: {
+            description: "Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours. Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour. Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return. Return the minimum integer k such that she can eat all the bananas within h hours.",
+            code:{
+                cpp: 
+                    `
+#include <vector>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int left = 1, right = *max_element(piles.begin(), piles.end());
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (canEatAll(piles, h, mid)) {
+                right = mid; // Try smaller speed
+            } else {
+                left = mid + 1; // Increase speed
+            }
+        }
+        return left;
+    }
+
+private:
+    bool canEatAll(const vector<int>& piles, int h, int k) {
+        int hours = 0;
+        for (int pile : piles) {
+            hours += (pile + k - 1) / k; // Ceiling of pile / k
+        }
+        return hours <= h;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def minEatingSpeed(self, piles, h):
+        def canEatAll(k):
+            return sum((pile + k - 1) // k for pile in piles) <= h
+
+        left, right = 1, max(piles)
+        while left < right:
+            mid = left + (right - left) // 2
+            if canEatAll(mid):
+                right = mid  # Try smaller speed
+            else:
+                left = mid + 1  # Increase speed
+        return left
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int left = 1, right = Arrays.stream(piles).max().getAsInt();
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (canEatAll(piles, h, mid)) {
+                right = mid; // Try smaller speed
+            } else {
+                left = mid + 1; // Increase speed
+            }
+        }
+        return left;
+    }
+
+    private boolean canEatAll(int[] piles, int h, int k) {
+        int hours = 0;
+        for (int pile : piles) {
+            hours += (pile + k - 1) / k; // Ceiling of pile / k
+        }
+        return hours <= h;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 9,
         name: "Max Consecutive Ones III",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/max-consecutive-ones-iii/"
+        url: "https://leetcode.com/problems/max-consecutive-ones-iii/",
+        solution: {
+            description: "Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.",
+            code:{
+                cpp: 
+                    `
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {
+        int left = 0, right = 0;
+        int max_len = 0, zero_count = 0;
+
+        while (right < nums.size()) {
+            if (nums[right] == 0) {
+                zero_count++;
+            }
+            
+            while (zero_count > k) {
+                if (nums[left] == 0) {
+                    zero_count--;
+                }
+                left++;
+            }
+            
+            max_len = max(max_len, right - left + 1);
+            right++;
+        }
+
+        return max_len;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+ class Solution:
+    def longestOnes(self, nums, k):
+        left = 0
+        max_len = 0
+        zero_count = 0
+
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                zero_count += 1
+            
+            while zero_count > k:
+                if nums[left] == 0:
+                    zero_count -= 1
+                left += 1
+            
+            max_len = max(max_len, right - left + 1)
+        
+        return max_len
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int left = 0, maxLen = 0, zeroCount = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] == 0) {
+                zeroCount++;
+            }
+            
+            while (zeroCount > k) {
+                if (nums[left] == 0) {
+                    zeroCount--;
+                }
+                left++;
+            }
+            
+            maxLen = Math.max(maxLen, right - left + 1);
+        }
+
+        return maxLen;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 10,
         name: "Search Suggestions System",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/search-suggestions-system/"
+        url: "https://leetcode.com/problems/search-suggestions-system/",
+        solution: {
+            description: "You are given an array of strings products and a string searchWord. Design a system that suggests at most three product names from products after each character of searchWord is typed. Suggested products should have common prefix with searchWord. If there are more than three products with a common prefix return the three lexicographically minimums products.",
+            code:{
+                cpp: 
+                    `
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        sort(products.begin(), products.end());
+        vector<vector<string>> result;
+        string prefix;
+        for (char c : searchWord) {
+            prefix += c;
+            auto it = lower_bound(products.begin(), products.end(), prefix);
+            vector<string> suggestions;
+            for (int i = 0; i < 3 && it + i != products.end(); i++) {
+                if ((it + i)->substr(0, prefix.size()) == prefix) {
+                    suggestions.push_back(*(it + i));
+                }
+            }
+            result.push_back(suggestions);
+        }
+        return result;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+ from bisect import bisect_left
+
+class Solution:
+    def suggestedProducts(self, products, searchWord):
+        products.sort()
+        result = []
+        prefix = ""
+        for c in searchWord:
+            prefix += c
+            start = bisect_left(products, prefix)
+            suggestions = []
+            for i in range(start, min(start + 3, len(products))):
+                if products[i].startswith(prefix):
+                    suggestions.append(products[i])
+            result.append(suggestions)
+        return result
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+class Solution {
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        Arrays.sort(products);
+        List<List<String>> result = new ArrayList<>();
+        String prefix = "";
+        for (char c : searchWord.toCharArray()) {
+            prefix += c;
+            int start = Arrays.binarySearch(products, prefix);
+            if (start < 0) {
+                start = -start - 1;
+            }
+            List<String> suggestions = new ArrayList<>();
+            for (int i = start; i < Math.min(start + 3, products.length); i++) {
+                if (products[i].startsWith(prefix)) {
+                    suggestions.add(products[i]);
+                }
+            }
+            result.add(suggestions);
+        }
+        return result;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 11,
         name: "Minimum Limit of Balls in a Bag",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/"
+        url: "https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/",
+        solution: {
+            description: "You are given an integer array nums where the ith bag contains nums[i] balls. You are also given an integer maxOperations. You can perform the following operation at most maxOperations times: Take any bag of balls and divide it into two new bags with a positive number of balls. For example, a bag of 5 balls can become two new bags of 1 and 4 balls, or two new bags of 2 and 3 balls. Your penalty is the maximum number of balls in a bag. You want to minimize your penalty after the operations. Return the minimum possible penalty after performing the operations.",
+            code:{
+                cpp: 
+                    `
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    bool canDivide(vector<int>& nums, int maxPenalty, int maxOperations) {
+        int operations = 0;
+        for (int balls : nums) {
+            operations += (balls - 1) / maxPenalty; // Calculate required splits
+            if (operations > maxOperations) {
+                return false; // Exceeds allowed operations
+            }
+        }
+        return true;
+    }
+    
+    int minimumSize(vector<int>& nums, int maxOperations) {
+        int left = 1, right = *max_element(nums.begin(), nums.end());
+        int result = right;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (canDivide(nums, mid, maxOperations)) {
+                result = mid; // Update result if feasible
+                right = mid - 1; // Search for smaller penalty
+            } else {
+                left = mid + 1; // Increase penalty
+            }
+        }
+
+        return result;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def canDivide(self, nums, maxPenalty, maxOperations):
+        operations = 0
+        for balls in nums:
+            operations += (balls - 1) // maxPenalty
+            if operations > maxOperations:
+                return False
+        return True
+
+    def minimumSize(self, nums, maxOperations):
+        left, right = 1, max(nums)
+        result = right
+
+        while left <= right:
+            mid = (left + right) // 2
+            if self.canDivide(nums, mid, maxOperations):
+                result = mid
+                right = mid - 1
+            else:
+                left = mid + 1
+
+        return result
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+class Solution {
+    public boolean canDivide(int[] nums, int maxPenalty, int maxOperations) {
+        int operations = 0;
+        for (int balls : nums) {
+            operations += (balls - 1) / maxPenalty;
+            if (operations > maxOperations) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int minimumSize(int[] nums, int maxOperations) {
+        int left = 1, right = Arrays.stream(nums).max().getAsInt();
+        int result = right;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (canDivide(nums, mid, maxOperations)) {
+                result = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return result;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 12,
         name: "Shortest Subarray with Sum at Least K",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/"
+        url: "https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/",
+        solution: {
+            description: "Given an integer array nums and an integer k, return the length of the shortest non-empty subarray of nums with a sum of at least k. If there is no such subarray, return -1. A subarray is a contiguous part of an array.",
+            code:{
+                cpp: 
+                    `
+#include <vector>
+#include <deque>
+#include <climits>
+using namespace std;
+
+class Solution {
+public:
+    int shortestSubarray(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<long long> prefixSum(n + 1, 0);
+        for (int i = 0; i < n; ++i) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+
+        deque<int> dq;
+        int minLength = INT_MAX;
+
+        for (int i = 0; i <= n; ++i) {
+            while (!dq.empty() && prefixSum[i] - prefixSum[dq.front()] >= k) {
+                minLength = min(minLength, i - dq.front());
+                dq.pop_front();
+            }
+
+            while (!dq.empty() && prefixSum[i] <= prefixSum[dq.back()]) {
+                dq.pop_back();
+            }
+
+            dq.push_back(i);
+        }
+
+        return minLength == INT_MAX ? -1 : minLength;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+from collections import deque
+
+class Solution:
+    def shortestSubarray(self, nums, k):
+        n = len(nums)
+        prefix_sum = [0] * (n + 1)
+        for i in range(n):
+            prefix_sum[i + 1] = prefix_sum[i] + nums[i]
+
+        dq = deque()
+        min_length = float("inf")
+
+        for i in range(n + 1):
+            while dq and prefix_sum[i] - prefix_sum[dq[0]] >= k:
+                min_length = min(min_length, i - dq.popleft())
+
+            while dq and prefix_sum[i] <= prefix_sum[dq[-1]]:
+                dq.pop()
+
+            dq.append(i)
+
+        return min_length if min_length != float("inf") else -1
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+class Solution {
+    public int shortestSubarray(int[] nums, int k) {
+        int n = nums.length;
+        long[] prefixSum = new long[n + 1];
+        for (int i = 0; i < n; ++i) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+
+        Deque<Integer> dq = new ArrayDeque<>();
+        int minLength = Integer.MAX_VALUE;
+
+        for (int i = 0; i <= n; ++i) {
+            while (!dq.isEmpty() && prefixSum[i] - prefixSum[dq.peekFirst()] >= k) {
+                minLength = Math.min(minLength, i - dq.pollFirst());
+            }
+
+            while (!dq.isEmpty() && prefixSum[i] <= prefixSum[dq.peekLast()]) {
+                dq.pollLast();
+            }
+
+            dq.offerLast(i);
+        }
+
+        return minLength == Integer.MAX_VALUE ? -1 : minLength;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 13,
         name: "Nth Magical Number",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/nth-magical-number/"
+        url: "https://leetcode.com/problems/nth-magical-number/",
+        solution: {
+            description: "A positive integer is magical if it is divisible by either a or b. Given the three integers n, a, and b, return the nth magical number. Since the answer may be very large, return it modulo 109 + 7.",
+            code:{
+                cpp: 
+                    `
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int nthMagicalNumber(int n, int a, int b) {
+        const int MOD = 1e9 + 7;
+        long long lcm = (long long)a * b / __gcd(a, b);
+
+        long long left = 1, right = (long long)n * min(a, b), result = 0;
+        while (left <= right) {
+            long long mid = left + (right - left) / 2;
+            long long count = mid / a + mid / b - mid / lcm;
+
+            if (count >= n) {
+                result = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return result % MOD;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+ from math import gcd
+
+class Solution:
+    def nthMagicalNumber(self, n: int, a: int, b: int) -> int:
+        MOD = 10**9 + 7
+        lcm = (a * b) // gcd(a, b)
+
+        left, right = 1, n * min(a, b)
+        while left < right:
+            mid = (left + right) // 2
+            count = mid // a + mid // b - mid // lcm
+
+            if count >= n:
+                right = mid
+            else:
+                left = mid + 1
+
+        return left % MOD
+                    `
+                ,
+                java:
+                    `
+import java.math.*;
+
+class Solution {
+    public int nthMagicalNumber(int n, int a, int b) {
+        final int MOD = 1_000_000_007;
+        long lcm = (long) a * b / gcd(a, b);
+
+        long left = 1, right = (long) n * Math.min(a, b);
+        while (left < right) {
+            long mid = left + (right - left) / 2;
+            long count = mid / a + mid / b - mid / lcm;
+
+            if (count >= n) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return (int) (left % MOD);
+    }
+
+    private int gcd(int x, int y) {
+        while (y != 0) {
+            int temp = y;
+            y = x % y;
+            x = temp;
+        }
+        return x;
+    }
+}
+                    `
+            },
+        }
     },
 ]
 
@@ -8594,105 +9478,1966 @@ export const LinkedListData = [
         name: "Remove Duplicates from Sorted List",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/remove-duplicates-from-sorted-list/"
+        url: "https://leetcode.com/problems/remove-duplicates-from-sorted-list/",
+                solution: {
+            description: "Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.",
+            code:{
+                cpp: 
+                    `
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode* next) : val(x), next(next) {}
+};
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* current = head;
+        while (current && current->next) {
+            if (current->val == current->next->val) {
+                current->next = current->next->next; // Skip the duplicate node
+            } else {
+                current = current->next; // Move to the next node
+            }
+        }
+        return head;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        current = head
+        while current and current.next:
+            if current.val == current.next.val:
+                current.next = current.next.next  # Skip the duplicate node
+            else:
+                current = current.next  # Move to the next node
+        return head
+                    `
+                ,
+                java:
+                    `
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode current = head;
+        while (current != null && current.next != null) {
+            if (current.val == current.next.val) {
+                current.next = current.next.next; // Skip the duplicate node
+            } else {
+                current = current.next; // Move to the next node
+            }
+        }
+        return head;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Intersection of Two Linked Lists",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/intersection-of-two-linked-lists/"
+        url: "https://leetcode.com/problems/intersection-of-two-linked-lists/",
+        solution: {
+            description: "Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return null.",
+            code:{
+                cpp: 
+                    `
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* getIntersectionNode(ListNode* headA, ListNode* headB) {
+        if (!headA || !headB) return nullptr;
+
+        // Calculate lengths of both lists
+        int lenA = 0, lenB = 0;
+        ListNode* currA = headA;
+        ListNode* currB = headB;
+        
+        while (currA) {
+            lenA++;
+            currA = currA->next;
+        }
+        while (currB) {
+            lenB++;
+            currB = currB->next;
+        }
+        
+        // Align the starting points
+        int diff = abs(lenA - lenB);
+        currA = headA;
+        currB = headB;
+        if (lenA > lenB) {
+            for (int i = 0; i < diff; i++) currA = currA->next;
+        } else {
+            for (int i = 0; i < diff; i++) currB = currB->next;
+        }
+
+        // Find the intersection
+        while (currA && currB) {
+            if (currA == currB) return currA; // Found intersection
+            currA = currA->next;
+            currB = currB->next;
+        }
+
+        return nullptr; // No intersection
+    }
+};
+                    `
+                ,
+                python:
+                    `
+ class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        if not headA or not headB:
+            return None
+
+        # Calculate lengths of both lists
+        def get_length(head):
+            length = 0
+            while head:
+                length += 1
+                head = head.next
+            return length
+
+        lenA = get_length(headA)
+        lenB = get_length(headB)
+
+        # Align the starting points
+        currA, currB = headA, headB
+        if lenA > lenB:
+            for _ in range(lenA - lenB):
+                currA = currA.next
+        else:
+            for _ in range(lenB - lenA):
+                currB = currB.next
+
+        # Find the intersection
+        while currA and currB:
+            if currA == currB:
+                return currA  # Found intersection
+            currA = currA.next
+            currB = currB.next
+
+        return None  # No intersection
+                    `
+                ,
+                java:
+                    `
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) {
+        val = x;
+        next = null;
+    }
+}
+
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+
+        // Calculate lengths of both lists
+        int lenA = 0, lenB = 0;
+        ListNode currA = headA, currB = headB;
+
+        while (currA != null) {
+            lenA++;
+            currA = currA.next;
+        }
+        while (currB != null) {
+            lenB++;
+            currB = currB.next;
+        }
+
+        // Align the starting points
+        currA = headA;
+        currB = headB;
+        if (lenA > lenB) {
+            for (int i = 0; i < lenA - lenB; i++) currA = currA.next;
+        } else {
+            for (int i = 0; i < lenB - lenA; i++) currB = currB.next;
+        }
+
+        // Find the intersection
+        while (currA != null && currB != null) {
+            if (currA == currB) return currA; // Found intersection
+            currA = currA.next;
+            currB = currB.next;
+        }
+
+        return null; // No intersection
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 3,
         name: "Reverse Linked List",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/reverse-linked-list/"
+        url: "https://leetcode.com/problems/reverse-linked-list/",
+        solution: {
+            description: "Given the head of a singly linked list, reverse the list, and return the reversed list.",
+            code:{
+                cpp: 
+                    `
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+
+        while (curr != nullptr) {
+            ListNode* next = curr->next; // Save the next node
+            curr->next = prev;          // Reverse the link
+            prev = curr;                // Move prev to current
+            curr = next;                // Move to the next node
+        }
+
+        return prev; // New head of the reversed list
+    }
+};
+                    `
+                ,
+                python:
+                    `
+ class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        prev = None
+        curr = head
+
+        while curr:
+            next_node = curr.next  # Save the next node
+            curr.next = prev       # Reverse the link
+            prev = curr            # Move prev to current
+            curr = next_node       # Move to the next node
+
+        return prev  # New head of the reversed list
+                    `
+                ,
+                java:
+                    `
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while (curr != null) {
+            ListNode next = curr.next; // Save the next node
+            curr.next = prev;         // Reverse the link
+            prev = curr;              // Move prev to current
+            curr = next;              // Move to the next node
+        }
+
+        return prev; // New head of the reversed list
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 4,
         name: "Palindrome Linked List",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/palindrome-linked-list/"
+        url: "https://leetcode.com/problems/palindrome-linked-list/",
+        solution: {
+            description: "Given the head of a singly linked list, return true if it is a palindrome or false otherwise.",
+            code:{
+                cpp: 
+                    `
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if (!head || !head->next) return true;
+
+        // Find the middle of the list
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // Reverse the second half
+        ListNode* prev = nullptr;
+        while (slow) {
+            ListNode* temp = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = temp;
+        }
+
+        // Compare the first and second halves
+        ListNode* left = head;
+        ListNode* right = prev;
+        while (right) {
+            if (left->val != right->val) return false;
+            left = left->next;
+            right = right->next;
+        }
+
+        return true;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        if not head or not head.next:
+            return True
+
+        # Find the middle of the list
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # Reverse the second half
+        prev = None
+        while slow:
+            temp = slow.next
+            slow.next = prev
+            prev = slow
+            slow = temp
+
+        # Compare the first and second halves
+        left, right = head, prev
+        while right:
+            if left.val != right.val:
+                return False
+            left = left.next
+            right = right.next
+
+        return True
+
+                    `
+                ,
+                java:
+                    `
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) return true;
+
+        // Find the middle of the list
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse the second half
+        ListNode prev = null;
+        while (slow != null) {
+            ListNode temp = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = temp;
+        }
+
+        // Compare the first and second halves
+        ListNode left = head, right = prev;
+        while (right != null) {
+            if (left.val != right.val) return false;
+            left = left.next;
+            right = right.next;
+        }
+
+        return true;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 5,
         name: "Swap Nodes in Pairs",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/swap-nodes-in-pairs/"
+        url: "https://leetcode.com/problems/swap-nodes-in-pairs/",
+        solution: {
+            description: "Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes. ",
+            code:{
+                cpp: 
+                    `
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode dummy(0);
+        dummy.next = head;
+        ListNode* prev = &dummy;
+
+        while (prev->next && prev->next->next) {
+            ListNode* first = prev->next;
+            ListNode* second = first->next;
+
+            // Swap
+            first->next = second->next;
+            second->next = first;
+            prev->next = second;
+
+            // Move to the next pair
+            prev = first;
+        }
+
+        return dummy.next;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        dummy = ListNode(0, head)
+        prev = dummy
+
+        while prev.next and prev.next.next:
+            first = prev.next
+            second = first.next
+
+            # Swap
+            first.next = second.next
+            second.next = first
+            prev.next = second
+
+            # Move to the next pair
+            prev = first
+
+        return dummy.next
+                    `
+                ,
+                java:
+                    `
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode prev = dummy;
+
+        while (prev.next != null && prev.next.next != null) {
+            ListNode first = prev.next;
+            ListNode second = first.next;
+
+            // Swap
+            first.next = second.next;
+            second.next = first;
+            prev.next = second;
+
+            // Move to the next pair
+            prev = first;
+        }
+
+        return dummy.next;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 6,
         name: "Remove Duplicates from Sorted List II",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/"
+        url: "https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/",
+        solution: {
+            description: "Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well. ",
+            code:{
+                cpp: 
+                    `
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode dummy(0);
+        dummy.next = head;
+        ListNode* prev = &dummy;
+
+        while (head) {
+            if (head->next && head->val == head->next->val) {
+                // Skip nodes with duplicate values
+                while (head->next && head->val == head->next->val) {
+                    head = head->next;
+                }
+                prev->next = head->next; // Remove duplicates
+            } else {
+                prev = prev->next; // Move prev only if no duplicates
+            }
+            head = head->next; // Move to the next node
+        }
+
+        return dummy.next;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        dummy = ListNode(0)
+        dummy.next = head
+        prev = dummy
+
+        while head:
+            if head.next and head.val == head.next.val:
+                # Skip nodes with duplicate values
+                while head.next and head.val == head.next.val:
+                    head = head.next
+                prev.next = head.next  # Remove duplicates
+            else:
+                prev = prev.next  # Move prev only if no duplicates
+            head = head.next  # Move to the next node
+
+        return dummy.next
+                    `
+                ,
+                java:
+                    `
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+
+        while (head != null) {
+            if (head.next != null && head.val == head.next.val) {
+                // Skip nodes with duplicate values
+                while (head.next != null && head.val == head.next.val) {
+                    head = head.next;
+                }
+                prev.next = head.next; // Remove duplicates
+            } else {
+                prev = prev.next; // Move prev only if no duplicates
+            }
+            head = head.next; // Move to the next node
+        }
+
+        return dummy.next;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 7,
         name: "Flatten Binary Tree to Linked List",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/flatten-binary-tree-to-linked-list/"
+        url: "https://leetcode.com/problems/flatten-binary-tree-to-linked-list/",
+        solution: {
+            description: "Given the root of a binary tree, flatten the tree into a linked list: The linked list should use the same TreeNode class where the right child pointer points to the next node in the list and the left child pointer is always null. The linked list should be in the same order as a pre-order traversal of the binary tree. ",
+            code:{
+                cpp: 
+                    `
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if (!root) return;
+
+        TreeNode* curr = root;
+        while (curr) {
+            if (curr->left) {
+                // Find the rightmost node in the left subtree
+                TreeNode* rightMost = curr->left;
+                while (rightMost->right) {
+                    rightMost = rightMost->right;
+                }
+                // Connect it to the current right subtree
+                rightMost->right = curr->right;
+
+                // Move the left subtree to the right
+                curr->right = curr->left;
+                curr->left = nullptr;
+            }
+            // Move to the next node
+            curr = curr->right;
+        }
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def flatten(self, root: TreeNode) -> None:
+        curr = root
+        while curr:
+            if curr.left:
+                # Find the rightmost node in the left subtree
+                right_most = curr.left
+                while right_most.right:
+                    right_most = right_most.right
+                # Connect it to the current right subtree
+                right_most.right = curr.right
+
+                # Move the left subtree to the right
+                curr.right = curr.left
+                curr.left = None
+            # Move to the next node
+            curr = curr.right
+                    `
+                ,
+                java:
+                    `
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+class Solution {
+    public void flatten(TreeNode root) {
+        TreeNode curr = root;
+        while (curr != null) {
+            if (curr.left != null) {
+                // Find the rightmost node in the left subtree
+                TreeNode rightMost = curr.left;
+                while (rightMost.right != null) {
+                    rightMost = rightMost.right;
+                }
+                // Connect it to the current right subtree
+                rightMost.right = curr.right;
+
+                // Move the left subtree to the right
+                curr.right = curr.left;
+                curr.left = null;
+            }
+            // Move to the next node
+            curr = curr.right;
+        }
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 8,
         name: "Copy List with Random Pointer",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/copy-list-with-random-pointer/"
+        url: "https://leetcode.com/problems/copy-list-with-random-pointer/",
+        solution: {
+            description: "A linked list of length n is given such that each node contains an additional random pointer, which could point to any node in the list, or null. Construct a deep copy of the list. The deep copy should consist of exactly n brand new nodes, where each new node has its value set to the value of its corresponding original node. Both the next and random pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. None of the pointers in the new list should point to nodes in the original list.",
+            code:{
+                cpp: 
+                    `
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+
+    Node(int _val) {
+        val = _val;
+        next = nullptr;
+        random = nullptr;
+    }
+};
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (!head) return nullptr;
+
+        // Step 1: Insert copy nodes
+        Node* curr = head;
+        while (curr) {
+            Node* copy = new Node(curr->val);
+            copy->next = curr->next;
+            curr->next = copy;
+            curr = copy->next;
+        }
+
+        // Step 2: Update random pointers
+        curr = head;
+        while (curr) {
+            if (curr->random) {
+                curr->next->random = curr->random->next;
+            }
+            curr = curr->next->next;
+        }
+
+        // Step 3: Separate the lists
+        Node* dummy = new Node(0);
+        Node* copyCurr = dummy;
+        curr = head;
+
+        while (curr) {
+            copyCurr->next = curr->next;
+            curr->next = curr->next->next;
+            copyCurr = copyCurr->next;
+            curr = curr->next;
+        }
+
+        return dummy->next;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+class Node:
+    def __init__(self, val=0, next=None, random=None):
+        self.val = val
+        self.next = next
+        self.random = random
+
+class Solution:
+    def copyRandomList(self, head: Node) -> Node:
+        if not head:
+            return None
+
+        # Step 1: Insert copy nodes
+        curr = head
+        while curr:
+            copy = Node(curr.val)
+            copy.next = curr.next
+            curr.next = copy
+            curr = copy.next
+
+        # Step 2: Update random pointers
+        curr = head
+        while curr:
+            if curr.random:
+                curr.next.random = curr.random.next
+            curr = curr.next.next
+
+        # Step 3: Separate the lists
+        dummy = Node(0)
+        copy_curr = dummy
+        curr = head
+
+        while curr:
+            copy_curr.next = curr.next
+            curr.next = curr.next.next
+            copy_curr = copy_curr.next
+            curr = curr.next
+
+        return dummy.next
+                    `
+                ,
+                java:
+                    `
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) return null;
+
+        // Step 1: Insert copy nodes
+        Node curr = head;
+        while (curr != null) {
+            Node copy = new Node(curr.val);
+            copy.next = curr.next;
+            curr.next = copy;
+            curr = copy.next;
+        }
+
+        // Step 2: Update random pointers
+        curr = head;
+        while (curr != null) {
+            if (curr.random != null) {
+                curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+        }
+
+        // Step 3: Separate the lists
+        Node dummy = new Node(0);
+        Node copyCurr = dummy;
+        curr = head;
+
+        while (curr != null) {
+            copyCurr.next = curr.next;
+            curr.next = curr.next.next;
+            copyCurr = copyCurr.next;
+            curr = curr.next;
+        }
+
+        return dummy.next;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 9,
         name: "LRU Cache",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/lru-cache/"
+        url: "https://leetcode.com/problems/lru-cache/",
+        solution: {
+            description: "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.",
+            code:{
+                cpp: 
+                    `
+#include <unordered_map>
+using namespace std;
+
+class LRUCache {
+private:
+    struct Node {
+        int key, value;
+        Node *prev, *next;
+        Node(int k, int v) : key(k), value(v), prev(nullptr), next(nullptr) {}
+    };
+
+    unordered_map<int, Node*> cache;
+    Node *head, *tail;
+    int capacity, size;
+
+    void removeNode(Node* node) {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+
+    void addToHead(Node* node) {
+        node->next = head->next;
+        node->prev = head;
+        head->next->prev = node;
+        head->next = node;
+    }
+
+public:
+    LRUCache(int capacity) : capacity(capacity), size(0) {
+        head = new Node(0, 0);
+        tail = new Node(0, 0);
+        head->next = tail;
+        tail->prev = head;
+    }
+
+    int get(int key) {
+        if (cache.find(key) == cache.end()) return -1;
+        Node* node = cache[key];
+        removeNode(node);
+        addToHead(node);
+        return node->value;
+    }
+
+    void put(int key, int value) {
+        if (cache.find(key) != cache.end()) {
+            Node* node = cache[key];
+            node->value = value;
+            removeNode(node);
+            addToHead(node);
+        } else {
+            Node* node = new Node(key, value);
+            cache[key] = node;
+            addToHead(node);
+            size++;
+            if (size > capacity) {
+                Node* lru = tail->prev;
+                removeNode(lru);
+                cache.erase(lru->key);
+                delete lru;
+                size--;
+            }
+        }
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+class Node:
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.cache = {}
+        self.capacity = capacity
+        self.size = 0
+        self.head = Node(0, 0)
+        self.tail = Node(0, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def _remove(self, node: Node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def _add_to_head(self, node: Node):
+        node.next = self.head.next
+        node.prev = self.head
+        self.head.next.prev = node
+        self.head.next = node
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        node = self.cache[key]
+        self._remove(node)
+        self._add_to_head(node)
+        return node.value
+
+    def put(self, key: int, value: int):
+        if key in self.cache:
+            node = self.cache[key]
+            node.value = value
+            self._remove(node)
+            self._add_to_head(node)
+        else:
+            node = Node(key, value)
+            self.cache[key] = node
+            self._add_to_head(node)
+            self.size += 1
+            if self.size > self.capacity:
+                lru = self.tail.prev
+                self._remove(lru)
+                del self.cache[lru.key]
+                self.size -= 1
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+class LRUCache {
+    private class Node {
+        int key, value;
+        Node prev, next;
+        Node(int k, int v) {
+            key = k;
+            value = v;
+        }
+    }
+
+    private Map<Integer, Node> cache = new HashMap<>();
+    private int capacity, size;
+    private Node head, tail;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.size = 0;
+        head = new Node(0, 0);
+        tail = new Node(0, 0);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    private void removeNode(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    private void addToHead(Node node) {
+        node.next = head.next;
+        node.prev = head;
+        head.next.prev = node;
+        head.next = node;
+    }
+
+    public int get(int key) {
+        if (!cache.containsKey(key)) return -1;
+        Node node = cache.get(key);
+        removeNode(node);
+        addToHead(node);
+        return node.value;
+    }
+
+    public void put(int key, int value) {
+        if (cache.containsKey(key)) {
+            Node node = cache.get(key);
+            node.value = value;
+            removeNode(node);
+            addToHead(node);
+        } else {
+            Node node = new Node(key, value);
+            cache.put(key, node);
+            addToHead(node);
+            size++;
+            if (size > capacity) {
+                Node lru = tail.prev;
+                removeNode(lru);
+                cache.remove(lru.key);
+                size--;
+            }
+        }
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 10,
         name: "Delete Node in a Linked List",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/delete-node-in-a-linked-list/"
+        url: "https://leetcode.com/problems/delete-node-in-a-linked-list/",
+        solution: {
+            description: "here is a singly-linked list head and we want to delete a node node in it. You are given the node to be deleted node. You will not be given access to the first node of head. All the values of the linked list are unique, and it is guaranteed that the given node node is not the last node in the linked list. Delete the given node. Note that by deleting the node, we do not mean removing it from memory.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+using namespace std;
+
+// Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        // Copy the value of the next node to the current node
+        node->val = node->next->val;
+        // Skip the next node
+        node->next = node->next->next;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def deleteNode(node: ListNode):
+    """
+    Delete the given node from the linked list.
+    """
+    # Copy the value of the next node to the current node
+    node.val = node.next.val
+    # Skip the next node
+    node.next = node.next.next
+                    `
+                ,
+                java:
+                    `
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; next = null; }
+}
+
+public class Solution {
+    public void deleteNode(ListNode node) {
+        // Copy the value of the next node to the current node
+        node.val = node.next.val;
+        // Skip the next node
+        node.next = node.next.next;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 11,
         name: "Delete the Middle Node of a Linked List",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/"
+        url: "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/",
+        solution: {
+            description: "A positive integer is magical if it is divisible by either a or b. Given the three integers n, a, and b, return the nth magical number. Since the answer may be very large, return it modulo 109 + 7.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+using namespace std;
+
+// Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        // If there is only one node, return null
+        if (head == nullptr || head->next == nullptr) {
+            return nullptr;
+        }
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* prev = nullptr;
+        
+        // Move slow one step and fast two steps until fast reaches the end
+        while (fast != nullptr && fast->next != nullptr) {
+            fast = fast->next->next;
+            prev = slow;
+            slow = slow->next;
+        }
+        
+        // Delete the middle node
+        prev->next = slow->next;
+        
+        return head;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def deleteMiddle(self, head: ListNode) -> ListNode:
+        # If there is only one node, return None (empty list)
+        if not head or not head.next:
+            return None
+        
+        slow = head
+        fast = head
+        prev = None
+        
+        # Move slow one step and fast two steps until fast reaches the end
+        while fast and fast.next:
+            fast = fast.next.next
+            prev = slow
+            slow = slow.next
+        
+        # Delete the middle node
+        prev.next = slow.next
+        
+        return head
+                    `
+                ,
+                java:
+                    `
+public class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) {
+        val = x;
+        next = null;
+    }
+}
+
+public class Solution {
+    public ListNode deleteMiddle(ListNode head) {
+        // If there is only one node, return null
+        if (head == null || head.next == null) {
+            return null;
+        }
+        
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = null;
+        
+        // Move slow one step and fast two steps until fast reaches the end
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            prev = slow;
+            slow = slow.next;
+        }
+        
+        // Delete the middle node
+        prev.next = slow.next;
+        
+        return head;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 12,
         name: "Maximum Twin Sum of a Linked List",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/"
+        url: "https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/",
+        solution: {
+            description: "In a linked list of size n, where n is even, the ith node (0-indexed) of the linked list is known as the twin of the (n-1-i)th node, if 0 <= i <= (n / 2) - 1.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+using namespace std;
+
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    int pairSum(ListNode* head) {
+        // Step 1: Find the middle using slow and fast pointers
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // Step 2: Reverse the second half of the list
+        ListNode* prev = nullptr;
+        while (slow) {
+            ListNode* next_node = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = next_node;
+        }
+
+        // Step 3: Calculate the twin sum and track the maximum twin sum
+        int max_twin_sum = 0;
+        ListNode* first_half = head;
+        ListNode* second_half = prev; // 'prev' is now the head of the reversed second half
+        
+        while (second_half) {
+            max_twin_sum = max(max_twin_sum, first_half->val + second_half->val);
+            first_half = first_half->next;
+            second_half = second_half->next;
+        }
+
+        return max_twin_sum;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+ # Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x=0, next=None):
+        self.val = x
+        self.next = next
+
+class Solution:
+    def pairSum(self, head: ListNode) -> int:
+        # Step 1: Find the middle of the list using the fast and slow pointer approach
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        # Step 2: Reverse the second half of the list
+        prev = None
+        while slow:
+            next_node = slow.next
+            slow.next = prev
+            prev = slow
+            slow = next_node
+        
+        # Step 3: Calculate the twin sum and track the maximum twin sum
+        max_twin_sum = 0
+        first_half = head
+        second_half = prev  # 'prev' is now the head of the reversed second half
+        
+        while second_half:
+            max_twin_sum = max(max_twin_sum, first_half.val + second_half.val)
+            first_half = first_half.next
+            second_half = second_half.next
+        
+        return max_twin_sum
+                    `
+                ,
+                java:
+                    `
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class Solution {
+    public int pairSum(ListNode head) {
+        // Step 1: Find the middle using slow and fast pointers
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Step 2: Reverse the second half of the list
+        ListNode prev = null;
+        while (slow != null) {
+            ListNode nextNode = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = nextNode;
+        }
+
+        // Step 3: Calculate the twin sum and track the maximum twin sum
+        int maxTwinSum = 0;
+        ListNode firstHalf = head;
+        ListNode secondHalf = prev; // 'prev' is now the head of the reversed second half
+        
+        while (secondHalf != null) {
+            maxTwinSum = Math.max(maxTwinSum, firstHalf.val + secondHalf.val);
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return maxTwinSum;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 13,
         name: "Remove Nodes From Linked List",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/remove-nodes-from-linked-list/"
+        url: "https://leetcode.com/problems/remove-nodes-from-linked-list/",
+        solution: {
+            description: "You are given the head of a linked list. Remove every node which has a node with a greater value anywhere to the right side of it. Return the head of the modified linked list.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+using namespace std;
+
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* removeNodes(ListNode* head) {
+        // Reverse the linked list
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+        while (curr) {
+            ListNode* nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        head = prev;
+
+        // Traverse the reversed list and remove nodes with a smaller value
+        ListNode* maxNode = head;
+        ListNode* current = head;
+        while (current && current->next) {
+            if (current->next->val < maxNode->val) {
+                current->next = current->next->next;
+            } else {
+                current = current->next;
+                maxNode = current;
+            }
+        }
+
+        // Reverse the list back to restore the original order
+        prev = nullptr;
+        curr = head;
+        while (curr) {
+            ListNode* nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        return prev;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x=0, next=None):
+        self.val = x
+        self.next = next
+
+class Solution:
+    def removeNodes(self, head: ListNode) -> ListNode:
+        # Reverse the linked list
+        prev = None
+        curr = head
+        while curr:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
+        head = prev
+
+        # Traverse the reversed list and remove nodes with a smaller value
+        max_node = head
+        current = head
+        while current and current.next:
+            if current.next.val < max_node.val:
+                current.next = current.next.next
+            else:
+                current = current.next
+                max_node = current
+
+        # Reverse the list back to restore the original order
+        prev = None
+        curr = head
+        while curr:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
+        return prev
+                    `
+                ,
+                java:
+                    `
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class Solution {
+    public ListNode removeNodes(ListNode head) {
+        // Reverse the linked list
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        head = prev;
+
+        // Traverse the reversed list and remove nodes with a smaller value
+        ListNode maxNode = head;
+        ListNode current = head;
+        while (current != null && current.next != null) {
+            if (current.next.val < maxNode.val) {
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+                maxNode = current;
+            }
+        }
+
+        // Reverse the list back to restore the original order
+        prev = null;
+        curr = head;
+        while (curr != null) {
+            ListNode nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        return prev;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 14,
         name: "Merge k Sorted Lists",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/merge-k-sorted-lists/"
+        url: "https://leetcode.com/problems/merge-k-sorted-lists/",
+        solution: {
+            description: "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+// Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        auto cmp = [](ListNode* a, ListNode* b) {
+            return a->val > b->val;  // Min-heap by value
+        };
+        
+        priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> pq(cmp);
+        
+        // Push the head of each list into the priority queue
+        for (auto list : lists) {
+            if (list) {
+                pq.push(list);
+            }
+        }
+        
+        ListNode* head = new ListNode(0);  // Dummy node to start the list
+        ListNode* current = head;
+        
+        while (!pq.empty()) {
+            ListNode* node = pq.top();
+            pq.pop();
+            
+            // Append the smallest node to the result list
+            current->next = node;
+            current = current->next;
+            
+            // If there is a next node, push it to the heap
+            if (node->next) {
+                pq.push(node->next);
+            }
+        }
+        
+        return head->next; 
+    }
+};
+                    `
+                ,
+                python:
+                    `
+ import heapq
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x=0, next=None):
+        self.val = x
+        self.next = next
+
+class Solution:
+    def mergeKLists(self, lists):
+        # Define a priority queue (min heap)
+        min_heap = []
+        
+        # Insert the head of each list into the heap
+        for i in range(len(lists)):
+            if lists[i]:
+                heapq.heappush(min_heap, (lists[i].val, i, lists[i]))
+        
+        # Create a dummy node to simplify the merge process
+        dummy = ListNode()
+        current = dummy
+        
+        while min_heap:
+            val, index, node = heapq.heappop(min_heap)
+            
+            # Add the smallest node to the result list
+            current.next = node
+            current = current.next
+            
+            # If the node has a next node, push it into the heap
+            if node.next:
+                heapq.heappush(min_heap, (node.next.val, index, node.next))
+        
+        return dummy.next
+
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        // Min-heap using a comparator
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a.val));
+        
+        // Push the head of each list into the priority queue
+        for (ListNode list : lists) {
+            if (list != null) {
+                pq.offer(list);
+            }
+        }
+        
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        
+        while (!pq.isEmpty()) {
+            ListNode node = pq.poll();
+            
+            current.next = node;
+            current = current.next;
+            
+            if (node.next != null) {
+                pq.offer(node.next);
+            }
+        }
+        
+        return dummy.next;  // Return merged list starting from the next of the dummy node
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 15,
         name: "Reverse Nodes in k-Group",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/reverse-nodes-in-k-group/"
+        url: "https://leetcode.com/problems/reverse-nodes-in-k-group/",
+        solution: {
+            description: "Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list. k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+using namespace std;
+
+// Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        // First, count the length of the linked list
+        int len = 0;
+        ListNode* temp = head;
+        while (temp) {
+            len++;
+            temp = temp->next;
+        }
+        
+        // Create a dummy node to make the head easier to handle
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* prevGroupEnd = dummy;
+        
+        // Reverse every k nodes
+        while (len >= k) {
+            ListNode* groupStart = prevGroupEnd->next;
+            ListNode* groupEnd = groupStart;
+            
+            // Move groupEnd to the kth node
+            for (int i = 1; i < k; i++) {
+                groupEnd = groupEnd->next;
+            }
+            
+            ListNode* nextGroupStart = groupEnd->next;
+            
+            // Reverse the current group of k nodes
+            groupEnd->next = nullptr;
+            prevGroupEnd->next = reverseList(groupStart);
+            groupStart->next = nextGroupStart;
+            
+            // Move prevGroupEnd forward by k nodes
+            prevGroupEnd = groupStart;
+            
+            // Decrease the length by k
+            len -= k;
+        }
+        
+        return dummy->next;
+    }
+    
+private:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+        
+        while (curr) {
+            ListNode* nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        
+        return prev;
+    }
+};
+
+                    `
+                ,
+                python:
+                    `
+class ListNode:
+    def __init__(self, x=0, next=None):
+        self.val = x
+        self.next = next
+
+class Solution:
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        # First, count the length of the linked list
+        length = 0
+        temp = head
+        while temp:
+            length += 1
+            temp = temp.next
+        
+        # Create a dummy node to simplify the head handling
+        dummy = ListNode(0)
+        dummy.next = head
+        prev_group_end = dummy
+        
+        # Reverse every k nodes
+        while length >= k:
+            group_start = prev_group_end.next
+            group_end = group_start
+            
+            # Move group_end to the kth node
+            for _ in range(k - 1):
+                group_end = group_end.next
+                
+            next_group_start = group_end.next
+            
+            # Reverse the current group of k nodes
+            group_end.next = None
+            prev_group_end.next = self.reverseList(group_start)
+            group_start.next = next_group_start
+            
+            # Move prev_group_end forward by k nodes
+            prev_group_end = group_start
+            
+            # Decrease the length by k
+            length -= k
+        
+        return dummy.next
+    
+    def reverseList(self, head: ListNode) -> ListNode:
+        prev = None
+        curr = head
+        
+        while curr:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
+        
+        return prev
+                    `
+                ,
+                java:
+                    `
+public class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        // First, count the length of the linked list
+        int len = 0;
+        ListNode temp = head;
+        while (temp != null) {
+            len++;
+            temp = temp.next;
+        }
+
+        // Create a dummy node to make the head easier to handle
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prevGroupEnd = dummy;
+        
+        // Reverse every k nodes
+        while (len >= k) {
+            ListNode groupStart = prevGroupEnd.next;
+            ListNode groupEnd = groupStart;
+            
+            // Move groupEnd to the kth node
+            for (int i = 1; i < k; i++) {
+                groupEnd = groupEnd.next;
+            }
+            
+            ListNode nextGroupStart = groupEnd.next;
+            
+            // Reverse the current group of k nodes
+            groupEnd.next = null;
+            prevGroupEnd.next = reverseList(groupStart);
+            groupStart.next = nextGroupStart;
+            
+            // Move prevGroupEnd forward by k nodes
+            prevGroupEnd = groupStart;
+            
+            // Decrease the length by k
+            len -= k;
+        }
+        
+        return dummy.next;
+    }
+    
+    private ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        
+        while (curr != null) {
+            ListNode nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        
+        return prev;
+    }
+}
+                    `
+            },
+        }
     },
 ]
 
