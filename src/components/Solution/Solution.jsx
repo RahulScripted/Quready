@@ -71,7 +71,7 @@ const Solution = ({data}) => {
                         <img src={asset.copy} alt="copy" className='w-5 h-5 md:w-7 md:h-7 hover:scale-90 duration-150 transition-all' />
                     </button>
                     <pre 
-                        className='bg-gray-900 text-white rounded-lg overflow-auto leading-none'
+                        className='bg-gray-900 text-white rounded-lg overflow-auto leading-none px-7'
                         style={{
                             margin: 0,
                             fontFamily: "'Fira Code', monospace",

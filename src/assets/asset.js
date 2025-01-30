@@ -192,57 +192,53 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool isPalindrome(int x) {
-                                if (x < 0) return false;
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) return false;
 
-                                long reverse = 0;
-                                int xCopy = x;
+        long reverse = 0;
+        int xCopy = x;
+        while (x > 0) {
+            reverse = (reverse * 10) + (x % 10);
+            x /= 10;
+        }
 
-                                while (x > 0) {
-                                    reverse = (reverse * 10) + (x % 10);
-                                    x /= 10;
-                                }
-
-                                return reverse == xCopy;        
-                            }
-                        };
+        return reverse == xCopy;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                        def isPalindrome(self, x: int) -> bool:
-                            if x < 0: return False
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0: return False
 
-                            reverse = 0
-                            xCopy = x
-
-                            while x > 0:
-                                reverse = (reverse * 10) + (x % 10)
-                                x //= 10
+        reverse = 0
+        xCopy = x
+        while x > 0:
+            reverse = (reverse * 10) + (x % 10)
+            x //= 10
         
-                            return reverse == xCopy
+        return reverse == xCopy
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isPalindrome(int x) {
-                                if (x < 0) return false;
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x < 0) return false;
 
-                                int reverse = 0;
-                                int xCopy = x;
-
-                                while (x > 0) {
-                                    reverse = (reverse * 10) + (x % 10);
-                                    x /= 10;
-                                }
-
-                                return reverse == xCopy;        
-                            }
-                        }
+        int reverse = 0;
+        int xCopy = x;
+        while (x > 0) {
+            reverse = (reverse * 10) + (x % 10);
+            x /= 10;
+        }
+        return reverse == xCopy;        
+    }
+}
                     `
             },
         }
@@ -258,82 +254,76 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int romanToInt(string s) {
-                                int res = 0;
-                                unordered_map<char, int> roman = {
-                                    {'I', 1},
-                                    {'V', 5},
-                                    {'X', 10}, 
-                                    {'L', 50},
-                                    {'C', 100},
-                                    {'D', 500},
-                                    {'M', 1000}
-                                };
+class Solution {
+public:
+    int romanToInt(string s) {
+        int res = 0;
+        unordered_map<char, int> roman = {
+            {'I', 1},
+            {'V', 5},
+            {'X', 10}, 
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000}
+        };
 
-                                for (int i = 0; i < s.size() - 1; i++) {
-                                    if (roman[s[i]] < roman[s[i + 1]]) {
-                                        res -= roman[s[i]];
-                                    } else {
-                                        res += roman[s[i]];
-                                    }
-                                }
+        for (int i = 0; i < s.size() - 1; i++) {
+            if (roman[s[i]] < roman[s[i + 1]]) res -= roman[s[i]];
+            else res += roman[s[i]];
+        }
 
-                                return res + roman[s[s.size() - 1]];        
-                            }
-                        };
+        return res + roman[s[s.size() - 1]];        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                        def romanToInt(self, s: str) -> int:
-                            res = 0
-                            roman = {
-                                'I': 1,
-                                'V': 5,
-                                'X': 10,
-                                'L': 50,
-                                'C': 100,
-                                'D': 500,
-                                'M': 1000
-                            }
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        res = 0
+        roman = {
+            'I': 1,
+            'V': 5,
+            'X': 10,
+            'L': 50,
+            'C': 100,
+            'D': 500,
+            'M': 1000
+        }
 
-                            for a, b in zip(s, s[1:]):
-                                if roman[a] < roman[b]:
-                                    res -= roman[a]
-                                else:
-                                    res += roman[a]
+        for a, b in zip(s, s[1:]):
+            if roman[a] < roman[b]:
+                res -= roman[a]
+            else:
+                res += roman[a]
 
-                            return res + roman[s[-1]] 
+        return res + roman[s[-1]] 
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int romanToInt(String s) {
-                                int res = 0;
-                                Map<Character, Integer> roman = new HashMap<>();
-                                roman.put('I', 1);
-                                roman.put('V', 5);
-                                roman.put('X', 10);
-                                roman.put('L', 50);
-                                roman.put('C', 100);
-                                roman.put('D', 500);
-                                roman.put('M', 1000);
+class Solution {
+    public int romanToInt(String s) {
+        int res = 0;
+        Map<Character, Integer> roman = new HashMap<>();
+        roman.put('I', 1);
+        roman.put('V', 5);
+        roman.put('X', 10);
+        roman.put('L', 50);
+        roman.put('C', 100);
+        roman.put('D', 500);
+        roman.put('M', 1000);
 
-                                for (int i = 0; i < s.length() - 1; i++) {
-                                    if (roman.get(s.charAt(i)) < roman.get(s.charAt(i + 1))) {
-                                        res -= roman.get(s.charAt(i));
-                                    } else {
-                                        res += roman.get(s.charAt(i));
-                                    }
-                                }
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (roman.get(s.charAt(i)) < roman.get(s.charAt(i + 1))) res -= roman.get(s.charAt(i));
+            else res += roman.get(s.charAt(i));
+        }
 
-                                return res + roman.get(s.charAt(s.length() - 1));        
-                            }
-                        }
+        return res + roman.get(s.charAt(s.length() - 1));        
+    }
+}
                     `
             },
         }
@@ -349,59 +339,57 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<int> plusOne(vector<int>& digits) {
-                                for (int i = digits.size() - 1; i >= 0; i--) {
-                                    if (digits[i] + 1 != 10) {
-                                        digits[i] += 1;
-                                        return digits;
-                                    }
-                                    digits[i] = 0;
-                                    if (i == 0) {
-                                        digits.insert(digits.begin(), 1);
-                                        return digits;
-                                    }
-                                }
-                                return digits;        
-                            }
-                        };
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        for (int i = digits.size() - 1; i >= 0; i--) {
+            if (digits[i] + 1 != 10) {
+                digits[i] += 1;
+                return digits;
+            }
+            digits[i] = 0;
+            if (i == 0) {
+                digits.insert(digits.begin(), 1);
+                return digits;
+            }
+        }
+        return digits;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def plusOne(self, digits: List[int]) -> List[int]:
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
 
-                                for i in range(len(digits) - 1, -1, -1):
-
-                                    if digits[i] + 1 != 10:
-                                        digits[i] += 1
-                                        return digits
+        for i in range(len(digits) - 1, -1, -1):
+        if digits[i] + 1 != 10:
+            digits[i] += 1
+            return digits
                                     
-                                    digits[i] = 0
-
-                                    if i == 0:
-                                        return [1] + digits
+        digits[i] = 0
+        if i == 0:
+            return [1] + digits
                     `
                 ,
                 java:
                    `
-                        class Solution {
-                            public int[] plusOne(int[] digits) {
-                                for (int i = digits.length - 1; i >= 0; i--) {
-                                    if (digits[i] + 1 != 10) {
-                                        digits[i] += 1;
-                                        return digits;
-                                    }
-                                    digits[i] = 0;
-                                }
+class Solution {
+    public int[] plusOne(int[] digits) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if (digits[i] + 1 != 10) {
+                digits[i] += 1;
+                return digits;
+            }
+            digits[i] = 0;
+        }
                                 
-                                int[] newDigits = new int[digits.length + 1];
-                                newDigits[0] = 1;
-                                return newDigits;        
-                            }
-                        }
+        int[] newDigits = new int[digits.length + 1];
+        newDigits[0] = 1;
+        return newDigits;        
+    }
+}
                    `
             },
         }
@@ -417,77 +405,73 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            string addBinary(string a, string b) {
-                                string res;
-                                int carry = 0;
-                                int i = a.length() - 1;
-                                int j = b.length() - 1;
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string res;
+        int carry = 0;
+        int i = a.length() - 1;
+        int j = b.length() - 1;
 
-                                while (i >= 0 || j >= 0 || carry) {
-                                    if (i >= 0) carry += a[i--] - '0';
-                                    if (j >= 0) carry += b[j--] - '0';
+        while (i >= 0 || j >= 0 || carry) {
+            if (i >= 0) carry += a[i--] - '0';
+            if (j >= 0) carry += b[j--] - '0';
+            res += carry % 2 + '0';
+            carry /= 2;
+        }
 
-                                    res += carry % 2 + '0';
-                                    carry /= 2;
-                                }
-
-                                reverse(begin(res), end(res));
-                                return res;        
-                            }
-                        };
+        reverse(begin(res), end(res));
+        return res;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def addBinary(self, a: str, b: str) -> str:
-                                carry = 0
-                                res = []
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        carry = 0
+        res = []                   
+        idxA, idxB = len(a) - 1, len(b) - 1
                                 
-                                idxA, idxB = len(a) - 1, len(b) - 1
-                                
-                                while idxA >= 0 or idxB >= 0 or carry == 1:
-                                    if idxA >= 0:
-                                        carry += int(a[idxA])
-                                        idxA -= 1            
-                                    if idxB >= 0:
-                                        carry += int(b[idxB])
-                                        idxB -= 1            
-
-                                    res.append(str(carry % 2))
-                                    carry = carry // 2
-                                    
-                                return "".join(res[::-1])
+        while idxA >= 0 or idxB >= 0 or carry == 1:
+            if idxA >= 0:
+                carry += int(a[idxA])
+                idxA -= 1            
+            if idxB >= 0:
+                carry += int(b[idxB])
+                idxB -= 1            
+            res.append(str(carry % 2))
+            carry = carry // 2                
+        return "".join(res[::-1])
                     `
                 ,
                 java:
                    `
-                        class Solution {
-                            public String addBinary(String a, String b) {
-                                char[] charArrA = a.toCharArray();
-                                char[] charArrB = b.toCharArray();
-                                StringBuilder sb = new StringBuilder();
+class Solution {
+    public String addBinary(String a, String b) {
+        char[] charArrA = a.toCharArray();
+        char[] charArrB = b.toCharArray();
+        StringBuilder sb = new StringBuilder();
 
-                                int i = charArrA.length - 1, j = charArrB.length - 1;
-                                int carry = 0;
-                                while (i >= 0 || j >= 0 || carry > 0) {
-                                    int aNum = i >= 0 ? charArrA[i] - '0' : 0;
-                                    int bNum = j >= 0 ? charArrB[j] - '0' : 0;
+        int i = charArrA.length - 1, j = charArrB.length - 1;
+        int carry = 0;
+        while (i >= 0 || j >= 0 || carry > 0) {
+            int aNum = i >= 0 ? charArrA[i] - '0' : 0;
+            int bNum = j >= 0 ? charArrB[j] - '0' : 0;
 
-                                    int sum = aNum + bNum + carry;
-                                    int digit = sum % 2;
-                                    carry = sum / 2;
-                                    i--;
-                                    j--;
+            int sum = aNum + bNum + carry;
+            int digit = sum % 2;
+            carry = sum / 2;
+            i--;
+            j--;
 
-                                    sb.append((char)(digit + '0'));
-                                }
+            sb.append((char)(digit + '0'));
+        }
 
-                                return sb.reverse().toString();
-                            }
-                        }
+        return sb.reverse().toString();
+    }
+}
                    `
             },
         }
@@ -503,63 +487,55 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int mySqrt(int x) {
-                                if (x == 0) return 0;
-                                int left = 1, right = x;
-                                while (left <= right) {
-                                    int mid = left + (right - left) / 2;
-                                    if (mid == x / mid) {
-                                        return mid;
-                                    } else if (mid < x / mid) {
-                                        left = mid + 1;
-                                    } else {
-                                        right = mid - 1;
-                                    }
-                                }
-                                return right;
-                            }
-                        };
+class Solution {
+public:
+    int mySqrt(int x) {
+        if (x == 0) return 0;
+        int left = 1, right = x;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (mid == x / mid) return mid;
+            else if (mid < x / mid) left = mid + 1;
+            else right = mid - 1;
+        }
+        return right;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def mySqrt(self, x: int) -> int:
-                                if x == 0:
-                                    return 0
-                                left, right = 1, x
-                                while left <= right:
-                                    mid = (left + right) // 2
-                                    if mid * mid == x:
-                                        return mid
-                                    elif mid * mid < x:
-                                        left = mid + 1
-                                    else:
-                                        right = mid - 1
-                                return right
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        if x == 0:
+            return 0
+        left, right = 1, x
+        while left <= right:
+            mid = (left + right) // 2
+            if mid * mid == x:
+                return mid
+            elif mid * mid < x:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return right
                     `
                 ,
                 java:
                    `
-                        class Solution {
-                            public int mySqrt(int x) {
-                                if (x == 0) return 0;
-                                int left = 1, right = x;
-                                while (left <= right) {
-                                    int mid = left + (right - left) / 2;
-                                    if (mid == x / mid) {
-                                        return mid;
-                                    } else if (mid < x / mid) {
-                                        left = mid + 1;
-                                    } else {
-                                        right = mid - 1;
-                                    }
-                                }
-                                return right;
-                            }
-                        }
+class Solution {
+    public int mySqrt(int x) {
+        if (x == 0) return 0;
+        int left = 1, right = x;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (mid == x / mid) return mid;
+            else if (mid < x / mid) left = mid + 1;
+            else right = mid - 1;
+        }
+        return right;
+    }
+}
                    `
             },
         }
@@ -575,63 +551,58 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int climbStairs(int n) {
-                                if (n <= 3) return n;
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n <= 3) return n;
 
-                                int prev1 = 3;
-                                int prev2 = 2;
-                                int cur = 0;
-
-                                for (int i = 3; i < n; i++) {
-                                    cur = prev1 + prev2;
-                                    prev2 = prev1;
-                                    prev1 = cur;
-                                }
-
-                                return cur;        
-                            }
-                        };
+        int prev1 = 3;
+        int prev2 = 2;
+        int cur = 0;
+        for (int i = 3; i < n; i++) {
+            cur = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = cur;
+        }
+        return cur;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def climbStairs(self, n: int) -> int:
-                                if n <= 3: return n
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 3: return n
 
-                                prev1 = 3
-                                prev2 = 2
-                                cur = 0
-
-                                for _ in range(3, n):
-                                    cur = prev1 + prev2
-                                    prev2 = prev1
-                                    prev1 = cur
+        prev1 = 3
+        prev2 = 2
+        cur = 0
+        for _ in range(3, n):
+            cur = prev1 + prev2
+            prev2 = prev1
+            prev1 = cur
                                 
-                                return cur
+        return cur
                     `
                 ,
                 java:
                    `
-                        class Solution {
-                            public int climbStairs(int n) {
-                                if (n <= 3) return n;
+class Solution {
+    public int climbStairs(int n) {
+        if (n <= 3) return n;
 
-                                int prev1 = 3;
-                                int prev2 = 2;
-                                int cur = 0;
-
-                                for (int i = 3; i < n; i++) {
-                                    cur = prev1 + prev2;
-                                    prev2 = prev1;
-                                    prev1 = cur;
-                                }
-
-                                return cur;        
-                            }
-                        }
+        int prev1 = 3;
+        int prev2 = 2;
+        int cur = 0;
+        for (int i = 3; i < n; i++) {
+            cur = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = cur;
+        }
+        return cur;        
+    }
+}
                    `
             },
         }
@@ -647,95 +618,91 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-                                ListNode* dummy = new ListNode();
-                                ListNode* res = dummy;
-                                int total = 0, carry = 0;
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* dummy = new ListNode();
+        ListNode* res = dummy;
+        int total = 0, carry = 0;
 
-                                while (l1 || l2 || carry) {
-                                    total = carry;
+        while (l1 || l2 || carry) {
+            total = carry;
 
-                                    if (l1) {
-                                        total += l1->val;
-                                        l1 = l1->next;
-                                    }
-                                    if (l2) {
-                                        total += l2->val;
-                                        l2 = l2->next;
-                                    }
+            if (l1) {
+                total += l1->val;
+                l1 = l1->next;
+            }
+            if (l2) {
+                total += l2->val;
+                l2 = l2->next;
+            }
 
-                                    int num = total % 10;
-                                    carry = total / 10;
-                                    dummy->next = new ListNode(num);
-                                    dummy = dummy->next;
-                                }
+            int num = total % 10;
+            carry = total / 10;
+            dummy->next = new ListNode(num);
+            dummy = dummy->next;
+        }
 
-                                ListNode* result = res->next;
-                                delete res;
-                                return result;         
-                            }
-                        };
+        ListNode* result = res->next;
+        delete res;
+        return result;         
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
                                 
-                                dummy = ListNode()
-                                res = dummy
+        dummy = ListNode()
+        res = dummy
+        total = carry = 0
 
-                                total = carry = 0
-
-                                while l1 or l2 or carry:
-                                    total = carry
-
-                                    if l1:
-                                        total += l1.val
-                                        l1 = l1.next
-                                    if l2:
-                                        total += l2.val
-                                        l2 = l2.next
-                                    
-                                    num = total % 10
-                                    carry = total // 10
-                                    dummy.next = ListNode(num)
-                                    dummy = dummy.next
+        while l1 or l2 or carry:
+            total = carry
+            if l1:
+                total += l1.val
+                l1 = l1.next
+            if l2:
+                total += l2.val
+                l2 = l2.next                   
+            num = total % 10
+            carry = total // 10
+            dummy.next = ListNode(num)
+            dummy = dummy.next
                                 
-                                return res.next
+        return res.next
                     `
                 ,
                 java:
                    `
-                        class Solution {
-                            public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-                                ListNode dummy = new ListNode();
-                                ListNode res = dummy;
-                                int total = 0, carry = 0;
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode();
+        ListNode res = dummy;
+        int total = 0, carry = 0;
 
-                                while (l1 != null || l2 != null || carry != 0) {
-                                    total = carry;
+        while (l1 != null || l2 != null || carry != 0) {
+            total = carry;
 
-                                    if (l1 != null) {
-                                        total += l1.val;
-                                        l1 = l1.next;
-                                    }
-                                    if (l2 != null) {
-                                        total += l2.val;
-                                        l2 = l2.next;
-                                    }
+            if (l1 != null) {
+                total += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                total += l2.val;
+                l2 = l2.next;
+            }
 
-                                    int num = total % 10;
-                                    carry = total / 10;
-                                    dummy.next = new ListNode(num);
-                                    dummy = dummy.next;
-                                }
-
-                                return res.next;        
-                            }
-                        }
+            int num = total % 10;
+                carry = total / 10;
+                dummy.next = new ListNode(num);
+                dummy = dummy.next;
+            }
+        return res.next;        
+    }
+}
                    `
             },
         }
@@ -751,59 +718,55 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int reverse(int x) {
-                                int ans = 0;
-                                while (x != 0) {
-                                    int digit = x % 10;
-                                    
-                                    if ((ans > INT_MAX / 10) || (ans < INT_MIN / 10)) {
-                                        return 0;
-                                    }
-                                    
-                                    ans = ans * 10 + digit;
-                                    x = x / 10;
-                                }
-                                return ans;
-                            }
-                        };
+class Solution {
+public:
+    int reverse(int x) {
+        int ans = 0;
+        while (x != 0) {
+            int digit = x % 10;                 
+            if ((ans > INT_MAX / 10) || (ans < INT_MIN / 10)) return 0;                
+            ans = ans * 10 + digit;
+            x = x / 10;
+        }
+        return ans;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def reverse(self, x: int) -> int:
-                                res = 0
-                                if x < 0:
-                                    res = int(str(x)[1:][::-1]) * -1
-                                else:
-                                    res = int(str(x)[::-1])
+class Solution:
+    def reverse(self, x: int) -> int:
+        res = 0
+        if x < 0:
+            res = int(str(x)[1:][::-1]) * -1
+        else:
+            res = int(str(x)[::-1])
                                 
-                                if res > 2 ** 31 - 1 or res < -2 ** 31:
-                                    return 0
+        if res > 2 ** 31 - 1 or res < -2 ** 31:
+            return 0
                                 
-                                return res
+        return res
                     `
                 ,
                 java:
                    `
-                        class Solution {
-                            public int reverse(int x) {
-                                int res = 0;
-                                boolean isNegative = x < 0;
-                                String strX = String.valueOf(Math.abs(x));
-                                StringBuilder sb = new StringBuilder(strX).reverse();
+class Solution {
+    public int reverse(int x) {
+        int res = 0;
+        boolean isNegative = x < 0;
+        String strX = String.valueOf(Math.abs(x));
+        StringBuilder sb = new StringBuilder(strX).reverse();
                                 
-                                try {
-                                    res = Integer.parseInt(sb.toString());
-                                } catch (NumberFormatException e) {
-                                    return 0;
-                                }
+        try {
+            res = Integer.parseInt(sb.toString());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
                                 
-                                return isNegative ? -res : res;       
-                            }
-                        }
+        return isNegative ? -res : res;       
+    }
+}
                    `
             },
         }
@@ -819,78 +782,73 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            std::vector<int> memo;
+class Solution {
+public:
+    std::vector<int> memo;
 
-                            int numSquares(int n) {
-                                memo.resize(n + 1, -1);
-                                return solve(n);
-                            }
+    int numSquares(int n) {
+        memo.resize(n + 1, -1);
+        return solve(n);
+    }
 
-                            int solve(int n) {
-                                if (n == 0) return 0;
-                                if (n < 0) return INT_MAX;
-                                if (memo[n] != -1) return memo[n];
-                                int ans = INT_MAX;
-                                for (int i = 1; i * i <= n; ++i) {
-                                    ans = std::min(ans, 1 + solve(n - i * i));
-                                }
-                                return memo[n] = ans;
-                            }
-                        };
+    int solve(int n) {
+        if (n == 0) return 0;
+        if (n < 0) return INT_MAX;
+        if (memo[n] != -1) return memo[n];
+        int ans = INT_MAX;
+        for (int i = 1; i * i <= n; ++i) {
+            ans = std::min(ans, 1 + solve(n - i * i));
+        }
+        return memo[n] = ans;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def numSquares(self, n: int) -> int:
-                                memo = [-1] * (n + 1)
+class Solution:
+    def numSquares(self, n: int) -> int:
+        memo = [-1] * (n + 1)
                                 
-                                def solve(n):
-                                    if n == 0:
-                                        return 0
-                                    if n < 0:
-                                        return float('inf')
-                                    if memo[n] != -1:
-                                        return memo[n]
-                                    ans = float('inf')
-                                    i = 1
-                                    while i * i <= n:
-                                        ans = min(ans, 1 + solve(n - i * i))
-                                        i += 1
-                                    memo[n] = ans
-                                    return ans
+        def solve(n):
+            if n == 0:
+                return 0
+            if n < 0:
+                return float('inf')
+            if memo[n] != -1:
+                return memo[n]
+                ans = float('inf')
+                i = 1
+                while i * i <= n:
+                    ans = min(ans, 1 + solve(n - i * i))
+                    i += 1
+                    memo[n] = ans
+                return ans
                                 
-                                return solve(n)
+            return solve(n)
                     `
                 ,
                 java:
                    `
-                        class Solution {
+class Solution {
+    int[] memo;
+    public int numSquares(int n) {
+        memo = new int[n+1];
+        Arrays.fill(memo, -1);
+        return solve(n);
+    }
 
-                            int[] memo;
-
-                            public int numSquares(int n) {
-                                memo = new int[n+1];
-                                Arrays.fill(memo, -1);
-                                return solve(n);
-                            }
-
-                            public int solve(int n) {
-                                if(n == 0) return 0;
-                                if(n < 0) return Integer.MAX_VALUE;
-                                if(memo[n] != -1) return memo[n];
-                                int ans = Integer.MAX_VALUE;
-                                for(int i=1;i*i<=n;i++) {
-                                    ans = Math.min(
-                                        ans,
-                                        1 + solve(n-(i*i))
-                                    );
-                                }
-                                return memo[n] = ans;
-                            }
-                        }
+    public int solve(int n) {
+        if(n == 0) return 0;
+        if(n < 0) return Integer.MAX_VALUE;
+        if(memo[n] != -1) return memo[n];
+        int ans = Integer.MAX_VALUE;
+        for(int i=1;i*i<=n;i++) {
+            ans = Math.min(ans, 1 + solve(n-(i*i)));
+        }
+        return memo[n] = ans;
+    }
+}
                    `
             },
         }
@@ -906,74 +864,67 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            string intToRoman(int num) {
-                                const vector<pair<int, string>> valueSymbols{
-                                    {1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"},
-                                    {90, "XC"},  {50, "L"},   {40, "XL"}, {10, "X"},   {9, "IX"},
-                                    {5, "V"},    {4, "IV"},   {1, "I"}};
+class Solution {
+public:
+    string intToRoman(int num) {
+        const vector<pair<int, string>> valueSymbols{
+            {1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"},
+            {90, "XC"},  {50, "L"},   {40, "XL"}, {10, "X"},   {9, "IX"},
+            {5, "V"},    {4, "IV"},   {1, "I"}
+        };
 
-                                string res;
-
-                                for (const auto& [value, symbol] : valueSymbols) {
-                                    if (num == 0)
-                                        break;
-
-                                    while (num >= value) {
-                                        res += symbol;
-                                        num -= value;
-                                    }
-                                }
-
-                                return res;        
-                            }
-                        };
+        string res;
+        for (const auto& [value, symbol] : valueSymbols) {
+            if (num == 0) break;
+            while (num >= value) {
+                res += symbol;
+                num -= value;
+            }
+        }
+        return res;        
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def intToRoman(self, num: int) -> str:
-                                value_symbols = [
-                                    (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
-                                    (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'), (10, 'X'),
-                                    (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')
-                                ]
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        value_symbols = [
+            (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
+            (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'), (10, 'X'),
+            (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')
+        ]
                                 
-                                res = []
+        res = []
+        for value, symbol in value_symbols:
+            if num == 0:
+                break
+            count = num // value
+            res.append(symbol * count)
+            num -= count * value
 
-                                for value, symbol in value_symbols:
-                                    if num == 0:
-                                        break
-                                    count = num // value
-                                    res.append(symbol * count)
-                                    num -= count * value
-
-                                return ''.join(res)                
+        return ''.join(res)                
                    `
                 ,
                 java:
                    `
-                        class Solution {
-                            public String intToRoman(int num) {
-                                final int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-                                final String[] symbols = {"M", "CM", "D",  "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+class Solution {
+    public String intToRoman(int num) {
+        final int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        final String[] symbols = {"M", "CM", "D",  "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
-                                StringBuilder sb = new StringBuilder();
-
-                                for (int i = 0; i < values.length; ++i) {
-                                    if (num == 0)
-                                        break;
-                                    while (num >= values[i]) {
-                                        sb.append(symbols[i]);
-                                        num -= values[i];
-                                    }
-                                }
-
-                                return sb.toString();        
-                            }
-                        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.length; ++i) {
+            if (num == 0) break;
+            while (num >= values[i]) {
+                sb.append(symbols[i]);
+                num -= values[i];
+            }
+        }
+        return sb.toString();        
+    }
+}
                    `
             },
         }
@@ -989,81 +940,59 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            double myPow(double x, int n) {
-                                return binaryExp(x, static_cast<long>(n));
-                            }
+        class Solution {
+            public:
+                double myPow(double x, int n) {
+                    return binaryExp(x, static_cast<long>(n));
+                }
 
-                        private:
-                            double binaryExp(double x, long n) {
-                                if (n == 0) {
-                                    return 1;
-                                }
-                            
-                                if (n < 0) {
-                                    return 1.0 / binaryExp(x, -n);
-                                }
-                            
-                                if (n % 2 == 1) {
-                                    return x * binaryExp(x * x, (n - 1) / 2);
-                                } else {
-                                    return binaryExp(x * x, n / 2);
-                                }
-                            }
-                        };
+            private:
+                double binaryExp(double x, long n) {
+                    if (n == 0) return 1; 
+                    if (n < 0) return 1.0 / binaryExp(x, -n); 
+                    if (n % 2 == 1) return x * binaryExp(x * x, (n - 1) / 2);
+                    else return binaryExp(x * x, n / 2);
+                }
+        };
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def myPow(self, x: float, n: int) -> float:
-
-                                def calc_power(x, n):
-                                    if x == 0:
-                                        return 0
-                                    if n == 0:
-                                        return 1
+        class Solution:
+            def myPow(self, x: float, n: int) -> float:
+                def calc_power(x, n):
+                    if x == 0:
+                        return 0
+                    if n == 0:
+                        return 1
                                     
-                                    res = calc_power(x, n // 2)
-                                    res = res * res
-
-                                    if n % 2 == 1:
-                                        return res * x
+                    res = calc_power(x, n // 2)
+                    res = res * res
+                    if n % 2 == 1:
+                        return res * x
                                     
-                                    return res
-
-                                ans = calc_power(x, abs(n))
-
-                                if n >= 0:
-                                    return ans
+                    return res
+                    ans = calc_power(x, abs(n))
+                    if n >= 0:
+                        return ans
                                 
-                                return 1 / ans 
+                    return 1 / ans 
                    `
                 ,
                 java:
                    `
-                        class Solution {
-                            public double myPow(double x, int n) {
-                                return binaryExp(x, (long) n);
-                            }
+        class Solution {
+            public double myPow(double x, int n) {
+                return binaryExp(x, (long) n);
+            }
 
-                            private double binaryExp(double x, long n) {
-                                if (n == 0) {
-                                    return 1;
-                                }
-                            
-                                if (n < 0) {
-                                    return 1.0 / binaryExp(x, -n);
-                                }
-                            
-                                if (n % 2 == 1) {
-                                    return x * binaryExp(x * x, (n - 1) / 2);
-                                } else {
-                                    return binaryExp(x * x, n / 2);
-                                }
-                            }
-                        }
+            private double binaryExp(double x, long n) {
+                if (n == 0) return 1;
+                if (n < 0) return 1.0 / binaryExp(x, -n);
+                if (n % 2 == 1) return x * binaryExp(x * x, (n - 1) / 2);
+                else return binaryExp(x * x, n / 2);
+            }
+        }
                    `
             },
         }
@@ -1079,59 +1008,56 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int uniquePaths(int m, int n) {
-                                std::vector<int> aboveRow(n, 1);
+        class Solution {
+            public:
+                int uniquePaths(int m, int n) {
+                    std::vector<int> aboveRow(n, 1);
+                    for (int row = 1; row < m; row++) {
+                        std::vector<int> currentRow(n, 1);
+                        for (int col = 1; col < n; col++) {
+                            currentRow[col] = currentRow[col - 1] + aboveRow[col];
+                        }
+                        aboveRow = currentRow;
+                    }
 
-                                for (int row = 1; row < m; row++) {
-                                    std::vector<int> currentRow(n, 1);
-                                    for (int col = 1; col < n; col++) {
-                                        currentRow[col] = currentRow[col - 1] + aboveRow[col];
-                                    }
-                                    aboveRow = currentRow;
-                                }
-
-                                return aboveRow[n - 1];        
-                            }
-                        };
+                    return aboveRow[n - 1];        
+                }
+        };
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def uniquePaths(self, m: int, n: int) -> int:
+        class Solution:
+            def uniquePaths(self, m: int, n: int) -> int:
+                            
+                aboveRow = [1] * n
+                for _ in range(m - 1):
+                    currentRow = [1] * n
+                    for i in range(1, n):
+                        currentRow[i] = currentRow[i-1] + aboveRow[i]
+                        aboveRow = currentRow
                                 
-                                aboveRow = [1] * n
-
-                                for _ in range(m - 1):
-                                    currentRow = [1] * n
-                                    for i in range(1, n):
-                                        currentRow[i] = currentRow[i-1] + aboveRow[i]
-                                    aboveRow = currentRow
-                                
-                                return aboveRow[-1]
+                return aboveRow[-1]
                    `
                 ,
                 java:
                    `
-                        class Solution {
-                            public int uniquePaths(int m, int n) {
-                                int[] aboveRow = new int[n];
-                                Arrays.fill(aboveRow, 1);
+        class Solution {
+            public int uniquePaths(int m, int n) {
+                int[] aboveRow = new int[n];
+                Arrays.fill(aboveRow, 1);
 
-                                for (int row = 1; row < m; row++) {
-                                    int[] currentRow = new int[n];
-                                    Arrays.fill(currentRow, 1);
-                                    for (int col = 1; col < n; col++) {
-                                        currentRow[col] = currentRow[col - 1] + aboveRow[col];
-                                    }
-                                    aboveRow = currentRow;
-                                }
-
-                                return aboveRow[n - 1];        
-                            }
-                        }
+                for (int row = 1; row < m; row++) {
+                    int[] currentRow = new int[n];
+                    Arrays.fill(currentRow, 1);
+                    for (int col = 1; col < n; col++) {
+                        currentRow[col] = currentRow[col - 1] + aboveRow[col];
+                    }
+                    aboveRow = currentRow;
+                }
+                return aboveRow[n - 1];        
+            }
+        }
                    `
             },
         }
@@ -1147,107 +1073,103 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int calculate(string s) {
-                                int number = 0;
-                                int signValue = 1;
-                                int result = 0;
-                                stack<int> operationsStack;
+        class Solution {
+            public:
+                int calculate(string s) {
+                    int number = 0;
+                    int signValue = 1;
+                    int result = 0;
+                    stack<int> operationsStack;
 
-                                for (int i = 0; i < s.length(); i++) {
-                                    char c = s[i];
+                    for (int i = 0; i < s.length(); i++) {
+                        char c = s[i];
 
-                                    if (isdigit(c)) {
-                                        number = number * 10 + (c - '0');
-                                    } else if (c == '+' || c == '-') {
-                                        result += number * signValue;
-                                        signValue = (c == '-') ? -1 : 1;
-                                        number = 0;
-                                    } else if (c == '(') {
-                                        operationsStack.push(result);
-                                        operationsStack.push(signValue);
-                                        result = 0;
-                                        signValue = 1;
-                                    } else if (c == ')') {
-                                        result += signValue * number;
-                                        result *= operationsStack.top();
-                                        operationsStack.pop();
-                                        result += operationsStack.top();
-                                        operationsStack.pop();
-                                        number = 0;
-                                    }
-                                }
+                        if (isdigit(c)) number = number * 10 + (c - '0');
+                        else if (c == '+' || c == '-') {
+                            result += number * signValue;
+                            signValue = (c == '-') ? -1 : 1;
+                            number = 0;
+                        } else if (c == '(') {
+                            operationsStack.push(result);
+                            operationsStack.push(signValue);
+                            result = 0;
+                            signValue = 1;
+                        } else if (c == ')') {
+                            result += signValue * number;
+                            result *= operationsStack.top();
+                            operationsStack.pop();
+                            result += operationsStack.top();
+                            operationsStack.pop();
+                            number = 0;
+                        }
+                    }
 
-                                return result + number * signValue;
-                            }
-                        };
+                    return result + number * signValue;
+                }
+        };
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def calculate(self, s: str) -> int:
-                                number = 0
-                                sign_value = 1
-                                result = 0
-                                operations_stack = []
+        class Solution:
+            def calculate(self, s: str) -> int:
+                number = 0
+                sign_value = 1
+                result = 0
+                operations_stack = []
 
-                                for c in s:
-                                    if c.isdigit():
-                                        number = number * 10 + int(c)
-                                    elif c in "+-":
-                                        result += number * sign_value
-                                        sign_value = -1 if c == '-' else 1
-                                        number = 0
-                                    elif c == '(':
-                                        operations_stack.append(result)
-                                        operations_stack.append(sign_value)
-                                        result = 0
-                                        sign_value = 1
-                                    elif c == ')':
-                                        result += sign_value * number
-                                        result *= operations_stack.pop()
-                                        result += operations_stack.pop()
-                                        number = 0
+                for c in s:
+                    if c.isdigit():
+                        number = number * 10 + int(c)
+                    elif c in "+-":
+                        result += number * sign_value
+                        sign_value = -1 if c == '-' else 1
+                        number = 0
+                    elif c == '(':
+                        operations_stack.append(result)
+                        operations_stack.append(sign_value)
+                        result = 0
+                        sign_value = 1
+                    elif c == ')':
+                        result += sign_value * number
+                        result *= operations_stack.pop()
+                        result += operations_stack.pop()
+                        number = 0
 
-                                return result + number * sign_value
+                return result + number * sign_value
                    `
                 ,
                 java:
                    `
-                        class Solution {
-                            public int calculate(String s) {
-                                int number = 0;
-                                int signValue = 1;
-                                int result = 0;
-                                Stack<Integer> operationsStack = new Stack<>();
+        class Solution {
+            public int calculate(String s) {
+                int number = 0;
+                int signValue = 1;
+                int result = 0;
+                Stack<Integer> operationsStack = new Stack<>();
 
-                                for (int i = 0; i < s.length(); i++) {
-                                    char c = s.charAt(i);
-
-                                    if (Character.isDigit(c)) {
-                                        number = number * 10 + (c - '0');
-                                    } else if (c == '+' || c == '-') {
-                                        result += number * signValue;
-                                        signValue = (c == '-') ? -1 : 1;
-                                        number = 0;
-                                    } else if (c == '(') {
-                                        operationsStack.push(result);
-                                        operationsStack.push(signValue);
-                                        result = 0;
-                                        signValue = 1;
-                                    } else if (c == ')') {
-                                        result += signValue * number;
-                                        result *= operationsStack.pop();
-                                        result += operationsStack.pop();
-                                        number = 0;
-                                    }
-                                }
-
-                                return result + number * signValue;
-                            }
-                        }
+                for (int i = 0; i < s.length(); i++) {
+                    char c = s.charAt(i);
+                    if (Character.isDigit(c)) number = number * 10 + (c - '0');
+                    else if (c == '+' || c == '-') {
+                        result += number * signValue;
+                        signValue = (c == '-') ? -1 : 1;
+                        number = 0;
+                    } else if (c == '(') {
+                        operationsStack.push(result);
+                        operationsStack.push(signValue);
+                        result = 0;
+                        signValue = 1;
+                    } else if (c == ')') {
+                        result += signValue * number;
+                        result *= operationsStack.pop();
+                        result += operationsStack.pop();
+                        number = 0;
+                    }
+                }
+                return result + number * signValue;
+            }
+        }
                    `
             },
         }
@@ -1263,122 +1185,109 @@ export const MathData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int maxPoints(vector<vector<int>>& points) {
-                                int i = 0, j, n, count = 0, x1, x2, y1, y2;
-                                n = points.size();
+        class Solution {
+            public:
+                int maxPoints(vector<vector<int>>& points) {
+                    int i = 0, j, n, count = 0, x1, x2, y1, y2;
+                    n = points.size();
 
-                                if (n == 1) {
-                                    return 1;
-                                }
+                    if (n == 1) return 1;
+                    for (i = 0; i < n; i++) {
+                        unordered_map<float, int> hash;
+                        x1 = points[i][0];
+                        y1 = points[i][1];
 
-                                for (i = 0; i < n; i++) {
-                                    unordered_map<float, int> hash;
-                                    x1 = points[i][0];
-                                    y1 = points[i][1];
+                        for (j = n - 1; j > i; j--) {
+                            x2 = points[j][0];
+                            y2 = points[j][1];
 
-                                    for (j = n - 1; j > i; j--) {
-                                        x2 = points[j][0];
-                                        y2 = points[j][1];
-
-                                        if (x2 - x1 == 0) {
-                                            hash[FLT_MAX]++;
-                                        } else if (y2 - y1 == 0) {
-                                            hash[0]++;
-                                        } else {
-                                            float slope = (float)(y2 - y1) / (x2 - x1);
-                                            hash[slope]++;
-                                        }
-                                    }
-
-                                    // Find the maximum count for this base point
-                                    for (auto& entry : hash) {
-                                        count = max(count, entry.second);
-                                    }
-                                }
-
-                                return count + 1; // Include the base point itself
+                            if (x2 - x1 == 0) hash[FLT_MAX]++;
+                            else if (y2 - y1 == 0) hash[0]++;
+                            else {
+                                float slope = (float)(y2 - y1) / (x2 - x1);
+                                hash[slope]++;
                             }
-                        };
+                        }
+            
+                        for (auto& entry : hash) {
+                            count = max(count, entry.second);
+                        }
+                    }
+
+                    return count + 1;
+                }
+        };
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def maxPoints(self, points: List[List[int]]) -> int:
-                                max_p = 0
-                                for i  in range(len(points)):
-                                    temp = dict()
-                                    point = points[i]
-                                    for j in range(i+1, len(points)):
-                                        point2 = points[j]
-                                        x1 = point[0]
-                                        y1 = point[1]
+        class Solution:
+            def maxPoints(self, points: List[List[int]]) -> int:
+                max_p = 0
+                for i  in range(len(points)):
+                    temp = dict()
+                    point = points[i]
+                    for j in range(i+1, len(points)):
+                        point2 = points[j]
+                        x1 = point[0]
+                        y1 = point[1]
+                        x2 = point2[0]
+                        y2 = point2[1]
 
-                                        x2 = point2[0]
-                                        y2 = point2[1]
-                                        if x2 - x1 == 0:
-                                            slope = "undef"
-
-                                        else:
-                                            slope = (y2-y1)/(x2-x1)
-                                        temp[slope] = temp.get(slope,0)+1
-                                        max_p = max(max_p, temp[slope])
-                                return max_p + 1
+                        if x2 - x1 == 0:
+                            slope = "undef"
+                        else:
+                            slope = (y2-y1)/(x2-x1)
+                            temp[slope] = temp.get(slope,0)+1
+                            max_p = max(max_p, temp[slope])
+                    return max_p + 1
                    `
                 ,
                 java:
                    `
-                        public class Solution{
-                            public int maxPoints(Point[] points) {
-                                if (points==null) return 0;
-                                if (points.length<=2) return points.length;
+        public class Solution{
+            public int maxPoints(Point[] points) {
+                if (points==null) return 0;
+                if (points.length<=2) return points.length;
                                 
-                                Map<Integer,Map<Integer,Integer>> map = new HashMap<Integer,Map<Integer,Integer>>();
-                                int result=0;
-                                for (int i=0;i<points.length;i++){ 
-                                    map.clear();
-                                    int overlap=0,max=0;
-                                    for (int j=i+1;j<points.length;j++){
-                                        int x=points[j].x-points[i].x;
-                                        int y=points[j].y-points[i].y;
-                                        if (x==0&&y==0){
-                                            overlap++;
-                                            continue;
-                                        }
-                                        int gcd=generateGCD(x,y);
-                                        if (gcd!=0){
-                                            x/=gcd;
-                                            y/=gcd;
-                                        }
-                                        
-                                        if (map.containsKey(x)){
-                                            if (map.get(x).containsKey(y)){
-                                                map.get(x).put(y, map.get(x).get(y)+1);
-                                            }else{
-                                                map.get(x).put(y, 1);
-                                            }   					
-                                        }else{
-                                            Map<Integer,Integer> m = new HashMap<Integer,Integer>();
-                                            m.put(y, 1);
-                                            map.put(x, m);
-                                        }
-                                        max=Math.max(max, map.get(x).get(y));
-                                    }
-                                    result=Math.max(result, max+overlap+1);
-                                }
-                                return result;
-                                
-                                
-                            }
-                            private int generateGCD(int a,int b){
-                        
-                                if (b==0) return a;
-                                else return generateGCD(b,a%b);
-                                
-                            }
+                Map<Integer,Map<Integer,Integer>> map = new HashMap<Integer,Map<Integer,Integer>>();
+                int result=0;
+                for (int i=0;i<points.length;i++){ 
+                    map.clear();
+                    int overlap=0,max=0;
+                    for (int j=i+1;j<points.length;j++){
+                        int x=points[j].x-points[i].x;
+                        int y=points[j].y-points[i].y;
+                        if (x==0&&y==0){
+                            overlap++;
+                            continue;
                         }
+                        int gcd=generateGCD(x,y);
+                            if (gcd!=0){
+                                x/=gcd;
+                                y/=gcd;
+                            }
+                                        
+                            if (map.containsKey(x)){
+                                if (map.get(x).containsKey(y)) map.get(x).put(y, map.get(x).get(y)+1);
+                                else map.get(x).put(y, 1);
+                            }else{
+                                Map<Integer,Integer> m = new HashMap<Integer,Integer>();
+                                m.put(y, 1);
+                                map.put(x, m);
+                            }
+                            max=Math.max(max, map.get(x).get(y));
+                        }
+                        result=Math.max(result, max+overlap+1);
+                    }
+                    return result;            
+                }
+            private int generateGCD(int a,int b){
+                if (b==0) return a;
+                else return generateGCD(b,a%b);
+                                
+            }
+        }
                    `
             },
         }
