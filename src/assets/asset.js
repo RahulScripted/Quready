@@ -11447,49 +11447,946 @@ export const BacktrackingData = [
         name: "Combination Sum",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/combination-sum/"
+        url: "https://leetcode.com/problems/combination-sum/",
+        solution: {
+            description: "Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void findCombinations(int index, vector<int>& candidates, int target, vector<int>& current, vector<vector<int>>& result) {
+    if (target == 0) {
+        result.push_back(current);
+        return;
+    }
+
+    for (int i = index; i < candidates.size(); i++) {
+        if (candidates[i] <= target) {
+            current.push_back(candidates[i]);
+            findCombinations(i, candidates, target - candidates[i], current, result);
+            current.pop_back();
+        }
+    }
+}
+
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    vector<vector<int>> result;
+    vector<int> current;
+    findCombinations(0, candidates, target, current, result);
+    return result;
+}
+
+int main() {
+    vector<int> candidates = {2, 3, 6, 7};
+    int target = 7;
+    vector<vector<int>> result = combinationSum(candidates, target);
+
+    for (const auto& combination : result) {
+        cout << "[";
+        for (size_t i = 0; i < combination.size(); i++) {
+            cout << combination[i] << (i < combination.size() - 1 ? ", " : "");
+        }
+        cout << "]\n";
+    }
+
+    return 0;
+}
+                    `
+                ,
+                python:
+                    `
+ def combinationSum(candidates, target):
+    result = []
+    
+    def backtrack(start, target, path):
+        if target == 0:
+            result.append(path)
+            return
+        for i in range(start, len(candidates)):
+            if candidates[i] <= target:
+                backtrack(i, target - candidates[i], path + [candidates[i]])
+
+    backtrack(0, target, [])
+    return result
+
+# Example usage
+candidates = [2, 3, 6, 7]
+target = 7
+print(combinationSum(candidates, target))
+
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+public class CombinationSum {
+    public static void findCombinations(int index, int[] candidates, int target, List<Integer> current, List<List<Integer>> result) {
+        if (target == 0) {
+            result.add(new ArrayList<>(current));
+            return;
+        }
+
+        for (int i = index; i < candidates.length; i++) {
+            if (candidates[i] <= target) {
+                current.add(candidates[i]);
+                findCombinations(i, candidates, target - candidates[i], current, result);
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        findCombinations(0, candidates, target, new ArrayList<>(), result);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] candidates = {2, 3, 6, 7};
+        int target = 7;
+        List<List<Integer>> result = combinationSum(candidates, target);
+
+        System.out.println(result);
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Permutations",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/permutations/"
+        url: "https://leetcode.com/problems/permutations/",
+        solution: {
+            description: "Given an array nums of distinct integers, return all the possible permutations You can return the answer in any order.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void backtrack(vector<int>& nums, vector<bool>& used, vector<int>& current, vector<vector<int>>& result) {
+    if (current.size() == nums.size()) {
+        result.push_back(current);
+        return;
+    }
+
+    for (int i = 0; i < nums.size(); i++) {
+        if (!used[i]) {
+            used[i] = true;
+            current.push_back(nums[i]);
+            backtrack(nums, used, current, result);
+            current.pop_back();
+            used[i] = false;
+        }
+    }
+}
+
+vector<vector<int>> permute(vector<int>& nums) {
+    vector<vector<int>> result;
+    vector<int> current;
+    vector<bool> used(nums.size(), false);
+    backtrack(nums, used, current, result);
+    return result;
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3};
+    vector<vector<int>> result = permute(nums);
+
+    for (const auto& permutation : result) {
+        cout << "[";
+        for (size_t i = 0; i < permutation.size(); i++) {
+            cout << permutation[i] << (i < permutation.size() - 1 ? ", " : "");
+        }
+        cout << "]\n";
+    }
+
+    return 0;
+}
+
+                    `
+                ,
+                python:
+                    `
+ def permute(nums):
+    result = []
+    
+    def backtrack(path, used):
+        if len(path) == len(nums):
+            result.append(path[:])
+            return
+        for i in range(len(nums)):
+            if not used[i]:
+                used[i] = True
+                path.append(nums[i])
+                backtrack(path, used)
+                path.pop()
+                used[i] = False
+
+    backtrack([], [False] * len(nums))
+    return result
+
+# Example usage
+nums = [1, 2, 3]
+print(permute(nums))
+
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+public class Permutations {
+    public static void backtrack(List<List<Integer>> result, List<Integer> current, boolean[] used, int[] nums) {
+        if (current.size() == nums.length) {
+            result.add(new ArrayList<>(current));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (!used[i]) {
+                used[i] = true;
+                current.add(nums[i]);
+                backtrack(result, current, used, nums);
+                current.remove(current.size() - 1);
+                used[i] = false;
+            }
+        }
+    }
+
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(result, new ArrayList<>(), new boolean[nums.length], nums);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3};
+        List<List<Integer>> result = permute(nums);
+        System.out.println(result);
+    }
+}
+
+                    `
+            },
+        }
     },
     {
         id: 3,
         name: "Combinations",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/combinations/"
+        url: "https://leetcode.com/problems/combinations/",
+        solution: {
+            description: "Given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n].",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void backtrack(int start, int n, int k, vector<int>& current, vector<vector<int>>& result) {
+    if (current.size() == k) {
+        result.push_back(current);
+        return;
+    }
+
+    for (int i = start; i <= n; i++) {
+        current.push_back(i);
+        backtrack(i + 1, n, k, current, result);
+        current.pop_back();
+    }
+}
+
+vector<vector<int>> combine(int n, int k) {
+    vector<vector<int>> result;
+    vector<int> current;
+    backtrack(1, n, k, current, result);
+    return result;
+}
+
+int main() {
+    int n = 4, k = 2;
+    vector<vector<int>> result = combine(n, k);
+
+    for (const auto& combination : result) {
+        cout << "[";
+        for (size_t i = 0; i < combination.size(); i++) {
+            cout << combination[i] << (i < combination.size() - 1 ? ", " : "");
+        }
+        cout << "]\n";
+    }
+
+    return 0;
+}
+
+
+                    `
+                ,
+                python:
+                    `
+def combine(n, k):
+    result = []
+    
+    def backtrack(start, path):
+        if len(path) == k:
+            result.append(path[:])
+            return
+        for i in range(start, n + 1):
+            path.append(i)
+            backtrack(i + 1, path)
+            path.pop()
+
+    backtrack(1, [])
+    return result
+
+# Example usage
+n, k = 4, 2
+print(combine(n, k))
+
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+public class Combinations {
+    public static void backtrack(int start, int n, int k, List<Integer> current, List<List<Integer>> result) {
+        if (current.size() == k) {
+            result.add(new ArrayList<>(current));
+            return;
+        }
+
+        for (int i = start; i <= n; i++) {
+            current.add(i);
+            backtrack(i + 1, n, k, current, result);
+            current.remove(current.size() - 1);
+        }
+    }
+
+    public static List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(1, n, k, new ArrayList<>(), result);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int n = 4, k = 2;
+        List<List<Integer>> result = combine(n, k);
+        System.out.println(result);
+    }
+}
+
+                    `
+            },
+        }
     },
     {
         id: 4,
         name: "Subsets",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/subsets/"
+        url: "https://leetcode.com/problems/subsets/",
+        solution: {
+            description: "Given an integer array nums of unique elements, return all possible subsets (the power set).The solution set must not contain duplicate subsets. Return the solution in any order.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void backtrack(int start, vector<int>& nums, vector<int>& current, vector<vector<int>>& result) {
+    result.push_back(current);
+    
+    for (int i = start; i < nums.size(); i++) {
+        current.push_back(nums[i]);
+        backtrack(i + 1, nums, current, result);
+        current.pop_back();
+    }
+}
+
+vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> result;
+    vector<int> current;
+    backtrack(0, nums, current, result);
+    return result;
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3};
+    vector<vector<int>> result = subsets(nums);
+
+    for (const auto& subset : result) {
+        cout << "[";
+        for (size_t i = 0; i < subset.size(); i++) {
+            cout << subset[i] << (i < subset.size() - 1 ? ", " : "");
+        }
+        cout << "]\n";
+    }
+
+    return 0;
+}
+
+                    `
+                ,
+                python:
+                    `
+def subsets(nums):
+    result = []
+    
+    def backtrack(start, path):
+        result.append(path[:])
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            backtrack(i + 1, path)
+            path.pop()
+
+    backtrack(0, [])
+    return result
+
+# Example usage
+nums = [1, 2, 3]
+print(subsets(nums))
+
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+public class Subsets {
+    public static void backtrack(int start, int[] nums, List<Integer> current, List<List<Integer>> result) {
+        result.add(new ArrayList<>(current));
+
+        for (int i = start; i < nums.length; i++) {
+            current.add(nums[i]);
+            backtrack(i + 1, nums, current, result);
+            current.remove(current.size() - 1);
+        }
+    }
+
+    public static List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(0, nums, new ArrayList<>(), result);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3};
+        List<List<Integer>> result = subsets(nums);
+        System.out.println(result);
+    }
+}
+
+                    `
+            },
+        }
     },
     {
         id: 5,
         name: "Word Search",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/word-search/"
+        url: "https://leetcode.com/problems/word-search/",
+        solution: {
+            description: "Given an m x n grid of characters board and a string word, return true if word exists in the grid. The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+bool dfs(vector<vector<char>>& board, string& word, int i, int j, int index) {
+    if (index == word.size()) return true;
+    if (i < 0 || j < 0 || i >= board.size() || j >= board[0].size() || board[i][j] != word[index]) 
+        return false;
+
+    char temp = board[i][j];
+    board[i][j] = '#'; // Mark as visited
+
+    bool found = dfs(board, word, i + 1, j, index + 1) ||
+                 dfs(board, word, i - 1, j, index + 1) ||
+                 dfs(board, word, i, j + 1, index + 1) ||
+                 dfs(board, word, i, j - 1, index + 1);
+
+    board[i][j] = temp; // Unmark
+    return found;
+}
+
+bool exist(vector<vector<char>>& board, string word) {
+    for (int i = 0; i < board.size(); i++) {
+        for (int j = 0; j < board[0].size(); j++) {
+            if (dfs(board, word, i, j, 0)) return true;
+        }
+    }
+    return false;
+}
+
+int main() {
+    vector<vector<char>> board = {{'A', 'B', 'C', 'E'},
+                                  {'S', 'F', 'C', 'S'},
+                                  {'A', 'D', 'E', 'E'}};
+    string word = "ABCCED";
+
+    cout << (exist(board, word) ? "true" : "false") << endl;
+    return 0;
+}
+
+                    `
+                ,
+                python:
+                    `
+ def exist(board, word):
+    rows, cols = len(board), len(board[0])
+
+    def dfs(i, j, index):
+        if index == len(word):
+            return True
+        if i < 0 or j < 0 or i >= rows or j >= cols or board[i][j] != word[index]:
+            return False
+
+        temp, board[i][j] = board[i][j], "#"  # Mark as visited
+
+        found = (dfs(i + 1, j, index + 1) or
+                 dfs(i - 1, j, index + 1) or
+                 dfs(i, j + 1, index + 1) or
+                 dfs(i, j - 1, index + 1))
+
+        board[i][j] = temp  # Unmark
+        return found
+
+    for i in range(rows):
+        for j in range(cols):
+            if dfs(i, j, 0):
+                return True
+    return False
+
+# Example usage
+board = [['A', 'B', 'C', 'E'],
+         ['S', 'F', 'C', 'S'],
+         ['A', 'D', 'E', 'E']]
+word = "ABCCED"
+print(exist(board, word))  # Output: True
+
+                    `
+                ,
+                java:
+                    `
+public class WordSearch {
+    public static boolean dfs(char[][] board, String word, int i, int j, int index) {
+        if (index == word.length()) return true;
+        if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || board[i][j] != word.charAt(index)) 
+            return false;
+
+        char temp = board[i][j];
+        board[i][j] = '#'; // Mark as visited
+
+        boolean found = dfs(board, word, i + 1, j, index + 1) ||
+                        dfs(board, word, i - 1, j, index + 1) ||
+                        dfs(board, word, i, j + 1, index + 1) ||
+                        dfs(board, word, i, j - 1, index + 1);
+
+        board[i][j] = temp; // Unmark
+        return found;
+    }
+
+    public static boolean exist(char[][] board, String word) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (dfs(board, word, i, j, 0)) return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        char[][] board = {
+            {'A', 'B', 'C', 'E'},
+            {'S', 'F', 'C', 'S'},
+            {'A', 'D', 'E', 'E'}
+        };
+        String word = "ABCCED";
+        System.out.println(exist(board, word)); // Output: true
+    }
+}
+
+                    `
+            },
+        }
     },
     {
         id: 6,
         name: "N-Queens",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/n-queens/"
+        url: "https://leetcode.com/problems/n-queens/",
+        solution: {
+            description: "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void solve(int row, int n, vector<string>& board, vector<int>& cols, vector<int>& diag1, vector<int>& diag2, vector<vector<string>>& result) {
+    if (row == n) {
+        result.push_back(board);
+        return;
+    }
+    
+    for (int col = 0; col < n; col++) {
+        if (cols[col] || diag1[row + col] || diag2[row - col + n - 1]) continue;
+
+        board[row][col] = 'Q';
+        cols[col] = diag1[row + col] = diag2[row - col + n - 1] = 1;
+
+        solve(row + 1, n, board, cols, diag1, diag2, result);
+
+        board[row][col] = '.';
+        cols[col] = diag1[row + col] = diag2[row - col + n - 1] = 0;
+    }
+}
+
+vector<vector<string>> solveNQueens(int n) {
+    vector<vector<string>> result;
+    vector<string> board(n, string(n, '.'));
+    vector<int> cols(n, 0), diag1(2 * n - 1, 0), diag2(2 * n - 1, 0);
+
+    solve(0, n, board, cols, diag1, diag2, result);
+    return result;
+}
+
+int main() {
+    int n = 4;
+    vector<vector<string>> solutions = solveNQueens(n);
+
+    for (const auto& solution : solutions) {
+        for (const string& row : solution) {
+            cout << row << "\n";
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}
+
+                    `
+                ,
+                python:
+                    `
+def solveNQueens(n):
+    def backtrack(row):
+        if row == n:
+            result.append(["".join(board[i]) for i in range(n)])
+            return
+
+        for col in range(n):
+            if col in cols or (row + col) in diag1 or (row - col) in diag2:
+                continue
+
+            board[row][col] = 'Q'
+            cols.add(col)
+            diag1.add(row + col)
+            diag2.add(row - col)
+
+            backtrack(row + 1)
+
+            board[row][col] = '.'
+            cols.remove(col)
+            diag1.remove(row + col)
+            diag2.remove(row - col)
+
+    result = []
+    board = [["."] * n for _ in range(n)]
+    cols, diag1, diag2 = set(), set(), set()
+
+    backtrack(0)
+    return result
+
+# Example usage
+n = 4
+solutions = solveNQueens(n)
+for solution in solutions:
+    for row in solution:
+        print(row)
+    print()
+
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+public class NQueens {
+    public static void backtrack(int row, int n, char[][] board, Set<Integer> cols, Set<Integer> diag1, Set<Integer> diag2, List<List<String>> result) {
+        if (row == n) {
+            List<String> solution = new ArrayList<>();
+            for (char[] rowBoard : board) {
+                solution.add(new String(rowBoard));
+            }
+            result.add(solution);
+            return;
+        }
+
+        for (int col = 0; col < n; col++) {
+            if (cols.contains(col) || diag1.contains(row + col) || diag2.contains(row - col)) continue;
+
+            board[row][col] = 'Q';
+            cols.add(col);
+            diag1.add(row + col);
+            diag2.add(row - col);
+
+            backtrack(row + 1, n, board, cols, diag1, diag2, result);
+
+            board[row][col] = '.';
+            cols.remove(col);
+            diag1.remove(row + col);
+            diag2.remove(row - col);
+        }
+    }
+
+    public static List<List<String>> solveNQueens(int n) {
+        List<List<String>> result = new ArrayList<>();
+        char[][] board = new char[n][n];
+        for (char[] row : board) Arrays.fill(row, '.');
+
+        backtrack(0, n, board, new HashSet<>(), new HashSet<>(), new HashSet<>(), result);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int n = 4;
+        List<List<String>> solutions = solveNQueens(n);
+        
+        for (List<String> solution : solutions) {
+            for (String row : solution) {
+                System.out.println(row);
+            }
+            System.out.println();
+        }
+    }
+}
+
+                    `
+            },
+        }
     },
     {
         id: 7,
         name: "Remove Invalid Parentheses",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/remove-invalid-parentheses/"
+        url: "https://leetcode.com/problems/remove-invalid-parentheses/",
+        solution: {
+            description: "Given a string s that contains parentheses and letters, remove the minimum number of invalid parentheses to make the input string valid. Return a list of unique strings that are valid with the minimum number of removals. ",
+            code:{
+                cpp: 
+                    `
+#include <iostream>
+#include <unordered_set>
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+bool isValid(string s) {
+    int count = 0;
+    for (char c : s) {
+        if (c == '(') count++;
+        else if (c == ')') {
+            if (count == 0) return false;
+            count--;
+        }
+    }
+    return count == 0;
+}
+
+vector<string> removeInvalidParentheses(string s) {
+    vector<string> result;
+    unordered_set<string> visited;
+    queue<string> q;
+    
+    q.push(s);
+    visited.insert(s);
+    bool found = false;
+    
+    while (!q.empty()) {
+        int size = q.size();
+        while (size--) {
+            string curr = q.front();
+            q.pop();
+            
+            if (isValid(curr)) {
+                result.push_back(curr);
+                found = true;
+            }
+            
+            if (found) continue;
+
+            for (int i = 0; i < curr.size(); i++) {
+                if (curr[i] != '(' && curr[i] != ')') continue;
+                string next = curr.substr(0, i) + curr.substr(i + 1);
+                if (!visited.count(next)) {
+                    q.push(next);
+                    visited.insert(next);
+                }
+            }
+        }
+        if (found) break;
+    }
+    
+    return result;
+}
+
+int main() {
+    string s = "()())()";
+    vector<string> result = removeInvalidParentheses(s);
+    
+    for (const string& str : result) {
+        cout << str << endl;
+    }
+    return 0;
+}
+
+
+                    `
+                ,
+                python:
+                    `
+from collections import deque
+
+def isValid(s):
+    count = 0
+    for char in s:
+        if char == '(':
+            count += 1
+        elif char == ')':
+            if count == 0:
+                return False
+            count -= 1
+    return count == 0
+
+def removeInvalidParentheses(s):
+    queue = deque([s])
+    visited = set([s])
+    result = []
+    found = False
+
+    while queue:
+        size = len(queue)
+        for _ in range(size):
+            curr = queue.popleft()
+
+            if isValid(curr):
+                result.append(curr)
+                found = True
+            
+            if found:
+                continue
+
+            for i in range(len(curr)):
+                if curr[i] not in "()":
+                    continue
+                next_str = curr[:i] + curr[i+1:]
+                if next_str not in visited:
+                    queue.append(next_str)
+                    visited.add(next_str)
+
+        if found:
+            break
+
+    return result
+
+# Example usage
+s = "()())()"
+print(removeInvalidParentheses(s))
+
+                    `
+                ,
+                java:
+                    `
+import java.util.*;
+
+public class RemoveInvalidParentheses {
+    public static boolean isValid(String s) {
+        int count = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '(') count++;
+            else if (c == ')') {
+                if (count == 0) return false;
+                count--;
+            }
+        }
+        return count == 0;
+    }
+
+    public static List<String> removeInvalidParentheses(String s) {
+        List<String> result = new ArrayList<>();
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        
+        queue.offer(s);
+        visited.add(s);
+        boolean found = false;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size-- > 0) {
+                String curr = queue.poll();
+
+                if (isValid(curr)) {
+                    result.add(curr);
+                    found = true;
+                }
+
+                if (found) continue;
+
+                for (int i = 0; i < curr.length(); i++) {
+                    if (curr.charAt(i) != '(' && curr.charAt(i) != ')') continue;
+                    String next = curr.substring(0, i) + curr.substring(i + 1);
+                    if (!visited.contains(next)) {
+                        queue.offer(next);
+                        visited.add(next);
+                    }
+                }
+            }
+            if (found) break;
+        }
+        
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String s = "()())()";
+        List<String> result = removeInvalidParentheses(s);
+        
+        for (String str : result) {
+            System.out.println(str);
+        }
+    }
+}
+
+                    `
+            },
+        }
     },
 ]
 
