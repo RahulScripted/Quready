@@ -940,59 +940,59 @@ class Solution {
             code:{
                 cpp: 
                     `
-        class Solution {
-            public:
-                double myPow(double x, int n) {
-                    return binaryExp(x, static_cast<long>(n));
-                }
+class Solution {
+public:
+    double myPow(double x, int n) {
+        return binaryExp(x, static_cast<long>(n));
+    }
 
-            private:
-                double binaryExp(double x, long n) {
-                    if (n == 0) return 1; 
-                    if (n < 0) return 1.0 / binaryExp(x, -n); 
-                    if (n % 2 == 1) return x * binaryExp(x * x, (n - 1) / 2);
-                    else return binaryExp(x * x, n / 2);
-                }
-        };
+private:
+    double binaryExp(double x, long n) {
+        if (n == 0) return 1; 
+        if (n < 0) return 1.0 / binaryExp(x, -n); 
+        if (n % 2 == 1) return x * binaryExp(x * x, (n - 1) / 2);
+        else return binaryExp(x * x, n / 2);
+    }
+};
                     `
                 ,
                 python:
                    `
-        class Solution:
-            def myPow(self, x: float, n: int) -> float:
-                def calc_power(x, n):
-                    if x == 0:
-                        return 0
-                    if n == 0:
-                        return 1
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+    def calc_power(x, n):
+        if x == 0:
+            return 0
+        if n == 0:
+            return 1
                                     
-                    res = calc_power(x, n // 2)
-                    res = res * res
-                    if n % 2 == 1:
-                        return res * x
+        res = calc_power(x, n // 2)
+        res = res * res
+        if n % 2 == 1:
+            return res * x
                                     
-                    return res
-                    ans = calc_power(x, abs(n))
-                    if n >= 0:
-                        return ans
+        return res
+        ans = calc_power(x, abs(n))
+        if n >= 0:
+            return ans
                                 
-                    return 1 / ans 
+        return 1 / ans 
                    `
                 ,
                 java:
                    `
-        class Solution {
-            public double myPow(double x, int n) {
-                return binaryExp(x, (long) n);
-            }
+class Solution {
+    public double myPow(double x, int n) {
+        return binaryExp(x, (long) n);
+    }
 
-            private double binaryExp(double x, long n) {
-                if (n == 0) return 1;
-                if (n < 0) return 1.0 / binaryExp(x, -n);
-                if (n % 2 == 1) return x * binaryExp(x * x, (n - 1) / 2);
-                else return binaryExp(x * x, n / 2);
-            }
-        }
+private double binaryExp(double x, long n) {
+    if (n == 0) return 1;
+    if (n < 0) return 1.0 / binaryExp(x, -n);
+    if (n % 2 == 1) return x * binaryExp(x * x, (n - 1) / 2);
+    else return binaryExp(x * x, n / 2);
+    }
+}
                    `
             },
         }
@@ -1008,56 +1008,55 @@ class Solution {
             code:{
                 cpp: 
                     `
-        class Solution {
-            public:
-                int uniquePaths(int m, int n) {
-                    std::vector<int> aboveRow(n, 1);
-                    for (int row = 1; row < m; row++) {
-                        std::vector<int> currentRow(n, 1);
-                        for (int col = 1; col < n; col++) {
-                            currentRow[col] = currentRow[col - 1] + aboveRow[col];
-                        }
-                        aboveRow = currentRow;
-                    }
-
-                    return aboveRow[n - 1];        
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        std::vector<int> aboveRow(n, 1);
+        for (int row = 1; row < m; row++) {
+            std::vector<int> currentRow(n, 1);
+            for (int col = 1; col < n; col++) {
+                currentRow[col] = currentRow[col - 1] + aboveRow[col];
                 }
-        };
+            aboveRow = currentRow;
+        }
+
+        return aboveRow[n - 1];        
+    }
+};
                     `
                 ,
                 python:
                    `
-        class Solution:
-            def uniquePaths(self, m: int, n: int) -> int:
-                            
-                aboveRow = [1] * n
-                for _ in range(m - 1):
-                    currentRow = [1] * n
-                    for i in range(1, n):
-                        currentRow[i] = currentRow[i-1] + aboveRow[i]
-                        aboveRow = currentRow
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:                    
+        aboveRow = [1] * n
+        for _ in range(m - 1):
+            currentRow = [1] * n
+            for i in range(1, n):
+                currentRow[i] = currentRow[i-1] + aboveRow[i]
+                aboveRow = currentRow
                                 
-                return aboveRow[-1]
+        return aboveRow[-1]
                    `
                 ,
                 java:
                    `
-        class Solution {
-            public int uniquePaths(int m, int n) {
-                int[] aboveRow = new int[n];
-                Arrays.fill(aboveRow, 1);
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[] aboveRow = new int[n];
+        Arrays.fill(aboveRow, 1);
 
-                for (int row = 1; row < m; row++) {
-                    int[] currentRow = new int[n];
-                    Arrays.fill(currentRow, 1);
-                    for (int col = 1; col < n; col++) {
-                        currentRow[col] = currentRow[col - 1] + aboveRow[col];
-                    }
-                    aboveRow = currentRow;
-                }
-                return aboveRow[n - 1];        
+        for (int row = 1; row < m; row++) {
+            int[] currentRow = new int[n];
+            Arrays.fill(currentRow, 1);
+            for (int col = 1; col < n; col++) {
+                currentRow[col] = currentRow[col - 1] + aboveRow[col];
             }
+            aboveRow = currentRow;
         }
+        return aboveRow[n - 1];        
+    }
+}
                    `
             },
         }
@@ -1073,103 +1072,105 @@ class Solution {
             code:{
                 cpp: 
                     `
-        class Solution {
-            public:
-                int calculate(string s) {
-                    int number = 0;
-                    int signValue = 1;
-                    int result = 0;
-                    stack<int> operationsStack;
+class Solution {
+public:
+    int calculate(string s) {
+        int number = 0;
+        int signValue = 1;
+        int result = 0;
+        stack<int> operationsStack;
 
-                    for (int i = 0; i < s.length(); i++) {
-                        char c = s[i];
-
-                        if (isdigit(c)) number = number * 10 + (c - '0');
-                        else if (c == '+' || c == '-') {
-                            result += number * signValue;
-                            signValue = (c == '-') ? -1 : 1;
-                            number = 0;
-                        } else if (c == '(') {
-                            operationsStack.push(result);
-                            operationsStack.push(signValue);
-                            result = 0;
-                            signValue = 1;
-                        } else if (c == ')') {
-                            result += signValue * number;
-                            result *= operationsStack.top();
-                            operationsStack.pop();
-                            result += operationsStack.top();
-                            operationsStack.pop();
-                            number = 0;
-                        }
-                    }
-
-                    return result + number * signValue;
-                }
-        };
+        for (int i = 0; i < s.length(); i++) {
+            char c = s[i];
+            if (isdigit(c)) number = number * 10 + (c - '0');
+            else if (c == '+' || c == '-') {
+                result += number * signValue;
+                signValue = (c == '-') ? -1 : 1;
+                number = 0;
+            } 
+            else if (c == '(') {
+                operationsStack.push(result);
+                operationsStack.push(signValue);
+                result = 0;
+                signValue = 1;
+            } 
+            else if (c == ')') {
+                result += signValue * number;
+                result *= operationsStack.top();
+                operationsStack.pop();
+                result += operationsStack.top();
+                operationsStack.pop();
+                number = 0;
+            }
+        }
+        return result + number * signValue;
+    }
+};
                     `
                 ,
                 python:
                    `
-        class Solution:
-            def calculate(self, s: str) -> int:
+class Solution:
+    def calculate(self, s: str) -> int:
+        number = 0
+        sign_value = 1
+        result = 0
+        operations_stack = []
+
+        for c in s:
+            if c.isdigit():
+                number = number * 10 + int(c)
+            elif c in "+-":
+                result += number * sign_value
+                sign_value = -1 if c == '-' else 1
                 number = 0
-                sign_value = 1
+            elif c == '(':
+                operations_stack.append(result)
+                operations_stack.append(sign_value)
                 result = 0
-                operations_stack = []
+                sign_value = 1
+            elif c == ')':
+                result += sign_value * number
+                result *= operations_stack.pop()
+                result += operations_stack.pop()
+                number = 0
 
-                for c in s:
-                    if c.isdigit():
-                        number = number * 10 + int(c)
-                    elif c in "+-":
-                        result += number * sign_value
-                        sign_value = -1 if c == '-' else 1
-                        number = 0
-                    elif c == '(':
-                        operations_stack.append(result)
-                        operations_stack.append(sign_value)
-                        result = 0
-                        sign_value = 1
-                    elif c == ')':
-                        result += sign_value * number
-                        result *= operations_stack.pop()
-                        result += operations_stack.pop()
-                        number = 0
-
-                return result + number * sign_value
+        return result + number * sign_value
                    `
                 ,
                 java:
                    `
-        class Solution {
-            public int calculate(String s) {
-                int number = 0;
-                int signValue = 1;
-                int result = 0;
-                Stack<Integer> operationsStack = new Stack<>();
+class Solution {
+    public int calculate(String s) {
+        int number = 0;
+        int signValue = 1;
+        int result = 0;
+        Stack<Integer> operationsStack = new Stack<>();
 
-                for (int i = 0; i < s.length(); i++) {
-                    char c = s.charAt(i);
-                    if (Character.isDigit(c)) number = number * 10 + (c - '0');
-                    else if (c == '+' || c == '-') {
-                        result += number * signValue;
-                        signValue = (c == '-') ? -1 : 1;
-                        number = 0;
-                    } else if (c == '(') {
-                        operationsStack.push(result);
-                        operationsStack.push(signValue);
-                        result = 0;
-                        signValue = 1;
-                    } else if (c == ')') {
-                        result += signValue * number;
-                        result *= operationsStack.pop();
-                        result += operationsStack.pop();
-                        number = 0;
-                    }
-                }
-                return result + number * signValue;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) number = number * 10 + (c - '0');
+            else if (c == '+' || c == '-') {
+                result += number * signValue;
+                signValue = (c == '-') ? -1 : 1;
+                number = 0;
+            }
+            else if (c == '(') {
+                operationsStack.push(result);
+                operationsStack.push(signValue);
+                result = 0;
+                signValue = 1;
+            }
+            else if (c == ')') {
+                result += signValue * number;
+                result *= operationsStack.pop();
+                result += operationsStack.pop();
+                number = 0;
             }
         }
+        return result + number * signValue;
+    }
+}
                    `
             },
         }
@@ -1185,109 +1186,109 @@ class Solution {
             code:{
                 cpp: 
                     `
-        class Solution {
-            public:
-                int maxPoints(vector<vector<int>>& points) {
-                    int i = 0, j, n, count = 0, x1, x2, y1, y2;
-                    n = points.size();
+class Solution {
+public:
+    int maxPoints(vector<vector<int>>& points) {
+        int i = 0, j, n, count = 0, x1, x2, y1, y2;
+        n = points.size();
 
-                    if (n == 1) return 1;
-                    for (i = 0; i < n; i++) {
-                        unordered_map<float, int> hash;
-                        x1 = points[i][0];
-                        y1 = points[i][1];
+        if (n == 1) return 1;
+        for (i = 0; i < n; i++) {
+            unordered_map<float, int> hash;
+            x1 = points[i][0];
+            y1 = points[i][1];
 
-                        for (j = n - 1; j > i; j--) {
-                            x2 = points[j][0];
-                            y2 = points[j][1];
+            for (j = n - 1; j > i; j--) {
+                x2 = points[j][0];
+                y2 = points[j][1];
 
-                            if (x2 - x1 == 0) hash[FLT_MAX]++;
-                            else if (y2 - y1 == 0) hash[0]++;
-                            else {
-                                float slope = (float)(y2 - y1) / (x2 - x1);
-                                hash[slope]++;
-                            }
-                        }
-            
-                        for (auto& entry : hash) {
-                            count = max(count, entry.second);
-                        }
-                    }
-
-                    return count + 1;
+                if (x2 - x1 == 0) hash[FLT_MAX]++;
+                else if (y2 - y1 == 0) hash[0]++;
+                else {
+                    float slope = (float)(y2 - y1) / (x2 - x1);
+                    hash[slope]++;
                 }
-        };
+            }
+            
+            for (auto& entry : hash) {
+                count = max(count, entry.second);
+            }
+        }
+        return count + 1;
+    }
+};
                     `
                 ,
                 python:
                    `
-        class Solution:
-            def maxPoints(self, points: List[List[int]]) -> int:
-                max_p = 0
-                for i  in range(len(points)):
-                    temp = dict()
-                    point = points[i]
-                    for j in range(i+1, len(points)):
-                        point2 = points[j]
-                        x1 = point[0]
-                        y1 = point[1]
-                        x2 = point2[0]
-                        y2 = point2[1]
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        max_p = 0
+        for i  in range(len(points)):
+        temp = dict()
+        point = points[i]
+        for j in range(i+1, len(points)):
+            point2 = points[j]
+            x1 = point[0]
+            y1 = point[1]
+            x2 = point2[0]
+            y2 = point2[1]
 
-                        if x2 - x1 == 0:
-                            slope = "undef"
-                        else:
-                            slope = (y2-y1)/(x2-x1)
-                            temp[slope] = temp.get(slope,0)+1
-                            max_p = max(max_p, temp[slope])
-                    return max_p + 1
+            if x2 - x1 == 0:
+                slope = "undef"
+            else:
+                slope = (y2-y1)/(x2-x1)
+                temp[slope] = temp.get(slope,0)+1
+                max_p = max(max_p, temp[slope])
+        return max_p + 1
                    `
                 ,
                 java:
                    `
-        public class Solution{
-            public int maxPoints(Point[] points) {
-                if (points==null) return 0;
-                if (points.length<=2) return points.length;
+public class Solution{
+    public int maxPoints(Point[] points) {
+        if (points==null) return 0;
+        if (points.length<=2) return points.length;
                                 
-                Map<Integer,Map<Integer,Integer>> map = new HashMap<Integer,Map<Integer,Integer>>();
-                int result=0;
-                for (int i=0;i<points.length;i++){ 
-                    map.clear();
-                    int overlap=0,max=0;
-                    for (int j=i+1;j<points.length;j++){
-                        int x=points[j].x-points[i].x;
-                        int y=points[j].y-points[i].y;
-                        if (x==0&&y==0){
-                            overlap++;
-                            continue;
-                        }
-                        int gcd=generateGCD(x,y);
-                            if (gcd!=0){
-                                x/=gcd;
-                                y/=gcd;
-                            }
-                                        
-                            if (map.containsKey(x)){
-                                if (map.get(x).containsKey(y)) map.get(x).put(y, map.get(x).get(y)+1);
-                                else map.get(x).put(y, 1);
-                            }else{
-                                Map<Integer,Integer> m = new HashMap<Integer,Integer>();
-                                m.put(y, 1);
-                                map.put(x, m);
-                            }
-                            max=Math.max(max, map.get(x).get(y));
-                        }
-                        result=Math.max(result, max+overlap+1);
-                    }
-                    return result;            
+        Map<Integer,Map<Integer,Integer>> map = new HashMap<Integer,Map<Integer,Integer>>();
+        int result=0;
+        for (int i=0;i<points.length;i++){ 
+            map.clear();
+            int overlap=0,max=0;
+            for (int j=i+1;j<points.length;j++){
+                int x=points[j].x-points[i].x;
+                int y=points[j].y-points[i].y;
+                if (x==0&&y==0){
+                    overlap++;
+                    continue;
                 }
-            private int generateGCD(int a,int b){
-                if (b==0) return a;
-                else return generateGCD(b,a%b);
-                                
+                int gcd=generateGCD(x,y);
+                if (gcd!=0){
+                    x/=gcd;
+                    y/=gcd;
+                }
+                                        
+                if (map.containsKey(x)){
+                    if (map.get(x).containsKey(y)) map.get(x).put(y, map.get(x).get(y)+1);
+                    else map.get(x).put(y, 1);
+                }
+                else{
+                    Map<Integer,Integer> m = new HashMap<Integer,Integer>();
+                    m.put(y, 1);
+                    map.put(x, m);
+                }
+                max=Math.max(max, map.get(x).get(y));
             }
+        result=Math.max(result, max+overlap+1);
         }
+        return result;            
+    }
+        
+private int generateGCD(int a,int b){
+    if (b==0) return a;
+    else return generateGCD(b,a % b);                                
+    }    
+}
                    `
             },
         }
