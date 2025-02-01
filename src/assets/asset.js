@@ -178,7 +178,6 @@ export const TopicsData = [
     },
 ]
 
-
 // All Topics Details Question
 export const MathData = [
     {
@@ -1307,52 +1306,49 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void printSquare(int n) {
-                                for(int i = 0;i < n;i++){
-                                    for(int j = 0;j < n;j++){
-                                        cout<<"*"<<" ";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution {
+public:
+    void printSquare(int n) {
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j < n;j++){
+                cout<<"*"<<" ";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def isPalindrome(self, x: int) -> bool:
-                                if x < 0: return False
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0: return False
 
-                                reverse = 0
-                                x_copy = x
+        reverse = 0
+        x_copy = x
+        while x > 0:
+            reverse = (reverse * 10) + (x % 10)
+            x //= 10
 
-                                while x > 0:
-                                    reverse = (reverse * 10) + (x % 10)
-                                    x //= 10
-
-                                return reverse == x_copy
+        return reverse == x_copy
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isPalindrome(int x) {
-                                if (x < 0) return false;
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x < 0) return false;
 
-                                long reverse = 0;
-                                int xCopy = x;
-
-                                while (x > 0) {
-                                    reverse = (reverse * 10) + (x % 10);
-                                    x /= 10;
-                                }
-
-                                return reverse == xCopy;
-                            }
-                        }
+        long reverse = 0;
+        int xCopy = x;
+        while (x > 0) {
+            reverse = (reverse * 10) + (x % 10);
+            x /= 10;
+        }
+        return reverse == xCopy;
+    }
+}
                     `
             },
         }
@@ -1368,41 +1364,41 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void printTriangle(int n) {
-                                for(int i = 0;i < n;i++){
-                                    for(int j = 0;j <= i;j++){
-                                        cout<<"*"<<" ";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution {
+public:
+    void printTriangle(int n) {
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j <= i;j++){
+                cout<<"*"<<" ";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def printTriangle(self, n: int) -> None:
-                                for i in range(n):
-                                    for j in range(i + 1):
-                                        print("*", end=" ")
-                                    print()
+class Solution:
+    def printTriangle(self, n: int) -> None:
+        for i in range(n):
+            for j in range(i + 1):
+                print("*", end=" ")
+            print()
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void printTriangle(int n) {
-                                for (int i = 0; i < n; i++) {
-                                    for (int j = 0; j <= i; j++) {
-                                        System.out.print("* ");
-                                    }
-                                    System.out.println();
-                                }
-                            }
-                        }
+class Solution {
+    public void printTriangle(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+}
                     `
             },
         }
@@ -1418,41 +1414,41 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void printTriangle(int n) {
-                                for(int i = 1;i <= n;i++){
-                                    for(int j = 1;j <= i;j++){
-                                        cout<<j<<" ";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution {
+public:
+    void printTriangle(int n) {
+        for(int i = 1;i <= n;i++){
+            for(int j = 1;j <= i;j++){
+                cout<<j<<" ";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def printTriangle(self, n: int) -> None:
-                                for i in range(1, n + 1):
-                                    for j in range(1, i + 1):
-                                        print(j, end=" ")
-                                    print()
+class Solution:
+    def printTriangle(self, n: int) -> None:
+        for i in range(1, n + 1):
+            for j in range(1, i + 1):
+                print(j, end=" ")
+            print()
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void printTriangle(int n) {
-                                for (int i = 1; i <= n; i++) {
-                                    for (int j = 1; j <= i; j++) {
-                                        System.out.print(j + " ");
-                                    }
-                                    System.out.println();
-                                }
-                            }
-                        }
+class Solution {
+    public void printTriangle(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j + " ");
+            }
+            System.out.println();
+        }
+    }
+}
                     `
             },
         }
@@ -1468,41 +1464,41 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void printTriangle(int n) {
-                                for(int i = 1;i <= n;i++){
-                                    for(int j = 1;j <= i;j++){
-                                        cout<<i<<" ";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution {
+public:
+    void printTriangle(int n) {
+        for(int i = 1;i <= n;i++){
+            for(int j = 1;j <= i;j++){
+                cout<<i<<" ";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def printTriangle(self, n: int) -> None:
-                                for i in range(1, n + 1):
-                                    for j in range(1, i + 1):
-                                        print(i, end=" ")
-                                    print()
+class Solution:
+    def printTriangle(self, n: int) -> None:
+        for i in range(1, n + 1):
+            for j in range(1, i + 1):
+                print(i, end=" ")
+            print()
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void printTriangle(int n) {
-                                for (int i = 1; i <= n; i++) {
-                                    for (int j = 1; j <= i; j++) {
-                                        System.out.print(i + " ");
-                                    }
-                                    System.out.println();
-                                }
-                            }
-                        }
+class Solution {
+    public void printTriangle(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }
+    }
+}
                     `
             },
         }
@@ -1518,41 +1514,41 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution{
-                        public:
-                            void printTriangle(int n) {
-                                for(int i = n; i > 0;i--){
-                                    for(int j = 0;j < i;j++){
-                                        cout<<"*"<<" ";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution{
+public:
+    void printTriangle(int n) {
+        for(int i = n; i > 0;i--){
+            for(int j = 0;j < i;j++){
+                cout<<"*"<<" ";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def printTriangle(self, n: int) -> None:
-                                for i in range(n, 0, -1):
-                                    for j in range(i):
-                                        print("*", end=" ")
-                                    print()
+class Solution:
+    def printTriangle(self, n: int) -> None:
+        for i in range(n, 0, -1):
+            for j in range(i):
+                print("*", end=" ")
+            print()
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void printTriangle(int n) {
-                                for (int i = n; i > 0; i--) {
-                                    for (int j = 0; j < i; j++) {
-                                        System.out.print("* ");
-                                    }
-                                    System.out.println();
-                                }
-                            }
-                        }
+class Solution {
+    public void printTriangle(int n) {
+        for (int i = n; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+}
                     `
             },
         }
@@ -1568,54 +1564,50 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution{
-                        public:
-                            
-                            void printTriangle(int n) {
-                                for(int i = n;i > 0;i--){
-                                    for(int j = 1;j <= i;j++){
-                                        cout<<j<<" ";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution{
+public:             
+    void printTriangle(int n) {
+        for(int i = n;i > 0;i--){
+            for(int j = 1;j <= i;j++){
+                cout<<j<<" ";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def isPalindrome(self, x: int) -> bool:
-                                if x < 0:
-                                    return False
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0:
+            return False
 
-                                reverse = 0
-                                x_copy = x
+        reverse = 0
+        x_copy = x
+        while x > 0:
+            reverse = (reverse * 10) + (x % 10)
+            x //= 10
 
-                                while x > 0:
-                                    reverse = (reverse * 10) + (x % 10)
-                                    x //= 10
-
-                                return reverse == x_copy
+        return reverse == x_copy
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isPalindrome(int x) {
-                                if (x < 0) return false;
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x < 0) return false;
 
-                                long reverse = 0;
-                                int xCopy = x;
-
-                                while (x > 0) {
-                                    reverse = (reverse * 10) + (x % 10);
-                                    x /= 10;
-                                }
-
-                                return reverse == xCopy;
-                            }
-                        }
+        long reverse = 0;
+        int xCopy = x;
+        while (x > 0) {
+            reverse = (reverse * 10) + (x % 10);
+            x /= 10;
+        }
+        return reverse == xCopy;
+    }
+}
                     `
             },
         }
@@ -1631,53 +1623,49 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void printTriangle(int n) {
-                                for(int i = 0;i < n;i++){
-                                    for(int j = 0;j < (n - i -1);j++){
-                                        cout<<" ";
-                                    }
-                                    for(int j = 0;j < (2 * i + 1);j++){
-                                        cout<<"*";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution {
+public:
+    void printTriangle(int n) {
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j < (n - i -1);j++){
+                cout<<" ";
+            }
+            for(int j = 0;j < (2 * i + 1);j++){
+                cout<<"*";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def printTriangle(self, n: int) -> None:
-                                for i in range(n):
-                                    # Print spaces
-                                    for j in range(n - i - 1):
-                                        print(" ", end="")
-                                    # Print stars
-                                    for j in range(2 * i + 1):
-                                        print("*", end="")
-                                    print()
+class Solution:
+    def printTriangle(self, n: int) -> None:
+        for i in range(n):
+            for j in range(n - i - 1):
+                print(" ", end="")
+            for j in range(2 * i + 1):
+                print("*", end="")
+            print()
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void printTriangle(int n) {
-                                for (int i = 0; i < n; i++) {
-                                    // Print spaces
-                                    for (int j = 0; j < (n - i - 1); j++) {
-                                        System.out.print(" ");
-                                    }
-                                    // Print stars
-                                    for (int j = 0; j < (2 * i + 1); j++) {
-                                        System.out.print("*");
-                                    }
-                                    System.out.println();
-                                }
-                            }
-                        }
+class Solution {
+    public void printTriangle(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < (n - i - 1); j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < (2 * i + 1); j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
                     `
             },
         }
@@ -1693,53 +1681,49 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution{
-                        public:
-                            void printTriangle(int n) {
-                                for(int i = 0;i < n;i++){
-                                    for(int j = 0;j < i;j++){
-                                        cout<<" ";
-                                    }
-                                    for(int j = 0;j < (2 * (n - i) - 1);j++){
-                                        cout<<"*";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution{
+public:
+    void printTriangle(int n) {
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j < i;j++){
+                cout<<" ";
+            }
+            for(int j = 0;j < (2 * (n - i) - 1);j++){
+                cout<<"*";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def printTriangle(self, n):
-                                for i in range(n):
-                                    # Print leading spaces
-                                    for j in range(i):
-                                        print(" ", end="")
-                                    # Print stars
-                                    for j in range(2 * (n - i) - 1):
-                                        print("*", end="")
-                                    print() 
+class Solution:
+    def printTriangle(self, n):
+        for i in range(n):
+            for j in range(i):
+                print(" ", end="")
+            for j in range(2 * (n - i) - 1):
+                print("*", end="")
+            print() 
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void printTriangle(int n) {
-                                for (int i = 0; i < n; i++) {
-                                    // Print leading spaces
-                                    for (int j = 0; j < i; j++) {
-                                        System.out.print(" ");
-                                    }
-                                    // Print stars
-                                    for (int j = 0; j < (2 * (n - i) - 1); j++) {
-                                        System.out.print("*");
-                                    }
-                                    System.out.println();
-                                }
-                            }
-                        }
+class Solution {
+    public void printTriangle(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < (2 * (n - i) - 1); j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
                     `
             },
         }
@@ -1755,94 +1739,83 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void printDiamond(int n) {
-                                // Upper Part
-                                for(int i = 0;i < n;i++){
-                                    for(int j = 0;j < (n - i - 1);j++){
-                                        cout<<" ";
-                                    }
-                                    for(int j = 0;j < (i + 1);j++){
-                                        if(j < i) cout<<"* ";
-                                        else cout<<"*";
-                                    }
-                                    cout<<endl;
-                                }
+class Solution {
+public:
+    void printDiamond(int n) {
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j < (n - i - 1);j++){
+                cout<<" ";
+            }
+            for(int j = 0;j < (i + 1);j++){
+                if(j < i) cout<<"* ";
+                else cout<<"*";
+            }
+            cout<<endl;
+        }
                                 
-                                // Lower Part
-                                for(int i = n;i > 0;i--){
-                                    for(int j = 0;j < (n - i);j++){
-                                        cout<<" ";
-                                    }
-                                    for(int j = 0;j < i;j++){
-                                        if(j < (i - 1)) cout<<"* ";
-                                        else cout<<"*";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+        for(int i = n;i > 0;i--){
+            for(int j = 0;j < (n - i);j++){
+                cout<<" ";
+            }
+            for(int j = 0;j < i;j++){
+                if(j < (i - 1)) cout<<"* ";
+                else cout<<"*";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def printDiamond(self, n):
-                                # Upper part of the diamond
-                                for i in range(n):
-                                    for j in range(n - i - 1):
-                                        print(" ", end="")
-                                    for j in range(i + 1):
-                                        if j < i: print("*", end=" ")
-                                        else: print("*", end="")
-                                    print()
+class Solution:
+    def printDiamond(self, n):
+        for i in range(n):
+            for j in range(n - i - 1):
+                print(" ", end="")
+            for j in range(i + 1):
+                if j < i: print("*", end=" ")
+                else: print("*", end="")
+            print()
 
-                                for i in range(n - 1, 0, -1):
-                                    for j in range(n - i):
-                                        print(" ", end="")
-                                    for j in range(i):
-                                        if j < i - 1: print("*", end=" ")
-                                        else: print("*", end="")
-                                    print() 
+        for i in range(n - 1, 0, -1):
+            for j in range(n - i):
+                print(" ", end="")
+            for j in range(i):
+                if j < i - 1: print("*", end=" ")
+                else: print("*", end="")
+            print() 
 
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void printDiamond(int n) {
-                                // Upper part of the diamond
-                                for (int i = 0; i < n; i++) {
-                                    for (int j = 0; j < (n - i - 1); j++) {
-                                        System.out.print(" ");
-                                    }
-                                    for (int j = 0; j < i + 1; j++) {
-                                        if (j < i) {
-                                            System.out.print("* ");
-                                        } else {
-                                            System.out.print("*");
-                                        }
-                                    }
-                                    System.out.println();
-                                }
+class Solution {
+    public void printDiamond(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < (n - i - 1); j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < i + 1; j++) {
+                if (j < i) System.out.print("* ");
+                else System.out.print("*");
+            }
+            System.out.println();
+        }
 
-                                // Lower part of the diamond
-                                for (int i = n - 1; i > 0; i--) {
-                                    for (int j = 0; j < (n - i); j++) {
-                                        System.out.print(" ");
-                                    }
-                                    for (int j = 0; j < i; j++) {
-                                        if (j < i - 1) {
-                                            System.out.print("* ");
-                                        } else {
-                                            System.out.print("*");
-                                        }
-                                    }
-                                    System.out.println();
-                                }
-                            }
-                        }
+        for (int i = n - 1; i > 0; i--) {
+            for (int j = 0; j < (n - i); j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < i; j++) {
+                if (j < i - 1) System.out.print("* ");
+                else System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
                     `
             },
         }
@@ -1858,56 +1831,56 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution{
-                        public:
-                            void printTriangle(int n) {
-                                for(int i = 0;i < n;i++){
-                                    for(int j = 0;j <= i;j++){
-                                        cout<<"* ";
-                                    }
-                                    cout<<endl;
-                                }
-                                for(int i = (n - 1);i > 0;i--){
-                                    for(int j = 0;j < i;j++){
-                                        cout<<"* ";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution{
+public:
+    void printTriangle(int n) {
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j <= i;j++){
+                cout<<"* ";
+            }
+            cout<<endl;
+        }
+        for(int i = (n - 1);i > 0;i--){
+            for(int j = 0;j < i;j++){
+                cout<<"* ";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def printTriangle(self, n):
-                                for i in range(n):
-                                    for j in range(i + 1):
-                                        print("*", end=" ")
-                                    print()
-                                for i in range(n - 1, 0, -1):
-                                    for j in range(i):
-                                        print("*", end=" ")
-                                    print()
+class Solution:
+    def printTriangle(self, n):
+        for i in range(n):
+            for j in range(i + 1):
+                print("*", end=" ")
+            print()
+        for i in range(n - 1, 0, -1):
+            for j in range(i):
+                print("*", end=" ")
+            print()
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void printTriangle(int n) {
-                                for (int i = 0; i < n; i++) {
-                                    for (int j = 0; j <= i; j++) {
-                                        System.out.print("* ");
-                                    }
-                                    System.out.println();
-                                }
-                                for (int i = n - 1; i > 0; i--) {
-                                    for (int j = 0; j < i; j++) {
-                                        System.out.print("* ");
-                                    }
-                                    System.out.println();
-                                }
-                            }
+class Solution {
+    public void printTriangle(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+        for (int i = n - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
                     `
             },
         }
@@ -1923,48 +1896,45 @@ export const PatternData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void printTriangle(int n) {
-                                for(int i = 0;i < n;i++){
-                                    for(int j = 0;j <= i;j++){
-                                        if((i + j) % 2 == 0) cout<<"1 ";
-                                        else cout<<"0 ";
-                                    }
-                                    cout<<endl;
-                                }
-                            }
-                        };
+class Solution {
+public:
+    void printTriangle(int n) {
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j <= i;j++){
+                if((i + j) % 2 == 0) cout<<"1 ";
+                else cout<<"0 ";
+            }
+            cout<<endl;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def printTriangle(self, n):
-                                for i in range(n):
-                                    for j in range(i + 1):
-                                        if (i + j) % 2 == 0:
-                                            print("1", end=" ")
-                                        else:
-                                            print("0", end=" ")
-                                    print()
+class Solution:
+    def printTriangle(self, n):
+        for i in range(n):
+            for j in range(i + 1):
+                if (i + j) % 2 == 0:
+                    print("1", end=" ")
+                else:
+                    print("0", end=" ")
+            print()
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void printTriangle(int n) {
-                                for (int i = 0; i < n; i++) {
-                                    for (int j = 0; j <= i; j++) {
-                                        if ((i + j) % 2 == 0) {
-                                            System.out.print("1 ");
-                                        } else {
-                                            System.out.print("0 ");
-                                        }
-                                    }
-                                    System.out.println();
-                                }
-                            }
+class Solution {
+    public void printTriangle(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                if ((i + j) % 2 == 0) System.out.print("1 ");
+                else System.out.print("0 ");
+            }
+            System.out.println();
+        }
+    }
                     `
             },
         }
@@ -1983,53 +1953,47 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<int> twoSum(vector<int>& nums, int target) {
-                                unordered_map<int, int> pairIdx;
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> pairIdx;
+        for (int i = 0; i < nums.size(); ++i) {
+            int num = nums[i];
+            if (pairIdx.find(target - num) != pairIdx.end()) return {i, pairIdx[target - num]};
 
-                                for (int i = 0; i < nums.size(); ++i) {
-                                    int num = nums[i];
-                                    if (pairIdx.find(target - num) != pairIdx.end()) {
-                                        return {i, pairIdx[target - num]};
-                                    }
-                                    pairIdx[num] = i;
-                                }
-
-                                return {};        
-                            }
-                        };
+            pairIdx[num] = i;
+        }
+        return {};        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def twoSum(self, nums: List[int], target: int) -> List[int]:
-                                pair_idx = {}
-
-                                for i, num in enumerate(nums):
-                                    if target - num in pair_idx:
-                                        return [i, pair_idx[target - num]]
-                                    pair_idx[num] = i
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        pair_idx = {}
+        for i, num in enumerate(nums):
+            if target - num in pair_idx:
+                return [i, pair_idx[target - num]]
+            pair_idx[num] = i
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int[] twoSum(int[] nums, int target) {
-                                Map<Integer, Integer> pairIdx = new HashMap<>();
-
-                                for (int i = 0; i < nums.length; i++) {
-                                    int num = nums[i];
-                                    if (pairIdx.containsKey(target - num)) {
-                                        return new int[] { i, pairIdx.get(target - num) };
-                                    }
-                                    pairIdx.put(num, i);
-                                }
-
-                                return new int[] {};        
-                            }
-                        }
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> pairIdx = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            if (pairIdx.containsKey(target - num)) {
+            return new int[] { i, pairIdx.get(target - num) };
+            }
+            pairIdx.put(num, i);
+        }
+        return new int[] {};        
+    }
+}
                     `
             },
         }
@@ -2045,57 +2009,52 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int removeDuplicates(vector<int>& nums) {
-                                if (nums.empty()) return 0;
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.empty()) return 0;
 
-                                int i = 1;
-
-                                for (int j = 1; j < nums.size(); j++) {
-                                    if (nums[j] != nums[i - 1]) {
-                                        nums[i] = nums[j];
-                                        i++;
-                                    }
-                                }
-
-                                return i;        
-                            }
-                        };
+        int i = 1;
+        for (int j = 1; j < nums.size(); j++) {
+            if (nums[j] != nums[i - 1]) {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        return i;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def removeDuplicates(self, nums: List[int]) -> int:
-                                i = 1
-
-                                for j in range(1, len(nums)):
-                                    if nums[j] != nums[i - 1]:
-                                        nums[i] = nums[j]
-                                        i += 1
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 1
+        for j in range(1, len(nums)):
+            if nums[j] != nums[i - 1]:
+                nums[i] = nums[j]
+                i += 1
                                 
-                                return i
+        return i
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int removeDuplicates(int[] nums) {
-                                if (nums.length == 0) return 0;
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0) return 0;
 
-                                int i = 1;
-
-                                for (int j = 1; j < nums.length; j++) {
-                                    if (nums[j] != nums[i - 1]) {
-                                        nums[i] = nums[j];
-                                        i++;
-                                    }
-                                }
-
-                                return i;        
-                            }
-                        }
+        int i = 1;
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[j] != nums[i - 1]) {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        return i;        
+    }
+}
                     `
             },
         }
@@ -2111,70 +2070,56 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int searchInsert(vector<int>& nums, int target) {
-                                int left = 0;
-                                int right = nums.size() - 1;
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
 
-                                while (left <= right) {
-                                    int mid = left + (right - left) / 2;
-
-                                    if (nums[mid] == target) {
-                                        return mid;
-                                    } else if (nums[mid] > target) {
-                                        right = mid - 1;
-                                    } else {
-                                        left = mid + 1;
-                                    }
-                                }
-
-                                return left;        
-                            }
-                        };
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] > target) right = mid - 1;
+            else left = mid + 1;
+        }
+        return left;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def searchInsert(self, nums: List[int], target: int) -> int:
-                                left = 0
-                                right = len(nums) - 1
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        left = 0
+        right = len(nums) - 1
 
-                                while left <= right:
-                                    mid = (left + right) // 2
+        while left <= right:
+            mid = (left + right) // 2
 
-                                    if nums[mid] == target:
-                                        return mid
-                                    elif nums[mid] > target:
-                                        right = mid - 1
-                                    else:
-                                        left = mid + 1
-                                return left
+            if nums[mid] == target: return mid
+            elif nums[mid] > target: right = mid - 1
+            else: left = mid + 1
+        return left
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int searchInsert(int[] nums, int target) {
-                                int left = 0;
-                                int right = nums.length - 1;
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
 
-                                while (left <= right) {
-                                    int mid = left + (right - left) / 2;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
 
-                                    if (nums[mid] == target) {
-                                        return mid;
-                                    } else if (nums[mid] > target) {
-                                        right = mid - 1;
-                                    } else {
-                                        left = mid + 1;
-                                    }
-                                }
-
-                                return left;        
-                            }
-                        }
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] > target) right = mid - 1;
+            else left = mid + 1;
+        }
+        return left;        
+    }
+}
                     `
             },
         }
@@ -2190,66 +2135,68 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-                                int mIdx = m - 1;
-                                int nIdx = n - 1;
-                                int right = m + n - 1;
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int mIdx = m - 1;
+        int nIdx = n - 1;
+        int right = m + n - 1;
 
-                                while (nIdx >= 0) {
-                                    if (mIdx >= 0 && nums1[mIdx] > nums2[nIdx]) {
-                                        nums1[right] = nums1[mIdx];
-                                        mIdx--;
-                                    } else {
-                                        nums1[right] = nums2[nIdx];
-                                        nIdx--;
-                                    }
-                                    right--;
-                                }        
-                            }
-                        };
+        while (nIdx >= 0) {
+            if (mIdx >= 0 && nums1[mIdx] > nums2[nIdx]) {
+                nums1[right] = nums1[mIdx];
+                mIdx--;
+            } 
+            else {
+                nums1[right] = nums2[nIdx];
+                nIdx--;
+            }
+            right--;
+        }        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-                                mIdx = m - 1
-                                nIdx = n - 1 
-                                right = m + n - 1
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        mIdx = m - 1
+        nIdx = n - 1 
+        right = m + n - 1
 
-                                while nIdx >= 0:
-                                    if mIdx >= 0 and nums1[mIdx] > nums2[nIdx]:
-                                        nums1[right] = nums1[mIdx]
-                                        mIdx -= 1
-                                    else:
-                                        nums1[right] = nums2[nIdx]
-                                        nIdx -= 1
+        while nIdx >= 0:
+            if mIdx >= 0 and nums1[mIdx] > nums2[nIdx]:
+                nums1[right] = nums1[mIdx]
+                mIdx -= 1
+            else:
+                nums1[right] = nums2[nIdx]
+                nIdx -= 1
 
-                                    right -= 1
+        right -= 1
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void merge(int[] nums1, int m, int[] nums2, int n) {
-                                int mIdx = m - 1;
-                                int nIdx = n - 1;
-                                int right = m + n - 1;
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int mIdx = m - 1;
+        int nIdx = n - 1;
+        int right = m + n - 1;
 
-                                while (nIdx >= 0) {
-                                    if (mIdx >= 0 && nums1[mIdx] > nums2[nIdx]) {
-                                        nums1[right] = nums1[mIdx];
-                                        mIdx--;
-                                    } else {
-                                        nums1[right] = nums2[nIdx];
-                                        nIdx--;
-                                    }
-                                    right--;
-                                }        
-                            }
-                        }
+        while (nIdx >= 0) {
+            if (mIdx >= 0 && nums1[mIdx] > nums2[nIdx]) {
+                nums1[right] = nums1[mIdx];
+                mIdx--;
+            } 
+            else {
+                nums1[right] = nums2[nIdx];
+                nIdx--;
+            }
+            right--;
+        }        
+    }
+}
                     `
             },
         }
@@ -2265,71 +2212,69 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<vector<int>> generate(int numRows) {
-                                std::vector<std::vector<int>> res;
-                                res.push_back({1});
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        std::vector<std::vector<int>> res;
+        res.push_back({1});
 
-                                for (int i = 0; i < numRows - 1; i++) {
-                                    std::vector<int> dummyRow = {0};
-                                    dummyRow.insert(dummyRow.end(), res.back().begin(), res.back().end());
-                                    dummyRow.push_back(0);
-                                    std::vector<int> row;
+        for (int i = 0; i < numRows - 1; i++) {
+            std::vector<int> dummyRow = {0};
+            dummyRow.insert(dummyRow.end(), res.back().begin(), res.back().end());
+            dummyRow.push_back(0);
+            std::vector<int> row;
 
-                                    for (int j = 0; j < dummyRow.size() - 1; j++) {
-                                        row.push_back(dummyRow[j] + dummyRow[j + 1]);
-                                    }
+            for (int j = 0; j < dummyRow.size() - 1; j++) {
+                row.push_back(dummyRow[j] + dummyRow[j + 1]);
+            }
 
-                                    res.push_back(row);
-                                }
-
-                                return res;        
-                            }
-                        };
+            res.push_back(row);
+        }
+        return res;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def generate(self, numRows: int) -> List[List[int]]:
-                                res = [[1]]
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = [[1]]
 
-                                for _ in range(numRows - 1):
-                                    dummy_row = [0] + res[-1] + [0]
-                                    row = []
+        for _ in range(numRows - 1):
+            dummy_row = [0] + res[-1] + [0]
+            row = []
 
-                                    for i in range(len(res[-1]) + 1):
-                                        row.append(dummy_row[i] + dummy_row[i+1])
-                                    res.append(row)
+            for i in range(len(res[-1]) + 1):
+                row.append(dummy_row[i] + dummy_row[i+1])
+                res.append(row)
                                 
-                                return res
+        return res
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public List<List<Integer>> generate(int numRows) {
-                                List<List<Integer>> res = new ArrayList<>();
-                                res.add(List.of(1));
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res = new ArrayList<>();
+        res.add(List.of(1));
 
-                                for (int i = 0; i < numRows - 1; i++) {
-                                    List<Integer> dummyRow = new ArrayList<>();
-                                    dummyRow.add(0);
-                                    dummyRow.addAll(res.get(res.size() - 1));
-                                    dummyRow.add(0);
-                                    List<Integer> row = new ArrayList<>();
+        for (int i = 0; i < numRows - 1; i++) {
+            List<Integer> dummyRow = new ArrayList<>();
+            dummyRow.add(0);
+            dummyRow.addAll(res.get(res.size() - 1));
+            dummyRow.add(0);
+            List<Integer> row = new ArrayList<>();
 
-                                    for (int j = 0; j < dummyRow.size() - 1; j++) {
-                                        row.add(dummyRow.get(j) + dummyRow.get(j + 1));
-                                    }
+            for (int j = 0; j < dummyRow.size() - 1; j++) {
+                row.add(dummyRow.get(j) + dummyRow.get(j + 1));
+            }
+            res.add(row);
+        }
 
-                                    res.add(row);
-                                }
-
-                                return res;        
-                            }
-                        }
+        return res;        
+    }
+}
                     `
             },
         }
@@ -2345,59 +2290,55 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int maxProfit(vector<int>& prices) {
-                                int buyPrice = prices[0];
-                                int profit = 0;
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int buyPrice = prices[0];
+        int profit = 0;
 
-                                for (int i = 1; i < prices.size(); i++) {
-                                    if (buyPrice > prices[i]) {
-                                        buyPrice = prices[i];
-                                    }
+        for (int i = 1; i < prices.size(); i++) {
+            if (buyPrice > prices[i]) buyPrice = prices[i];
 
-                                    profit = max(profit, prices[i] - buyPrice);
-                                }
+            profit = max(profit, prices[i] - buyPrice);
+        }
 
-                                return profit;        
-                            }
-                        };
+        return profit;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def maxProfit(self, prices: List[int]) -> int:
-                                buy_price = prices[0]
-                                profit = 0
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        buy_price = prices[0]
+        profit = 0
 
-                                for p in prices[1:]:
-                                    if buy_price > p:
-                                        buy_price = p
+        for p in prices[1:]:
+            if buy_price > p:
+                buy_price = p
                                     
-                                    profit = max(profit, p - buy_price)
+            profit = max(profit, p - buy_price)
                                 
-                                return profit
+        return profit
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int maxProfit(int[] prices) {
-                                int buyPrice = prices[0];
-                                int profit = 0;
+class Solution {
+    public int maxProfit(int[] prices) {
+        int buyPrice = prices[0];
+        int profit = 0;
 
-                                for (int i = 1; i < prices.length; i++) {
-                                    if (buyPrice > prices[i]) {
-                                        buyPrice = prices[i];
-                                    }
+        for (int i = 1; i < prices.length; i++) {
+            if (buyPrice > prices[i]) buyPrice = prices[i];
 
-                                    profit = Math.max(profit, prices[i] - buyPrice);
-                                }
+            profit = Math.max(profit, prices[i] - buyPrice);
+        }
 
-                                return profit;        
-                            }
-                        }
+        return profit;        
+    }
+}
                     `
             },
         }
@@ -2413,68 +2354,60 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int maxArea(vector<int>& height) {
-                                int maxArea = 0;
-                                int left = 0;
-                                int right = height.size() - 1;
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int maxArea = 0;
+        int left = 0;
+        int right = height.size() - 1;
 
-                                while (left < right) {
-                                    maxArea = max(maxArea, (right - left) * min(height[left], height[right]));
+        while (left < right) {
+            maxArea = max(maxArea, (right - left) * min(height[left], height[right]));
 
-                                    if (height[left] < height[right]) {
-                                        left++;
-                                    } else {
-                                        right--;
-                                    }
-                                }
-
-                                return maxArea;        
-                            }
-                        };
+            if (height[left] < height[right]) left++;
+            else right--;
+        }
+        return maxArea;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def maxArea(self, height: List[int]) -> int:
-                                max_area = 0
-                                left = 0
-                                right = len(height) - 1
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        max_area = 0
+        left = 0
+        right = len(height) - 1
 
-                                while left < right:
-                                    max_area = max(max_area, (right - left) * min(height[left], height[right]))
+        while left < right:
+            max_area = max(max_area, (right - left) * min(height[left], height[right]))
 
-                                    if height[left] < height[right]:
-                                        left += 1
-                                    else:
-                                        right -= 1
+            if height[left] < height[right]:
+                left += 1
+            else:
+                right -= 1
                                 
-                                return max_area
+        return max_area
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int maxArea(int[] height) {
-                                int maxArea = 0;
-                                int left = 0;
-                                int right = height.length - 1;
+class Solution {
+    public int maxArea(int[] height) {
+        int maxArea = 0;
+        int left = 0;
+        int right = height.length - 1;
 
-                                while (left < right) {
-                                    maxArea = Math.max(maxArea, (right - left) * Math.min(height[left], height[right]));
+        while (left < right) {
+            maxArea = Math.max(maxArea, (right - left) * Math.min(height[left], height[right]));
 
-                                    if (height[left] < height[right]) {
-                                        left++;
-                                    } else {
-                                        right--;
-                                    }
-                                }
-
-                                return maxArea;        
-                            }
-                        }
+            if (height[left] < height[right]) left++;
+            else right--;
+        }
+        return maxArea;        
+    }
+}
                     `
             },
         }
@@ -2490,80 +2423,69 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void nextPermutation(vector<int>& nums) {
-                                int n = nums.size(), i = n - 2;
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size(), i = n - 2;                    
+        while (i >= 0 && nums[i] >= nums[i + 1]) i--;
                                 
-                                while (i >= 0 && nums[i] >= nums[i + 1]) {
-                                    i--;
-                                }
-                                
-                                if (i >= 0) {
-                                    int j = n - 1;
-                                    while (nums[j] <= nums[i]) {
-                                        j--;
-                                    }
-                                    swap(nums[i], nums[j]);
-                                }
-                                
-                                reverse(nums.begin() + i + 1, nums.end());
-                            }
-                        };
+        if (i >= 0) {
+            int j = n - 1;
+            while (nums[j] <= nums[i]) j--;
+            swap(nums[i], nums[j]);
+        }                    
+        reverse(nums.begin() + i + 1, nums.end());
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def nextPermutation(self, nums: List[int]) -> None:
-                                n = len(nums)
-                                i = n - 2
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        n = len(nums)
+        i = n - 2
                                 
-                                while i >= 0 and nums[i] >= nums[i + 1]:
-                                    i -= 1
+        while i >= 0 and nums[i] >= nums[i + 1]:
+            i -= 1
                                 
-                                if i >= 0:
-                                    j = n - 1
-                                    while nums[j] <= nums[i]:
-                                        j -= 1
-                                    nums[i], nums[j] = nums[j], nums[i]
+        if i >= 0:
+            j = n - 1
+            while nums[j] <= nums[i]:
+                j -= 1
+                nums[i], nums[j] = nums[j], nums[i]
                                 
-                                nums[i + 1:] = reversed(nums[i + 1:])
+        nums[i + 1:] = reversed(nums[i + 1:])
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void nextPermutation(int[] nums) {
-                                int n = nums.length, i = n - 2;
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int n = nums.length, i = n - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) i--;
                                 
-                                while (i >= 0 && nums[i] >= nums[i + 1]) {
-                                    i--;
-                                }
+        if (i >= 0) {
+            int j = n - 1;
+            while (nums[j] <= nums[i]) j--;
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
                                 
-                                if (i >= 0) {
-                                    int j = n - 1;
-                                    while (nums[j] <= nums[i]) {
-                                        j--;
-                                    }
-                                    int temp = nums[i];
-                                    nums[i] = nums[j];
-                                    nums[j] = temp;
-                                }
-                                
-                                reverse(nums, i + 1, n - 1);
-                            }
+            reverse(nums, i + 1, n - 1);
+        }
                             
-                            private void reverse(int[] nums, int start, int end) {
-                                while (start < end) {
-                                    int temp = nums[start];
-                                    nums[start] = nums[end];
-                                    nums[end] = temp;
-                                    start++;
-                                    end--;
-                                }
-                            }
-                        }
+private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
                     `
             },
         }
@@ -2579,94 +2501,81 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int search(vector<int>& nums, int target) {
-                                int left = 0;
-                                int right = nums.size() - 1;
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
 
-                                while (left <= right) {
-                                    int mid = (left + right) / 2;
+        while (left <= right) {
+            int mid = (left + right) / 2;
 
-                                    if (nums[mid] == target) {
-                                        return mid;
-                                    } else if (nums[mid] >= nums[left]) {
-                                        if (nums[left] <= target && target <= nums[mid]) {
-                                            right = mid - 1;
-                                        } else {
-                                            left = mid + 1;
-                                        }
-                                    } else {
-                                        if (nums[mid] <= target && target <= nums[right]) {
-                                            left = mid + 1;
-                                        } else {
-                                            right = mid - 1;
-                                        }
-                                    }
-                                }
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] >= nums[left]) {
+                if (nums[left] <= target && target <= nums[mid]) right = mid - 1;
+                else left = mid + 1;
+            }
+            else {
+                if (nums[mid] <= target && target <= nums[right]) left = mid + 1;
+                else right = mid - 1;
+            }
+        }
 
-                                return -1;        
-                            }
-                        };
+        return -1;        
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def search(self, nums: List[int], target: int) -> int:
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left = 0
+        right = len(nums) - 1
 
-                                left = 0
-                                right = len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
 
-                                while left <= right:
-                                    mid = (left + right) // 2
-
-                                    if nums[mid] == target:
-                                        return mid
-                                    elif nums[mid] >= nums[left]:
-                                        if nums[left] <= target <= nums[mid]:
-                                            right = mid - 1
-                                        else:
-                                            left = mid + 1
-                                    else:
-                                        if nums[mid] <= target <= nums[right]:
-                                            left = mid + 1
-                                        else:
-                                            right = mid - 1
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] >= nums[left]:
+                if nums[left] <= target <= nums[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            else:
+                if nums[mid] <= target <= nums[right]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
                                 
-                                return -1
+        return -1
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int search(int[] nums, int target) {
-                                int left = 0;
-                                int right = nums.length - 1;
+class Solution {
+    public int search(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
 
-                                while (left <= right) {
-                                    int mid = (left + right) / 2;
+        while (left <= right) {
+            int mid = (left + right) / 2;
 
-                                    if (nums[mid] == target) {
-                                        return mid;
-                                    } else if (nums[mid] >= nums[left]) {
-                                        if (nums[left] <= target && target <= nums[mid]) {
-                                            right = mid - 1;
-                                        } else {
-                                            left = mid + 1;
-                                        }
-                                    } else {
-                                        if (nums[mid] <= target && target <= nums[right]) {
-                                            left = mid + 1;
-                                        } else {
-                                            right = mid - 1;
-                                        }
-                                    }
-                                }
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] >= nums[left]) {
+                if (nums[left] <= target && target <= nums[mid]) right = mid - 1;
+                else left = mid + 1;
+            } 
+            else {
+                if (nums[mid] <= target && target <= nums[right]) left = mid + 1;
+                else right = mid - 1;
+            }
+        }
 
-                                return -1;        
-                            }
-                        }
+        return -1;        
+    }
+}
                     `
             },
         }
@@ -2682,96 +2591,86 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool isValidSudoku(vector<vector<char>>& board) {
-                                unordered_set<char> rows[9];
-                                unordered_set<char> cols[9];
-                                unordered_set<char> boxes[9];
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        unordered_set<char> rows[9];
+        unordered_set<char> cols[9];
+        unordered_set<char> boxes[9];
 
-                                for (int r = 0; r < 9; ++r) {
-                                    for (int c = 0; c < 9; ++c) {
-                                        if (board[r][c] == '.') {
-                                            continue;
-                                        }
+        for (int r = 0; r < 9; ++r) {
+            for (int c = 0; c < 9; ++c) {
+                if (board[r][c] == '.') continue;
 
-                                        char value = board[r][c];
-                                        int boxIndex = (r / 3) * 3 + (c / 3);
+                char value = board[r][c];
+                int boxIndex = (r / 3) * 3 + (c / 3);
+                if (rows[r].count(value) || cols[c].count(value) || boxes[boxIndex].count(value)) return false;
 
-                                        if (rows[r].count(value) || cols[c].count(value) || boxes[boxIndex].count(value)) {
-                                            return false;
-                                        }
+                rows[r].insert(value);
+                cols[c].insert(value);
+                boxes[boxIndex].insert(value);
+            }
+        }
 
-                                        rows[r].insert(value);
-                                        cols[c].insert(value);
-                                        boxes[boxIndex].insert(value);
-                                    }
-                                }
-
-                                return true;        
-                            }
-                        };
+        return true;        
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def isValidSudoku(self, board: List[List[str]]) -> bool:
-                                rows = defaultdict(set)
-                                cols = defaultdict(set)
-                                boxes = defaultdict(set)
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        boxes = defaultdict(set)
                                 
-                                for r in range(9):
-                                    for c in range(9):
-                                        if board[r][c] == ".":
-                                            continue
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] == ".":
+                    continue
                                         
-                                        if board[r][c] in rows[r] or board[r][c] in cols[c] or board[r][c] in boxes[(r // 3, c // 3)]:
-                                            return False
+            if board[r][c] in rows[r] or board[r][c] in cols[c] or board[r][c] in boxes[(r // 3, c // 3)]:
+                return False
                                         
-                                        rows[r].add(board[r][c])
-                                        cols[c].add(board[r][c])
-                                        boxes[(r // 3, c // 3)].add(board[r][c])
+            rows[r].add(board[r][c])
+            cols[c].add(board[r][c])
+            boxes[(r // 3, c // 3)].add(board[r][c])
                                 
-                                return True
+        return True
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isValidSudoku(char[][] board) {
-                                HashSet<Character>[] rows = new HashSet[9];
-                                HashSet<Character>[] cols = new HashSet[9];
-                                HashSet<Character>[] boxes = new HashSet[9];
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        HashSet<Character>[] rows = new HashSet[9];
+        HashSet<Character>[] cols = new HashSet[9];
+        HashSet<Character>[] boxes = new HashSet[9];
 
-                                for (int i = 0; i < 9; i++) {
-                                    rows[i] = new HashSet<>();
-                                    cols[i] = new HashSet<>();
-                                    boxes[i] = new HashSet<>();
-                                }
+        for (int i = 0; i < 9; i++) {
+            rows[i] = new HashSet<>();
+            cols[i] = new HashSet<>();
+            boxes[i] = new HashSet<>();
+        }
 
-                                for (int r = 0; r < 9; r++) {
-                                    for (int c = 0; c < 9; c++) {
-                                        if (board[r][c] == '.') {
-                                            continue;
-                                        }
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                if (board[r][c] == '.') continue;
 
-                                        char value = board[r][c];
-                                        int boxIndex = (r / 3) * 3 + (c / 3);
+                char value = board[r][c];
+                int boxIndex = (r / 3) * 3 + (c / 3);
+                if (rows[r].contains(value) || cols[c].contains(value) || boxes[boxIndex].contains(value)) return false;
 
-                                        if (rows[r].contains(value) || cols[c].contains(value) || boxes[boxIndex].contains(value)) {
-                                            return false;
-                                        }
+                rows[r].add(value);
+                cols[c].add(value);
+                boxes[boxIndex].add(value);
+            }
+        }
 
-                                        rows[r].add(value);
-                                        cols[c].add(value);
-                                        boxes[boxIndex].add(value);
-                                    }
-                                }
-
-                                return true;        
-                            }
-                        }
+        return true;        
+    }
+}
                     `
             },
         }
@@ -2787,89 +2686,86 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void rotate(vector<vector<int>>& matrix) {
-                                int edgeLength = matrix.size();
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int edgeLength = matrix.size();
+        int top = 0;
+        int bottom = edgeLength - 1;
 
-                                int top = 0;
-                                int bottom = edgeLength - 1;
+        while (top < bottom) {
+            for (int col = 0; col < edgeLength; col++) {
+                int temp = matrix[top][col];
+                matrix[top][col] = matrix[bottom][col];
+                matrix[bottom][col] = temp;
+            }
+            top++;
+            bottom--;
+        }
 
-                                while (top < bottom) {
-                                    for (int col = 0; col < edgeLength; col++) {
-                                        int temp = matrix[top][col];
-                                        matrix[top][col] = matrix[bottom][col];
-                                        matrix[bottom][col] = temp;
-                                    }
-                                    top++;
-                                    bottom--;
-                                }
-
-                                for (int row = 0; row < edgeLength; row++) {
-                                    for (int col = row + 1; col < edgeLength; col++) {
-                                        int temp = matrix[row][col];
-                                        matrix[row][col] = matrix[col][row];
-                                        matrix[col][row] = temp;
-                                    }
-                                }        
-                            }
-                        };
+        for (int row = 0; row < edgeLength; row++) {
+            for (int col = row + 1; col < edgeLength; col++) {
+                int temp = matrix[row][col];
+                matrix[row][col] = matrix[col][row];
+                matrix[col][row] = temp;
+            }
+        }        
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def rotate(self, matrix: List[List[int]]) -> None:
-                                edge_length = len(matrix)
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        edge_length = len(matrix)
+        top = 0
+        bottom = edge_length - 1
 
-                                top = 0
-                                bottom = edge_length - 1
+        while top < bottom:
+            for col in range(edge_length):
+                temp = matrix[top][col]
+                matrix[top][col] = matrix[bottom][col]
+                matrix[bottom][col] = temp
+            top += 1
+            bottom -= 1
 
-                                while top < bottom:
-                                    for col in range(edge_length):
-                                        temp = matrix[top][col]
-                                        matrix[top][col] = matrix[bottom][col]
-                                        matrix[bottom][col] = temp
-                                    top += 1
-                                    bottom -= 1
-
-                                for row in range(edge_length):
-                                    for col in range(row+1, edge_length):
-                                        temp = matrix[row][col]
-                                        matrix[row][col] = matrix[col][row]
-                                        matrix[col][row] = temp
+        for row in range(edge_length):
+            for col in range(row+1, edge_length):
+                temp = matrix[row][col]
+                matrix[row][col] = matrix[col][row]
+                matrix[col][row] = temp
                                 
-                                return matrix
+        return matrix
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void rotate(int[][] matrix) {
-                                int edgeLength = matrix.length;
+class Solution {
+    public void rotate(int[][] matrix) {
+        int edgeLength = matrix.length;
+        int top = 0;
+        int bottom = edgeLength - 1;
 
-                                int top = 0;
-                                int bottom = edgeLength - 1;
+        while (top < bottom) {
+            for (int col = 0; col < edgeLength; col++) {
+                int temp = matrix[top][col];
+                matrix[top][col] = matrix[bottom][col];
+                matrix[bottom][col] = temp;
+            }
+            top++;
+            bottom--;
+        }
 
-                                while (top < bottom) {
-                                    for (int col = 0; col < edgeLength; col++) {
-                                        int temp = matrix[top][col];
-                                        matrix[top][col] = matrix[bottom][col];
-                                        matrix[bottom][col] = temp;
-                                    }
-                                    top++;
-                                    bottom--;
-                                }
-
-                                for (int row = 0; row < edgeLength; row++) {
-                                    for (int col = row + 1; col < edgeLength; col++) {
-                                        int temp = matrix[row][col];
-                                        matrix[row][col] = matrix[col][row];
-                                        matrix[col][row] = temp;
-                                    }
-                                }        
-                            }
-                        }
+        for (int row = 0; row < edgeLength; row++) {
+            for (int col = row + 1; col < edgeLength; col++) {
+                int temp = matrix[row][col];
+                matrix[row][col] = matrix[col][row];
+                matrix[col][row] = temp;
+            }
+        }        
+    }
+}
                     `
             },
         }
@@ -2885,86 +2781,85 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<int> spiralOrder(vector<vector<int>>& matrix) {
-                                int rows = matrix.size();
-                                int cols = matrix[0].size();
-                                int x = 0;
-                                int y = 0;
-                                int dx = 1;
-                                int dy = 0;
-                                vector<int> res;
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        int x = 0;
+        int y = 0;
+        int dx = 1;
+        int dy = 0;
+        vector<int> res;
 
-                                for (int i = 0; i < rows * cols; i++) {
-                                    res.push_back(matrix[y][x]);
-                                    matrix[y][x] = -101;
+        for (int i = 0; i < rows * cols; i++) {
+            res.push_back(matrix[y][x]);
+            matrix[y][x] = -101;
 
-                                    if (!(0 <= x + dx && x + dx < cols && 0 <= y + dy && y + dy < rows) || matrix[y+dy][x+dx] == -101) {
-                                        int temp = dx;
-                                        dx = -dy;
-                                        dy = temp;
-                                    }
+            if (!(0 <= x + dx && x + dx < cols && 0 <= y + dy && y + dy < rows) || matrix[y+dy][x+dx] == -101) {
+                int temp = dx;
+                dx = -dy;
+                dy = temp;
+            }
 
-                                    x += dx;
-                                    y += dy;
-                                }
+            x += dx;
+            y += dy;
+        }
 
-                                return res;
-                            }        
-                        };
+        return res;
+    }        
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-                                rows, cols = len(matrix), len(matrix[0])
-                                x, y, dx, dy = 0, 0, 1, 0
-                                res = []
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        rows, cols = len(matrix), len(matrix[0])
+        x, y, dx, dy = 0, 0, 1, 0
+        res = []
 
-                                for _ in range(rows * cols):
-                                    res.append(matrix[y][x])
-                                    matrix[y][x] = "."
+        for _ in range(rows * cols):
+            res.append(matrix[y][x])
+            matrix[y][x] = "."
 
-                                    if not 0 <= x + dx < cols or not 0 <= y + dy < rows or matrix[y+dy][x+dx] == ".":
-                                        dx, dy = -dy, dx
+            if not 0 <= x + dx < cols or not 0 <= y + dy < rows or matrix[y+dy][x+dx] == ".":
+                dx, dy = -dy, dx
                                     
-                                    x += dx
-                                    y += dy
+            x += dx
+            y += dy
                                 
-                                return res
+        return res
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                        public List<Integer> spiralOrder(int[][] matrix) {
-                            int rows = matrix.length;
-                            int cols = matrix[0].length;
-                            int x = 0;
-                            int y = 0;
-                            int dx = 1;
-                            int dy = 0;
-                            List<Integer> res = new ArrayList<>();
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int x = 0;
+        int y = 0;
+        int dx = 1;
+        int dy = 0;
+        List<Integer> res = new ArrayList<>();
 
-                            for (int i = 0; i < rows * cols; i++) {
-                                res.add(matrix[y][x]);
-                                matrix[y][x] = -101; // the range of numbers in matrix is from -100 to 100
+        for (int i = 0; i < rows * cols; i++) {
+            res.add(matrix[y][x]);
+            matrix[y][x] = -101;
 
-                                if (!(0 <= x + dx && x + dx < cols && 0 <= y + dy && y + dy < rows) || matrix[y+dy][x+dx] == -101) {
-                                    int temp = dx;
-                                    dx = -dy;
-                                    dy = temp;
-                                }
+            if (!(0 <= x + dx && x + dx < cols && 0 <= y + dy && y + dy < rows) || matrix[y+dy][x+dx] == -101) {
+                int temp = dx;
+                dx = -dy;
+                dy = temp;
+            }
 
-                                x += dx;
-                                y += dy;
-                            }
-
-                            return res;        
-                        }
-                    }
+                x += dx;
+                y += dy;
+        }
+        return res;        
+    }
+}
                     `
             },
         }
@@ -2980,75 +2875,75 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void sortColors(vector<int>& nums) {
-                                int red = 0;
-                                int white = 0;
-                                int blue = nums.size() - 1;
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int red = 0;
+        int white = 0;
+        int blue = nums.size() - 1;
                                 
-                                while (white <= blue) {
-                                    if (nums[white] == 0) {
-                                        swap(nums[white], nums[red]);
-                                        red++;
-                                        white++;
-                                    } else if (nums[white] == 1) {
-                                        white++;
-                                    } else {
-                                        swap(nums[white], nums[blue]);
-                                        blue--;
-                                    }
-                                }
-                            }
-                        };
+        while (white <= blue) {
+            if (nums[white] == 0) {
+                swap(nums[white], nums[red]);
+                red++;
+                white++;
+            } 
+            else if (nums[white] == 1) white++;
+            else {
+                swap(nums[white], nums[blue]);
+                blue--;
+            }
+        }
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def sortColors(self, nums: List[int]) -> None:
-                                red = 0
-                                white = 0
-                                blue = len(nums) - 1
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        red = 0
+        white = 0
+        blue = len(nums) - 1
                                 
-                                while white <= blue:
-                                    if nums[white] == 0:
-                                        nums[white], nums[red] = nums[red], nums[white]
-                                        red += 1
-                                        white += 1
-                                    elif nums[white] == 1:
-                                        white += 1
-                                    else:
-                                        nums[white], nums[blue] = nums[blue], nums[white]
-                                        blue -= 1
+        while white <= blue:
+            if nums[white] == 0:
+                nums[white], nums[red] = nums[red], nums[white]
+                red += 1
+                white += 1
+            elif nums[white] == 1:
+                white += 1
+            else:
+                nums[white], nums[blue] = nums[blue], nums[white]
+                blue -= 1
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void sortColors(int[] nums) {
-                                int red = 0;
-                                int white = 0;
-                                int blue = nums.length - 1;
+class Solution {
+    public void sortColors(int[] nums) {
+        int red = 0;
+        int white = 0;
+        int blue = nums.length - 1;
                                 
-                                while (white <= blue) {
-                                    if (nums[white] == 0) {
-                                        int temp = nums[white];
-                                        nums[white] = nums[red];
-                                        nums[red] = temp;
-                                        red++;
-                                        white++;
-                                    } else if (nums[white] == 1) {
-                                        white++;
-                                    } else {
-                                        int temp = nums[white];
-                                        nums[white] = nums[blue];
-                                        nums[blue] = temp;
-                                        blue--;
-                                    }
-                                }
-                            }
-                        }
+        while (white <= blue) {
+            if (nums[white] == 0) {
+                int temp = nums[white];
+                nums[white] = nums[red];
+                nums[red] = temp;
+                red++;
+                white++;
+            } 
+            else if (nums[white] == 1) white++;
+            else {
+                int temp = nums[white];
+                nums[white] = nums[blue];
+                nums[blue] = temp;
+                blue--;
+            }
+        }
+    }
+}
                     `
             },
         }
@@ -3064,77 +2959,65 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int firstMissingPositive(vector<int>& nums) {
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        nums.erase(remove_if(nums.begin(), nums.end(), [](int n) { return n <= 0; }), nums.end());
 
-                                nums.erase(remove_if(nums.begin(), nums.end(), [](int n) { return n <= 0; }), nums.end());
+        for (int i = 0; i < nums.size(); i++) {
+            int n = abs(nums[i]);
+            if (n <= nums.size() && nums[n - 1] > 0) nums[n - 1] = -nums[n - 1];
+        }
 
-                                for (int i = 0; i < nums.size(); i++) {
-                                    int n = abs(nums[i]);
-                                    if (n <= nums.size() && nums[n - 1] > 0) {
-                                        nums[n - 1] = -nums[n - 1];
-                                    }
-                                }
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] > 0) return i + 1;
+        }
 
-                                for (int i = 0; i < nums.size(); i++) {
-                                    if (nums[i] > 0) {
-                                        return i + 1;
-                                    }
-                                }
-
-                                return nums.size() + 1;        
-                            }
-                        };
+        return nums.size() + 1;        
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def firstMissingPositive(self, nums: List[int]) -> int:
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        nums = [n for n in nums if n > 0]
 
-                                nums = [n for n in nums if n > 0]
-
-                                for n in nums:
-                                    idx = abs(n) - 1
-                                    if idx < len(nums) and nums[idx] > 0:
-                                        nums[idx] *= -1
+        for n in nums:
+            idx = abs(n) - 1
+            if idx < len(nums) and nums[idx] > 0:
+                nums[idx] *= -1
                                 
-                                for i in range(len(nums)):
-                                    if nums[i] > 0:
-                                        return i + 1
+        for i in range(len(nums)):
+            if nums[i] > 0:
+                return i + 1
                                 
-                                return len(nums) + 1
+        return len(nums) + 1
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int firstMissingPositive(int[] nums) {
-                            List<Integer> numsList = new ArrayList<Integer>();
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        List<Integer> numsList = new ArrayList<Integer>();
                                 
-                                for (int i = 0; i < nums.length; i++) {
-                                    if (nums[i] > 0) {
-                                        numsList.add(nums[i]);
-                                    }
-                                }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) numsList.add(nums[i]);
+        }
                                 
-                                for (int i = 0; i < numsList.size(); i++) {
-                                    int n = Math.abs(numsList.get(i));
-                                    if (n <= numsList.size() && numsList.get(n - 1) > 0) {
-                                        numsList.set(n - 1, -numsList.get(n - 1));
-                                    }
-                                }
+        for (int i = 0; i < numsList.size(); i++) {
+            int n = Math.abs(numsList.get(i));
+            if (n <= numsList.size() && numsList.get(n - 1) > 0) numsList.set(n - 1, -numsList.get(n - 1));
+        }
                                 
-                                for (int i = 0; i < numsList.size(); i++) {
-                                    if (numsList.get(i) > 0) {
-                                        return i + 1;
-                                    }
-                                }
+        for (int i = 0; i < numsList.size(); i++) {
+            if (numsList.get(i) > 0) return i + 1;
+        }
                                 
-                                return numsList.size() + 1;        
-                            }
-                        }
+        return numsList.size() + 1;        
+    }
+}
                     `
             },
         }
@@ -3150,121 +3033,110 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<string> fullJustify(vector<string>& words, int maxWidth) {
-                                vector<string> res;
-                                const int n = words.size();
-                                int begin = 0, len = 0;
-                                for (int i = 0; i < n; ++i) {
-                                    if (len + words[i].size() + (i - begin) > maxWidth) {
-                                        res.emplace_back(connect(words, maxWidth, begin, i, len, false));
-                                        begin = i;
-                                        len = 0;
-                                    }
-                                    len += words[i].size();
-                                }
-                                res.emplace_back(connect(words, maxWidth, begin, n, len, true));
-                                return res;
-                            }
-                        private:
-                            string connect(const vector<string>& words, int maxWidth,
-                                        int begin, int end, int len,
-                                        bool is_last) {
-                                string s;
-                                int n = end - begin;
-                                for (int i = 0; i < n; ++i) {
-                                    s += words[begin + i];
-                                    addSpaces(i, n - 1, maxWidth - len, is_last, &s);
-                                }
-                                if (s.size() < maxWidth) {
-                                    s.append(maxWidth - s.size(), ' ');
-                                }
-                                return s;
-                            }
-                            void addSpaces(int i, int spaceCnt, int maxWidth, bool is_last, string *s) {
-                                if (i < spaceCnt) {
-                                    int spaces = is_last ? 1 : maxWidth / spaceCnt + (i < maxWidth % spaceCnt);
-                                    s->append(spaces, ' ');
-                                }
-                            }
-                        };
+class Solution {
+public:
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        vector<string> res;
+        const int n = words.size();
+        int begin = 0, len = 0;
+        for (int i = 0; i < n; ++i) {
+            if (len + words[i].size() + (i - begin) > maxWidth) {
+                res.emplace_back(connect(words, maxWidth, begin, i, len, false));
+                begin = i;
+                len = 0;
+            }
+            len += words[i].size();
+        }
+        res.emplace_back(connect(words, maxWidth, begin, n, len, true));
+        return res;
+    }
+
+private:
+    string connect(const vector<string>& words, int maxWidth, int begin, int end, int len, bool is_last) {
+        string s;
+        int n = end - begin;
+        for (int i = 0; i < n; ++i) {
+            s += words[begin + i];
+            addSpaces(i, n - 1, maxWidth - len, is_last, &s);
+        }
+        if (s.size() < maxWidth) s.append(maxWidth - s.size(), ' ');
+        return s;
+    }
+    
+    void addSpaces(int i, int spaceCnt, int maxWidth, bool is_last, string *s) {
+        if (i < spaceCnt) {
+            int spaces = is_last ? 1 : maxWidth / spaceCnt + (i < maxWidth % spaceCnt);
+            s->append(spaces, ' ');
+        }
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
-                                res = []
-                                
-                                cur_wlist  = []
-                                cur_ch_cnt = 0   # for the space consideration
+class Solution:
+    def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
+        res = []       
+        cur_wlist  = []
+        cur_ch_cnt = 0
                             
-                                for w in words: 
-                                    if cur_ch_cnt + len(cur_wlist) + len(w) > maxWidth:
-                                        for i in range(maxWidth - cur_ch_cnt):  # insert space
-                                            cur_wlist[i%(len(cur_wlist) - 1 or 1)] += ' '
+        for w in words: 
+            if cur_ch_cnt + len(cur_wlist) + len(w) > maxWidth:
+                for i in range(maxWidth - cur_ch_cnt):  
+                    cur_wlist[i%(len(cur_wlist) - 1 or 1)] += ' '
                                     
-                                        res.append(''.join(cur_wlist)) # insert a this row 
-                                        cur_wlist, cur_ch_cnt = [], 0 # prepare a new row, resetting
+                    res.append(''.join(cur_wlist)) 
+                    cur_wlist, cur_ch_cnt = [], 0 
                                         
-                                    cur_wlist += [w]
-                                    cur_ch_cnt += len(w)
+                    cur_wlist += [w]
+                    cur_ch_cnt += len(w)
                                     
-                                return res + [' '.join(cur_wlist).ljust(maxWidth)]
+        return res + [' '.join(cur_wlist).ljust(maxWidth)]
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public List<String> fullJustify(String[] words, int maxWidth) {
+class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> result = new ArrayList<>();
+        int word = 0;
 
-                                List<String> result = new ArrayList<>();
+        while(word<words.length){
+            int j = word-1;
+            int characters = 0;
 
-                                int word = 0;
+            while(j+1<words.length && characters+words[j+1].length() + j+1-word<=maxWidth){
+                j++;
+                characters+=words[j].length();
+            }
+            result.add(line(words , word , j, characters , maxWidth));
+            word = j+1;
+        }
+        return result;
+    }
 
-                                while(word<words.length){
-
-                                    int j = word-1;
-                                    int characters = 0;
-
-
-                                    while(j+1<words.length && characters+words[j+1].length() + j+1-word<=maxWidth)
-                                    {
-                                        j++;
-                                        characters+=words[j].length();
-                                    }
-                                    result.add(line(words , word , j, characters , maxWidth));
-                                    word = j+1;
-                                }
-                                return result;
-                            }
-                            public String line(String words[],int start,int end, int Linelen,int max)
-                            {
-                                StringBuilder a = new StringBuilder();
-                                int p=1,q=0;
-                                if(end!=start)
-                                {
-                                    p=(max-Linelen)/(end-start);
-                                    q=(max-Linelen)%(end-start);
-                                }
+    public String line(String words[],int start,int end, int Linelen,int max){
+        StringBuilder a = new StringBuilder();
+        int p=1,q=0;
+        if(end!=start){
+            p=(max-Linelen)/(end-start);
+            q=(max-Linelen)%(end-start);
+        }
                                 
-                                for(int i=start;i<=end;i++)
-                                {
-                                    a.append(words[i]);
-                                    if(i!=end)
-                                    {
-                                        if(end==words.length-1) a.append(" ");
-                                        else {
-                                            for(int j=1;j<=p;j++) a.append(" ");
-                                            if(q-->=1) a.append(" ");
-                                        }
-                                    }
-                                }
-                                while(a.length()<max) a.append(" ");
-                                return a.toString();
-                            }
-                        }
+        for(int i=start;i<=end;i++){
+            a.append(words[i]);
+            if(i!=end){
+                if(end==words.length-1) a.append(" ");
+                else {
+                    for(int j=1;j<=p;j++) a.append(" ");
+                    if(q-->=1) a.append(" ");
+                }
+            }
+        }
+        while(a.length()<max) a.append(" ");
+        return a.toString();
+    }
+}
                     `
             },
         }
@@ -3280,86 +3152,89 @@ export const ArrayData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int trap(vector<int>& height) {
-                                int left = 0;
-                                int right = height.size() - 1;
-                                int leftMax = height[left];
-                                int rightMax = height[right];
-                                int water = 0;
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int left = 0;
+        int right = height.size() - 1;
+        int leftMax = height[left];
+        int rightMax = height[right];
+        int water = 0;
 
-                                while (left < right) {
-                                    if (leftMax < rightMax) {
-                                        left++;
-                                        leftMax = max(leftMax, height[left]);
-                                        water += leftMax - height[left];
-                                    } else {
-                                        right--;
-                                        rightMax = max(rightMax, height[right]);
-                                        water += rightMax - height[right];
-                                    }
-                                }
+        while (left < right) {
+            if (leftMax < rightMax) {
+                left++;
+                leftMax = max(leftMax, height[left]);
+                water += leftMax - height[left];
+            } 
+            else {
+                right--;
+                rightMax = max(rightMax, height[right]);
+                water += rightMax - height[right];
+            }
+        }
 
-                                return water;        
-                            }
-                        };
+        return water;        
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def trap(self, height: List[int]) -> int:
-                                left = 0
-                                right = len(height) - 1
-                                left_max = height[left]
-                                right_max = height[right]
-                                water = 0
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        left = 0
+        right = len(height) - 1
+        left_max = height[left]
+        right_max = height[right]
+        water = 0
 
-                                while left < right:
-                                    if left_max < right_max:
-                                        left += 1
-                                        left_max = max(left_max, height[left])
-                                        water += left_max - height[left]
-                                    else:
-                                        right -= 1
-                                        right_max = max(right_max, height[right])
-                                        water += right_max - height[right]
+        while left < right:
+            if left_max < right_max:
+                left += 1
+                left_max = max(left_max, height[left])
+                water += left_max - height[left]
+            else:
+                right -= 1
+                right_max = max(right_max, height[right])
+                water += right_max - height[right]
                                 
-                                return water
+        return water
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int trap(int[] height) {
-                                int left = 0;
-                                int right = height.length - 1;
-                                int leftMax = height[left];
-                                int rightMax = height[right];
-                                int water = 0;
+class Solution {
+    public int trap(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+        int leftMax = height[left];
+        int rightMax = height[right];
+        int water = 0;
 
-                                while (left < right) {
-                                    if (leftMax < rightMax) {
-                                        left++;
-                                        leftMax = Math.max(leftMax, height[left]);
-                                        water += leftMax - height[left];
-                                    } else {
-                                        right--;
-                                        rightMax = Math.max(rightMax, height[right]);
-                                        water += rightMax - height[right];
-                                    }
-                                }
+        while (left < right) {
+            if (leftMax < rightMax) {
+                left++;
+                leftMax = Math.max(leftMax, height[left]);
+                water += leftMax - height[left];
+            } 
+            else {
+                right--;
+                rightMax = Math.max(rightMax, height[right]);
+                water += rightMax - height[right];
+            }
+        }
 
-                                return water;        
-                            }
-                        }
+        return water;        
+    }
+}
                     `
             },
         }
     },
 ]
 
+// Need to change the solution code gap
 export const StringData = [
     {
         id: 1,

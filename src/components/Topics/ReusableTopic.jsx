@@ -1,12 +1,14 @@
 import React, {  useEffect, useState } from 'react'
 import ConfettiWrapper from '../Confetti/ConfettiWrapper'
 import Solution from '../Solution/Solution';
+import { useNavigate } from 'react-router-dom';
 
 const ReusableTopic = ({title,description,data}) => {
   // For storing
     const storedData = JSON.parse(localStorage.getItem(`checkedItems_${title}`)) || [];
   
     // Hooks 
+    const navigate = useNavigate()
     const [checkedItems,setCheckedItems] = useState(storedData)
     const [selectSolution,setSelectSolution] = useState(null);
   
@@ -26,8 +28,8 @@ const ReusableTopic = ({title,description,data}) => {
     const isAllSolved = checkedItems.length === data.length
 
     // Called when someone click on view
-    const handleViewSolution = (items) => {
-      setSelectSolution(items)
+    const handleViewSolution = (item) => {
+      navigate('/solution', {state: {solutionData: item}})
     }
 
   return (

@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react'
 import asset from '../../assets/asset';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLocation } from 'react-router-dom';
 
-const Solution = ({data}) => {
+const Solution = () => {
+
+  // Hooks
+  const location = useLocation()
+  const data = location.state?.solutionData
+
   if (!data) {
     return <p className='text-red-500 font-semibold'>No data provided for this solution.</p>;
   }

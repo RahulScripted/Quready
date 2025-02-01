@@ -30,6 +30,7 @@ import ScrollToTop from "./components/Scroll To Top/ScrollToTop"
 import { useEffect, useState } from "react"
 import Preloader from "./components/Preloader/Preloader"
 import Test from "./components/Test/Test"
+import Solution from "./components/Solution/Solution"
 
 
 function App() {
@@ -84,6 +85,7 @@ function App() {
                 <Route path="/topics/graphs" element={<Graphs />} />
                 <Route path="/topics/tries" element={<Tries />} />
                 <Route path="/test/:id" element={<Test />} />
+                <Route path="/solution" element={<Solution />} />
               </Routes>
               <Footer />
             </div>
