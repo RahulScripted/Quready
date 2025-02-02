@@ -5867,8 +5867,6 @@ class Solution {
             },
         }
     },
-
-    // Need to be changed
     {
         id: 5,
         name: "Find Minimum in Rotated Sorted Array",
@@ -5876,58 +5874,58 @@ class Solution {
         level: "Medium",
         url: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
         solution: {
-            description: "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become: [4,5,6,7,0,1,2] if it was rotated 4 times. [0,1,2,4,5,6,7] if it was rotated 7 times. Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]]. Given the sorted rotated array nums of unique elements, return the minimum element of this array.",
+            description: "Given the sorted rotated array nums of unique elements, return the minimum element of this array.",
             code:{
                 cpp: 
                     `
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
     int findMin(vector<int>& nums) {
-        int left = 0, right = nums.size() - 1;
+        int left = 0;
+        int right = nums.size() - 1;
+
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] > nums[right]) {
-                left = mid + 1; // Minimum is in the right part
-            } else {
-                right = mid; // Minimum is in the left part (or mid itself)
-            }
+            if (nums[mid] <= nums[right]) right = mid;
+            else left = mid + 1;
         }
-        return nums[left]; // The minimum element
+
+        return nums[left];        
     }
 };
                     `
                 ,
                 python:
                     `
- class Solution:
-    def findMin(self, nums):
-        left, right = 0, len(nums) - 1
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        left = 0
+        right = len(nums) - 1
+
         while left < right:
-            mid = left + (right - left) // 2
-            if nums[mid] > nums[right]:
-                left = mid + 1  # Minimum is in the right part
+            mid = (left + right) // 2
+            if nums[mid] <= nums[right]:
+                right = mid
             else:
-                right = mid  # Minimum is in the left part (or mid itself)
-        return nums[left]  # The minimum element
+                left = mid + 1
+        
+        return nums[left]
                     `
                 ,
                 java:
                     `
 class Solution {
     public int findMin(int[] nums) {
-        int left = 0, right = nums.length - 1;
+        int left = 0;
+        int right = nums.length - 1;
+
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] > nums[right]) {
-                left = mid + 1; // Minimum is in the right part
-            } else {
-                right = mid; // Minimum is in the left part (or mid itself)
-            }
+            if (nums[mid] <= nums[right]) right = mid;
+            else left = mid + 1;
         }
-        return nums[left]; // The minimum element
+
+        return nums[left];        
     }
 }
                     `
@@ -5945,22 +5943,16 @@ class Solution {
             code:{
                 cpp: 
                     `
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
         int left = 0, right = nums.size() - 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] > nums[mid + 1]) {
-                right = mid; // The peak is in the left part (including mid)
-            } else {
-                left = mid + 1; // The peak is in the right part
-            }
+            if (nums[mid] > nums[mid + 1]) right = mid;
+            else left = mid + 1;
         }
-        return left; // The peak element's index
+        return left;
     }
 };
                     `
@@ -5970,13 +5962,15 @@ public:
 class Solution:
     def findPeakElement(self, nums):
         left, right = 0, len(nums) - 1
+
         while left < right:
             mid = left + (right - left) // 2
             if nums[mid] > nums[mid + 1]:
-                right = mid  # The peak is in the left part (including mid)
+                right = mid 
             else:
-                left = mid + 1  # The peak is in the right part
-        return left  # The peak element's index
+                left = mid + 1 
+
+        return left 
                     `
                 ,
                 java:
@@ -5986,13 +5980,10 @@ class Solution {
         int left = 0, right = nums.length - 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] > nums[mid + 1]) {
-                right = mid; // The peak is in the left part (including mid)
-            } else {
-                left = mid + 1; // The peak is in the right part
-            }
+            if (nums[mid] > nums[mid + 1]) right = mid;
+            else left = mid + 1;
         }
-        return left; // The peak element's index
+        return left;
     }
 }
                     `
@@ -6010,49 +6001,38 @@ class Solution {
             code:{
                 cpp: 
                     `
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         int rows = matrix.size();
         int cols = matrix[0].size();
-        
-        // Start from the top-right corner
         int row = 0, col = cols - 1;
         
         while (row < rows && col >= 0) {
-            if (matrix[row][col] == target) {
-                return true; // Target found
-            } else if (matrix[row][col] > target) {
-                col--; // Move left
-            } else {
-                row++; // Move down
-            }
+            if (matrix[row][col] == target) return true;
+            else if (matrix[row][col] > target) col--;
+            else row++;
         }
         
-        return false; // Target not found
+        return false;
     }
 };
                     `
                 ,
                 python:
                     `
-  class Solution:
+class Solution:
     def searchMatrix(self, matrix, target):
         rows, cols = len(matrix), len(matrix[0])
-        
-        # Start from the top-right corner
         row, col = 0, cols - 1
         
         while row < rows and col >= 0:
             if matrix[row][col] == target:
-                return True  # Target found
+                return True 
             elif matrix[row][col] > target:
-                col -= 1  # Move left
+                col -= 1 
             else:
-                row += 1  # Move down
+                row += 1 
         
         return False  
                     `
@@ -6063,21 +6043,15 @@ class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         int rows = matrix.length;
         int cols = matrix[0].length;
-        
-        // Start from the top-right corner
         int row = 0, col = cols - 1;
         
         while (row < rows && col >= 0) {
-            if (matrix[row][col] == target) {
-                return true; // Target found
-            } else if (matrix[row][col] > target) {
-                col--; // Move left
-            } else {
-                row++; // Move down
-            }
+            if (matrix[row][col] == target) return true;
+            else if (matrix[row][col] > target) col--;
+            else row++;
         }
         
-        return false; // Target not found
+        return false;
     }
 }
                     `
@@ -6095,23 +6069,17 @@ class Solution {
             code:{
                 cpp: 
                     `
-#include <vector>
-#include <cmath>
-#include <algorithm>
-using namespace std;
-
 class Solution {
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
         int left = 1, right = *max_element(piles.begin(), piles.end());
+
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (canEatAll(piles, h, mid)) {
-                right = mid; // Try smaller speed
-            } else {
-                left = mid + 1; // Increase speed
-            }
+            if (canEatAll(piles, h, mid)) right = mid;
+            else left = mid + 1;
         }
+
         return left;
     }
 
@@ -6137,27 +6105,25 @@ class Solution:
         while left < right:
             mid = left + (right - left) // 2
             if canEatAll(mid):
-                right = mid  # Try smaller speed
+                right = mid 
             else:
-                left = mid + 1  # Increase speed
+                left = mid + 1 
+
         return left
                     `
                 ,
                 java:
                     `
-import java.util.*;
-
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
         int left = 1, right = Arrays.stream(piles).max().getAsInt();
+
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (canEatAll(piles, h, mid)) {
-                right = mid; // Try smaller speed
-            } else {
-                left = mid + 1; // Increase speed
-            }
+            if (canEatAll(piles, h, mid)) right = mid;
+            else left = mid + 1;
         }
+
         return left;
     }
 
@@ -6184,9 +6150,6 @@ class Solution {
             code:{
                 cpp: 
                     `
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
     int longestOnes(vector<int>& nums, int k) {
@@ -6194,14 +6157,10 @@ public:
         int max_len = 0, zero_count = 0;
 
         while (right < nums.size()) {
-            if (nums[right] == 0) {
-                zero_count++;
-            }
+            if (nums[right] == 0) zero_count++;
             
             while (zero_count > k) {
-                if (nums[left] == 0) {
-                    zero_count--;
-                }
+                if (nums[left] == 0) zero_count--;
                 left++;
             }
             
@@ -6216,7 +6175,7 @@ public:
                 ,
                 python:
                     `
- class Solution:
+class Solution:
     def longestOnes(self, nums, k):
         left = 0
         max_len = 0
@@ -6243,14 +6202,10 @@ class Solution {
         int left = 0, maxLen = 0, zeroCount = 0;
 
         for (int right = 0; right < nums.length; right++) {
-            if (nums[right] == 0) {
-                zeroCount++;
-            }
+            if (nums[right] == 0) zeroCount++;
             
             while (zeroCount > k) {
-                if (nums[left] == 0) {
-                    zeroCount--;
-                }
+                if (nums[left] == 0) zeroCount--;
                 left++;
             }
             
@@ -6275,12 +6230,6 @@ class Solution {
             code:{
                 cpp: 
                     `
-#include <vector>
-#include <string>
-#include <algorithm>
-
-using namespace std;
-
 class Solution {
 public:
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
@@ -6305,8 +6254,6 @@ public:
                 ,
                 python:
                     `
- from bisect import bisect_left
-
 class Solution:
     def suggestedProducts(self, products, searchWord):
         products.sort()
@@ -6325,8 +6272,6 @@ class Solution:
                 ,
                 java:
                     `
-import java.util.*;
-
 class Solution {
     public List<List<String>> suggestedProducts(String[] products, String searchWord) {
         Arrays.sort(products);
@@ -6364,19 +6309,13 @@ class Solution {
             code:{
                 cpp: 
                     `
-#include <vector>
-#include <algorithm>
-using namespace std;
-
 class Solution {
 public:
     bool canDivide(vector<int>& nums, int maxPenalty, int maxOperations) {
         int operations = 0;
         for (int balls : nums) {
-            operations += (balls - 1) / maxPenalty; // Calculate required splits
-            if (operations > maxOperations) {
-                return false; // Exceeds allowed operations
-            }
+            operations += (balls - 1) / maxPenalty; 
+            if (operations > maxOperations) return false;
         }
         return true;
     }
@@ -6388,11 +6327,10 @@ public:
         while (left <= right) {
             int mid = left + (right - left) / 2;
             if (canDivide(nums, mid, maxOperations)) {
-                result = mid; // Update result if feasible
-                right = mid - 1; // Search for smaller penalty
-            } else {
-                left = mid + 1; // Increase penalty
-            }
+                result = mid;
+                right = mid - 1;
+            } 
+            else left = mid + 1;
         }
 
         return result;
@@ -6428,16 +6366,12 @@ class Solution:
                 ,
                 java:
                     `
-import java.util.*;
-
 class Solution {
     public boolean canDivide(int[] nums, int maxPenalty, int maxOperations) {
         int operations = 0;
         for (int balls : nums) {
             operations += (balls - 1) / maxPenalty;
-            if (operations > maxOperations) {
-                return false;
-            }
+            if (operations > maxOperations) return false;
         }
         return true;
     }
@@ -6451,9 +6385,8 @@ class Solution {
             if (canDivide(nums, mid, maxOperations)) {
                 result = mid;
                 right = mid - 1;
-            } else {
-                left = mid + 1;
-            }
+            } 
+            else left = mid + 1;
         }
 
         return result;
@@ -6474,11 +6407,6 @@ class Solution {
             code:{
                 cpp: 
                     `
-#include <vector>
-#include <deque>
-#include <climits>
-using namespace std;
-
 class Solution {
 public:
     int shortestSubarray(vector<int>& nums, int k) {
@@ -6490,7 +6418,6 @@ public:
 
         deque<int> dq;
         int minLength = INT_MAX;
-
         for (int i = 0; i <= n; ++i) {
             while (!dq.empty() && prefixSum[i] - prefixSum[dq.front()] >= k) {
                 minLength = min(minLength, i - dq.front());
@@ -6511,8 +6438,6 @@ public:
                 ,
                 python:
                     `
-from collections import deque
-
 class Solution:
     def shortestSubarray(self, nums, k):
         n = len(nums)
@@ -6522,7 +6447,6 @@ class Solution:
 
         dq = deque()
         min_length = float("inf")
-
         for i in range(n + 1):
             while dq and prefix_sum[i] - prefix_sum[dq[0]] >= k:
                 min_length = min(min_length, i - dq.popleft())
@@ -6537,8 +6461,6 @@ class Solution:
                 ,
                 java:
                     `
-import java.util.*;
-
 class Solution {
     public int shortestSubarray(int[] nums, int k) {
         int n = nums.length;
@@ -6580,9 +6502,6 @@ class Solution {
             code:{
                 cpp: 
                     `
-#include <algorithm>
-using namespace std;
-
 class Solution {
 public:
     int nthMagicalNumber(int n, int a, int b) {
@@ -6597,9 +6516,8 @@ public:
             if (count >= n) {
                 result = mid;
                 right = mid - 1;
-            } else {
-                left = mid + 1;
-            }
+            } 
+            else left = mid + 1;
         }
 
         return result % MOD;
@@ -6610,8 +6528,6 @@ public:
                 ,
                 python:
                     `
- from math import gcd
-
 class Solution:
     def nthMagicalNumber(self, n: int, a: int, b: int) -> int:
         MOD = 10**9 + 7
@@ -6632,8 +6548,6 @@ class Solution:
                 ,
                 java:
                     `
-import java.math.*;
-
 class Solution {
     public int nthMagicalNumber(int n, int a, int b) {
         final int MOD = 1_000_000_007;
@@ -6644,11 +6558,8 @@ class Solution {
             long mid = left + (right - left) / 2;
             long count = mid / a + mid / b - mid / lcm;
 
-            if (count >= n) {
-                right = mid;
-            } else {
-                left = mid + 1;
-            }
+            if (count >= n) right = mid;
+            else left = mid + 1;
         }
 
         return (int) (left % MOD);
@@ -6681,69 +6592,64 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<vector<int>> transpose(vector<vector<int>>& matrix) {
-                                vector<vector<int>> res;
+class Solution {
+public:
+    vector<vector<int>> transpose(vector<vector<int>>& matrix) {
+        vector<vector<int>> res;
 
-                                for (size_t c = 0; c < matrix[0].size(); c++) {
-                                    vector<int> temp;
+        for (size_t c = 0; c < matrix[0].size(); c++) {
+            vector<int> temp;
+            for (size_t r = 0; r < matrix.size(); r++) {
+                temp.push_back(matrix[r][c]);
+            }
+            res.push_back(temp);
+        }
 
-                                    for (size_t r = 0; r < matrix.size(); r++) {
-                                        temp.push_back(matrix[r][c]);
-                                    }
-
-                                    res.push_back(temp);
-                                }
-
-                                return res;        
-                            }
-                        };
+        return res;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
-                                res = []
+class Solution:
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        res = []
 
-                                for c in range(len(matrix[0])):
-                                    temp = []
+        for c in range(len(matrix[0])):
+            temp = []
 
-                                    for r in range(len(matrix)):
-                                        temp.append(matrix[r][c])
+            for r in range(len(matrix)):
+                temp.append(matrix[r][c])
 
-                                    res.append(temp)
+            res.append(temp)
 
-                                return res
+        return res
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int[][] transpose(int[][] matrix) {
-                                List<List<Integer>> resList = new ArrayList<>();
+class Solution {
+    public int[][] transpose(int[][] matrix) {
+        List<List<Integer>> resList = new ArrayList<>();
 
-                                for (int c = 0; c < matrix[0].length; c++) {
-                                    List<Integer> temp = new ArrayList<>();
+        for (int c = 0; c < matrix[0].length; c++) {
+            List<Integer> temp = new ArrayList<>();
+            for (int r = 0; r < matrix.length; r++) {
+                temp.add(matrix[r][c]);
+            }
+            resList.add(temp);
+        }
 
-                                    for (int r = 0; r < matrix.length; r++) {
-                                        temp.add(matrix[r][c]);
-                                    }
+        int[][] res = new int[resList.size()][];
+        for (int i = 0; i < resList.size(); i++) {
+            List<Integer> row = resList.get(i);
+            res[i] = row.stream().mapToInt(Integer::intValue).toArray();
+        }
 
-                                    resList.add(temp);
-                                }
-
-                                // Convert List<List<Integer>> to int[][]
-                                int[][] res = new int[resList.size()][];
-                                for (int i = 0; i < resList.size(); i++) {
-                                    List<Integer> row = resList.get(i);
-                                    res[i] = row.stream().mapToInt(Integer::intValue).toArray();
-                                }
-
-                                return res;        
-                            }
-                        }
+        return res;        
+    }
+}
                     `
             },
         }
@@ -6759,59 +6665,58 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                    class Solution {
-                    public:
-                        void rotateby90(vector<vector<int>>& mat) {
-                            int n = mat.size();
-                            for (int i = 0; i < n; i++) reverse(mat[i].begin(), mat[i].end());
+class Solution {
+public:
+    void rotateby90(vector<vector<int>>& mat) {
+        int n = mat.size();
+        for (int i = 0; i < n; i++) reverse(mat[i].begin(), mat[i].end());
 
-                            for (int i = 0; i < n; i++) {
-                                for (int j = i+1; j < n; j++) swap(mat[i][j], mat[j][i]);
-                            }
-                        }
-                    };
+        for (int i = 0; i < n; i++) {
+            for (int j = i+1; j < n; j++) swap(mat[i][j], mat[j][i]);
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def rotateby90(self, mat):
-                                n = len(mat)
+class Solution:
+    def rotateby90(self, mat):
+        n = len(mat)
                                 
-                                for i in range(n):
-                                    mat[i].reverse()
+        for i in range(n):
+            mat[i].reverse()
                                     
-                                for i in range(n):
-                                    for j in range(i + 1, n):
-                                        mat[i][j], mat[j][i] = mat[j][i], mat[i][j]
+        for i in range(n):
+            for j in range(i + 1, n):
+                mat[i][j], mat[j][i] = mat[j][i], mat[i][j]
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void rotateby90(int[][] mat) {
-                                int n = mat.length;
-                                // Reverse each row
-                                for (int i = 0; i < n; i++) {
-                                    int left = 0, right = n - 1;
-                                    while (left < right) {
-                                        int temp = mat[i][left];
-                                        mat[i][left] = mat[i][right];
-                                        mat[i][right] = temp;
-                                        left++;
-                                        right--;
-                                    }
-                                }
+class Solution {
+    public void rotateby90(int[][] mat) {
+        int n = mat.length;
+        for (int i = 0; i < n; i++) {
+            int left = 0, right = n - 1;
+            while (left < right) {
+                int temp = mat[i][left];
+                mat[i][left] = mat[i][right];
+                mat[i][right] = temp;
+                left++;
+                right--;
+            }
+        }
                                 
-                                for (int i = 0; i < n; i++) {
-                                    for (int j = i + 1; j < n; j++) {
-                                        int temp = mat[i][j];
-                                        mat[i][j] = mat[j][i];
-                                        mat[j][i] = temp;
-                                    }
-                                }
-                            }
-                        }
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int temp = mat[i][j];
+                mat[i][j] = mat[j][i];
+                mat[j][i] = temp;
+            }
+        }
+    }
+}
                     `
             },
         }
@@ -6827,60 +6732,56 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool matSearch(vector<vector<int>> &mat, int x) {
-                                int n = mat.size(), m = mat[0].size();
-                                int i = 0, j = m - 1;
+class Solution {
+public:
+    bool matSearch(vector<vector<int>> &mat, int x) {
+        int n = mat.size(), m = mat[0].size();
+        int i = 0, j = m - 1;
                             
-                                while(i < n && j >= 0) {
-                                    if(x > mat[i][j]) i++;
-                                    else if(x < mat[i][j]) j--;
-                                    else return true;
-                                }
-                                return false;
-                            }
-                        };
+        while(i < n && j >= 0) {
+            if(x > mat[i][j]) i++;
+            else if(x < mat[i][j]) j--;
+            else return true;
+        }
+        return false;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                        def matSearch(self, mat, x):
-                            n = len(mat)
-                            m = len(mat[0])
-                            i, j = 0, m - 1
-                            
-                            while i < n and j >= 0:
-                                if x > mat[i][j]:
-                                    i += 1
-                                elif x < mat[i][j]:
-                                    j -= 1
-                                else:
-                                    return True
-                            return False
+class Solution:
+    def matSearch(self, mat, x):
+        n = len(mat)
+        m = len(mat[0])
+        i, j = 0, m - 1
+                                
+        while i < n and j >= 0:
+            if x > mat[i][j]:
+                i += 1
+            elif x < mat[i][j]:
+                j -= 1
+            else:
+                return True
+        return False
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean matSearch(int[][] mat, int x) {
-                                int n = mat.length;
-                                int m = mat[0].length;
-                                int i = 0, j = m - 1;
+class Solution {
+    public boolean matSearch(int[][] mat, int x) {
+        int n = mat.length;
+        int m = mat[0].length;
+        int i = 0, j = m - 1;
                                 
-                                while (i < n && j >= 0) {
-                                    if (x > mat[i][j]) {
-                                        i++;
-                                    } else if (x < mat[i][j]) {
-                                        j--;
-                                    } else {
-                                        return true;
-                                    }
-                                }
-                                return false;
-                            }
-                        }
+        while (i < n && j >= 0) {
+            if (x > mat[i][j]) i++;
+            else if (x < mat[i][j]) j--;
+            else return true;
+        }
+        return false;
+    }
+}
                     `
             },
         }
@@ -6896,96 +6797,88 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool isValidSudoku(vector<vector<char>>& board) {
-                                unordered_set<char> rows[9];
-                                unordered_set<char> cols[9];
-                                unordered_set<char> boxes[9];
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        unordered_set<char> rows[9];
+        unordered_set<char> cols[9];
+        unordered_set<char> boxes[9];
 
-                                for (int r = 0; r < 9; ++r) {
-                                    for (int c = 0; c < 9; ++c) {
-                                        if (board[r][c] == '.') {
-                                            continue;
-                                        }
+        for (int r = 0; r < 9; ++r) {
+            for (int c = 0; c < 9; ++c) {
+                if (board[r][c] == '.') continue;
 
-                                        char value = board[r][c];
-                                        int boxIndex = (r / 3) * 3 + (c / 3);
+                char value = board[r][c];
+                int boxIndex = (r / 3) * 3 + (c / 3);
 
-                                        if (rows[r].count(value) || cols[c].count(value) || boxes[boxIndex].count(value)) {
-                                            return false;
-                                        }
+                if (rows[r].count(value) || cols[c].count(value) || boxes[boxIndex].count(value)) return false;
 
-                                        rows[r].insert(value);
-                                        cols[c].insert(value);
-                                        boxes[boxIndex].insert(value);
-                                    }
-                                }
+                rows[r].insert(value);
+                cols[c].insert(value);
+                boxes[boxIndex].insert(value);
+            }
+        }
 
-                                return true;        
-                            }
-                        };
+        return true;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def isValidSudoku(self, board: List[List[str]]) -> bool:
-                                rows = defaultdict(set)
-                                cols = defaultdict(set)
-                                boxes = defaultdict(set)
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        boxes = defaultdict(set)
                                 
-                                for r in range(9):
-                                    for c in range(9):
-                                        if board[r][c] == ".":
-                                            continue
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] == ".":
+                    continue
                                         
-                                        if board[r][c] in rows[r] or board[r][c] in cols[c] or board[r][c] in boxes[(r // 3, c // 3)]:
-                                            return False
+                if board[r][c] in rows[r] or board[r][c] in cols[c] or board[r][c] in boxes[(r // 3, c // 3)]:
+                    return False
                                         
-                                        rows[r].add(board[r][c])
-                                        cols[c].add(board[r][c])
-                                        boxes[(r // 3, c // 3)].add(board[r][c])
+                rows[r].add(board[r][c])
+                cols[c].add(board[r][c])
+                boxes[(r // 3, c // 3)].add(board[r][c])
                                 
-                                return True
+        return True
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isValidSudoku(char[][] board) {
-                                HashSet<Character>[] rows = new HashSet[9];
-                                HashSet<Character>[] cols = new HashSet[9];
-                                HashSet<Character>[] boxes = new HashSet[9];
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        HashSet<Character>[] rows = new HashSet[9];
+        HashSet<Character>[] cols = new HashSet[9];
+        HashSet<Character>[] boxes = new HashSet[9];
 
-                                for (int i = 0; i < 9; i++) {
-                                    rows[i] = new HashSet<>();
-                                    cols[i] = new HashSet<>();
-                                    boxes[i] = new HashSet<>();
-                                }
+        for (int i = 0; i < 9; i++) {
+            rows[i] = new HashSet<>();
+            cols[i] = new HashSet<>();
+            boxes[i] = new HashSet<>();
+        }
 
-                                for (int r = 0; r < 9; r++) {
-                                    for (int c = 0; c < 9; c++) {
-                                        if (board[r][c] == '.') {
-                                            continue;
-                                        }
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                if (board[r][c] == '.') continue;
 
-                                        char value = board[r][c];
-                                        int boxIndex = (r / 3) * 3 + (c / 3);
+                char value = board[r][c];
+                int boxIndex = (r / 3) * 3 + (c / 3);
 
-                                        if (rows[r].contains(value) || cols[c].contains(value) || boxes[boxIndex].contains(value)) {
-                                            return false;
-                                        }
+                if (rows[r].contains(value) || cols[c].contains(value) || boxes[boxIndex].contains(value)) return false;
 
-                                        rows[r].add(value);
-                                        cols[c].add(value);
-                                        boxes[boxIndex].add(value);
-                                    }
-                                }
+                rows[r].add(value);
+                cols[c].add(value);
+                boxes[boxIndex].add(value);
+            }
+        }
 
-                                return true;        
-                            }
-                        }
+        return true;        
+    }
+}
                     `
             },
         }
@@ -7001,134 +6894,112 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool exist(vector<vector<char>>& board, string word) {
-                                int rows = board.size();
-                                int cols = board[0].size();
-                                unordered_set<string> visited;
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        int rows = board.size();
+        int cols = board[0].size();
+        unordered_set<string> visited;
 
-                                auto dfs = [&](int r, int c, int k, auto& dfs) -> bool {
-                                    if (k == word.length()) {
-                                        return true;
-                                    }
+        auto dfs = [&](int r, int c, int k, auto& dfs) -> bool {
+            if (k == word.length()) return true;
+            if (r < 0 || r >= rows || c < 0 || c >= cols || visited.count(to_string(r) + "," + to_string(c)) || board[r][c] != word[k]) return false;
 
-                                    if (r < 0 || r >= rows || c < 0 || c >= cols || visited.count(to_string(r) + "," + to_string(c)) || board[r][c] != word[k]) {
-                                        return false;
-                                    }
+            visited.insert(to_string(r) + "," + to_string(c));
+            bool res = dfs(r + 1, c, k + 1, dfs) || dfs(r - 1, c, k + 1, dfs) || dfs(r, c + 1, k + 1, dfs) || dfs(r, c - 1, k + 1, dfs);
+            visited.erase(to_string(r) + "," + to_string(c));
+            return res;
+        };
 
-                                    visited.insert(to_string(r) + "," + to_string(c));
-                                    bool res = dfs(r + 1, c, k + 1, dfs) || dfs(r - 1, c, k + 1, dfs) || dfs(r, c + 1, k + 1, dfs) || dfs(r, c - 1, k + 1, dfs);
-                                    visited.erase(to_string(r) + "," + to_string(c));
-                                    return res;
-                                };
+        unordered_map<char, int> count;
+        for (char c : word) count[c]++;
+        if (count[word[0]] > count[word.back()]) reverse(word.begin(), word.end());
 
-                                unordered_map<char, int> count;
-                                for (char c : word) {
-                                    count[c]++;
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (dfs(r, c, 0, dfs)) return true;
+            }
+        }
 
-                                if (count[word[0]] > count[word.back()]) {
-                                    reverse(word.begin(), word.end());
-                                }
-
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (dfs(r, c, 0, dfs)) {
-                                            return true;
-                                        }
-                                    }
-                                }
-
-                                return false;        
-                            }
-                        };
+        return false;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def exist(self, board: List[List[str]], word: str) -> bool:
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
                             
-                                rows, cols = len(board), len(board[0])
-                                visited = set()
+        rows, cols = len(board), len(board[0])
+        visited = set()
 
-                                def dfs(r, c, k):
-                                    if k == len(word):
-                                        return True
+        def dfs(r, c, k):
+            if k == len(word):
+                return True
 
-                                    if not (0 <= r < rows) or not (0 <= c < cols) or (r,c) in visited or board[r][c] != word[k]:
-                                        return False
+            if not (0 <= r < rows) or not (0 <= c < cols) or (r,c) in visited or board[r][c] != word[k]:
+                return False
                                     
-                                    visited.add((r,c))
-                                    res = dfs(r+1, c, k+1) or dfs(r-1, c, k+1) or dfs(r, c+1, k+1) or dfs(r, c-1, k+1)
-                                    visited.remove((r,c))
-                                    return res
+            visited.add((r,c))
+            res = dfs(r+1, c, k+1) or dfs(r-1, c, k+1) or dfs(r, c+1, k+1) or dfs(r, c-1, k+1)
+            visited.remove((r,c))
+            return res
                                     
-                                count = {}
-                                for c in word:
-                                    count[c] = 1 + count.get(c, 0)
+        count = {}
+        for c in word:
+            count[c] = 1 + count.get(c, 0)
                                 
-                                if count[word[0]] > count[word[-1]]:
-                                    word = word[::-1]
+        if count[word[0]] > count[word[-1]]:
+            word = word[::-1]
                                 
-                                for r in range(rows):
-                                    for c in range(cols):
-                                        if dfs(r, c, 0): return True
+        for r in range(rows):
+            for c in range(cols):
+                if dfs(r, c, 0): return True
                                 
-                                return False
+        return False
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            private int rows;
-                            private int cols;
-                            private Set<String> visited;
+class Solution {
+    private int rows;
+    private int cols;
+    private Set<String> visited;
 
-                            public boolean exist(char[][] board, String word) {
-                                rows = board.length;
-                                cols = board[0].length;
-                                visited = new HashSet<>();
+    public boolean exist(char[][] board, String word) {
+        rows = board.length;
+        cols = board[0].length;
+        visited = new HashSet<>();
 
-                                Map<Character, Integer> count = new HashMap<>();
-                                for (char c : word.toCharArray()) {
-                                    count.put(c, count.getOrDefault(c, 0) + 1);
-                                }
+        Map<Character, Integer> count = new HashMap<>();
+        for (char c : word.toCharArray()) {
+            count.put(c, count.getOrDefault(c, 0) + 1);
+        }
 
-                                if (count.getOrDefault(word.charAt(0), 0) > count.getOrDefault(word.charAt(word.length() - 1), 0)) {
-                                    word = new StringBuilder(word).reverse().toString();
-                                }
+        if (count.getOrDefault(word.charAt(0), 0) > count.getOrDefault(word.charAt(word.length() - 1), 0)) {
+            word = new StringBuilder(word).reverse().toString();
+        }
 
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (dfs(board, word, r, c, 0)) {
-                                            return true;
-                                        }
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (dfs(board, word, r, c, 0)) return true;
+            }
+        }
 
-                                return false;
-                            }
+        return false;
+    }
 
-                            private boolean dfs(char[][] board, String word, int r, int c, int k) {
-                                if (k == word.length()) {
-                                    return true;
-                                }
+    private boolean dfs(char[][] board, String word, int r, int c, int k) {
+        if (k == word.length()) return true;
+        if (r < 0 || r >= rows || c < 0 || c >= cols || visited.contains(r + "," + c) || board[r][c] != word.charAt(k)) return false;
 
-                                if (r < 0 || r >= rows || c < 0 || c >= cols || visited.contains(r + "," + c) || board[r][c] != word.charAt(k)) {
-                                    return false;
-                                }
-
-                                visited.add(r + "," + c);
-                                boolean res = dfs(board, word, r + 1, c, k + 1) ||
-                                            dfs(board, word, r - 1, c, k + 1) ||
-                                            dfs(board, word, r, c + 1, k + 1) ||
-                                            dfs(board, word, r, c - 1, k + 1);
-                                visited.remove(r + "," + c);
-                                return res;
-                            }    
-                        }
+        visited.add(r + "," + c);
+        boolean res = dfs(board, word, r + 1, c, k + 1) || dfs(board, word, r - 1, c, k + 1) || dfs(board, word, r, c + 1, k + 1) || dfs(board, word, r, c - 1, k + 1);
+        visited.remove(r + "," + c);
+        return res;
+    }    
+}
                     `
             },
         }
@@ -7144,125 +7015,125 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int numIslands(vector<vector<char>>& grid) {
-                                int islands = 0;
-                                int rows = grid.size();
-                                int cols = grid[0].size();
-                                unordered_set<string> visited;
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int islands = 0;
+        int rows = grid.size();
+        int cols = grid[0].size();
+        unordered_set<string> visited;
 
-                                vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (grid[r][c] == '1' && visited.find(to_string(r) + "," + to_string(c)) == visited.end()) {
-                                            islands++;
-                                            bfs(grid, r, c, visited, directions, rows, cols);
-                                        }
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (grid[r][c] == '1' && visited.find(to_string(r) + "," + to_string(c)) == visited.end()) {
+                    islands++;
+                    bfs(grid, r, c, visited, directions, rows, cols);
+                }
+            }
+        }
 
-                                return islands;        
-                            }
+        return islands;        
+    }
 
-                        private:
-                            void bfs(vector<vector<char>>& grid, int r, int c, unordered_set<string>& visited, vector<pair<int, int>>& directions, int rows, int cols) {
-                                queue<pair<int, int>> q;
-                                visited.insert(to_string(r) + "," + to_string(c));
-                                q.push({r, c});
+private:
+    void bfs(vector<vector<char>>& grid, int r, int c, unordered_set<string>& visited, vector<pair<int, int>>& directions, int rows, int cols) {
+        queue<pair<int, int>> q;
+        visited.insert(to_string(r) + "," + to_string(c));
+        q.push({r, c});
 
-                                while (!q.empty()) {
-                                    auto [row, col] = q.front();
-                                    q.pop();
+        while (!q.empty()) {
+            auto [row, col] = q.front();
+            q.pop();
 
-                                    for (auto [dr, dc] : directions) {
-                                        int nr = row + dr;
-                                        int nc = col + dc;
-                                        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] == '1' && visited.find(to_string(nr) + "," + to_string(nc)) == visited.end()) {
-                                            q.push({nr, nc});
-                                            visited.insert(to_string(nr) + "," + to_string(nc));
-                                        }
-                                    }
-                                }
-                            }
-                        };    
+            for (auto [dr, dc] : directions) {
+                int nr = row + dr;
+                int nc = col + dc;
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] == '1' && visited.find(to_string(nr) + "," + to_string(nc)) == visited.end()) {
+                    q.push({nr, nc});
+                    visited.insert(to_string(nr) + "," + to_string(nc));
+                }
+            }
+        }
+    }
+};    
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def numIslands(self, grid: List[List[str]]) -> int:
-                                islands = 0
-                                visited = set()
-                                rows, cols = len(grid), len(grid[0])
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        islands = 0
+        visited = set()
+        rows, cols = len(grid), len(grid[0])
 
-                                def bfs(r, c):
-                                    q = deque()
-                                    visited.add((r, c))
-                                    q.append((r, c))
+        def bfs(r, c):
+            q = deque()
+            visited.add((r, c))
+            q.append((r, c))
 
-                                    while q:
-                                        row, col = q.popleft()
-                                        directions = [[1,0],[-1,0],[0,1],[0,-1]]
+            while q:
+                row, col = q.popleft()
+                directions = [[1,0],[-1,0],[0,1],[0,-1]]
 
-                                        for dr, dc in directions:
-                                            r, c = row + dr, col + dc
-                                            if 0 <= r < rows and 0 <= c < cols and grid[r][c] == "1" and (r, c) not in visited:
-                                                q.append((r, c))
+                for dr, dc in directions:
+                    r, c = row + dr, col + dc
+                    if 0 <= r < rows and 0 <= c < cols and grid[r][c] == "1" and (r, c) not in visited:
+                        q.append((r, c))
                                                 visited.add((r, c))
 
-                                for r in range(rows):
-                                    for c in range(cols):
-                                        if grid[r][c] == "1" and (r, c) not in visited:
-                                            islands += 1
-                                            bfs(r, c)
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == "1" and (r, c) not in visited:
+                    islands += 1
+                    bfs(r, c)
 
-                                return islands
+        return islands
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int numIslands(char[][] grid) {
-                                int islands = 0;
-                                int rows = grid.length;
-                                int cols = grid[0].length;
-                                Set<String> visited = new HashSet<>();
+class Solution {
+    public int numIslands(char[][] grid) {
+        int islands = 0;
+        int rows = grid.length;
+        int cols = grid[0].length;
+        Set<String> visited = new HashSet<>();
 
-                                int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (grid[r][c] == '1' && !visited.contains(r + "," + c)) {
-                                            islands++;
-                                            bfs(grid, r, c, visited, directions, rows, cols);
-                                        }
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (grid[r][c] == '1' && !visited.contains(r + "," + c)) {
+                    islands++;
+                    bfs(grid, r, c, visited, directions, rows, cols);
+                }
+            }
+        }
 
-                                return islands;        
-                            }
+        return islands;        
+    }
 
-                            private void bfs(char[][] grid, int r, int c, Set<String> visited, int[][] directions, int rows, int cols) {
-                                Queue<int[]> q = new LinkedList<>();
-                                visited.add(r + "," + c);
-                                q.add(new int[]{r, c});
+    private void bfs(char[][] grid, int r, int c, Set<String> visited, int[][] directions, int rows, int cols) {
+        Queue<int[]> q = new LinkedList<>();
+        visited.add(r + "," + c);
+        q.add(new int[]{r, c});
 
-                                while (!q.isEmpty()) {
-                                    int[] point = q.poll();
-                                    int row = point[0], col = point[1];
+        while (!q.isEmpty()) {
+            int[] point = q.poll();
+            int row = point[0], col = point[1];
 
-                                    for (int[] direction : directions) {
-                                        int nr = row + direction[0], nc = col + direction[1];
-                                        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] == '1' && !visited.contains(nr + "," + nc)) {
-                                            q.add(new int[]{nr, nc});
-                                            visited.add(nr + "," + nc);
-                                        }
-                                    }
-                                }
-                            }    
-                        }
+            for (int[] direction : directions) {
+                int nr = row + direction[0], nc = col + direction[1];
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] == '1' && !visited.contains(nr + "," + nc)) {
+                    q.add(new int[]{nr, nc});
+                    visited.add(nr + "," + nc);
+                }
+            }
+        }
+    }    
+}
                     `
             },
         }
@@ -7278,79 +7149,79 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int maximalSquare(vector<vector<char>>& matrix) {
-                                if (matrix.empty() || matrix[0].empty()) {
-                                    return 0;
-                                }
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        if (matrix.empty() || matrix[0].empty()) {
+            return 0;
+        }
 
-                                int rows = matrix.size();
-                                int cols = matrix[0].size();
-                                vector<vector<int>> dp(rows + 1, vector<int>(cols + 1, 0));
-                                int max_side = 0;
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        vector<vector<int>> dp(rows, vector<int>(cols + 1, 0));
+        int max_side = 0;
 
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (matrix[r][c] == '1') {
-                                            dp[r + 1][c + 1] = min({dp[r][c], dp[r + 1][c], dp[r][c + 1]}) + 1;
-                                            max_side = max(max_side, dp[r + 1][c + 1]);
-                                        }
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (matrix[r][c] == '1') {
+                    dp[r + 1][c + 1] = min({dp[r][c], dp[r + 1][c], dp[r][c + 1]}) + 1;
+                    max_side = max(max_side, dp[r + 1][c + 1]);
+                }
+            }
+        }
 
-                                return max_side * max_side;
-                            }
-                        };
+        return max_side * max_side;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def maximalSquare(self, matrix: List[List[str]]) -> int:
-                                if matrix is None or len(matrix) < 1:
-                                    return 0
+class Solution:
+    def maximalSquare(self, matrix: List[List[str]]) -> int:
+        if matrix is None or len(matrix) < 1:
+            return 0
                                 
-                                rows = len(matrix)
-                                cols = len(matrix[0])
+        rows = len(matrix)
+        cols = len(matrix[0])
                                 
-                                dp = [[0]*(cols+1) for _ in range(rows+1)]
-                                max_side = 0
+        dp = [[0]*(cols+1) for _ in range(rows+1)]
+        max_side = 0
                                 
-                                for r in range(rows):
-                                    for c in range(cols):
-                                        if matrix[r][c] == '1':
-                                            dp[r+1][c+1] = min(dp[r][c], dp[r+1][c], dp[r][c+1]) + 1 # Be careful of the indexing since dp grid has additional row and column
-                                            max_side = max(max_side, dp[r+1][c+1])
+        for r in range(rows):
+            for c in range(cols):
+                if matrix[r][c] == '1':
+                    dp[r+1][c+1] = min(dp[r][c], dp[r+1][c], dp[r][c+1]) + 1 
+                    max_side = max(max_side, dp[r+1][c+1])
                                         
-                                return max_side * max_side
+        return max_side * max_side
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int maximalSquare(char[][] matrix) {
-                                if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-                                    return 0;
-                                }
+class Solution {
+    public int maximalSquare(char[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
 
-                                int rows = matrix.length;
-                                int cols = matrix[0].length;
-                                int[][] dp = new int[rows + 1][cols + 1];
-                                int maxSide = 0;
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int[][] dp = new int[rows + 1][cols + 1];
+        int maxSide = 0;
 
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (matrix[r][c] == '1') {
-                                            dp[r + 1][c + 1] = Math.min(Math.min(dp[r][c], dp[r + 1][c]), dp[r][c + 1]) + 1;
-                                            maxSide = Math.max(maxSide, dp[r + 1][c + 1]);
-                                        }
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (matrix[r][c] == '1') {
+                    dp[r + 1][c + 1] = Math.min(Math.min(dp[r][c], dp[r + 1][c]), dp[r][c + 1]) + 1;
+                    maxSide = Math.max(maxSide, dp[r + 1][c + 1]);
+                }
+            }
+        }
 
-                                return maxSide * maxSide;
-                            }
-                        }
+        return maxSide * maxSide;
+    }
+}
                     `
             },
         }
@@ -7366,143 +7237,126 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int cnt(vector<vector<int>>& board,int i,int j,int n ,int m){
-                                int count=0;
-                                int dirRow[8] ={-1, -1, -1, 0, +1, +1, +1, 0};
-                                int dirCol[8] ={-1, 0, +1, +1, +1, 0, -1, -1};
-                                for(int k=0;k<8;k++){
-                                    int nx=i+dirRow[k];
-                                    int ny=j+dirCol[k];
-                                    if(nx<0 || nx>=n || ny<0 || ny>=m) continue;
-                                    if((board[nx][ny]%2)==1) count++; // %2 for getting the original cell value .
-                                }
-                                return count;
-                            }
-                            void gameOfLife(vector<vector<int>>& board) {
-                                int n=board.size(); 
-                                int m=board[0].size();
-                                for(int i=0;i<n;i++){
-                                    for(int j=0;j<m;j++){
-                                        int live=cnt(board,i,j,n,m);
-                                        if(board[i][j]==0 && live==3){
-                                            board[i][j]=2; // means alive
-                                        }else if(board[i][j]==1){
-                                            if(live<2){
-                                                board[i][j]=3; // 3 means dead
-                                            }else if(live==2 || live==3){
-                                                board[i][j]=1;
-                                            }else if(live>3){
-                                                board[i][j]=3;
-                                            }
-                                        }
+class Solution {
+public:
+    int cnt(vector<vector<int>>& board,int i,int j,int n ,int m){
+        int count=0;
+        int dirRow[8] ={-1, -1, -1, 0, +1, +1, +1, 0};
+        int dirCol[8] ={-1, 0, +1, +1, +1, 0, -1, -1};
+        for(int k=0;k<8;k++){
+            int nx=i+dirRow[k];
+            int ny=j+dirCol[k];
+            if(nx<0 || nx>=n || ny<0 || ny>=m) continue;
+            if((board[nx][ny]%2)==1) count++;
+        }
+        return count;
+    }
 
-                                    }
-                                }
+    void gameOfLife(vector<vector<int>>& board) {
+        int n=board.size(); 
+        int m=board[0].size();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                int live=cnt(board,i,j,n,m);
+                if(board[i][j]==0 && live==3) board[i][j]=2;
+                else if(board[i][j]==1){
+                    if(live<2) board[i][j]=3;
+                    else if(live==2 || live==3) board[i][j]=1;
+                    else if(live>3) board[i][j]=3;
+                }
+            }
+        }
 
-                                for(int i=0;i<n;i++){
-                                    for(int j=0;j<m;j++){
-                                        if(board[i][j]==3){
-                                            board[i][j]=0;
-                                        }else if(board[i][j]==2){
-                                            board[i][j]=1;
-                                        }
-                                    }
-                                }
-                            }
-                        };
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(board[i][j]==3) board[i][j]=0;
+                else if(board[i][j]==2) board[i][j]=1;
+            }
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def cnt(self, board, i, j, n, m):
-                                count = 0
-                                dirRow = [-1, -1, -1, 0, +1, +1, +1, 0]
-                                dirCol = [-1, 0, +1, +1, +1, 0, -1, -1]
-                                for k in range(8):
-                                    nx, ny = i + dirRow[k], j + dirCol[k]
-                                    if nx < 0 or nx >= n or ny < 0 or ny >= m:
-                                        continue
-                                    if board[nx][ny] % 2 == 1:  # %2 to get the original cell value
-                                        count += 1
-                                return count
+class Solution:
+    def cnt(self, board, i, j, n, m):
+        count = 0
+        dirRow = [-1, -1, -1, 0, +1, +1, +1, 0]
+        dirCol = [-1, 0, +1, +1, +1, 0, -1, -1]
+        for k in range(8):
+            nx, ny = i + dirRow[k], j + dirCol[k]
+            if nx < 0 or nx >= n or ny < 0 or ny >= m:
+                continue
+            if board[nx][ny] % 2 == 1:  # %2 to get the original cell value
+                count += 1
+        return count
 
-                            def gameOfLife(self, board):
-                                n, m = len(board), len(board[0])
-                                for i in range(n):
-                                    for j in range(m):
-                                        live = self.cnt(board, i, j, n, m)
-                                        if board[i][j] == 0 and live == 3:
-                                            board[i][j] = 2  # 2 means alive
-                                        elif board[i][j] == 1:
-                                            if live < 2:
-                                                board[i][j] = 3  # 3 means dead
-                                            elif live == 2 or live == 3:
-                                                board[i][j] = 1
-                                            elif live > 3:
-                                                board[i][j] = 3
+    def gameOfLife(self, board):
+        n, m = len(board), len(board[0])
+        for i in range(n):
+            for j in range(m):
+                live = self.cnt(board, i, j, n, m)
+                if board[i][j] == 0 and live == 3:
+                    board[i][j] = 2 
 
-                                for i in range(n):
-                                    for j in range(m):
-                                        if board[i][j] == 3:
-                                            board[i][j] = 0
-                                        elif board[i][j] == 2:
-                                            board[i][j] = 1
+                elif board[i][j] == 1:
+                    if live < 2:
+                        board[i][j] = 3 
+                    elif live == 2 or live == 3:
+                        board[i][j] = 1
+                    elif live > 3:
+                        board[i][j] = 3
+
+        for i in range(n):
+            for j in range(m):
+                if board[i][j] == 3:
+                    board[i][j] = 0
+                elif board[i][j] == 2:
+                    board[i][j] = 1
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            private int cnt(int[][] board, int i, int j, int n, int m) {
-                                int count = 0;
-                                int[] dirRow = {-1, -1, -1, 0, +1, +1, +1, 0};
-                                int[] dirCol = {-1, 0, +1, +1, +1, 0, -1, -1};
-                                for (int k = 0; k < 8; k++) {
-                                    int nx = i + dirRow[k];
-                                    int ny = j + dirCol[k];
-                                    if (nx < 0 || nx >= n || ny < 0 || ny >= m) {
-                                        continue;
-                                    }
-                                    if (board[nx][ny] % 2 == 1) { // %2 to get the original cell value
-                                        count++;
-                                    }
-                                }
-                                return count;
-                            }
+class Solution {
+    private int cnt(int[][] board, int i, int j, int n, int m) {
+        int count = 0;
+        int[] dirRow = {-1, -1, -1, 0, +1, +1, +1, 0};
+        int[] dirCol = {-1, 0, +1, +1, +1, 0, -1, -1};
+        for (int k = 0; k < 8; k++) {
+            int nx = i + dirRow[k];
+            int ny = j + dirCol[k];
+            if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+            if (board[nx][ny] % 2 == 1) count++;
+        }
+        return count;
+    }
 
-                            public void gameOfLife(int[][] board) {
-                                int n = board.length;
-                                int m = board[0].length;
-                                for (int i = 0; i < n; i++) {
-                                    for (int j = 0; j < m; j++) {
-                                        int live = cnt(board, i, j, n, m);
-                                        if (board[i][j] == 0 && live == 3) {
-                                            board[i][j] = 2; // 2 means alive
-                                        } else if (board[i][j] == 1) {
-                                            if (live < 2) {
-                                                board[i][j] = 3; // 3 means dead
-                                            } else if (live == 2 || live == 3) {
-                                                board[i][j] = 1;
-                                            } else if (live > 3) {
-                                                board[i][j] = 3;
-                                            }
-                                        }
-                                    }
-                                }
+    public void gameOfLife(int[][] board) {
+        int n = board.length;
+        int m = board[0].length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int live = cnt(board, i, j, n, m);
+                if (board[i][j] == 0 && live == 3) {
+                    board[i][j] = 2;
+                } 
+                else if (board[i][j] == 1) {
+                    if (live < 2) board[i][j] = 3;
+                    else if (live == 2 || live == 3) board[i][j] = 1;
+                    else if (live > 3) board[i][j] = 3;
+                }
+            }
+        }
 
-                                for (int i = 0; i < n; i++) {
-                                    for (int j = 0; j < m; j++) {
-                                        if (board[i][j] == 3) {
-                                            board[i][j] = 0;
-                                        } else if (board[i][j] == 2) {
-                                            board[i][j] = 1;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == 3) board[i][j] = 0;
+                else if (board[i][j] == 2) board[i][j] = 1;
+            }
+        }
+    }
+}
                     `
             },
         }
@@ -7518,199 +7372,175 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void setZeroes(vector<vector<int>>& matrix) {
-                                int rows = matrix.size();
-                                int cols = matrix[0].size();
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        bool firstRowHasZero = false;
+        bool firstColHasZero = false;
 
-                                bool firstRowHasZero = false;
-                                bool firstColHasZero = false;
+        for (int c = 0; c < cols; c++) {
+            if (matrix[0][c] == 0) {
+                firstRowHasZero = true;
+                break;
+            }
+        }
 
-                                // Check if the first row contains zero
-                                for (int c = 0; c < cols; c++) {
-                                    if (matrix[0][c] == 0) {
-                                        firstRowHasZero = true;
-                                        break;
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            if (matrix[r][0] == 0) {
+                firstColHasZero = true;
+                break;
+            }
+        }
 
-                                // Check if the first column contains zero
-                                for (int r = 0; r < rows; r++) {
-                                    if (matrix[r][0] == 0) {
-                                        firstColHasZero = true;
-                                        break;
-                                    }
-                                }
+        for (int r = 1; r < rows; r++) {
+            for (int c = 1; c < cols; c++) {
+                if (matrix[r][c] == 0) {
+                    matrix[r][0] = 0;
+                    matrix[0][c] = 0;
+                }
+            }
+        }
 
-                                // Use the first row and column as markers
-                                for (int r = 1; r < rows; r++) {
-                                    for (int c = 1; c < cols; c++) {
-                                        if (matrix[r][c] == 0) {
-                                            matrix[r][0] = 0;
-                                            matrix[0][c] = 0;
-                                        }
-                                    }
-                                }
+        for (int r = 1; r < rows; r++) {
+            if (matrix[r][0] == 0) {
+                for (int c = 1; c < cols; c++) {
+                    matrix[r][c] = 0;
+                }
+            }
+        }
 
-                                // Set the marked rows to zero
-                                for (int r = 1; r < rows; r++) {
-                                    if (matrix[r][0] == 0) {
-                                        for (int c = 1; c < cols; c++) {
-                                            matrix[r][c] = 0;
-                                        }
-                                    }
-                                }
+        for (int c = 1; c < cols; c++) {
+            if (matrix[0][c] == 0) {
+                for (int r = 1; r < rows; r++) {
+                    matrix[r][c] = 0;
+                }
+            }
+        }
 
-                                // Set the marked columns to zero
-                                for (int c = 1; c < cols; c++) {
-                                    if (matrix[0][c] == 0) {
-                                        for (int r = 1; r < rows; r++) {
-                                            matrix[r][c] = 0;
-                                        }
-                                    }
-                                }
+        if (firstRowHasZero) {
+            for (int c = 0; c < cols; c++) {
+                matrix[0][c] = 0;
+            }
+        }
 
-                                // Set the first row to zero if needed
-                                if (firstRowHasZero) {
-                                    for (int c = 0; c < cols; c++) {
-                                        matrix[0][c] = 0;
-                                    }
-                                }
-
-                                // Set the first column to zero if needed
-                                if (firstColHasZero) {
-                                    for (int r = 0; r < rows; r++) {
-                                        matrix[r][0] = 0;
-                                    }
-                                }        
-                            }
-                        };
+        if (firstColHasZero) {
+            for (int r = 0; r < rows; r++) {
+                matrix[r][0] = 0;
+            }
+        }        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def setZeroes(self, matrix: List[List[int]]) -> None:
-                                rows = len(matrix)
-                                cols = len(matrix[0])
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        rows = len(matrix)
+        cols = len(matrix[0])
+        first_row_has_zero = False        
+        first_col_has_zero = False
 
-                                first_row_has_zero = False        
-                                first_col_has_zero = False
+        for c in range(cols):
+            if matrix[0][c] == 0:
+                first_row_has_zero = True
+                break
 
-                                # check if the first row contains zero
-                                for c in range(cols):
-                                    if matrix[0][c] == 0:
-                                        first_row_has_zero = True
-                                        break
-
-                                # check if the first column contains zero
-                                for r in range(rows):
-                                    if matrix[r][0] == 0:
-                                        first_col_has_zero = True
-                                        break
+        for r in range(rows):
+            if matrix[r][0] == 0:
+                first_col_has_zero = True
+                break
                                 
-                                # use the first row and column as a note
-                                for r in range(1, rows):
-                                    for c in range(1, cols):
-                                        if matrix[r][c] == 0:
-                                            matrix[r][0] = 0
-                                            matrix[0][c] = 0
+        for r in range(1, rows):
+            for c in range(1, cols):
+                if matrix[r][c] == 0:
+                    matrix[r][0] = 0
+                    matrix[0][c] = 0
                                 
-                                # set the marked rows to zero
-                                for r in range(1, rows):
-                                    if matrix[r][0] == 0:
-                                        for c in range(1, cols):
-                                            matrix[r][c] = 0
+        for r in range(1, rows):
+            if matrix[r][0] == 0:
+                for c in range(1, cols):
+                    matrix[r][c] = 0
 
-                                # set the marked columns to zero
-                                for c in range(1, cols):
-                                    if matrix[0][c] == 0:
-                                        for r in range(1, rows):
-                                            matrix[r][c] = 0
+        for c in range(1, cols):
+            if matrix[0][c] == 0:
+                for r in range(1, rows):
+                    matrix[r][c] = 0
                             
-                                # set the first row to zero if needed
-                                if first_row_has_zero:
-                                    for c in range(cols):
-                                        matrix[0][c] = 0
+        if first_row_has_zero:
+            for c in range(cols):
+                matrix[0][c] = 0
 
-                                # set the first column to zero if needed
-                                if first_col_has_zero:
-                                    for r in range(rows):
-                                        matrix[r][0] = 0
+        if first_col_has_zero:
+            for r in range(rows):
+                matrix[r][0] = 0
                                 
-                                return matrix
+        return matrix
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void setZeroes(int[][] matrix) {
-                                int rows = matrix.length;
-                                int cols = matrix[0].length;
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        boolean firstRowHasZero = false;
+        boolean firstColHasZero = false;
 
-                                boolean firstRowHasZero = false;
-                                boolean firstColHasZero = false;
+        for (int c = 0; c < cols; c++) {
+            if (matrix[0][c] == 0) {
+                firstRowHasZero = true;
+                break;
+            }
+        }
 
-                                // Check if the first row contains zero
-                                for (int c = 0; c < cols; c++) {
-                                    if (matrix[0][c] == 0) {
-                                        firstRowHasZero = true;
-                                        break;
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            if (matrix[r][0] == 0) {
+                firstColHasZero = true;
+                break;
+            }
+        }
 
-                                // Check if the first column contains zero
-                                for (int r = 0; r < rows; r++) {
-                                    if (matrix[r][0] == 0) {
-                                        firstColHasZero = true;
-                                        break;
-                                    }
-                                }
+        for (int r = 1; r < rows; r++) {
+            for (int c = 1; c < cols; c++) {
+                if (matrix[r][c] == 0) {
+                    matrix[r][0] = 0;
+                    matrix[0][c] = 0;
+                }
+            }
+        }
 
-                                // Use the first row and column as markers
-                                for (int r = 1; r < rows; r++) {
-                                    for (int c = 1; c < cols; c++) {
-                                        if (matrix[r][c] == 0) {
-                                            matrix[r][0] = 0;
-                                            matrix[0][c] = 0;
-                                        }
-                                    }
-                                }
+        for (int r = 1; r < rows; r++) {
+            if (matrix[r][0] == 0) {
+                for (int c = 1; c < cols; c++) {
+                    matrix[r][c] = 0;
+                }
+            }
+        }
 
-                                // Set the marked rows to zero
-                                for (int r = 1; r < rows; r++) {
-                                    if (matrix[r][0] == 0) {
-                                        for (int c = 1; c < cols; c++) {
-                                            matrix[r][c] = 0;
-                                        }
-                                    }
-                                }
+        for (int c = 1; c < cols; c++) {
+            if (matrix[0][c] == 0) {
+                for (int r = 1; r < rows; r++) {
+                    matrix[r][c] = 0;
+                }
+            }
+        }
 
-                                // Set the marked columns to zero
-                                for (int c = 1; c < cols; c++) {
-                                    if (matrix[0][c] == 0) {
-                                        for (int r = 1; r < rows; r++) {
-                                            matrix[r][c] = 0;
-                                        }
-                                    }
-                                }
+        if (firstRowHasZero) {
+            for (int c = 0; c < cols; c++) {
+                matrix[0][c] = 0;
+            }
+        }
 
-                                // Set the first row to zero if needed
-                                if (firstRowHasZero) {
-                                    for (int c = 0; c < cols; c++) {
-                                        matrix[0][c] = 0;
-                                    }
-                                }
-
-                                // Set the first column to zero if needed
-                                if (firstColHasZero) {
-                                    for (int r = 0; r < rows; r++) {
-                                        matrix[r][0] = 0;
-                                    }
-                                }        
-                            }
-                        }
+        if (firstColHasZero) {
+            for (int r = 0; r < rows; r++) {
+                matrix[r][0] = 0;
+            }
+        }        
+    }
+}
                     `
             },
         }
@@ -7726,143 +7556,131 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int slidingPuzzle(vector<vector<int>>& board) {
-                                vector<vector<int>> dir = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
-                                string target = "123450";
-                                set<string> vis; 
-                                queue<string> q;
-                                string start = "";
+class Solution {
+public:
+    int slidingPuzzle(vector<vector<int>>& board) {
+        vector<vector<int>> dir = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
+        string target = "123450";
+        set<string> vis; 
+        queue<string> q;
+        string start = "";
 
-                                // Convert 2D board to a single string
-                                for (auto row : board) {
-                                    for (auto col : row) {
-                                        start += col + '0';
-                                    }
-                                }
+        for (auto row : board) {
+            for (auto col : row) {
+                start += col + '0';
+            }
+        }
 
-                                q.push(start);
-                                vis.insert(start);
-                                int step = 0;
+        q.push(start);
+        vis.insert(start);
+        int step = 0;
 
-                                // Perform BFS
-                                while (!q.empty()) {
-                                    int size = q.size();
-                                    while (size--) {
-                                        string current = q.front();
-                                        q.pop();
+        while (!q.empty()) {
+            int size = q.size();
+            while (size--) {
+                string current = q.front();
+                q.pop();
+                if (current == target) return step;
+                int zero = current.find('0'); 
 
-                                        if (current == target) return step;
-                                        int zero = current.find('0'); 
-
-                                        // Generate next moves
-                                        for (auto move : dir[zero]) {
-                                            string next = current;
-                                            swap(next[move], next[zero]);
-                                            if (!vis.count(next)) {
-                                                vis.insert(next);
-                                                q.push(next);
-                                            }
-                                        }
-                                    }
-                                    step++;
-                                }
-                                return -1;
-                            }
-                        };
+                for (auto move : dir[zero]) {
+                    string next = current;
+                    swap(next[move], next[zero]);
+                    if (!vis.count(next)) {
+                        vis.insert(next);
+                        q.push(next);
+                    }
+                }
+            }
+            step++;
+        }
+        return -1;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def slidingPuzzle(self, board):
-                                dir = [[1, 3], [0, 2, 4], [1, 5], [0, 4], [1, 3, 5], [2, 4]]
-                                target = "123450"
-                                vis = set() # Track visited configurations
-                                q = deque()
-                                start = ""
+class Solution:
+    def slidingPuzzle(self, board):
+        dir = [[1, 3], [0, 2, 4], [1, 5], [0, 4], [1, 3, 5], [2, 4]]
+        target = "123450"
+        vis = set() 
+        q = deque()
+        start = ""
 
-                                # Convert 2D board to a single string
-                                for row in board:
-                                    for col in row:
-                                        start += str(col)
+        for row in board:
+            for col in row:
+                start += str(col)
 
-                                q.append(start)
-                                vis.add(start)
-                                step = 0
+        q.append(start)
+        vis.add(start)
+        step = 0
 
-                                # Perform BFS
-                                while q:
-                                    size = len(q)
-                                    for _ in range(size):
-                                        current = q.popleft()
+        while q:
+            size = len(q)
+            for _ in range(size):
+                current = q.popleft()
 
-                                        if current == target:
-                                            return step
+                if current == target:
+                    return step
+                zero = current.find('0')
 
-                                        zero = current.find('0')
-
-                                        # Generate next moves
-                                        for move in dir[zero]:
-                                            next_state = list(current)
-                                            next_state[zero], next_state[move] = next_state[move], next_state[zero]
-                                            next_state = ''.join(next_state)
-                                            if next_state not in vis: 
-                                                vis.add(next_state)
-                                                q.append(next_state)
-                                    step += 1
-                                return -1 
+                for move in dir[zero]:
+                    next_state = list(current)
+                    next_state[znext_state[move] = next_state[mnext_state[zero]
+                    next_state = ''.join(next_state)
+                    if next_state not in vis: 
+                        vis.add(next_state)
+                        q.append(next_state)
+            step += 1
+        return -1 
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int slidingPuzzle(int[][] board) {
-                                int[][] dir = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
-                                String target = "123450";
-                                Set<String> vis = new HashSet<>(); // Track visited configurations
-                                Queue<String> q = new LinkedList<>();
-                                String start = "";
+class Solution {
+    public int slidingPuzzle(int[][] board) {
+        int[][] dir = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
+        String target = "123450";
+        Set<String> vis = new HashSet<>(); 
+        Queue<String> q = new LinkedList<>();
+        String start = "";
 
-                                // Convert 2D board to a single string
-                                for (int[] row : board) {
-                                    for (int col : row) {
-                                        start += col;
-                                    }
-                                }
+        for (int[] row : board) {
+            for (int col : row) {
+                start += col;
+            }
+        }
 
-                                q.offer(start);
-                                vis.add(start);
-                                int step = 0;
+        q.offer(start);
+        vis.add(start);
+        int step = 0;
 
-                                // Perform BFS
-                                while (!q.isEmpty()) {
-                                    int size = q.size();
-                                    while (size-- > 0) {
-                                        String current = q.poll();
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                String current = q.poll();
+                if (current.equals(target)) return step;
+                int zero = current.indexOf('0');
 
-                                        if (current.equals(target)) return step;
-                                        int zero = current.indexOf('0');
+                for (int move : dir[zero]) {
+                    StringBuilder next = new StringBuilder(current);
+                    char temp = next.charAt(zero);
+                    next.setCharAt(zero, next.charAt(move));
+                    next.setCharAt(move, temp);
 
-                                        // Generate next moves
-                                        for (int move : dir[zero]) {
-                                            StringBuilder next = new StringBuilder(current);
-                                            char temp = next.charAt(zero);
-                                            next.setCharAt(zero, next.charAt(move));
-                                            next.setCharAt(move, temp);
-
-                                            if (!vis.contains(next.toString())) {
-                                                vis.add(next.toString());
-                                                q.offer(next.toString());
-                                            }
-                                        }
-                                    }
-                                    step++;
-                                }
-                                return -1;
-                            }
-                        }
+                    if (!vis.contains(next.toString())) {
+                        vis.add(next.toString());
+                        q.offer(next.toString());
+                    }
+                }
+            }
+            step++;
+        }
+        return -1;
+    }
+}
                     `
             },
         }
@@ -7878,97 +7696,92 @@ export const MatrixData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int maximalRectangle(vector<vector<char>>& matrix) {
-                                if (matrix.empty() || matrix[0].empty())
-                                    return 0;
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        if (matrix.empty() || matrix[0].empty())
+            return 0;
                                 
-                                int rows = matrix.size();
-                                int cols = matrix[0].size();
-                                vector<int> heights(cols + 1, 0);
-                                int maxArea = 0;
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        vector<int> heights(cols + 1, 0);
+        int maxArea = 0;
                                 
-                                for (const auto& row : matrix) {
-                                    for (int i = 0; i < cols; i++) {
-                                        heights[i] = (row[i] == '1') ? heights[i] + 1 : 0;
-                                    }
+        for (const auto& row : matrix) {
+            for (int i = 0; i < cols; i++) {
+                heights[i] = (row[i] == '1') ? heights[i] + 1 : 0;
+            }
                                     
-                                    // Calculate max area using histogram method
-                                    int n = heights.size(); 
-                                    
-                                    for (int i = 0; i < n; i++) {
-                                        for (int j = i, minHeight = INT_MAX; j < n; j++) {
-                                            minHeight = min(minHeight, heights[j]);
-                                            int area = minHeight * (j - i + 1);
-                                            maxArea = max(maxArea, area);
-                                        }
-                                    }
-                                }
+            int n = heights.size(); 
+            for (int i = 0; i < n; i++) {
+                for (int j = i, minHeight = INT_MAX; j < n; j++) {
+                    minHeight = min(minHeight, heights[j]);
+                    int area = minHeight * (j - i + 1);
+                    maxArea = max(maxArea, area);
+                }
+            }
+        }
                                 
-                                return maxArea;
-                            }
-                        };
+        return maxArea;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def maximalRectangle(self, matrix: List[List[str]]) -> int:
-                                if not matrix: return 0
+class Solution:
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if not matrix: return 0
                                 
-                                rows, cols = len(matrix), len(matrix[0])
-                                heights = [0] * (cols + 1)  # Include an extra element for easier calculation
-                                max_area = 0
+        rows, cols = len(matrix), len(matrix[0])
+        heights = [0] * (cols + 1)
+        max_area = 0
                                 
-                                for row in matrix:
-                                    for i in range(cols):
-                                        heights[i] = heights[i] + 1 if row[i] == '1' else 0
+        for row in matrix:
+            for i in range(cols):
+                heights[i] = heights[iif row[i] == '1' else 0
                                     
-                                    n = len(heights) 
+            n = len(heights) 
 
-                                    for i in range(n):
-                                        for j in range(i, n):
-                                            # Determine the minimum height between bar i and bar j
-                                            min_height = min(heights[k] for k in range(i, j + 1))
-                                            area = min_height * (j - i + 1)
-                                            if area > max_area:
-                                                max_area = area
+            for i in range(n):
+                for j in range(i, n):
+                    min_height = min(heights[k] for k in range(i, j + 1))
+                    area = min_height * (j - i + 1)
+                    if area > max_area:
+                        max_area = area
 
-                                return max_area
+        return max_area
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int maximalRectangle(char[][] matrix) {
-                                if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
-                                    return 0;
+class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
                                 
-                                int rows = matrix.length;
-                                int cols = matrix[0].length;
-                                int[] heights = new int[cols + 1];
-                                int maxArea = 0;
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int[] heights = new int[cols + 1];
+        int maxArea = 0;
                                 
-                                for (char[] row : matrix) {
-                                    for (int i = 0; i < cols; i++) {
-                                        heights[i] = (row[i] == '1') ? heights[i] + 1 : 0;
-                                    }
+        for (char[] row : matrix) {
+            for (int i = 0; i < cols; i++) {
+                heights[i] = (row[i] == '1') ? heights[i] + 1 : 0;
+            }
                                     
-                                    int n = heights.length;
-                                    
-                                    for (int i = 0; i < n; i++) {
-                                        for (int j = i, minHeight = Integer.MAX_VALUE; j < n; j++) {
-                                            minHeight = Math.min(minHeight, heights[j]);
-                                            int area = minHeight * (j - i + 1);
-                                            maxArea = Math.max(maxArea, area);
-                                        }
-                                    }
-                                }
+            int n = heights.length;   
+            for (int i = 0; i < n; i++) {
+                for (int j = i, minHeight = Integer.MAX_VALUE; j < n; j++) {
+                    minHeight = Math.min(minHeight, heights[j]);
+                    int area = minHeight * (j - i + 1);
+                    maxArea = Math.max(maxArea, area);
+                }
+            }
+        }
                                 
-                                return maxArea;
-                            }
-                        }
+        return maxArea;
+    }
+}
                     `
             },
         }
@@ -7987,63 +7800,57 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool hasCycle(ListNode *head) {
-                                ListNode* fast = head;
-                                ListNode* slow = head;
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode* fast = head;
+        ListNode* slow = head;
 
-                                while (fast != nullptr && fast->next != nullptr) {
-                                    fast = fast->next->next;
-                                    slow = slow->next;
+        while (fast != nullptr && fast->next != nullptr) {
+            fast = fast->next->next;
+            slow = slow->next;
+            if (fast == slow) return true;
+        }
 
-                                    if (fast == slow) {
-                                        return true;
-                                    }
-                                }
-
-                                return false;        
-                            }
-                        };
+        return false;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def hasCycle(self, head: Optional[ListNode]) -> bool:
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
                             
-                                fast = head
-                                slow = head
+        fast = head
+        slow = head
                                 
-                                while fast and fast.next:
-                                    fast = fast.next.next
-                                    slow = slow.next
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
                                     
-                                    if fast == slow:
-                                        return True
+            if fast == slow:
+                return True
                             
-                                return False
+        return False
                     `
                 ,
                 java:
                     `
-                        public class Solution {
-                            public boolean hasCycle(ListNode head) {
-                                ListNode fast = head;
-                                ListNode slow = head;
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
 
-                                while (fast != null && fast.next != null) {
-                                    fast = fast.next.next;
-                                    slow = slow.next;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) return true;
+        }
 
-                                    if (fast == slow) {
-                                        return true;
-                                    }
-                                }
-
-                                return false;        
-                            }
-                        }
+        return false;        
+    }
+}
                     `
             },
         }
@@ -8059,51 +7866,51 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-                                ListNode* lista = headA;
-                                ListNode* listb = headB;
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* lista = headA;
+        ListNode* listb = headB;
 
-                                while (lista != listb) {
-                                    lista = (lista != nullptr) ? lista->next : headB;
-                                    listb = (listb != nullptr) ? listb->next : headA;
-                                }
+        while (lista != listb) {
+            lista = (lista != nullptr) ? lista->next : headB;
+            listb = (listb != nullptr) ? listb->next : headA;
+        }
 
-                                return lista;        
-                            }
-                        };
+        return lista;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-                                lista = headA
-                                listb = headB
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        lista = headA
+        listb = headB
 
-                                while lista != listb:
-                                    lista = lista.next if lista else headB
-                                    listb = listb.next if listb else headA
+        while lista != listb:
+            lista = lista.next if lista else headB
+            listb = listb.next if listb else headA
                                 
-                                return listb
+        return listb
                     `
                 ,
                 java:
                     `
-                        public class Solution {
-                            public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-                                ListNode lista = headA;
-                                ListNode listb = headB;
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode lista = headA;
+        ListNode listb = headB;
 
-                                while (lista != listb) {
-                                    lista = (lista != null) ? lista.next : headB;
-                                    listb = (listb != null) ? listb.next : headA;
-                                }
+        while (lista != listb) {
+            lista = (lista != null) ? lista.next : headB;
+            listb = (listb != null) ? listb.next : headA;
+        }
 
-                                return lista;        
-                            }
-                        }
+        return lista;        
+    }
+}
                     `
             },
         }
@@ -8119,90 +7926,90 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool isHappy(int n) {
-                                int slow = getNextNumber(n);
-                                int fast = getNextNumber(getNextNumber(n));
+class Solution {
+public:
+    bool isHappy(int n) {
+        int slow = getNextNumber(n);
+        int fast = getNextNumber(getNextNumber(n));
 
-                                while (slow != fast) {
-                                    if (fast == 1) return true;
-                                    slow = getNextNumber(slow);
-                                    fast = getNextNumber(getNextNumber(fast));
-                                }
+        while (slow != fast) {
+            if (fast == 1) return true;
+            slow = getNextNumber(slow);
+            fast = getNextNumber(getNextNumber(fast));
+        }
 
-                                return slow == 1;
-                            }
+        return slow == 1;
+    }
 
-                        private:
-                            int getNextNumber(int n) {
-                                int output = 0;
+private:
+    int getNextNumber(int n) {
+        int output = 0;
                                 
-                                while (n > 0) {
-                                    int digit = n % 10;
-                                    output += digit * digit;
-                                    n = n / 10;
-                                }
+        while (n > 0) {
+            int digit = n % 10;
+            output += digit * digit;
+            n = n / 10;
+        }
                                 
-                                return output;
-                            }
-                        };
+        return output;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def isHappy(self, n: int) -> bool:    
+class Solution:
+    def isHappy(self, n: int) -> bool:    
                                 
-                                def get_next_number(n):    
-                                    output = 0
+        def get_next_number(n):    
+            output = 0
                                     
-                                    while n:
-                                        digit = n % 10
-                                        output += digit ** 2
-                                        n = n // 10
+            while n:
+                digit = n % 10
+                output += digit ** 2
+                n = n // 10
                                     
-                                    return output
+            return output
 
-                                slow = get_next_number(n)
-                                fast = get_next_number(get_next_number(n))
+        slow = get_next_number(n)
+        fast = get_next_number(get_next_number(n))
 
-                                while slow != fast:
-                                    if fast == 1: return True
-                                    slow = get_next_number(slow)
-                                    fast = get_next_number(get_next_number(fast))
+        while slow != fast:
+            if fast == 1: return True
+            slow = get_next_number(slow)
+            fast = get_next_number(get_next_number(fast))
 
-                                return slow == 1
+        return slow == 1
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isHappy(int n) {
-                                int slow = getNextNumber(n);
-                                int fast = getNextNumber(getNextNumber(n));
+class Solution {
+    public boolean isHappy(int n) {
+        int slow = getNextNumber(n);
+        int fast = getNextNumber(getNextNumber(n));
 
-                                while (slow != fast) {
-                                    if (fast == 1) return true;
-                                    slow = getNextNumber(slow);
-                                    fast = getNextNumber(getNextNumber(fast));
-                                }
+        while (slow != fast) {
+            if (fast == 1) return true;
+            slow = getNextNumber(slow);
+            fast = getNextNumber(getNextNumber(fast));
+        }
 
-                                return slow == 1;
-                            }
+        return slow == 1;
+    }
 
-                            private int getNextNumber(int n) {
-                                int output = 0;
+    private int getNextNumber(int n) {
+        int output = 0;
                                 
-                                while (n > 0) {
-                                    int digit = n % 10;
-                                    output += digit * digit;
-                                    n = n / 10;
-                                }
+        while (n > 0) {
+            int digit = n % 10;
+            output += digit * digit;
+            n = n / 10;
+        }
                                 
-                                return output;
-                            }
-                        }
+        return output;
+    }
+}
                     `
             },
         }
@@ -8218,88 +8025,70 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool wordPattern(std::string pattern, std::string s) {
-                                std::istringstream iss(s);
-                                std::vector<std::string> words;
-                                std::string word;
+class Solution {
+public:
+    bool wordPattern(std::string pattern, std::string s) {
+        std::istringstream iss(s);
+        std::vector<std::string> words;
+        std::string word;
                                 
-                                while (iss >> word) {
-                                    words.push_back(word);}
-                                
-                                if (pattern.size() != words.size()) {
-                                    return false;}
+        while (iss >> word) words.push_back(word);    
+        if (pattern.size() != words.size()) return false;
+        std::unordered_map<std::string> charToWord;
+        std::unordered_set<std::string> seenWords;
 
-                                std::unordered_map<char, std::string> charToWord;
-                                std::unordered_set<std::string> seenWords;
+        for (int i = 0; i < pattern.size(); ++i) {
+            char c = pattern[i];
+            const std::string& w = words[i];
 
-                                for (int i = 0; i < pattern.size(); ++i) {
-                                    char c = pattern[i];
-                                    const std::string& w = words[i];
-
-                                    if (charToWord.count(c)) {
-                                        if (charToWord[c] != w) {
-                                            return false;
-                                        }
-                                    } 
-                                        else {
-                                        if (seenWords.count(w)) {
-                                            return false;
-                                        }
-                                        charToWord[c] = w;
-                                        seenWords.insert(w); 
-                                    }
-                                }
-                                return true;
-                            }
-                        };
+            if (charToWord.count(c)) {
+                if (charToWord[c] != w) return false;
+            } 
+            else {
+                if (seenWords.count(w)) return false;
+                charToWord[c] = w;
+                seenWords.insert(w); 
+            }
+        }
+        return true;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def wordPattern(self, pattern: str, s: str) -> bool:
-
-                                s = s.split()
-
-                                return (len(set(pattern)) ==
-                                        len(set(s)) ==
-                                        len(set(zip_longest(pattern,s))))
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        s = s.split()
+        return (len(set(pattern)) == len(set(s)) == len(set(zip_longest(pattern,s))))
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean wordPattern(String pattern, String s) {
-                                String[] words = s.split(" ");
-                                
-                                if (pattern.length() != words.length) {
-                                    return false;
-                                }
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String[] words = s.split(" ");
+        if (pattern.length() != words.length) return false;
 
-                                HashMap<Character, String> charToWord = new HashMap<>();
-                                HashSet<String> seenWords = new HashSet<>();
+        HashMap<Character, String> charToWord = new HashMap<>();
+        HashSet<String> seenWords = new HashSet<>();
 
-                                for (int i = 0; i < pattern.length(); i++) {
-                                    char c = pattern.charAt(i);
-                                    String w = words[i];
+        for (int i = 0; i < pattern.length(); i++) {
+            char c = pattern.charAt(i);
+            String w = words[i];
 
-                                    if (charToWord.containsKey(c)) {
-                                        if (!charToWord.get(c).equals(w)) {
-                                            return false;
-                                        }
-                                    } else {
-                                        if (seenWords.contains(w)) {
-                                            return false;
-                                        }
-                                        charToWord.put(c, w);
-                                        seenWords.add(w);
-                                    }
-                                }
-                                return true;
-                            }
-                        }
+            if (charToWord.containsKey(c)) {
+                if (!charToWord.get(c).equals(w)) return false;
+            } 
+            else {
+                if (seenWords.contains(w)) return false;
+                charToWord.put(c, w);
+                seenWords.add(w);
+            }
+        }
+        return true;
+    }
+}
                     `
             },
         }
@@ -8315,75 +8104,63 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool isIsomorphic(string s, string t) {
-                                unordered_map<char, int> charIndexS;
-                                unordered_map<char, int> charIndexT;
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        unordered_map<char, int> charIndexS;
+        unordered_map<char, int> charIndexT;
 
-                                for (int i = 0; i < s.length(); i++) {
-                                    if (charIndexS.find(s[i]) == charIndexS.end()) {
-                                        charIndexS[s[i]] = i;
-                                    }
+        for (int i = 0; i < s.length(); i++) {
+            if (charIndexS.find(s[i]) == charIndexS.end()) charIndexS[s[i]] = i;
 
-                                    if (charIndexT.find(t[i]) == charIndexT.end()) {
-                                        charIndexT[t[i]] = i;
-                                    }
+            if (charIndexT.find(t[i]) == charIndexT.end()) charIndexT[t[i]] = i;
 
-                                    if (charIndexS[s[i]] != charIndexT[t[i]]) {
-                                        return false;
-                                    }
-                                }
+            if (charIndexS[s[i]] != charIndexT[t[i]]) return false;
+        }
 
-                                return true;        
-                            }
-                        };
+        return true;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def isIsomorphic(self, s: str, t: str) -> bool:
-                                char_index_s = {}
-                                char_index_t = {}
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        char_index_s = {}
+        char_index_t = {}
 
-                                for i in range(len(s)):
-                                    if s[i] not in char_index_s:
-                                        char_index_s[s[i]] = i
+        for i in range(len(s)):
+            if s[i] not in char_index_s:
+                char_index_s[s[i]] = i
 
-                                    if t[i] not in char_index_t:
-                                        char_index_t[t[i]] = i
+            if t[i] not in char_index_t:
+                char_index_t[t[i]] = i
                                     
-                                    if char_index_s[s[i]] != char_index_t[t[i]]:
-                                        return False
+            if char_index_s[s[i]] != char_index_t[t[i]]:
+                return False
 
-                                return True
+        return True
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isIsomorphic(String s, String t) {
-                                HashMap<Character, Integer> charIndexS = new HashMap<>();
-                                HashMap<Character, Integer> charIndexT = new HashMap<>();
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        HashMap<Character, Integer> charIndexS = new HashMap<>();
+        HashMap<Character, Integer> charIndexT = new HashMap<>();
 
-                                for (int i = 0; i < s.length(); i++) {
-                                    if (!charIndexS.containsKey(s.charAt(i))) {
-                                        charIndexS.put(s.charAt(i), i);
-                                    }
+        for (int i = 0; i < s.length(); i++) {
+            if (!charIndexS.containsKey(s.charAt(i))) charIndexS.put(s.charAt(i), i);
 
-                                    if (!charIndexT.containsKey(t.charAt(i))) {
-                                        charIndexT.put(t.charAt(i), i);
-                                    }
+            if (!charIndexT.containsKey(t.charAt(i))) charIndexT.put(t.charAt(i), i);
 
-                                    if (!charIndexS.get(s.charAt(i)).equals(charIndexT.get(t.charAt(i)))) {
-                                        return false;
-                                    }
-                                }
+            if (!charIndexS.get(s.charAt(i)).equals(charIndexT.get(t.charAt(i)))) return false;
+        }
 
-                                return true;        
-                            }
-                        }
+        return true;        
+    }
+}
                     `
             },
         }
@@ -8399,90 +8176,82 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<int> topKFrequent(vector<int>& nums, int k) {
-                                unordered_map<int, int> counter;
-                                for (int n : nums) {
-                                    counter[n]++;
-                                }
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> counter;
+        for (int n : nums) counter[n]++;
                                 
-                                vector<vector<int>> freq(nums.size() + 1);
-                                for (auto& entry : counter) {
-                                    freq[entry.second].push_back(entry.first);
-                                }
+        vector<vector<int>> freq(nums.size() + 1);
+        for (auto& entry : counter) {
+            freq[entry.second].push_back(entry.first);
+        }
                                 
-                                vector<int> res;
-                                for (int i = freq.size() - 1; i >= 0; i--) {
-                                    for (int num : freq[i]) {
-                                        res.push_back(num);
-                                        if (res.size() == k) {
-                                            return res;
-                                        }
-                                    }
-                                }
+        vector<int> res;
+        for (int i = freq.size() - 1; i >= 0; i--) {
+            for (int num : freq[i]) {
+                res.push_back(num);
+                if (res.size() == k) return res;
+            }
+        }
                                 
-                                return {};        
-                            }
-                        };
+        return {};        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-                                counter = {}
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        counter = {}
 
-                                for n in nums:
-                                    counter[n] = 1 + counter.get(n, 0)
+        for n in nums:
+            counter[n] = 1 + counter.get(n, 0)
                                 
-                                freq = [[] for _ in range(len(nums) + 1)]
-
-                                for n, f in counter.items():
-                                    freq[f].append(n)
+        freq = [[] for _ in range(len(nums) + 1)]
+        for n, f in counter.items():
+            freq[f].append(n)
                                 
-                                res = []
-
-                                for i in range(len(freq) - 1, -1, -1):
-                                    for n in freq[i]:
-                                        res.append(n)
-                                        if len(res) == k:
-                                            return res
+        res = []
+        for i in range(len(freq) - 1, -1, -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int[] topKFrequent(int[] nums, int k) {
-                                Map<Integer, Integer> counter = new HashMap<>();
-                                for (int n : nums) {
-                                    counter.put(n, counter.getOrDefault(n, 0) + 1);
-                                }
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> counter = new HashMap<>();
+        for (int n : nums) {
+            counter.put(n, counter.getOrDefault(n, 0) + 1);
+        }
                                 
-                                List<Integer>[] freq = new ArrayList[nums.length + 1];
-                                for (int i = 0; i < freq.length; i++) {
-                                    freq[i] = new ArrayList<>();
-                                }
+        List<Integer>[] freq = new ArrayList[nums.length + 1];
+        for (int i = 0; i < freq.length; i++) {
+            freq[i] = new ArrayList<>();
+        }
                                 
-                                for (Map.Entry<Integer, Integer> entry : counter.entrySet()) {
-                                    int frequency = entry.getValue();
-                                    freq[frequency].add(entry.getKey());
-                                }
+        for (Map.Entry<Integer, Integer> entry : counter.entrySet()){
+            int frequency = entry.getValue();
+            freq[frequency].add(entry.getKey());
+        }
                                 
-                                int[] res = new int[k];
-                                int idx = 0;
-                                for (int i = freq.length - 1; i >= 0; i--) {
-                                    for (int num : freq[i]) {
-                                        res[idx++] = num;
-                                        if (idx == k) {
-                                            return res;
-                                        }
-                                    }
-                                }
+        int[] res = new int[k];
+        int idx = 0;
+        for (int i = freq.length - 1; i >= 0; i--) {
+            for (int num : freq[i]) {
+                res[idx++] = num;
+                if (idx == k) return res;
+            }
+        }
                                 
-                                return new int[0];        
-                            }
-                        }
+        return new int[0];        
+    }
+}
                     `
             },
         }
@@ -8498,87 +8267,86 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<int> findAnagrams(string s, string p) {
-                                if (s.size() < p.size()) return {};
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        if (s.size() < p.size()) return {};
                                 
-                                array<int, 26> pFreq = {0};
-                                array<int, 26> windowFreq = {0};
-                                vector<int> res;
+        array<int, 26> pFreq = {0};
+        array<int, 26> windowFreq = {0};
+        vector<int> res;
 
-                                for (int i = 0; i < p.size(); i++) {
-                                    pFreq[p[i] - 'a']++;
-                                    windowFreq[s[i] - 'a']++;
-                                }
+        for (int i = 0; i < p.size(); i++) {
+            pFreq[p[i] - 'a']++;
+            windowFreq[s[i] - 'a']++;
+        }
 
-                                if (pFreq == windowFreq) res.push_back(0);
+        if (pFreq == windowFreq) res.push_back(0);
+        for (int windowEnd = p.size(); windowEnd < s.size(); windowEnd++) {
+            int windowStart = windowEnd - p.size();
+            windowFreq[s[windowStart] - 'a']--;
+            windowFreq[s[windowEnd] - 'a']++;
+            if (pFreq == windowFreq) res.push_back(windowStart + 1);
+        }
 
-                                for (int windowEnd = p.size(); windowEnd < s.size(); windowEnd++) {
-                                    int windowStart = windowEnd - p.size();
-                                    windowFreq[s[windowStart] - 'a']--;
-                                    windowFreq[s[windowEnd] - 'a']++;
-                                    if (pFreq == windowFreq) res.push_back(windowStart + 1);
-                                }
-
-                                return res;
-                            }
-                        };
+        return res;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def findAnagrams(self, s: str, p: str):
-                                if len(s) < len(p):
-                                    return []
+class Solution:
+    def findAnagrams(self, s: str, p: str):
+        if len(s) < len(p):
+            return []
 
-                                p_freq = [0] * 26
-                                window_freq = [0] * 26
-                                res = []
+        p_freq = [0] * 26
+        window_freq = [0] * 26
+        res = []
 
-                                for i in range(len(p)):
-                                    p_freq[ord(p[i]) - ord('a')] += 1
-                                    window_freq[ord(s[i]) - ord('a')] += 1
+        for i in range(len(p)):
+            p_freq[ord(p[i]) - ord('a')] += 1
+            window_freq[ord(s[i]) - ord('a')] += 1
 
-                                if p_freq == window_freq:
-                                    res.append(0)
+        if p_freq == window_freq:
+            res.append(0)
 
-                                for window_end in range(len(p), len(s)):
-                                    window_start = window_end - len(p)
-                                    window_freq[ord(s[window_start]) - ord('a')] -= 1
-                                    window_freq[ord(s[window_end]) - ord('a')] += 1
-                                    if p_freq == window_freq:
-                                        res.append(window_start + 1)
+        for window_end in range(len(p), len(s)):
+            window_start = window_end - len(p)
+            window_freq[ord(s[window_start]) - ord('a')] -= 1
+            window_freq[ord(s[window_end]) - ord('a')] += 1
+            if p_freq == window_freq:
+                res.append(window_start + 1)
 
-                                return res
+        return res
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public List<Integer> findAnagrams(String s, String p) {
-                                if (s.length() < p.length()) return List.of();
-                                int[] pFreq = new int[26];
-                                int[] windowFreq = new int[26];
-                                List<Integer> res = new ArrayList<>();
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        if (s.length() < p.length()) return List.of();
 
-                                for (int i = 0; i < p.length(); i++) {
-                                    pFreq[p.charAt(i) - 'a']++;
-                                    windowFreq[s.charAt(i) - 'a']++;
-                                } 
+        int[] pFreq = new int[26];
+        int[] windowFreq = new int[26];
+        List<Integer> res = new ArrayList<>();
 
-                                if (Arrays.equals(pFreq, windowFreq)) res.add(0);
+        for (int i = 0; i < p.length(); i++) {
+            pFreq[p.charAt(i) - 'a']++;
+            windowFreq[s.charAt(i) - 'a']++;
+        } 
 
-                                for (int windowEnd = p.length(); windowEnd < s.length(); windowEnd++) {
-                                    int windowStart = windowEnd - p.length() + 1;
-                                    windowFreq[s.charAt(windowStart - 1) - 'a']--;
-                                    windowFreq[s.charAt(windowEnd) - 'a']++;
-                                    if (Arrays.equals(pFreq, windowFreq)) res.add(windowStart);
-                                }
-                                return res;
-                            }
-                        }
+        if (Arrays.equals(pFreq, windowFreq)) res.add(0);
+        for (int windowEnd = p.length(); windowEnd < s.length(); windowEnd++) {
+            int windowStart = windowEnd - p.length() + 1;
+            windowFreq[s.charAt(windowStart - 1) - 'a']--;
+            windowFreq[s.charAt(windowEnd) - 'a']++;
+            if (Arrays.equals(pFreq, windowFreq)) res.add(windowStart);
+        }
+        return res;
+    }
+}
                     `
             },
         }
@@ -8594,79 +8362,72 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            ListNode *detectCycle(ListNode *head) {
-                                ListNode* slow = head;
-                                ListNode* fast = head;
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-                                while (fast && fast->next) {
-                                    slow = slow->next;
-                                    fast = fast->next->next;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) break;
+        }
 
-                                    if (slow == fast) break;
-                                }
+        if (!fast || !fast->next) return nullptr;
+        fast = head;
+        while (fast != slow) {
+            fast = fast->next;
+            slow = slow->next;
+        }
 
-                                if (!fast || !fast->next) return nullptr;
-
-                                fast = head;
-                                while (fast != slow) {
-                                    fast = fast->next;
-                                    slow = slow->next;
-                                }
-
-                                return slow;        
-                            }
-                        };
+        return slow;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-                                slow = fast = head
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow = fast = head
 
-                                while fast and fast.next:
-                                    slow = slow.next
-                                    fast = fast.next.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast: break
+            else: return None
 
-                                    if slow == fast:
-                                        break
-                                else: return None
-
-                                fast = head
-
-                                while fast != slow:
-                                    fast = fast.next
-                                    slow = slow.next
+        fast = head
+        while fast != slow:
+            fast = fast.next
+            slow = slow.next
                                 
-                                return slow
+        return slow
                     `
                 ,
                 java:
                     `
-                        public class Solution {
-                            public ListNode detectCycle(ListNode head) {
-                                ListNode slow = head, fast = head;
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = head, fast = head;
 
-                                while (fast != null && fast.next != null) {
-                                    slow = slow.next;
-                                    fast = fast.next.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+        }
 
-                                    if (slow == fast) break;
-                                }
+        if (fast == null || fast.next == null) return null;
+        fast = head;
+        while (fast != slow) {
+            fast = fast.next;
+            slow = slow.next;
+        }
 
-                                if (fast == null || fast.next == null) return null;
-
-                                fast = head;
-                                while (fast != slow) {
-                                    fast = fast.next;
-                                    slow = slow.next;
-                                }
-
-                                return slow;        
-                            }
-                        }
+        return slow;        
+    }
+}
                     `
             },
         }
@@ -8682,109 +8443,105 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-                                unordered_set<string> dict(wordList.begin(), wordList.end());
-                                queue<string> todo;
-                                todo.push(beginWord);
-                                int ladder = 1;
-                                while (!todo.empty()) {
-                                    int n = todo.size();
-                                    for (int i = 0; i < n; i++) {
-                                        string word = todo.front();
-                                        todo.pop();
-                                        if (word == endWord) {
-                                            return ladder;
-                                        }
-                                        dict.erase(word);
-                                        for (int j = 0; j < word.size(); j++) {
-                                            char c = word[j];
-                                            for (int k = 0; k < 26; k++) {
-                                                word[j] = 'a' + k;
-                                                if (dict.find(word) != dict.end()) {
-                                                    todo.push(word);
-                                                }
-                                            }
-                                            word[j] = c;
-                                        }
-                                    }
-                                    ladder++;
-                                }
-                                return 0;
-                            }
-                        };
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set<string> dict(wordList.begin(), wordList.end());
+        queue<string> todo;
+        todo.push(beginWord);
+        int ladder = 1;
+
+        while (!todo.empty()) {
+            int n = todo.size();
+            for (int i = 0; i < n; i++) {
+                string word = todo.front();
+                todo.pop();
+                if (word == endWord) return ladder;
+
+                dict.erase(word);
+                for (int j = 0; j < word.size(); j++) {
+                    char c = word[j];
+                    for (int k = 0; k < 26; k++) {
+                        word[j] = 'a' + k;
+                        if (dict.find(word) != dict.end()) {
+                            todo.push(word);
+                        }
+                    }
+                    word[j] = c;
+                }
+            }
+            ladder++;
+        }
+        return 0;
+    }
+};
                     `
                 ,
                 python:
                    `
-                    class Solution:
-                        def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:
-                            word_set = set(wordList) 
-                            if endWord not in word_set: return 0
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:
+        word_set = set(wordList) 
+        if endWord not in word_set: return 0
+        queue = deque([beginWord])
+        ladder = 1
 
-                            queue = deque([beginWord])
-                            ladder = 1
+        while queue:
+            for _ in range(len(queue)):
+                word = queue.popleft()
+                if word == endWord:
+                    return ladder
+                word_set.discard(word) 
 
-                            while queue:
-                                for _ in range(len(queue)):
-                                    word = queue.popleft()
-                                    if word == endWord:
-                                        return ladder
-                                    word_set.discard(word) 
+                for i in range(len(word)):
+                    original_char = word[i]
+                    for k in range(26):
+                        word = word[:i] + chr(ord('a') + k) + word[i+1:]
+                        if word in word_set:
+                            queue.append(word)
+                    word = word[:i] + original_char + word[i+1:] 
+            ladder += 1
 
-                                    for i in range(len(word)):
-                                        original_char = word[i]
-                                        for k in range(26):
-                                            word = word[:i] + chr(ord('a') + k) + word[i+1:]
-                                            if word in word_set:
-                                                queue.append(word)
-                                        word = word[:i] + original_char + word[i+1:] 
-                                ladder += 1
-
-                            return 0
+        return 0
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-                                Set<String> dict = new HashSet<>(wordList);
-                                if (!dict.contains(endWord)) {
-                                    return 0;
-                                }
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> dict = new HashSet<>(wordList);
+        if (!dict.contains(endWord)) return 0;
 
-                                Queue<String> queue = new LinkedList<>();
-                                queue.add(beginWord);
-                                int ladder = 1;
+        Queue<String> queue = new LinkedList<>();
+        queue.add(beginWord);
+        int ladder = 1;
 
-                                while (!queue.isEmpty()) {
-                                    int n = queue.size();
-                                    for (int i = 0; i < n; i++) {
-                                        String word = queue.poll();
-                                        if (word.equals(endWord)) {
-                                            return ladder;
-                                        }
-                                        dict.remove(word);  
-                                        char[] wordArray = word.toCharArray();
-                                        for (int j = 0; j < wordArray.length; j++) {
-                                            char originalChar = wordArray[j];
-                                            for (char k = 'a'; k <= 'z'; k++) {
-                                                wordArray[j] = k;
-                                                String newWord = new String(wordArray);
-                                                if (dict.contains(newWord)) {
-                                                    queue.add(newWord);
-                                                }
-                                            }
-                                            wordArray[j] = originalChar; 
-                                        }
-                                    }
-                                    ladder++;
-                                }
+        while (!queue.isEmpty()) {
+            int n = queue.size();
+            for (int i = 0; i < n; i++) {
+                String word = queue.poll();
+                if (word.equals(endWord)) return ladder;
 
-                                return 0;
-                            }
+                dict.remove(word);  
+                char[] wordArray = word.toCharArray();
+                for (int j = 0; j < wordArray.length; j++) {
+                    char originalChar = wordArray[j];
+                    for (char k = 'a'; k <= 'z'; k++) {
+                        wordArray[j] = k;
+                        String newWord = new String(wordArray);
+                        if (dict.contains(newWord)) {
+                            queue.add(newWord);
                         }
+                    }
+                    wordArray[j] = originalChar; 
+                }
+            }
+            ladder++;
+        }
+
+        return 0;
+    }
+}
                     `
             },
         }
@@ -8800,233 +8557,237 @@ export const HashingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void solveSudoku(vector<vector<char>>& board) {
-                                int row[9]{}, col[9]{}, box[9]{};
-                                vector<int> R, C, cc;
-                                for (int i = 0; i < 9; i++) {
-                                    for (int j = 0; j < 9; j++) {
-                                        if (board[i][j] == '.') {
-                                            R.push_back(i);
-                                            C.push_back(j);
-                                        } else {
-                                            int d = board[i][j] - '1', m = 1 << d, b = (i / 3) * 3 + j / 3;
-                                            row[i] |= m; col[j] |= m; box[b] |= m;
-                                        }
-                                    }
-                                }
-                                cc.resize(R.size());
-                                auto countBits = [&](int x) { int c = 0; while (x) { x &= x - 1; c++; } return c; };
-                                function<int(int)> cand = [&](int idx) {
-                                    int r = R[idx], c = C[idx], b = (r / 3) * 3 + c / 3;
-                                    return countBits((~(row[r] | col[c] | box[b])) & 0x1ff);
-                                };
-                                auto recalc = [&]() {
-                                    for (int i = 0; i < (int)R.size(); i++) {
-                                        if (board[R[i]][C[i]] == '.') cc[i] = cand(i);
-                                    }
-                                };
-                                for (int i = 0; i < (int)R.size(); i++) cc[i] = cand(i);
-                                function<bool(int)> dfs = [&](int filled) {
-                                    if (filled == (int)R.size()) return true;
-                                    int best = -1, bc = 10;
-                                    for (int i = 0; i < (int)R.size(); i++) {
-                                        if (board[R[i]][C[i]] == '.' && cc[i] < bc) {
-                                            bc = cc[i]; best = i;
-                                            if (!bc) return false;
-                                            if (bc < 2) break;
-                                        }
-                                    }
-                                    int r = R[best], c = C[best], b = (r / 3) * 3 + c / 3;
-                                    int mask = (~(row[r] | col[c] | box[b])) & 0x1ff;
-                                    while (mask) {
-                                        int pick = mask & -mask, d = __builtin_ctz(pick);
-                                        board[r][c] = d + '1'; row[r] |= pick; col[c] |= pick; box[b] |= pick;
-                                        recalc();
-                                        if (dfs(filled + 1)) return true;
-                                        board[r][c] = '.'; row[r] ^= pick; col[c] ^= pick; box[b] ^= pick;
-                                        recalc();
-                                        mask &= mask - 1;
-                                    }
-                                    return false;
-                                };
-                                dfs(0);
-                            }
-                        };
+class Solution {
+public:
+    void solveSudoku(vector<vector<char>>& board) {
+        int row[9]{}, col[9]{}, box[9]{};
+        vector<int> R, C, cc;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.') {
+                    R.push_back(i);
+                    C.push_back(j);
+                } 
+                else {
+                    int d = board[i][j] - '1', m = 1 << d, b = (i / 3) * 3 + j / 3;
+                    row[i] |= m; col[j] |= m; box[b] |= m;
+                }
+            }
+        }
+
+        cc.resize(R.size());
+        auto countBits = [&](int x) { int c = 0; while (x) { x &= x - 1; c++; } return c; };
+        function<int(int)> cand = [&](int idx) {
+            int r = R[idx], c = C[idx], b = (r / 3) * 3 + c / 3;
+            return countBits((~(row[r] | col[c] | box[b])) & 0x1ff);
+        };
+        auto recalc = [&]() {
+            for (int i = 0; i < (int)R.size(); i++) {
+                if (board[R[i]][C[i]] == '.') cc[i] = cand(i);
+            }
+        };
+        for (int i = 0; i < (int)R.size(); i++) cc[i] = cand(i);
+        function<bool(int)> dfs = [&](int filled) {
+            if (filled == (int)R.sireturn true;
+            int best = -1, bc = 10;
+            for (int i = 0; i < (int)R.size(); i++) {
+                if (board[R[i]][C[i]] == '.' && cc[i] < bc) {
+                    bc = cc[i]; best = i;
+                    if (!bc) return false;
+                    if (bc < 2) break;
+                }
+            }
+            int r = R[best], c = C[best], b = (r / 3) * 3 + c / 3;
+            nt mask = (~(row[r] | col[c] | box[b])) & 0x1ff;
+
+            while (mask) {
+                int pick = mask & -mask, d = __builtin_ctz(pick);
+                board[r][c] = d + '1'; row[r] |= pick; col[c] |= pick; box[b] |= pick;
+                recalc();
+
+                if (dfs(filled + 1)) return true;
+                board[r][c] = '.'; row[r] ^= pick; col[c] ^= pick; box[b] ^= pick;
+                recalc();
+                mask &= mask - 1;
+            }
+            return false;
+        };
+        dfs(0);
+    }
+};
                     `
                 ,
                 python:
                    `
-                        class Solution:
-                            def solveSudoku(self, board: list[list[str]]) -> None:
-                                row = [0] * 9
-                                col = [0] * 9
-                                box = [0] * 9
-                                R, C, cc = [], [], []
+class Solution:
+    def solveSudoku(self, board: list[list[str]]) -> None:
+        row = [0] * 9
+        col = [0] * 9
+        box = [0] * 9
+        R, C, cc = [], [], []
 
-                                def countBits(x):
-                                    c = 0
-                                    while x:
-                                        x &= x - 1
-                                        c += 1
-                                    return c
+        def countBits(x):
+            c = 0
+            while x:
+                x &= x - 1
+                c += 1
+            return c
 
-                                def cand(idx):
-                                    r, c = R[idx], C[idx]
-                                    b = (r // 3) * 3 + c // 3
-                                    return countBits((~(row[r] | col[c] | box[b])) & 0x1ff)
+        def cand(idx):
+            r, c = R[idx], C[idx]
+            b = (r // 3) * 3 + c // 3
+            return countBits((~(row[r] | col[c] | box[b])) & 0x1ff)
 
-                                def recalc():
-                                    for i in range(len(R)):
-                                        if board[R[i]][C[i]] == '.':
-                                            cc[i] = cand(i)
+        def recalc():
+            for i in range(len(R)):
+                if board[R[i]][C[i]] == '.':
+                    cc[i] = cand(i)
 
-                                for i in range(9):
-                                    for j in range(9):
-                                        if board[i][j] == '.':
-                                            R.append(i)
-                                            C.append(j)
-                                        else:
-                                            d = ord(board[i][j]) - ord('1')
-                                            m = 1 << d
-                                            b = (i // 3) * 3 + j // 3
-                                            row[i] |= m
-                                            col[j] |= m
-                                            box[b] |= m
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == '.':
+                    R.append(i)
+                    C.append(j)
+                else:
+                    d = ord(board[i][j]) - ord('1')
+                    m = 1 << d
+                    b = (i // 3) * 3 + j // 3
+                    row[i] |= m
+                    col[j] |= m
+                    box[b] |= m
 
-                                cc = [cand(i) for i in range(len(R))]
+        cc = [cand(i) for i in range(len(R))]
 
-                                def dfs(filled):
-                                    if filled == len(R):
-                                        return True
-                                    best, bc = -1, 10
-                                    for i in range(len(R)):
-                                        if board[R[i]][C[i]] == '.' and cc[i] < bc:
-                                            bc = cc[i]
-                                            best = i
-                                            if not bc:
-                                                return False
-                                            if bc < 2:
-                                                break
+        def dfs(filled):
+            if filled == len(R):
+                return True
+            best, bc = -1, 10
+            for i in range(len(R)):
+                if board[R[i]][C[i]] == '.' and cc[i] < bc:
+                    bc = cc[i]
+                    best = i
+                    if not bc:
+                        return False
+                    if bc < 2:
+                        break
 
-                                    r, c = R[best], C[best]
-                                    b = (r // 3) * 3 + c // 3
-                                    mask = (~(row[r] | col[c] | box[b])) & 0x1ff
-                                    while mask:
-                                        pick = mask & -mask
-                                        d = (pick.bit_length() - 1)
-                                        board[r][c] = chr(d + ord('1'))
-                                        row[r] |= pick
-                                        col[c] |= pick
-                                        box[b] |= pick
-                                        recalc()
-                                        if dfs(filled + 1):
-                                            return True
-                                        board[r][c] = '.'
-                                        row[r] ^= pick
-                                        col[c] ^= pick
-                                        box[b] ^= pick
-                                        recalc()
-                                        mask &= mask - 1
-                                    return False
+            r, c = R[best], C[best]
+            b = (r // 3) * 3 + c // 3
+            mask = (~(row[r] | col[c] | box[b])) & 0x1ff
+            while mask:
+                pick = mask & -mask
+                d = (pick.bit_length() - 1)
+                board[r][c] = chr(d + ord('1'))
+                row[r] |= pick
+                col[c] |= pick
+                box[b] |= pick
+                recalc()
 
-                                dfs(0)
+                if dfs(filled + 1): return True
+                board[r][c] = '.'
+                row[r] ^= pick
+                col[c] ^= pick
+                box[b] ^= pick
+                recalc()
+                mask &= mask - 1
+            return False
+
+        dfs(0)
                    `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void solveSudoku(char[][] board) {
-                                int[] row = new int[9], col = new int[9], box = new int[9];
-                                List<Integer> R = new ArrayList<>(), C = new ArrayList<>();
-                                int[] cc;
+class Solution {
+    public void solveSudoku(char[][] board) {
+        int[] row = new int[9], col = new int[9], box = new int[9];
+        List<Integer> R = new ArrayList<>(), C = new ArrayList<>();
+        int[] cc;
 
-                                for (int i = 0; i < 9; i++) {
-                                    for (int j = 0; j < 9; j++) {
-                                        if (board[i][j] == '.') {
-                                            R.add(i);
-                                            C.add(j);
-                                        } else {
-                                            int d = board[i][j] - '1';
-                                            int m = 1 << d;
-                                            int b = (i / 3) * 3 + j / 3;
-                                            row[i] |= m;
-                                            col[j] |= m;
-                                            box[b] |= m;
-                                        }
-                                    }
-                                }
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.') {
+                    R.add(i);
+                    C.add(j);
+                } 
+                else {
+                    int d = board[i][j] - '1';
+                    int m = 1 << d;
+                    int b = (i / 3) * 3 + j / 3;
+                    row[i] |= m;
+                    col[j] |= m;
+                    box[b] |= m;
+                }
+            }
+        }
 
-                                cc = new int[R.size()];
+        cc = new int[R.size()];
+        for (int i = 0; i < R.size(); i++) {
+            cc[i] = cand(R.get(i), C.get(i), row, col, box);
+        }
 
-                                for (int i = 0; i < R.size(); i++) {
-                                    cc[i] = cand(R.get(i), C.get(i), row, col, box);
-                                }
+        dfs(0, R, C, cc, board, row, col, box);
+    }
 
-                                dfs(0, R, C, cc, board, row, col, box);
-                            }
+    private int cand(int r, int c, int[] row, int[] col, int[] box) {
+        int b = (r / 3) * 3 + c / 3;
+        return Integer.bitCount((~(row[r] | col[c] | box[b])) & 0x1FF);
+    }
 
-                            private int cand(int r, int c, int[] row, int[] col, int[] box) {
-                                int b = (r / 3) * 3 + c / 3;
-                                return Integer.bitCount((~(row[r] | col[c] | box[b])) & 0x1FF);
-                            }
+    private void recalc(List<Integer> R, List<Integer> C, int[] cc, char[][] board, int[] row, int[] col, int[] box) {
+        for (int i = 0; i < R.size(); i++) {
+            if (board[R.get(i)][C.get(i)] == '.') {
+                cc[i] = cand(R.get(i), C.get(i), row, col, box);
+            }
+        }
+    }
 
-                            private void recalc(List<Integer> R, List<Integer> C, int[] cc, char[][] board, int[] row, int[] col, int[] box) {
-                                for (int i = 0; i < R.size(); i++) {
-                                    if (board[R.get(i)][C.get(i)] == '.') {
-                                        cc[i] = cand(R.get(i), C.get(i), row, col, box);
-                                    }
-                                }
-                            }
+    private boolean dfs(int filled, List<Integer> R, List<Integer> C, int[] cc, char[][] board, int[] row, int[] col, int[] box) {
+        if (filled == R.size()) return true;
 
-                            private boolean dfs(int filled, List<Integer> R, List<Integer> C, int[] cc, char[][] board, int[] row, int[] col, int[] box) {
-                                if (filled == R.size()) return true;
+        int best = -1, bc = 10;
+        for (int i = 0; i < R.size(); i++) {
+            if (board[R.get(i)][C.get(i)] == '.' && cc[i] < bc) {
+                bc = cc[i];
+                best = i;
+                if (bc == 0) return false;
+                if (bc < 2) break;
+            }
+        }
 
-                                int best = -1, bc = 10;
-                                for (int i = 0; i < R.size(); i++) {
-                                    if (board[R.get(i)][C.get(i)] == '.' && cc[i] < bc) {
-                                        bc = cc[i];
-                                        best = i;
-                                        if (bc == 0) return false;
-                                        if (bc < 2) break;
-                                    }
-                                }
+        int r = R.get(best), c = C.get(best), b = (r / 3) * 3 + c / 3;
+        int mask = (~(row[r] | col[c] | box[b])) & 0x1FF;
 
-                                int r = R.get(best), c = C.get(best), b = (r / 3) * 3 + c / 3;
-                                int mask = (~(row[r] | col[c] | box[b])) & 0x1FF;
+        while (mask != 0) {
+            int pick = mask & -mask;
+            int d = InnumberOfTrailingZeros(pick);
+            board[r][c] = (char) (d + '1');
+            row[r] |= pick;
+            col[c] |= pick;
+            box[b] |= pick;
 
-                                while (mask != 0) {
-                                    int pick = mask & -mask;
-                                    int d = Integer.numberOfTrailingZeros(pick);
-                                    board[r][c] = (char) (d + '1');
-                                    row[r] |= pick;
-                                    col[c] |= pick;
-                                    box[b] |= pick;
+            recalc(R, C, cc, board, row, col, box);
 
-                                    recalc(R, C, cc, board, row, col, box);
+            if (dfs(filled + 1, R, C, cc, board, row, col, box)) return true;
 
-                                    if (dfs(filled + 1, R, C, cc, board, row, col, box)) return true;
+            board[r][c] = '.';
+            row[r] ^= pick;
+            col[c] ^= pick;
+            box[b] ^= pick;
 
-                                    board[r][c] = '.';
-                                    row[r] ^= pick;
-                                    col[c] ^= pick;
-                                    box[b] ^= pick;
+            recalc(R, C, cc, board,col, box);
+            mask &= mask - 1;
+        }
 
-                                    recalc(R, C, cc, board, row, col, box);
-
-                                    mask &= mask - 1;
-                                }
-
-                                return false;
-                            }
-                        }
+        return false;
+    }
+}
                     `
             },
         }
     },
 ]
 
+// Needs to change
 export const TwoPointerData = [
     {
         id: 1,
