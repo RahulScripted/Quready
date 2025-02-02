@@ -3234,7 +3234,7 @@ class Solution {
     },
 ]
 
-// Need to change the solution code gap
+
 export const StringData = [
     {
         id: 1,
@@ -3248,61 +3248,55 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool isAnagram(string s, string t) {
-                                if (s.length() != t.length()) {
-                                    return false;
-                                }
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if (s.length() != t.length()) return false;
 
-                                unordered_map<char, int> sCount, tCount;
+        unordered_map<char, int> sCount, tCount;
+        for (int i = 0; i < s.length(); i++) {
+            sCount[s[i]] = 1 + sCount[s[i]];
+            tCount[t[i]] = 1 + tCount[t[i]];
+        }
 
-                                for (int i = 0; i < s.length(); i++) {
-                                    sCount[s[i]] = 1 + sCount[s[i]];
-                                    tCount[t[i]] = 1 + tCount[t[i]];
-                                }
-
-                                return sCount == tCount;        
-                            }
-                        };
+        return sCount == tCount;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def isAnagram(self, s: str, t: str) -> bool:    
-                                if len(s) != len(t):
-                                    return False
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:    
+        if len(s) != len(t):
+            return False
                                 
-                                s_count = {}
-                                t_count = {}
+        s_count = {}
+        t_count = {}                        
+        for i in range(len(s)):
+            s_count[s[i]] = 1 + s_count.get(s[i], 0)
+            t_count[t[i]] = 1 + t_count.get(t[i], 0)
                                 
-                                for i in range(len(s)):
-                                    s_count[s[i]] = 1 + s_count.get(s[i], 0)
-                                    t_count[t[i]] = 1 + t_count.get(t[i], 0)
-                                
-                                return s_count == t_count
+        return s_count == t_count
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isAnagram(String s, String t) {
-                                if (s.length() != t.length()) {
-                                    return false;
-                                }
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
 
-                                HashMap<Character, Integer> sCount = new HashMap<>();
-                                HashMap<Character, Integer> tCount = new HashMap<>();
+        HashMap<Character, Integer> sCount = new HashMap<>();
+        HashMap<Character, Integer> tCount = new HashMap<>();
 
-                                for (int i = 0; i < s.length(); i++) {
-                                    sCount.put(s.charAt(i), 1 + sCount.getOrDefault(s.charAt(i), 0));
-                                    tCount.put(t.charAt(i), 1 + tCount.getOrDefault(t.charAt(i), 0));
-                                }
+        for (int i = 0; i < s.length(); i++) {
+            sCount.put(s.charAt(i), 1 + sCount.getOrDefault(s.charAt(i), 0));
+            tCount.put(t.charAt(i), 1 + tCount.getOrDefault(t.charAt(i), 0));
+        }
 
-                                return sCount.equals(tCount);        
-                            }
-                        }
+        return sCount.equals(tCount);        
+    }
+}
                     `
             },
         }
@@ -3318,71 +3312,72 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            string sortString(string s) {
-                                string result = "";
-                                while (!s.empty()) {
-                                    set<char> unique(s.begin(), s.end());
-                                    for (char letter : unique) {
-                                        s.erase(remove(s.begin(), s.end(), letter), s.end());
-                                        result += letter;
-                                    }
-                                    unique = set<char>(s.begin(), s.end());
-                                    for (auto it = unique.rbegin(); it != unique.rend(); ++it) {
-                                        s.erase(remove(s.begin(), s.end(), *it), s.end());
-                                        result += *it;
-                                    }
-                                }
-                                return result;
-                            }
-                        };
+class Solution {
+public:
+    string sortString(string s) {
+        string result = "";
+        while (!s.empty()) {
+            set<char> unique(s.begin(), s.end());
+            for (char letter : unique) {
+                s.erase(remove(s.begin(), s.end(), letter), s.end());
+                result += letter;
+            }
+            unique = set<char>(s.begin(), s.end());
+            for (auto it = unique.rbegin(); it != unique.rend(); ++it) {
+                s.erase(remove(s.begin(), s.end(), *it), s.end());
+                result += *it;
+            }
+        }
+        return result;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def sortString(self, s: str) -> str:
-                                s = list(s)
-                                result = ''
-                                while s:
-                                    for letter in sorted(set(s)):
-                                        s.remove(letter)
-                                        result += letter
-                                    for letter in sorted(set(s), reverse=True):
-                                        s.remove(letter)
-                                        result += letter
-                                return result
+class Solution:
+    def sortString(self, s: str) -> str:
+        s = list(s)
+        result = ''
+        while s:
+            for letter in sorted(set(s)):
+                s.remove(letter)
+                result += letter
+
+            for letter in sorted(set(s), reverse=True):
+                s.remove(letter)
+                result += letter
+            return result
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public String sortString(String s) {
-                                StringBuilder result = new StringBuilder();
-                                List<Character> charList = new ArrayList<>();
-                                for (char c : s.toCharArray()) {
-                                    charList.add(c);
-                                }
+class Solution {
+    public String sortString(String s) {
+        StringBuilder result = new StringBuilder();
+        List<Character> charList = new ArrayList<>();
+        for (char c : s.toCharArray()) {
+            charList.add(c);
+        }
                                 
-                                while (!charList.isEmpty()) {
-                                    TreeSet<Character> unique = new TreeSet<>(charList);
-                                    for (char letter : unique) {
-                                        charList.remove(Character.valueOf(letter));
-                                        result.append(letter);
-                                    }
+        while (!charList.isEmpty()) {
+            TreeSet<Character> unique = new TreeSet<>(charList);
+            for (char letter : unique) {
+                charList.remove(Character.valueOf(letter));
+                result.append(letter);
+            }
                                     
-                                    TreeSet<Character> reversedUnique = new TreeSet<>(Collections.reverseOrder());
-                                    reversedUnique.addAll(charList);
-                                    for (char letter : reversedUnique) {
-                                        charList.remove(Character.valueOf(letter));
-                                        result.append(letter);
-                                    }
-                                }
+            TreeSet<Character> reversedUnique = new TreeSet<>(Collections.reverseOrder());
+            reversedUnique.addAll(charList);
+            for (char letter : reversedUnique) {
+                charList.remove(Character.valueOf(letter));
+                result.append(letter);
+            }
+        }
                                 
-                                return result.toString();
-                            }
-                        }
+        return result.toString();
+    }
+}
                     `
             },
         }
@@ -3398,67 +3393,67 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool isPalindrome(string s) {
-                                string filtered;
-                                for (char c : s) {
-                                    if (isalnum(c)) {
-                                        filtered += tolower(c);
-                                    }
-                                }
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        string filtered;
+        for (char c : s) {
+            if (isalnum(c)) {
+                filtered += tolower(c);
+            }
+        }
 
-                                int left = 0;
-                                int right = filtered.size() - 1;
+        int left = 0;
+        int right = filtered.size() - 1;
 
-                                while (left < right) {
-                                    if (filtered[left] != filtered[right]) {
-                                        return false;
-                                    }
-                                    left++;
-                                    right--;
-                                }
+        while (left < right) {
+            if (filtered[left] != filtered[right]) {
+                return false;
+            }
+            left++;
+            right--;
+        }
 
-                                return true;        
-                            }
-                        };
+        return true;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def isPalindrome(self, s: str) -> bool:
-                                s = ''.join(c.lower() for c in s if c.isalnum())
-                                left = 0 
-                                right = len(s) - 1
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        s = ''.join(c.lower() for c in s if c.isalnum())
+        left = 0 
+        right = len(s) - 1
 
-                                while left < right:
-                                    if s[left] != s[right]:
-                                        return False
-                                    left += 1
-                                    right -= 1
+        while left < right:
+            if s[left] != s[right]:
+                return False
+            left += 1
+            right -= 1
 
-                                return True
+        return True
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isPalindrome(String s) {
-                                s = s.toLowerCase().replaceAll("[^a-z0-9]", "");
-                                int left = 0;
-                                int right = s.length() - 1;
+class Solution {
+    public boolean isPalindrome(String s) {
+        s = s.toLowerCase().replaceAll("[^a-z0-9]", "");
+        int left = 0;
+        int right = s.length() - 1;
 
-                                while (left < right) {
-                                    if (s.charAt(left) != s.charAt(right)) {
-                                        return false;
-                                    }
-                                    left++;
-                                    right--;
-                                }
-                                return true;        
-                            }
-                        }
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;        
+    }
+}
                     `
             },
         }
@@ -3474,71 +3469,67 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            string longestCommonPrefix(vector<string>& strs) {
-                                if (strs.empty()) return "";
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.empty()) return "";
 
-                                string pref = strs[0];
-                                int prefLen = pref.length();
+        string pref = strs[0];
+        int prefLen = pref.length();
 
-                                for (int i = 1; i < strs.size(); i++) {
-                                    string s = strs[i];
-                                    while (prefLen > s.length() || pref != s.substr(0, prefLen)) {
-                                        prefLen--;
-                                        if (prefLen == 0) {
-                                            return "";
-                                        }
-                                        pref = pref.substr(0, prefLen);
-                                    }
-                                }
+        for (int i = 1; i < strs.size(); i++) {
+            string s = strs[i];
+            while (prefLen > s.length() || pref != s.substr(0, prefLen)) {
+                prefLen--;
+                if (prefLen == 0) return "";
+                pref = pref.substr(0, prefLen);
+            }
+        }
 
-                                return pref;        
-                            }
-                        };
+        return pref;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def longestCommonPrefix(self, strs: List[str]) -> str:
-                                pref = strs[0]
-                                pref_len = len(pref)
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        pref = strs[0]
+        pref_len = len(pref)
 
-                                for s in strs[1:]:
-                                    while pref != s[0:pref_len]:
-                                        pref_len -= 1
-                                        if pref_len == 0:
-                                            return ""
+        for s in strs[1:]:
+            while pref != s[0:pref_len]:
+                pref_len -= 1
+                if pref_len == 0:
+                    return ""
                                         
-                                        pref = pref[0:pref_len]
+            pref = pref[0:pref_len]
                                 
-                                return pref
+        return pref
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public String longestCommonPrefix(String[] strs) {
-                                if (strs == null || strs.length == 0) return "";
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) return "";
                                 
-                                String pref = strs[0];
-                                int prefLen = pref.length();
+        String pref = strs[0];
+        int prefLen = pref.length();
 
-                                for (int i = 1; i < strs.length; i++) {
-                                    String s = strs[i];
-                                    while (prefLen > s.length() || !pref.equals(s.substring(0, prefLen))) {
-                                        prefLen--;
-                                        if (prefLen == 0) {
-                                            return "";
-                                        }
-                                        pref = pref.substring(0, prefLen);
-                                    }
-                                }
+        for (int i = 1; i < strs.length; i++) {
+            String s = strs[i];
+            while (prefLen > s.length() || !pref.equals(s.substring(0, prefLen))) {
+                prefLen--;
+                if (prefLen == 0) return "";
+                pref = pref.substring(0, prefLen);
+            }
+        }
 
-                                return pref;        
-                            }
-                        }
+        return pref;        
+    }
+}
                     `
             },
         }
@@ -3554,59 +3545,59 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int lengthOfLastWord(string s) {
-                                int end = s.length() - 1;
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        int end = s.length() - 1;
 
-                                while (end >= 0 && s[end] == ' ') {
-                                    end--;
-                                }
+        while (end >= 0 && s[end] == ' ') {
+            end--;
+        }
 
-                                int start = end;
-                                while (start >= 0 && s[start] != ' ') {
-                                    start--;
-                                }
+        int start = end;
+        while (start >= 0 && s[start] != ' ') {
+            start--;
+        }
 
-                                return end - start;        
-                            }
-                        };
+        return end - start;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def lengthOfLastWord(self, s: str) -> int:                
-                                end = len(s) - 1
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:                
+        end = len(s) - 1
 
-                                while s[end] == " ":
-                                    end -= 1
+        while s[end] == " ":
+            end -= 1
                                 
-                                start = end
-                                while start >= 0 and s[start] != " ":
-                                    start -= 1
+        start = end
+        while start >= 0 and s[start] != " ":
+            start -= 1
                                 
-                                return end - start
+        return end - start
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int lengthOfLastWord(String s) {
-                                int end = s.length() - 1;
+class Solution {
+    public int lengthOfLastWord(String s) {
+        int end = s.length() - 1;
 
-                                while (end >= 0 && s.charAt(end) == ' ') {
-                                    end--;
-                                }
+        while (end >= 0 && s.charAt(end) == ' ') {
+            end--;
+        }
 
-                                int start = end;
-                                while (start >= 0 && s.charAt(start) != ' ') {
-                                    start--;
-                                }
+        int start = end;
+        while (start >= 0 && s.charAt(start) != ' ') {
+            start--;
+        }
 
-                                return end - start;        
-                            }
-                        }
+        return end - start;        
+    }
+}
                     `
             },
         }
@@ -3622,88 +3613,88 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            string simplifyPath(string path) {
-                                vector<string> components;
-                                stringstream ss(path);
-                                string comp;
-                                while (getline(ss, comp, '/')) {
-                                    if (comp == "" || comp == ".") {
-                                        continue;
-                                    }
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string> components;
+        stringstream ss(path);
+        string comp;
+        while (getline(ss, comp, '/')) {
+            if (comp == "" || comp == ".") continue;
 
-                                    if (comp == "..") {
-                                        if (!st.empty()) {
-                                            st.pop_back();
-                                        }
-                                    } else {
-                                        st.push_back(comp);
-                                    }
-                                }
+            if (comp == "..") {
+                if (!st.empty()) {
+                    st.pop_back();
+                }
+            } 
+            else {
+                st.push_back(comp);
+            }
+        }
 
-                                stringstream simplifiedPath;
-                                for (const string& s : st) {
-                                    simplifiedPath << "/" << s;
-                                }
+        stringstream simplifiedPath;
+        for (const string& s : st) {
+            simplifiedPath << "/" << s;
+        }
 
-                                return simplifiedPath.str().empty() ? "/" : simplifiedPath.str();        
-                            }
+        return simplifiedPath.str().empty() ? "/" : simplifiedPath.str();        
+    }
 
-                        private:
-                            vector<string> st;    
-                        };
+private:
+    vector<string> st;    
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def simplifyPath(self, path: str) -> str:
-                                components = path.split("/")
-                                st = []
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        components = path.split("/")
+        st = []
 
-                                for comp in components:
-                                    if comp == "" or comp == ".":
-                                        continue
+        for comp in components:
+            if comp == "" or comp == ".":
+                continue
                                     
-                                    if comp == "..":
-                                        if st:
-                                            st.pop()
-                                    else:
-                                        st.append(comp)
+            if comp == "..":
+                if st:
+                    st.pop()
+            else:
+                st.append(comp)
                                 
-                                return "/" + "/".join(st)
+        return "/" + "/".join(st)
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public String simplifyPath(String path) {
-                                String[] components = path.split("/");
-                                Stack<String> st = new Stack<>();
+class Solution {
+    public String simplifyPath(String path) {
+        String[] components = path.split("/");
+            Stack<String> st = new Stack<>();
 
-                                for (String comp : components) {
-                                    if (comp.equals("") || comp.equals(".")) {
-                                        continue;
-                                    }
+            for (String comp : components) {
+                if (comp.equals("") || comp.equals(".")) {
+                continue;
+            }
 
-                                    if (comp.equals("..")) {
-                                        if (!st.isEmpty()) {
-                                            st.pop();
-                                        }
-                                    } else {
-                                        st.push(comp);
-                                    }
-                                }
+            if (comp.equals("..")) {
+                if (!st.isEmpty()) {
+                    st.pop();
+                }
+            } 
+            else {
+                st.push(comp);
+            }
+        }
 
-                                StringBuilder sb = new StringBuilder();
-                                while (!st.isEmpty()) {
-                                    sb.insert(0, "/" + st.pop());
-                                }
+        StringBuilder sb = new StringBuilder();
+        while (!st.isEmpty()) {
+            sb.insert(0, "/" + st.pop());
+        }
 
-                                return sb.length() == 0 ? "/" : sb.toString();        
-                            }
-                        }
+        return sb.length() == 0 ? "/" : sb.toString();        
+    }
+}
                     `
             },
         }
@@ -3719,134 +3710,131 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool exist(vector<vector<char>>& board, string word) {
-                                int rows = board.size();
-                                int cols = board[0].size();
-                                unordered_set<string> visited;
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        int rows = board.size();
+        int cols = board[0].size();
+        unordered_set<string> visited;
 
-                                auto dfs = [&](int r, int c, int k, auto& dfs) -> bool {
-                                    if (k == word.length()) {
-                                        return true;
-                                    }
+        auto dfs = [&](int r, int c, int k, auto& dfs) -> bool {
+            if (k == word.length()) {
+                return true;
+            }
 
-                                    if (r < 0 || r >= rows || c < 0 || c >= cols || visited.count(to_string(r) + "," + to_string(c)) || board[r][c] != word[k]) {
-                                        return false;
-                                    }
+            if (r < 0 || r >= rows || c < 0 || c >= cols || visited.count(to_string(r) + "," + to_string(c)) || board[r][c] != word[k]) {
+                return false;
+            }
 
-                                    visited.insert(to_string(r) + "," + to_string(c));
-                                    bool res = dfs(r + 1, c, k + 1, dfs) || dfs(r - 1, c, k + 1, dfs) || dfs(r, c + 1, k + 1, dfs) || dfs(r, c - 1, k + 1, dfs);
-                                    visited.erase(to_string(r) + "," + to_string(c));
-                                    return res;
-                                };
+            visited.insert(to_string(r) + "," + to_string(c));
+            bool res = dfs(r + 1, c, k + 1, dfs) || dfs(r - 1, c, k + 1, dfs) || dfs(r, c + 1, k + 1, dfs) || dfs(r, c - 1, k + 1, dfs);
+            visited.erase(to_string(r) + "," + to_string(c));
+            return res;
+        };
 
-                                unordered_map<char, int> count;
-                                for (char c : word) {
-                                    count[c]++;
-                                }
+        unordered_map<char, int> count;
+        for (char c : word) {
+            count[c]++;
+        }
 
-                                if (count[word[0]] > count[word.back()]) {
-                                    reverse(word.begin(), word.end());
-                                }
+        if (count[word[0]] > count[word.back()]) {
+            reverse(word.begin(), word.end());
+        }
 
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (dfs(r, c, 0, dfs)) {
-                                            return true;
-                                        }
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (dfs(r, c, 0, dfs)) {
+                    return true;
+                }
+            }
+        }
 
-                                return false;        
-                            }
-                        };
+        return false;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def exist(self, board: List[List[str]], word: str) -> bool:
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
                             
-                                rows, cols = len(board), len(board[0])
-                                visited = set()
+        rows, cols = len(board), len(board[0])
+        visited = set()
 
-                                def dfs(r, c, k):
-                                    if k == len(word):
-                                        return True
+        def dfs(r, c, k):
+            if k == len(word):
+                return True
 
-                                    if not (0 <= r < rows) or not (0 <= c < cols) or (r,c) in visited or board[r][c] != word[k]:
-                                        return False
+            if not (0 <= r < rows) or not (0 <= c < cols) or (r,c) in visited or board[r][c] != word[k]:
+                return False
                                     
-                                    visited.add((r,c))
-                                    res = dfs(r+1, c, k+1) or dfs(r-1, c, k+1) or dfs(r, c+1, k+1) or dfs(r, c-1, k+1)
-                                    visited.remove((r,c))
-                                    return res
+            visited.add((r,c))
+            res = dfs(r+1, c, k+1) or dfs(r-1, c, k+1) or dfs(r, c+1, k+1) or dfs(r, c-1, k+1)
+            visited.remove((r,c))
+            return res
                                     
-                                count = {}
-                                for c in word:
-                                    count[c] = 1 + count.get(c, 0)
+        count = {}
+        for c in word:
+            count[c] = 1 + count.get(c, 0)
                                 
-                                if count[word[0]] > count[word[-1]]:
-                                    word = word[::-1]
+        if count[word[0]] > count[word[-1]]:
+            word = word[::-1]
                                 
-                                for r in range(rows):
-                                    for c in range(cols):
-                                        if dfs(r, c, 0): return True
+        for r in range(rows):
+            for c in range(cols):
+                if dfs(r, c, 0): return True
                                 
-                                return False
+        return False
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            private int rows;
-                            private int cols;
-                            private Set<String> visited;
+class Solution {
+    private int rows;
+    private int cols;
+    private Set<String> visited;
 
-                            public boolean exist(char[][] board, String word) {
-                                rows = board.length;
-                                cols = board[0].length;
-                                visited = new HashSet<>();
+    public boolean exist(char[][] board, String word) {
+        rows = board.length;
+        cols = board[0].length;
+        visited = new HashSet<>();
 
-                                Map<Character, Integer> count = new HashMap<>();
-                                for (char c : word.toCharArray()) {
-                                    count.put(c, count.getOrDefault(c, 0) + 1);
-                                }
+        Map<Character, Integer> count = new HashMap<>();
+        for (char c : word.toCharArray()) {
+            count.put(c, count.getOrDefault(c, 0) + 1);
+        }
 
-                                if (count.getOrDefault(word.charAt(0), 0) > count.getOrDefault(word.charAt(word.length() - 1), 0)) {
-                                    word = new StringBuilder(word).reverse().toString();
-                                }
+        if (count.getOrDefault(word.charAt(0), 0) > count.getOrDefault(word.charAt(word.length() - 1), 0)) {
+            word = new StringBuilder(word).reverse().toString();
+        }
 
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (dfs(board, word, r, c, 0)) {
-                                            return true;
-                                        }
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (dfs(board, word, r, c, 0)) {
+                    return true;
+                }
+            }
+        }
 
-                                return false;
-                            }
+        return false;
+    }
 
-                            private boolean dfs(char[][] board, String word, int r, int c, int k) {
-                                if (k == word.length()) {
-                                    return true;
-                                }
+    private boolean dfs(char[][] board, String word, int r, int c, int k) {
+        if (k == word.length()) {
+            return true;
+        }
 
-                                if (r < 0 || r >= rows || c < 0 || c >= cols || visited.contains(r + "," + c) || board[r][c] != word.charAt(k)) {
+        if (r < 0 || r >= rows || c < 0 || c >= cols || visited.contains(r + "," + c) || board[r][c] != word.charAt(k)) {
                                     return false;
                                 }
 
-                                visited.add(r + "," + c);
-                                boolean res = dfs(board, word, r + 1, c, k + 1) ||
-                                            dfs(board, word, r - 1, c, k + 1) ||
-                                            dfs(board, word, r, c + 1, k + 1) ||
-                                            dfs(board, word, r, c - 1, k + 1);
-                                visited.remove(r + "," + c);
-                                return res;
-                            }    
-                        }
+        visited.add(r + "," + c);
+        boolean res = dfs(board, word, r + 1, c, k + 1) || dfs(board, word, r - 1, c, k + 1) || dfs(board, word, r, c + 1, k + 1) || dfs(board, word, r, c - 1, k + 1);
+        visited.remove(r + "," + c);
+        return res;
+    }    
+}
                     `
             },
         }
@@ -3862,65 +3850,65 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int lengthOfLongestSubstring(string s) {
-                                int maxLength = 0;
-                                int left = 0;
-                                unordered_map<char, int> lastSeen;
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int maxLength = 0;
+        int left = 0;
+        unordered_map<char, int> lastSeen;
 
-                                for (int right = 0; right < s.length(); right++) {
-                                    char c = s[right];
-                                    if (lastSeen.find(c) != lastSeen.end() && lastSeen[c] >= left) {
-                                        left = lastSeen[c] + 1;
-                                    }
-                                    maxLength = max(maxLength, right - left + 1);
-                                    lastSeen[c] = right;
-                                }
+        for (int right = 0; right < s.length(); right++) {
+            char c = s[right];
+            if (lastSeen.find(c) != lastSeen.end() && lastSeen[c] >= left) {
+                left = lastSeen[c] + 1;
+            }
+            maxLength = max(maxLength, right - left + 1);
+            lastSeen[c] = right;
+        }
 
-                                return maxLength;        
-                            }
-                        };
+        return maxLength;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def lengthOfLongestSubstring(self, s: str) -> int:
-                                max_length = 0
-                                left = 0
-                                last_seen = {}
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        max_length = 0
+        left = 0
+        last_seen = {}
 
-                                for right, c in enumerate(s):
-                                    if c in last_seen and last_seen[c] >= left:
-                                        left = last_seen[c] + 1
+        for right, c in enumerate(s):
+            if c in last_seen and last_seen[c] >= left:
+                left = last_seen[c] + 1
                                     
-                                    max_length = max(max_length, right - left + 1)
-                                    last_seen[c] = right
+            max_length = max(max_length, right - left + 1)
+            last_seen[c] = right
 
-                                return max_length
+        return max_length
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int lengthOfLongestSubstring(String s) {
-                                int maxLength = 0;
-                                int left = 0;
-                                Map<Character, Integer> lastSeen = new HashMap<>();
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxLength = 0;
+        int left = 0;
+        Map<Character, Integer> lastSeen = new HashMap<>();
 
-                                for (int right = 0; right < s.length(); right++) {
-                                    char c = s.charAt(right);
-                                    if (lastSeen.containsKey(c) && lastSeen.get(c) >= left) {
-                                        left = lastSeen.get(c) + 1;
-                                    }
-                                    maxLength = Math.max(maxLength, right - left + 1);
-                                    lastSeen.put(c, right);
-                                }
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+            if (lastSeen.containsKey(c) && lastSeen.get(c) >= left) {
+                left = lastSeen.get(c) + 1;
+            }
+            maxLength = Math.max(maxLength, right - left + 1);
+            lastSeen.put(c, right);
+        }
 
-                                return maxLength;       
-                            }
-                        }
+        return maxLength;       
+    }
+}
                     `
             },
         }
@@ -3936,96 +3924,98 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            string convert(string s, int numRows) {
-                                if (numRows == 1 || numRows >= s.length()) {
-                                    return s;
-                                }
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if (numRows == 1 || numRows >= s.length()) {
+            return s;
+        }
 
-                                int idx = 0, d = 1;
-                                vector<vector<char>> rows(numRows);
+        int idx = 0, d = 1;
+        vector<vector<char>> rows(numRows);
 
-                                for (char c : s) {
-                                    rows[idx].push_back(c);
-                                    if (idx == 0) {
-                                        d = 1;
-                                    } else if (idx == numRows - 1) {
-                                        d = -1;
-                                    }
-                                    idx += d;
-                                }
+        for (char c : s) {
+            rows[idx].push_back(c);
+            if (idx == 0) {
+                d = 1;
+            } 
+            else if (idx == numRows - 1) {
+                d = -1;
+            }
+            idx += d;
+        }
 
-                                string result;
-                                for (const auto& row : rows) {
-                                    for (char c : row) {
-                                        result += c;
-                                    }
-                                }
+        string result;
+        for (const auto& row : rows) {
+            for (char c : row) {
+                result += c;
+            }
+        }
 
-                                return result;        
-                            }
-                        };
+        return result;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                        def convert(self, s: str, numRows: int) -> str:
-                            if numRows == 1 or numRows >= len(s):
-                                return s
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1 or numRows >= len(s):
+            return s
 
-                            idx, d = 0, 1
-                            rows = [[] for _ in range(numRows)]
+        idx, d = 0, 1
+        rows = [[] for _ in range(numRows)]
 
-                            for char in s:
-                                rows[idx].append(char)
-                                if idx == 0:
-                                    d = 1
-                                elif idx == numRows - 1:
-                                    d = -1
-                                idx += d
+        for char in s:
+            rows[idx].append(char)
+            if idx == 0:
+                d = 1
+            elif idx == numRows - 1:
+                d = -1
+            idx += d
 
-                            for i in range(numRows):
-                                rows[i] = ''.join(rows[i])
+        for i in range(numRows):
+            rows[i] = ''.join(rows[i])
 
-                            return ''.join(rows)   
+        return ''.join(rows)   
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public String convert(String s, int numRows) {
-                            if (numRows == 1 || numRows >= s.length()) {
-                                    return s;
-                                }
+class Solution {
+    public String convert(String s, int numRows) {
+    if (numRows == 1 || numRows >= s.length()) {
+            return s;
+        }
 
-                                int idx = 0, d = 1;
-                                List<Character>[] rows = new ArrayList[numRows];
-                                for (int i = 0; i < numRows; i++) {
-                                    rows[i] = new ArrayList<>();
-                                }
+        int idx = 0, d = 1;
+        List<Character>[] rows = new ArrayList[numRows];
+        for (int i = 0; i < numRows; i++) {
+            rows[i] = new ArrayList<>();
+        }
 
-                                for (char c : s.toCharArray()) {
-                                    rows[idx].add(c);
-                                    if (idx == 0) {
-                                        d = 1;
-                                    } else if (idx == numRows - 1) {
-                                        d = -1;
-                                    }
-                                    idx += d;
-                                }
+        for (char c : s.toCharArray()) {
+            rows[idx].add(c);
+            if (idx == 0) {
+                d = 1;
+            } 
+            else if (idx == numRows - 1) {
+                d = -1;
+            }
+            idx += d;
+        }
 
-                                StringBuilder result = new StringBuilder();
-                                for (List<Character> row : rows) {
-                                    for (char c : row) {
-                                        result.append(c);
-                                    }
-                                }
+        StringBuilder result = new StringBuilder();
+        for (List<Character> row : rows) {
+            for (char c : row) {
+                result.append(c);
+            }
+        }
 
-                                return result.toString();        
-                            }
-                        }
+        return result.toString();        
+    }
+}
                     `
             },
         }
@@ -4041,80 +4031,78 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<string> generateParenthesis(int n) {
-                                vector<string> res;
-                                dfs(0, 0, "", n, res);
-                                return res;        
-                            }
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        dfs(0, 0, "", n, res);
+        return res;        
+    }
 
-                        private:
-                            void dfs(int openP, int closeP, string s, int n, vector<string>& res) {
-                                if (openP == closeP && openP + closeP == n * 2) {
-                                    res.push_back(s);
-                                    return;
-                                }
+private:
+    void dfs(int openP, int closeP, string s, int n, vector<string>& res) {
+        if (openP == closeP && openP + closeP == n * 2) {
+            res.push_back(s);
+            return;
+        }
 
-                                if (openP < n) {
-                                    dfs(openP + 1, closeP, s + "(", n, res);
-                                }
+        if (openP < n) {
+            dfs(openP + 1, closeP, s + "(", n, res);
+        }
 
-                                if (closeP < openP) {
-                                    dfs(openP, closeP + 1, s + ")", n, res);
-                                }
-                            }
-                        };
+        if (closeP < openP) {
+            dfs(openP, closeP + 1, s + ")", n, res);
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def generateParenthesis(self, n: int) -> List[str]:
-                                res = []
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
 
-                                def dfs(openP, closeP, s):
-                                    if openP == closeP and openP + closeP == n * 2:
-                                        res.append(s)
-                                        return
+        def dfs(openP, closeP, s):
+            if openP == closeP and opcloseP == n * 2:
+                res.append(s)
+                return
                                     
-                                    if openP < n:
-                                        dfs(openP + 1, closeP, s + "(")
+            if openP < n:
+                dfs(openP + 1, closeP, s + "(")
                                     
-                                    if closeP < openP:
-                                        dfs(openP, closeP + 1, s + ")")
+            if closeP < openP:
+                dfs(openP, closeP + 1, s + ")")
 
-                                dfs(0, 0, "")
+        dfs(0, 0, "")
 
-                                return res
+        return res
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public List<String> generateParenthesis(int n) {
-                                List<String> res = new ArrayList<>();
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        dfs(0, 0, "", n, res);
+        return res;        
+    }
 
-                                dfs(0, 0, "", n, res);
+    private void dfs(int openP, int closeP, String s, int n, List<String> res) {
+        if (openP == closeP && openP + closeP == n * 2) {
+            res.add(s);
+            return;
+        }
 
-                                return res;        
-                            }
+        if (openP < n) {
+            dfs(openP + 1, closeP, s + "(", n, res);
+        }
 
-                            private void dfs(int openP, int closeP, String s, int n, List<String> res) {
-                                if (openP == closeP && openP + closeP == n * 2) {
-                                    res.add(s);
-                                    return;
-                                }
-
-                                if (openP < n) {
-                                    dfs(openP + 1, closeP, s + "(", n, res);
-                                }
-
-                                if (closeP < openP) {
-                                    dfs(openP, closeP + 1, s + ")", n, res);
-                                }
-                            }    
-                        }
+        if (closeP < openP) {
+            dfs(openP, closeP + 1, s + ")", n, res);
+        }
+    }    
+}
                     `
             },
         }
@@ -4130,80 +4118,95 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<string> generateParenthesis(int n) {
-                                vector<string> res;
-                                dfs(0, 0, "", n, res);
-                                return res;        
-                            }
+class Solution {
+public:
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>> result;
+        vector<string> path;
+        backtrack(s, 0, path, result);
+        return result;
+    }
 
-                        private:
-                            void dfs(int openP, int closeP, string s, int n, vector<string>& res) {
-                                if (openP == closeP && openP + closeP == n * 2) {
-                                    res.push_back(s);
-                                    return;
-                                }
+private:
+    void backtrack(const string& s, int start, vector<string>& path, vector<vector<string>>& result) {
+        if (start == s.length()) {
+            result.push_back(path);
+            return;
+        }
+            
+        for (int end = start + 1; end <= s.length(); ++end) {
+            if (isPalindrome(s, start, end - 1)) {
+                path.push_back(s.substr(start, end - start));
+                backtrack(s, end, path, result);
+                path.pop_back();
+            }
+        }
+    }
 
-                                if (openP < n) {
-                                    dfs(openP + 1, closeP, s + "(", n, res);
-                                }
-
-                                if (closeP < openP) {
-                                    dfs(openP, closeP + 1, s + ")", n, res);
-                                }
-                            }
-                        };
+    bool isPalindrome(const string& s, int left, int right) {
+        while (left < right) {
+            if (s[left++] != s[right--]) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def generateParenthesis(self, n: int) -> List[str]:
-                                res = []
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        def is_palindrome(sub):
+            return sub == sub[::-1]
 
-                                def dfs(openP, closeP, s):
-                                    if openP == closeP and openP + closeP == n * 2:
-                                        res.append(s)
-                                        return
-                                    
-                                    if openP < n:
-                                        dfs(openP + 1, closeP, s + "(")
-                                    
-                                    if closeP < openP:
-                                        dfs(openP, closeP + 1, s + ")")
+        def backtrack(start, path):
+            if start == len(s):
+                result.append(path[:])
+                return
+            for end in range(start + 1, len(s) + 1):
+                if is_palindrome(s[start:end]):
+                    backtrack(end, path + [s[start:end]])
 
-                                dfs(0, 0, "")
-
-                                return res
+        result = []
+        backtrack(0, [])
+        return result
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public List<String> generateParenthesis(int n) {
-                                List<String> res = new ArrayList<>();
+public class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result = new ArrayList<>();
+        backtrack(s, 0, new ArrayList<>(), result);
+        return result;
+    }
 
-                                dfs(0, 0, "", n, res);
+    private void backtrack(String s, int start, List<String> path, List<List<String>> result) {
+        if (start == s.length()) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+            
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (isPalindrome(s, start, end - 1)) {
+                path.add(s.substring(start, end));
+                backtrack(s, end, path, result);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
 
-                                return res;        
-                            }
-
-                            private void dfs(int openP, int closeP, String s, int n, List<String> res) {
-                                if (openP == closeP && openP + closeP == n * 2) {
-                                    res.add(s);
-                                    return;
-                                }
-
-                                if (openP < n) {
-                                    dfs(openP + 1, closeP, s + "(", n, res);
-                                }
-
-                                if (closeP < openP) {
-                                    dfs(openP, closeP + 1, s + ")", n, res);
-                                }
-                            }    
-                        }
+    private boolean isPalindrome(String s, int left, int right) {
+        while (left < right) {
+            if (s.charAt(left++) != s.charAt(right--)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
                     `
             },
         }
@@ -4219,61 +4222,61 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool wordBreak(string s, vector<string>& wordDict) {
-                                vector<bool> dp(s.size() + 1, false);
-                                dp[0] = true;
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        vector<bool> dp(s.size() + 1, false);
+        dp[0] = true;
 
-                                for (int i = 1; i <= s.size(); i++) {
-                                    for (const string& w : wordDict) {
-                                        int start = i - w.length();
-                                        if (start >= 0 && dp[start] && s.substr(start, w.length()) == w) {
-                                            dp[i] = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                return dp[s.size()];        
-                            }
-                        };
+        for (int i = 1; i <= s.size(); i++) {
+            for (const string& w : wordDict) {
+                int start = i - w.length();
+                if (start >= 0 && dp[start] && s.substr(start, w.length()) == w) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.size()];        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-                                dp = [True] + [False] * len(s)
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [True] + [False] * len(s)
 
-                                for i in range(1, len(s) + 1):
-                                    for w in wordDict:
-                                        start = i - len(w)
-                                        if start >= 0 and dp[start] and s[start:i] == w:
-                                            dp[i] = True
-                                            break
+        for i in range(1, len(s) + 1):
+            for w in wordDict:
+                start = i - len(w)
+                if start >= 0 and dp[start] and s[start:i] == w:
+                    dp[i] = True
+                    break
                                 
-                                return dp[-1]
+        return dp[-1]
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean wordBreak(String s, List<String> wordDict) {
-                                boolean[] dp = new boolean[s.length() + 1];
-                                dp[0] = true;
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
 
-                                for (int i = 1; i <= s.length(); i++) {
-                                    for (String w : wordDict) {
-                                        int start = i - w.length();
-                                        if (start >= 0 && dp[start] && s.substring(start, i).equals(w)) {
-                                            dp[i] = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                return dp[s.length()];        
-                            }
-                        }
+        for (int i = 1; i <= s.length(); i++) {
+            for (String w : wordDict) {
+                int start = i - w.length();
+                if (start >= 0 && dp[start] && s.substring(start, i).equals(w)) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];        
+    }
+}
                     `
             },
         }
@@ -4289,122 +4292,121 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool isMatch(string s, string p) {
-                                int n = s.length(), m = p.length();
-                                bool dp[n+1][m+1];
-                                memset(dp, false, sizeof(dp));
-                                dp[0][0] = true;
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int n = s.length(), m = p.length();
+        bool dp[n+1][m+1];
+        memset(dp, false, sizeof(dp));
+        dp[0][0] = true;
                                 
-                                for(int i=0; i<=n; i++){
-                                    for(int j=1; j<=m; j++){
-                                        if(p[j-1] == '*'){
-                                            dp[i][j] = dp[i][j-2] || (i > 0 && (s[i-1] == p[j-2] || p[j-2] == '.') && dp[i-1][j]);
-                                        }
-                                        else{
-                                            dp[i][j] = i > 0 && dp[i-1][j-1] && (s[i-1] == p[j-1] || p[j-1] == '.');
-                                        }
-                                    }
-                                }
+        for(int i=0; i<=n; i++){
+            for(int j=1; j<=m; j++){
+                if(p[j-1] == '*'){
+                    dp[i][j] = dp[i][j-2] || (i > 0 && (s[i-1] == p[j-2] || p[j-2] == '.') && dp[i-1][j]);
+                }
+                else{
+                    dp[i][j] = i > 0 && dp[i-1][j-1] && (s[i-1] == p[j-1] || p[j-1] == '.');
+                }
+            }
+        }
                                 
-                                return dp[n][m];
-                            }
-                        };
+        return dp[n][m];
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def isMatch(self, s: str, p: str) -> bool:
-                                i, j = len(s) - 1, len(p) - 1
-                                return self.backtrack({}, s, p, i, j)
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        i, j = len(s) - 1, len(p) - 1
+        return self.backtrack({}, s, p, i, j)
 
-                            def backtrack(self, cache, s, p, i, j):
-                                key = (i, j)
-                                if key in cache:
-                                    return cache[key]
+    def backtrack(self, cache, s, p, i, j):
+        key = (i, j)
+        if key in cache:
+            return cache[key]
 
-                                if i == -1 and j == -1:
-                                    cache[key] = True
-                                    return True
+        if i == -1 and j == -1:
+            cache[key] = True
+            return True
 
-                                if i != -1 and j == -1:
-                                    cache[key] = False
-                                    return cache[key]
+        if i != -1 and j == -1:
+            cache[key] = False
+            return cache[key]
 
-                                if i == -1 and p[j] == '*':
-                                    k = j
-                                    while k != -1 and p[k] == '*':
-                                        k -= 2
+        if i == -1 and p[j] == '*':
+            k = j
+            while k != -1 and p[k] == '*':
+                k -= 2
                                     
-                                    if k == -1:
-                                        cache[key] = True
-                                        return cache[key]
+            if k == -1:
+                cache[key] = True
+                return cache[key]
                                     
-                                    cache[key] = False
-                                    return cache[key]
+            cache[key] = False
+            return cache[key]
                                 
-                                if i == -1 and p[j] != '*':
-                                    cache[key] = False
-                                    return cache[key]
+        if i == -1 and p[j] != '*':
+            cache[key] = False
+            return cache[key]
 
-                                if p[j] == '*':
-                                    if self.backtrack(cache, s, p, i, j - 2):
-                                        cache[key] = True
-                                        return cache[key]
+        if p[j] == '*':
+            if self.backtrack(cache, s, p, i, j - 2):
+                cache[key] = True
+                return cache[key]
                                     
-                                    if p[j - 1] == s[i] or p[j - 1] == '.':
-                                        if self.backtrack(cache, s, p, i - 1, j):
-                                            cache[key] = True
-                                            return cache[key]
+            if p[j - 1] == s[i] or p[j - 1] == '.':
+                if self.backtrack(cache, s, p, i - 1, j):
+                    cache[key] = True
+                    return cache[key]
                                 
-                                if p[j] == '.' or s[i] == p[j]:
-                                    if self.backtrack(cache, s, p, i - 1, j - 1):
-                                        cache[key] = True
-                                        return cache[key]
+        if p[j] == '.' or s[i] == p[j]:
+            if self.backtrack(cache, s, p, i - 1, j - 1):
+                cache[key] = True
+                return cache[key]
 
-                                cache[key] = False
-                                return cache[key]
+        cache[key] = False
+        return cache[key]
                     `
                 ,
                 java:
                     `
-                        enum Result {
-                            TRUE, FALSE
-                        }
+enum Result {
+    TRUE, FALSE
+}
 
-                        class Solution {
-                            Result[][] memo;
+class Solution {
+    Result[][] memo;
 
-                            public boolean isMatch(String text, String pattern) {
-                                memo = new Result[text.length() + 1][pattern.length() + 1];
-                                return dp(0, 0, text, pattern);
-                            }
+    public boolean isMatch(String text, String pattern) {
+        memo = new Result[text.length() + 1][pattern.length() + 1];
+        return dp(0, 0, text, pattern);
+    }
 
-                            public boolean dp(int i, int j, String text, String pattern) {
-                                if (memo[i][j] != null) {
-                                    return memo[i][j] == Result.TRUE;
-                                }
-                                boolean ans;
-                                if (j == pattern.length()){
-                                    ans = i == text.length();
-                                } else{
-                                    boolean first_match = (i < text.length() &&
-                                                        (pattern.charAt(j) == text.charAt(i) ||
-                                                            pattern.charAt(j) == '.'));
+    public boolean dp(int i, int j, String text, String pattern) {
+        if (memo[i][j] != null) {
+            return memo[i][j] == Result.TRUE;
+        }
+        boolean ans;
+        if (j == pattern.length()){
+            ans = i == text.length();
+        } 
+        else{
+            boolean first_match = (i < text.length() && (pattern.charAt(j) == text.charAt(i) || pattern.charAt(j) == '.'));
 
-                                    if (j + 1 < pattern.length() && pattern.charAt(j+1) == '*'){
-                                        ans = (dp(i, j+2, text, pattern) ||
-                                            first_match && dp(i+1, j, text, pattern));
-                                    } else {
-                                        ans = first_match && dp(i+1, j+1, text, pattern);
-                                    }
-                                }
-                                memo[i][j] = ans ? Result.TRUE : Result.FALSE;
-                                return ans;
-                            }
-                        }
+            if (j + 1 < pattern.length() && pattern.charAt(j+1) == '*'){
+                ans = (dp(i, j+2, text, pattern) || first_match && dp(i+1, j, text, pattern));
+            } 
+            else {
+                ans = first_match && dp(i+1, j+1, text, pattern);
+            }
+        }
+        memo[i][j] = ans ? Result.TRUE : Result.FALSE;
+        return ans;
+    }
+}
                     `
             },
         }
@@ -4420,75 +4422,67 @@ export const StringData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int longestValidParentheses(string s) {
-                                stack<int> st;
-                                st.push(-1);
-                                int max_len = 0;
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        stack<int> st;
+        st.push(-1);
+        int max_len = 0;
 
-                                for (int i = 0; i < s.length(); i++) {
-                                    if (s[i] == '(') {
-                                        st.push(i);
-                                    } else {
-                                        st.pop();
-                                        if (st.empty()) {
-                                            st.push(i);
-                                        } else {
-                                            max_len = max(max_len, i - st.top());
-                                        }
-                                    }
-                                }
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '(') st.push(i);
+            else {
+                st.pop();
+                if (st.empty()) st.push(i);
+                else max_len = max(max_len, i - st.top());
+            }
+        }
 
-                                return max_len;        
-                            }
-                        };
+        return max_len;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def longestValidParentheses(self, s: str) -> int:
-                                stack = [-1]
-                                max_len = 0
+class Solution:
+    def longestValidParentheses(self, s: str) -> int:
+        stack = [-1]
+        max_len = 0
 
-                                for i in range(len(s)):
-                                    if s[i] == "(":
-                                        stack.append(i)
-                                    else:
-                                        stack.pop()
-                                        if len(stack) == 0:
-                                            stack.append(i)
-                                        else:
-                                            max_len = max(max_len, i - stack[-1])
+        for i in range(len(s)):
+            if s[i] == "(":
+                stack.append(i)
+            else:
+                stack.pop()
+                if len(stack) == 0:
+                    stack.append(i)
+                else:
+                    max_len = max(max_len, i - stack[-1])
                                 
-                                return max_len
+        return max_len
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int longestValidParentheses(String s) {
-                                Stack<Integer> stack = new Stack<>();
-                                stack.push(-1);
-                                int max_len = 0;
+class Solution {
+    public int longestValidParentheses(String s) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        int max_len = 0;
 
-                                for (int i = 0; i < s.length(); i++) {
-                                    if (s.charAt(i) == '(') {
-                                        stack.push(i);
-                                    } else {
-                                        stack.pop();
-                                        if (stack.isEmpty()) {
-                                            stack.push(i);
-                                        } else {
-                                            max_len = Math.max(max_len, i - stack.peek());
-                                        }
-                                    }
-                                }
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') stack.push(i);
+            else {
+                stack.pop();
+                if (stack.isEmpty()) stack.push(i);
+                else max_len = Math.max(max_len, i - stack.peek());
+            }
+        }
 
-                                return max_len;        
-                            }
-                        }
+        return max_len;        
+    }
+}
                     `
             },
         }
@@ -4504,123 +4498,123 @@ export const StringData = [
             code:{
                 cpp: 
                     `
+class Solution {
+public:
+    unordered_map<string, bool> memo;
 
-                        class Solution {
-                        public:
-                            unordered_map<string, bool> memo;
+    bool solve(string s1, string s2) {
+        string key = s1 + " " + s2;
+        if (s1 == s2) return memo[key] = true;
+        if (s1.size() <= 1 || s2.size() <= 1) return false;
+        if (memo.find(key) != memo.end()) return memo[key];
 
-                            bool solve(string s1, string s2) {
-                                string key = s1 + " " + s2;
-                                if (s1 == s2) return memo[key] = true;
-                                if (s1.size() <= 1 || s2.size() <= 1) return false;
-                                if (memo.find(key) != memo.end()) return memo[key];
+        int n = s2.size();
+        bool isScrambled = false;
+        for (int i = 1; i < s1.size(); i++) {
+            bool cond1 = solve(s1.substr(0, i), s2.substr(n - i)) && solve(s1.substr(i), s2.substr(0, n - i));
+            bool cond2 = solve(s1.substr(0, i), s2.substr(0, i)) && solve(s1.substr(i), s2.substr(i));
+            if (cond1 || cond2) {
+                isScrambled = true;
+                break;
+            }
+        }
+        return memo[key] = isScrambled;
+    }
 
-                                int n = s2.size();
-                                bool isScrambled = false;
-                                for (int i = 1; i < s1.size(); i++) {
-                                    bool cond1 = solve(s1.substr(0, i), s2.substr(n - i)) && solve(s1.substr(i), s2.substr(0, n - i));
-                                    bool cond2 = solve(s1.substr(0, i), s2.substr(0, i)) && solve(s1.substr(i), s2.substr(i));
-                                    if (cond1 || cond2) {
-                                        isScrambled = true;
-                                        break;
-                                    }
-                                }
-                                return memo[key] = isScrambled;
-                            }
+    bool isScramble(string s1, string s2) {
+        vector<int> freq(26, 0);
+        for (int i = 0; i < s1.size(); i++) {
+            freq[s1[i] - 'a']++;
+            freq[s2[i] - 'a']--;
+        }
 
-                            bool isScramble(string s1, string s2) {
-                                vector<int> freq(26, 0);
-                                for (int i = 0; i < s1.size(); i++) {
-                                    freq[s1[i] - 'a']++;
-                                    freq[s2[i] - 'a']--;
-                                }
-                                for (int count : freq) {
-                                    if (count != 0) return false;
-                                }
-                                return solve(s1, s2);
-                            }
-                        };
+        for (int count : freq) {
+            if (count != 0) return false;
+        }
+        return solve(s1, s2);
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def __init__(self):
-                                self.memo = {}
+class Solution:
+    def __init__(self):
+        self.memo = {}
 
-                            def solve(self, s1: str, s2: str) -> bool:
-                                key = f"{s1} {s2}"
-                                if s1 == s2:
-                                    self.memo[key] = True
-                                    return True
-                                if len(s1) <= 1 or len(s2) <= 1:
-                                    return False
-                                if key in self.memo:
-                                    return self.memo[key]
+    def solve(self, s1: str, s2: str) -> bool:
+        key = f"{s1} {s2}"
+        if s1 == s2:
+            self.memo[key] = True
+            return True
+        if len(s1) <= 1 or len(s2) <= 1:
+            return False
+        if key in self.memo:
+            return self.memo[key]
 
-                                n = len(s2)
-                                is_scrambled = False
-                                for i in range(1, len(s1)):
-                                    cond1 = self.solve(s1[:i], s2[-i:]) and self.solve(s1[i:], s2[:-i])
-                                    cond2 = self.solve(s1[:i], s2[:i]) and self.solve(s1[i:], s2[i:])
-                                    if cond1 or cond2:
-                                        is_scrambled = True
-                                        break
+        n = len(s2)
+        is_scrambled = False
+        for i in range(1, len(s1)):
+            cond1 = self.solve(s1[:i], s2[-i:]) and self.solve(s1[i:], s2[:-i])
+            cond2 = self.solve(s1[:i], s2[:i]) and self.solve(s1[i:], s2[i:])
+            if cond1 or cond2:
+                is_scrambled = True
+                break
 
-                                self.memo[key] = is_scrambled
-                                return is_scrambled
+        self.memo[key] = is_scrambled
+        return is_scrambled
 
-                            def isScramble(self, s1: str, s2: str) -> bool:
-                                freq = [0] * 26
-                                for c1, c2 in zip(s1, s2):
-                                    freq[ord(c1) - ord('a')] += 1
-                                    freq[ord(c2) - ord('a')] -= 1
-                                if any(count != 0 for count in freq):
-                                    return False
-                                return self.solve(s1, s2)
+    def isScramble(self, s1: str, s2: str) -> bool:
+        freq = [0] * 26
+        for c1, c2 in zip(s1, s2):
+            freq[ord(c1) - ord('a')] += 1
+            freq[ord(c2) - ord('a')] -= 1
+        if any(count != 0 for count in freq):
+            return False
+        return self.solve(s1, s2)
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            private Map<String, Boolean> memo = new HashMap<>();
+class Solution {
+    private Map<String, Boolean> memo = new HashMap<>();
 
-                            private boolean solve(String s1, String s2) {
-                                String key = s1 + " " + s2;
-                                if (s1.equals(s2)) {
-                                    memo.put(key, true);
-                                    return true;
-                                }
-                                if (s1.length() <= 1 || s2.length() <= 1) return false;
-                                if (memo.containsKey(key)) return memo.get(key);
+    private boolean solve(String s1, String s2) {
+        String key = s1 + " " + s2;
+        if (s1.equals(s2)) {
+            memo.put(key, true);
+            return true;
+        }
+        if (s1.length() <= 1 || s2.length() <= 1) return false;
+        if (memo.containsKey(key)) return memo.get(key);
 
-                                int n = s2.length();
-                                boolean isScrambled = false;
-                                for (int i = 1; i < s1.length(); i++) {
-                                    boolean cond1 = solve(s1.substring(0, i), s2.substring(n - i)) && solve(s1.substring(i), s2.substring(0, n - i));
-                                    boolean cond2 = solve(s1.substring(0, i), s2.substring(0, i)) && solve(s1.substring(i), s2.substring(i));
-                                    if (cond1 || cond2) {
-                                        isScrambled = true;
-                                        break;
-                                    }
-                                }
+        int n = s2.length();
+        boolean isScrambled = false;
+        for (int i = 1; i < s1.length(); i++) {
+            boolean cond1 = solve(s1.substring(0, i), s2.substring(n - i)) && solve(s1.substring(i), s2.substring(0, n - i));
+            boolean cond2 = solve(s1.substring(0, i), s2.substring(0, i)) && solve(s1.substring(i), s2.substring(i));
+            if (cond1 || cond2) {
+                isScrambled = true;
+                break;
+            }
+        }
 
-                                memo.put(key, isScrambled);
-                                return isScrambled;
-                            }
+        memo.put(key, isScrambled);
+        return isScrambled;
+    }
 
-                            public boolean isScramble(String s1, String s2) {
-                                int[] freq = new int[26];
-                                for (int i = 0; i < s1.length(); i++) {
-                                    freq[s1.charAt(i) - 'a']++;
-                                    freq[s2.charAt(i) - 'a']--;
-                                }
-                                for (int count : freq) {
-                                    if (count != 0) return false;
-                                }
-                                return solve(s1, s2);
-                            }
-                        }
+    public boolean isScramble(String s1, String s2) {
+        int[] freq = new int[26];
+        for (int i = 0; i < s1.length(); i++) {
+            freq[s1.charAt(i) - 'a']++;
+            freq[s2.charAt(i) - 'a']--;
+        }
+        for (int count : freq) {
+            if (count != 0) return false;
+        }
+        return solve(s1, s2);
+    }
+}
                     `
             },
         }
@@ -4633,84 +4627,962 @@ export const SortingData = [
         name: "Majority Element",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/majority-element/"
+        url: "https://leetcode.com/problems/majority-element/",
+        solution: {
+            description: "Given an array nums of size n, return the majority element.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int, int> hash;
+        int res = 0;
+        int majority = 0;
+
+        for (int n : nums) {
+            hash[n] = 1 + hash[n];
+            if (hash[n] > majority) {
+                res = n;
+                majority = hash[n];
+            }
+        }
+
+        return res;        
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        hash = {}
+        res = majority = 0
+        
+        for n in nums:
+            hash[n] = 1 + hash.get(n, 0)
+            if hash[n] > majority:
+                res = n
+                majority = hash[n]
+        
+        return res
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int majorityElement(int[] nums) {
+        HashMap<Integer, Integer> hash = new HashMap<>();
+        int res = 0;
+        int majority = 0;
+
+        for (int n : nums) {
+            hash.put(n, 1 + hash.getOrDefault(n, 0));
+            if (hash.get(n) > majority) {
+                res = n;
+                majority = hash.get(n);
+            }
+        }
+
+        return res;        
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 2,
         name: "Contains Duplicate",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/contains-duplicate/"
+        url: "https://leetcode.com/problems/contains-duplicate/",
+        solution: {
+            description: "Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> numSet(nums.begin(), nums.end());
+        return numSet.size() < nums.size();        
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        return True if len(set(nums)) < len(nums) else False
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> numSet = new HashSet<>();
+        for (int num : nums) {
+            numSet.add(num);
+        }
+        return numSet.size() < nums.length;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 3,
         name: "Missing Number",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/missing-number/"
+        url: "https://leetcode.com/problems/missing-number/",
+        solution: {
+            description: "Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int res = nums.size();
+        
+        for (int i = 0; i < nums.size(); i++) {
+            res += i - nums[i];
+        }
+        
+        return res;        
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        res = len(nums)
+
+        for i in range(len(nums)):
+            res += i - nums[i]
+        
+        return res
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int missingNumber(int[] nums) {
+        int res = nums.length;
+        
+        for (int i = 0; i < nums.length; i++) {
+            res += i - nums[i];
+        }
+        
+        return res;       
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 4,
         name: "Third Maximum Number",
         img: share,
         level: "Easy",
-        url: "https://leetcode.com/problems/third-maximum-number/"
+        url: "https://leetcode.com/problems/third-maximum-number/",
+        solution: {
+            description: "Given an integer array nums, return the third distinct maximum number in this array. If the third maximum does not exist, return the maximum number.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        set<int> uniqueNums(nums.begin(), nums.end());
+        vector<int> sortedNums(uniqueNums.begin(), uniqueNums.end());
+        sort(sortedNums.begin(), sortedNums.end());
+        
+        if (sortedNums.size() <= 2) {
+            return sortedNums.back();
+        }
+        return sortedNums[sortedNums.size() - 3];
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        nums = set(nums)
+        nums = list(nums)
+        nums.sort()
+        if len(nums) <= 2:
+            return nums[len(nums)-1]
+        return nums[len(nums)-3]
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int thirdMax(int[] nums) {
+        Set<Integer> uniqueNums = new HashSet<>();
+        for (int num : nums) {
+            uniqueNums.add(num);
+        }
+        
+        List<Integer> sortedNums = new ArrayList<>(uniqueNums);
+        Collections.sort(sortedNums);
+        
+        if (sortedNums.size() <= 2) {
+            return sortedNums.get(sortedNums.size() - 1);
+        }
+        return sortedNums.get(sortedNums.size() - 3);
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] nums = {3, 2, 1};
+        System.out.println(sol.thirdMax(nums));
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 5,
         name: "Merge Intervals",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/merge-intervals/"
+        url: "https://leetcode.com/problems/merge-intervals/",
+        solution: {
+            description: "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+
+        sort(intervals.begin(), intervals.end(), [](const vector<int>& a, const vector<int>& b) {
+            return a[0] < b[0];
+        });
+
+        vector<vector<int>> merged;
+        vector<int> prev = intervals[0];
+
+        for (int i = 1; i < intervals.size(); ++i) {
+            vector<int> interval = intervals[i];
+            if (interval[0] <= prev[1]) {
+                prev[1] = max(prev[1], interval[1]);
+            } else {
+                merged.push_back(prev);
+                prev = interval;
+            }
+        }
+
+        merged.push_back(prev);
+        return merged;        
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:        
+        merged = []
+        intervals.sort(key=lambda x: x[0])
+
+        prev = intervals[0]
+
+        for interval in intervals[1:]:
+            if interval[0] <= prev[1]:
+                prev[1] = max(prev[1], interval[1])
+            else:
+                merged.append(prev)
+                prev = interval
+        
+        merged.append(prev)
+
+        return merged
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+
+        List<int[]> merged = new ArrayList<>();
+        int[] prev = intervals[0];
+
+        for (int i = 1; i < intervals.length; i++) {
+            int[] interval = intervals[i];
+            if (interval[0] <= prev[1]) {
+                prev[1] = Math.max(prev[1], interval[1]);
+            } else {
+                merged.add(prev);
+                prev = interval;
+            }
+        }
+
+        merged.add(prev);
+
+        return merged.toArray(new int[merged.size()][]);         
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 6,
         name: "Sort List",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/sort-list/description/"
+        url: "https://leetcode.com/problems/sort-list/description/",
+        solution: {
+            description: "Given the head of a linked list, return the list after sorting it in ascending order.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if (!head || !head->next) return head;
+        
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        ListNode* mid = slow->next;
+        slow->next = nullptr;
+        
+        ListNode* left = sortList(head);
+        ListNode* right = sortList(mid);
+        return merge(left, right);
+    }
+    
+    ListNode* merge(ListNode* l1, ListNode* l2) {
+        ListNode dummy(0);
+        ListNode* tail = &dummy;
+        
+        while (l1 && l2) {
+            if (l1->val < l2->val) {
+                tail->next = l1;
+                l1 = l1->next;
+            } 
+            else {
+                tail->next = l2;
+                l2 = l2->next;
+            }
+            tail = tail->next;
+        }
+        
+        tail->next = l1 ? l1 : l2;
+        return dummy.next;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+def sortList(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        mid = slow.next
+        slow.next = None
+        
+        left = self.sortList(head)
+        right = self.sortList(mid)
+        return self.merge(left, right)
+    
+    def merge(self, l1: ListNode, l2: ListNode) -> ListNode:
+        dummy = ListNode(0)
+        tail = dummy
+        
+        while l1 and l2:
+            if l1.val < l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+        
+        tail.next = l1 if l1 else l2
+        return dummy.next
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        
+        ListNode slow = head, fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // Split the list
+        ListNode mid = slow.next;
+        slow.next = null;
+        
+        ListNode left = sortList(head);
+        ListNode right = sortList(mid);
+        
+        return merge(left, right);
+    }
+    
+    private ListNode merge(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                tail.next = l1;
+                l1 = l1.next;
+            } 
+            else {
+                tail.next = l2;
+                l2 = l2.next;
+            }
+            tail = tail.next;
+        }
+        
+        tail.next = (l1 != null) ? l1 : l2;
+        return dummy.next;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 7,
         name: "Minimum Number of Arrows to Burst Balloons",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/"
+        url: "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/",
+        solution: {
+            description: "Given the array points, return the minimum number of arrows that must be shot to burst all balloons.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    int findMinArrowShots(vector<vector<int>>& p) {
+        sort(p.begin(), p.end());
+        int lastPoint = p[0][1];
+        int ans = 1;
+        for(auto point : p) {
+            if(point[0] > lastPoint) {
+                ans++;
+                lastPoint = point[1];
+            }
+            lastPoint = min(point[1],lastPoint);
+        }
+        return ans;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        if not points:
+            return 0
+        
+        points.sort()
+        last_point = points[0][1]
+        ans = 1
+        
+        for point in points:
+            if point[0] > last_point:
+                ans += 1
+                last_point = point[1]
+            last_point = min(point[1], last_point)
+        
+        return ans
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int findMinArrowShots(int[][] points) {
+        if (points.length == 0) return 0;
+        
+        Arrays.sort(points, Comparator.comparingInt(a -> a[0]));
+        int lastPoint = points[0][1];
+        int ans = 1;
+        
+        for (int[] point : points) {
+            if (point[0] > lastPoint) {
+                ans++;
+                lastPoint = point[1];
+            }
+            lastPoint = Math.min(point[1], lastPoint);
+        }
+        
+        return ans;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 8,
         name: "Kth Largest Element in an Array",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/kth-largest-element-in-an-array/description/"
+        url: "https://leetcode.com/problems/kth-largest-element-in-an-array/description/",
+        solution: {
+            description: "Given an integer array nums and an integer k, return the kth largest element in the array.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int minValue = *min_element(nums.begin(), nums.end());
+        int maxValue = *max_element(nums.begin(), nums.end());
+
+        vector<int> count(maxValue - minValue + 1, 0);
+        for (int num : nums) {
+            count[num - minValue]++;
+        }
+
+        int remaining = k;
+        for (int i = count.size() - 1; i >= 0; i--) {
+            remaining -= count[i];
+            if (remaining <= 0) {
+                return i + minValue;
+            }
+        }
+
+        return -1;       
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        min_value = min(nums)
+        max_value = max(nums)
+
+        count = [0] * (max_value - min_value + 1)
+
+        for num in nums:
+            count[num - min_value] += 1
+        
+        remaining = k
+        for i in range(len(count) - 1, -1,-1):
+            remaining -= count[i] 
+
+            if remaining <= 0:
+                return i + min_value
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        int minValue = Arrays.stream(nums).min().getAsInt();
+        int maxValue = Arrays.stream(nums).max().getAsInt();
+
+        int[] count = new int[maxValue - minValue + 1];
+
+        for (int num : nums) {
+            count[num - minValue]++;
+        }
+
+        int remaining = k;
+        for (int i = count.length - 1; i >= 0; i--) {
+            remaining -= count[i];
+
+            if (remaining <= 0) {
+                return i + minValue;
+            }
+        }
+
+        return -1;     
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 9,
         name: "H-Index",
         img: share,
         level: "Medium",
-        url: "https://leetcode.com/problems/h-index/"
+        url: "https://leetcode.com/problems/h-index/",
+        solution: {
+            description: "Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher's h-index.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        int papers = citations.size();
+        vector<int> citationBuckets(papers + 1, 0);
+
+        for (int citation : citations) {
+            citationBuckets[min(citation, papers)]++;
+        }
+
+        int cumulativePapers = 0;
+        for (int hIndex = papers; hIndex >= 0; hIndex--) {
+            cumulativePapers += citationBuckets[hIndex];
+            if (cumulativePapers >= hIndex) {
+                return hIndex;
+            }
+        }
+        return 0;        
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        papers = len(citations)
+        citation_buckets = [0] * (papers + 1)
+
+        for citation in citations:
+            citation_buckets[min(citation, papers)] += 1
+
+        cumulative_papers = 0
+        for h_index in range(papers, -1, -1):
+            cumulative_papers += citation_buckets[h_index]
+            if cumulative_papers >= h_index:
+                return h_index   
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int hIndex(int[] citations) {
+        int papers = citations.length;
+        int[] citationBuckets = new int[papers + 1];
+
+        for (int citation : citations) {
+            citationBuckets[Math.min(citation, papers)]++;
+        }
+
+        int cumulativePapers = 0;
+        for (int hIndex = papers; hIndex >= 0; hIndex--) {
+            cumulativePapers += citationBuckets[hIndex];
+            if (cumulativePapers >= hIndex) {
+                return hIndex;
+            }
+        }
+        return 0;        
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 10,
         name: "Find Median from Data Stream",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/find-median-from-data-stream/"
+        url: "https://leetcode.com/problems/find-median-from-data-stream/",
+        solution: {
+            description: `Implement the MedianFinder class:
+            1. MedianFinder() initializes the MedianFinder object.
+            2. void addNum(int num) adds the integer num from the data stream to the data structure. 
+            3. double findMedian() returns the median of all elements so far. Answers within 10^5 of the actual answer will be accepted.`,
+            code:{
+                cpp: 
+                    `
+class MedianFinder {
+public:
+    priority_queue<int> maxHeap;
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+    
+    MedianFinder() {
+    }
+    void addNum(int num) {
+        maxHeap.push(num);
+        minHeap.push(maxHeap.top());
+        maxHeap.pop();
+        if (minHeap.size() > maxHeap.size()) {
+            maxHeap.push(minHeap.top());
+            minHeap.pop();
+        }
+    }
+    double findMedian() {
+        if (maxHeap.size() > minHeap.size()) return maxHeap.top();
+        return (maxHeap.top() + minHeap.top()) / 2.0;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class MedianFinder:
+    def __init__(self):
+        self.maxHeap = []
+        self.minHeap = []
+
+    def addNum(self, num: int):
+        heapq.heappush(self.maxHeap, -num)
+        heapq.heappush(self.minHeap, -heapq.heappop(self.maxHeap))
+
+        if len(self.minHeap) > len(self.maxHeap):
+            heapq.heappush(self.maxHeap, -heapq.heappop(self.minHeap))
+
+    def findMedian(self) -> float:
+        if len(self.maxHeap) > len(self.minHeap):
+            return -self.maxHeap[0]
+        return (-self.maxHeap[0] + self.minHeap[0]) / 2.0
+                    `
+                ,
+                java:
+                    `
+import java.util.PriorityQueue;
+
+class MedianFinder {
+    private PriorityQueue<Integer> maxHeap;
+    private PriorityQueue<Integer> minHeap;
+
+    public MedianFinder() {
+        maxHeap = new PriorityQueue<>((a, b) -> b - a);
+        minHeap = new PriorityQueue<>();
+    }
+
+    public void addNum(int num) {
+        maxHeap.offer(num);
+        minHeap.offer(maxHeap.poll());
+
+        if (minHeap.size() > maxHeap.size()) {
+            maxHeap.offer(minHeap.poll());
+        }
+    }
+
+    public double findMedian() {
+        if (maxHeap.size() > minHeap.size()) {
+            return maxHeap.peek();
+        }
+        return (maxHeap.peek() + minHeap.peek()) / 2.0;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 11,
         name: "Russian Doll Envelopes",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/russian-doll-envelopes/description/"
+        url: "https://leetcode.com/problems/russian-doll-envelopes/description/",
+        solution: {
+            description: `You are given a 2D array of integers envelopes where envelopes[i] = [wi, hi] represents the width and the height of an envelope. One envelope can fit into another if and only if both the width and height of one envelope are greater than the other envelope's width and height. 
+            
+            Return the maximum number of envelopes you can Russian doll (i.e., put one inside the other).`,
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    int maxEnvelopes(vector<vector<int>>& E) {
+        sort(E.begin(), E.end(), [](vector<int>& a, vector<int>& b) 
+             -> bool {return a[0] == b[0] ? b[1] < a[1] : a[0] < b[0];});
+        vector<int> dp;
+        for (auto& env : E) {
+            int height = env[1];
+            int left = lower_bound(dp.begin(), dp.end(), height) - dp.begin();
+            if (left == dp.size()) dp.push_back(height);
+            dp[left] = height;
+        }
+        return dp.size();
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def maxEnvelopes(self, E: List[List[int]]) -> int:
+        E.sort(key=lambda x: (x[0], -x[1]))
+        dp = []
+        for _,height in E:
+            left = bisect_left(dp, height)
+            if left == len(dp): dp.append(height)
+            else: dp[left] = height
+        return len(dp)
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int maxEnvelopes(int[][] E) {
+        Arrays.sort(E, (a,b) -> a[0] == b[0] ? b[1] - a[1] : a[0] - b[0]);
+        int[] dp = new int[E.length];
+        int ans = 0;
+        for (int[] env : E) {
+            int height = env[1];
+            int left = Arrays.binarySearch(dp, 0, ans, height);
+            if (left < 0) left = -left - 1;
+            if (left == ans) ans++;
+            dp[left] = height;
+        }
+        return ans;
+    }
+}
+                    `
+            },
+        }
     },
     {
         id: 12,
         name: "Minimum Cost to Hire K Workers",
         img: share,
         level: "Hard",
-        url: "https://leetcode.com/problems/minimum-cost-to-hire-k-workers/"
+        url: "https://leetcode.com/problems/minimum-cost-to-hire-k-workers/",
+        solution: {
+            description: `There are n workers. You are given two integer arrays quality and wage where quality[i] is the quality of the ith worker and wage[i] is the minimum wage expectation for the ith worker. We want to hire exactly k workers to form a paid group. To hire a group of k workers, we must pay them according to the following rules:     
+
+            1.  Every worker in the paid group must be paid at least their minimum wage expectation.
+            
+            2.  In the group, each worker's pay must be directly proportional to their quality. This means if a worker's quality is double that of another worker in the group, then they must be paid twice as much as the other worker.
+
+            Given the integer k, return the least amount of money needed to form a paid group satisfying the above conditions. Answers within 10-5 of the actual answer will be accepted.`,
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    double mincostToHireWorkers(vector<int>& quality, vector<int>& wage, int k) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
+        cout.tie(nullptr);
+        
+        vector<pair<double, int>> ratio;
+        int n = quality.size();
+        
+        for (int i = 0; i < n; ++i) {
+                ratio.emplace_back(static_cast<double>(wage[i]) / quality[i], i);
+            }
+            
+        sort(begin(ratio), end(ratio));
+        priority_queue<int> maxHeap;
+        int qualitySum = 0;
+        double maxRate = 0.0;
+        
+        for (int i = 0; i < k; ++i) {
+            qualitySum += quality[ratio[i].second];
+            maxRate = max(maxRate, ratio[i].first);
+            maxHeap.push(quality[ratio[i].second]);
+        }
+
+        double res = maxRate * qualitySum;
+        for (int i = k; i < n; ++i) {
+            maxRate = max(maxRate, ratio[i].first);
+            qualitySum -= maxHeap.top(); 
+            maxHeap.pop();
+
+            qualitySum += quality[ratio[i].second];
+            maxHeap.push(quality[ratio[i].second]);
+            res = min(res, maxRate * qualitySum);
+        }
+
+        return res;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def mincostToHireWorkers(
+        self, quality: List[int], wage: List[int], k: int
+    ) -> float:
+        ratio = sorted([(w / q, q) for w, q in zip(wage, quality)])
+        max_heap = []
+        quality_sum = 0
+        max_ratio = 0.0
+        
+        for i in range(k):
+            max_ratio = max(max_ratio, ratio[i][0])
+            quality_sum += ratio[i][1]
+            heapq.heappush(max_heap, -ratio[i][1])
+        
+        res = max_ratio * quality_sum
+        
+        for i in range(k, len(quality)):
+            max_ratio = max(max_ratio, ratio[i][0])
+            quality_sum += ratio[i][1] + heapq.heappop(max_heap)
+            heapq.heappush(max_heap, -ratio[i][1])
+            res = min(res, max_ratio * quality_sum)
+        
+        return res
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public double mincostToHireWorkers(int[] quality, int[] wage, int k) {
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        List<Pair<Double, Integer>> ratio = new ArrayList<>();
+        int n = quality.length, qualitySum = 0;
+        double res = Double.MAX_VALUE, maxRate = 0.0;
+
+        for (int i = 0; i < n; ++i) {
+            ratio.add(new Pair<>((double) wage[i] / quality[i], i));
+        }
+
+        ratio.sort(Comparator.comparingDouble(p -> p.getKey()));
+        for (int i = 0; i < k; ++i) {
+            qualitySum += quality[ratio.get(i).getValue()];
+            maxRate = Math.max(maxRate, ratio.get(i).getKey());
+            maxHeap.offer(quality[ratio.get(i).getValue()]);
+        }
+
+        res = maxRate * qualitySum;
+        for (int i = k; i <n; ++i) {
+            maxRate = Math.max(maxRate, ratio.get(i).getKey());
+            qualitySum -= maxHeap.poll();
+            qualitySum += quality[ratio.get(i).getValue()];
+            maxHeap.offer(quality[ratio.get(i).getValue()]);
+            res = Math.min(res, maxRate * qualitySum);
+        }
+
+        return res;
+    }
+}
+                    `
+            },
+        }
     },
 ]
 
@@ -4726,8 +5598,6 @@ export const SearchingData = [
             code:{
                 cpp: 
                     `
-                    int guess(int num);
-
 class Solution {
 public:
     int guessNumber(int n) {
@@ -4736,13 +5606,9 @@ public:
             int mid = left + (right - left) / 2; 
             int result = guess(mid);
             
-            if (result == 0) {
-                return mid; 
-            } else if (result == -1) {
-                right = mid - 1; 
-            } else {
-                left = mid + 1; 
-            }
+            if (result == 0) return mid; 
+            else if (result == -1) right = mid - 1; 
+            else left = mid + 1; 
         }
         return -1; 
     }
@@ -4751,14 +5617,11 @@ public:
                 ,
                 python:
                     `
-                        def guess(num: int) -> int:
-    pass
-
 class Solution:
     def guessNumber(self, n: int) -> int:
         left, right = 1, n
         while left <= right:
-            mid = left + (right - left) // 2  # Avoid overflow
+            mid = left + (right - left) // 2  
             result = guess(mid)
             if result == 0:
                 return mid  # Found the number
@@ -4771,21 +5634,15 @@ class Solution:
                 ,
                 java:
                     `
-                        int guess(int num);
-
 public class Solution {
     public int guessNumber(int n) {
         int left = 1, right = n;
         while (left <= right) {
             int mid = left + (right - left) / 2; 
             int result = guess(mid);
-            if (result == 0) {
-                return mid; 
-            } else if (result == -1) {
-                right = mid - 1; 
-            } else {
-                left = mid + 1; 
-            }
+            if (result == 0) return mid; 
+            else if (result == -1) right = mid - 1; 
+            else left = mid + 1; 
         }
         return -1; 
     }
@@ -4805,22 +5662,15 @@ public class Solution {
             code:{
                 cpp: 
                     `
-                    #include <vector>
-using namespace std;
-
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
         int left = 0, right = nums.size() - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] == target) {
-                return mid; 
-            } else if (nums[mid] < target) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
+            if (nums[mid] == target) return mid; 
+            else if (nums[mid] < target) left = mid + 1;
+            else right = mid - 1;
         }
         return -1;
     }
@@ -4829,8 +5679,6 @@ public:
                 ,
                 python:
                     `
-                        from typing import List
-
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         left, right = 0, len(nums) - 1
@@ -4847,18 +5695,14 @@ class Solution:
                 ,
                 java:
                     `
-                        class Solution {
+class Solution {
     public int search(int[] nums, int target) {
         int left = 0, right = nums.length - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2; 
-            if (nums[mid] == target) {
-                return mid; 
-            } else if (nums[mid] < target) {
-                left = mid + 1; 
-            } else {
-                right = mid - 1; 
-            }
+            if (nums[mid] == target) return mid; 
+            else if (nums[mid] < target) left = mid + 1; 
+            else right = mid - 1; 
         }
         return -1; 
     }
@@ -4878,19 +5722,14 @@ class Solution:
             code:{
                 cpp: 
                     `
-bool isBadVersion(int version);
-
 class Solution {
 public:
     int firstBadVersion(int n) {
         int left = 1, right = n;
         while (left < right) {
             int mid = left + (right - left) / 2; 
-            if (isBadVersion(mid)) {
-                right = mid; 
-            } else {
-                left = mid + 1;
-            }
+            if (isBadVersion(mid)) right = mid; 
+            else left = mid + 1;
         }
         return left; 
     }
@@ -4899,33 +5738,31 @@ public:
                 ,
                 python:
                     `
-  def firstBadVersion(n):
-    left, right = 1, n  
-    while left < right:
-        mid = left + (right - left) // 2  
-        if isBadVersion(mid):
-            right = mid  
-        else:
-            left = mid + 1  
-    return left 
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        first, last = 1, n
+
+        while first < last:
+            mid = first + (last - first) // 2
+            if isBadVersion(mid):
+                last = mid 
+            else:
+                first = mid + 1 
+
+        return first
                     `
                 ,
                 java:
                     `
-boolean isBadVersion(int version);
-
 public class Solution {
     public int firstBadVersion(int n) {
         int left = 1, right = n;
         while (left < right) {
-            int mid = left + (right - left) / 2; // Prevent potential overflow
-            if (isBadVersion(mid)) {
-                right = mid; // Narrow the range to the left
-            } else {
-                left = mid + 1; // Narrow the range to the right
-            }
+            int mid = left + (right - left) / 2;
+            if (isBadVersion(mid)) right = mid;
+            else left = mid + 1;
         }
-        return left; // The first bad version
+        return left;
     }
 }
                     `
@@ -5030,6 +5867,8 @@ class Solution {
             },
         }
     },
+
+    // Need to be changed
     {
         id: 5,
         name: "Find Minimum in Rotated Sorted Array",
