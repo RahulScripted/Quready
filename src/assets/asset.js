@@ -8787,7 +8787,7 @@ class Solution {
     },
 ]
 
-// Needs to change
+
 export const TwoPointerData = [
     {
         id: 1,
@@ -8800,57 +8800,55 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int removeDuplicates(vector<int>& nums) {
-                                if (nums.empty()) return 0;
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.empty()) return 0;
 
-                                int i = 1;
+        int i = 1;
+        for (int j = 1; j < nums.size(); j++) {
+            if (nums[j] != nums[i - 1]) {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
 
-                                for (int j = 1; j < nums.size(); j++) {
-                                    if (nums[j] != nums[i - 1]) {
-                                        nums[i] = nums[j];
-                                        i++;
-                                    }
-                                }
-
-                                return i;        
-                            }
-                        };
+        return i;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def removeDuplicates(self, nums: List[int]) -> int:
-                                i = 1
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 1
 
-                                for j in range(1, len(nums)):
-                                    if nums[j] != nums[i - 1]:
-                                        nums[i] = nums[j]
-                                        i += 1
+        for j in range(1, len(nums)):
+            if nums[j] != nums[i - 1]:
+                nums[i] = nums[j]
+                i += 1
                                 
-                                return i
+        return i
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int removeDuplicates(int[] nums) {
-                                if (nums.length == 0) return 0;
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0) return 0;
 
-                                int i = 1;
+        int i = 1;
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[j] != nums[i - 1]) {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
 
-                                for (int j = 1; j < nums.length; j++) {
-                                    if (nums[j] != nums[i - 1]) {
-                                        nums[i] = nums[j];
-                                        i++;
-                                    }
-                                }
-
-                                return i;        
-                            }
-                        }
+        return i;        
+    }
+}
                     `
             },
         }
@@ -8866,56 +8864,48 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int strStr(string haystack, string needle) {
-                                if (haystack.length() < needle.length()) {
-                                    return -1;
-                                }
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        if (haystack.length() < needle.length()) return -1;
                                 
-                                for (int i = 0; i <= haystack.length() - needle.length(); i++) {
-                                    if (haystack.substr(i, needle.length()) == needle) {
-                                        return i;
-                                    }
-                                }
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+            if (haystack.substr(i, needle.length()) == needle) return i;
+        }
                                 
-                                return -1;        
-                            }
-                        };
+        return -1;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def strStr(self, haystack: str, needle: str) -> int:
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
 
-                                if len(haystack) < len(needle):
-                                    return -1
+        if len(haystack) < len(needle):
+            return -1
 
-                                for i in range(len(haystack)):
-                                    if haystack[i:i+len(needle)] == needle:
-                                        return i
+        for i in range(len(haystack)):
+            if haystack[i:i+len(needle)] == needle:
+                return i
 
-                                return -1 
+        return -1 
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int strStr(String haystack, String needle) {
-                                if (haystack.length() < needle.length()) {
-                                    return -1;
-                                }
+class Solution {
+    public int strStr(String haystack, String needle){
+        if (haystack.length() < needle.length()) return -1;
                                 
-                                for (int i = 0; i <= haystack.length() - needle.length(); i++) {
-                                    if (haystack.substring(i, i + needle.length()).equals(needle)) {
-                                        return i;
-                                    }
-                                }
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+            if (haystack.substring(i, i + needle.length()).equals(needle)) return i;
+        }
                                 
-                                return -1;        
-                            }
-                        }
+        return -1;        
+    }
+}
                     `
             },
         }
@@ -8931,60 +8921,60 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool isPalindrome(ListNode* head) {
-                                vector<int> listVals;
-                                while (head) {
-                                    listVals.push_back(head->val);
-                                    head = head->next;
-                                }
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        vector<int> listVals;
+        while (head) {
+            listVals.push_back(head->val);
+            head = head->next;
+        }
                                 
-                                int left = 0, right = listVals.size() - 1;
-                                while (left < right && listVals[left] == listVals[right]) {
-                                    left++;
-                                    right--;
-                                }
-                                return left >= right;
-                            }
-                        };
+        int left = 0, right = listVals.size() - 1;
+        while (left < right && listVals[left] == listVals[right]) {
+            left++;
+            right--;
+        }
+        return left >= right;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def isPalindrome(self, head: Optional[ListNode]) -> bool:
-                                list_vals = []
-                                while head:
-                                    list_vals.append(head.val)
-                                    head = head.next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        list_vals = []
+        while head:
+            list_vals.append(head.val)
+            head = head.next
                                 
-                                left, right = 0, len(list_vals) - 1
-                                while left < right and list_vals[left] == list_vals[right]:
-                                    left += 1
-                                    right -= 1
-                                return left >= right
+        left, right = 0, len(list_vals) - 1
+        while left < right and list_vals[left] == list_vals[right]:
+            left += 1
+            right -= 1
+        return left >= right
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean isPalindrome(ListNode head) {
-                                List<Integer> list = new ArrayList();
-                                while(head != null) {
-                                    list.add(head.val);
-                                    head = head.next;
-                                }
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        List<Integer> list = new ArrayList();
+        while(head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
                                 
-                                int left = 0;
-                                int right = list.size()-1;
-                                while(left < right && list.get(left) == list.get(right)) {
-                                    left++;
-                                    right--;
-                                }
-                                return left >= right;
-                            }
-                        }
+        int left = 0;
+        int right = list.size()-1;
+        while(left < right && list.get(left) == list.get(right)) {
+            left++;
+            right--;
+        }
+        return left >= right;
+    }
+}
                     `
             },
         }
@@ -9000,51 +8990,51 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void moveZeroes(vector<int>& nums) {
-                                int left = 0;
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int left = 0;
 
-                                for (int right = 0; right < nums.size(); right++) {
-                                    if (nums[right] != 0) {
-                                        swap(nums[right], nums[left]);
-                                        left++;
-                                    }
-                                }        
-                            }
-                        };
+        for (int right = 0; right < nums.size(); right++) {
+            if (nums[right] != 0) {
+                swap(nums[right], nums[left]);
+                left++;
+            }
+        }        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def moveZeroes(self, nums: List[int]) -> None:
-                                left = 0
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        left = 0
 
-                                for right in range(len(nums)):
-                                    if nums[right] != 0:
-                                        nums[right], nums[left] = nums[left], nums[right]
-                                        left += 1
+        for right in range(len(nums)):
+            if nums[right] != 0:
+                nums[right], nums[left] = nums[left], nums[right]
+                left += 1
                                 
-                                return nums
+        return nums
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void moveZeroes(int[] nums) {
-                                int left = 0;
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int left = 0;
 
-                                for (int right = 0; right < nums.length; right++) {
-                                    if (nums[right] != 0) {
-                                        int temp = nums[right];
-                                        nums[right] = nums[left];
-                                        nums[left] = temp;
-                                        left++;
-                                    }
-                                }        
-                            }
-                        }
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] != 0) {
+                int temp = nums[right];
+                nums[right] = nums[left];
+                nums[left] = temp;
+                left++;
+            }
+        }        
+    }
+}
                     `
             },
         }
@@ -9060,44 +9050,44 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            void reverseString(vector<char>& s) {
-                                int left = 0, right = s.size() - 1;
-                                while (left < right) {
-                                    swap(s[left], s[right]);
-                                    left++;
-                                    right--;
-                                }
-                            }
-                        };
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        int left = 0, right = s.size() - 1;
+        while (left < right) {
+            swap(s[left], s[right]);
+            left++;
+            right--;
+        }
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def reverseString(self, s: List[str]) -> None:
-                                left, right = 0, len(s) - 1
-                                while left < right:
-                                    s[left], s[right] = s[right], s[left]
-                                    left += 1
-                                    right -= 1
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        left, right = 0, len(s) - 1
+        while left < right:
+            s[left], s[right] = s[right], s[left]
+            left += 1
+            right -= 1
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public void reverseString(char[] s) {
-                                int left = 0, right = s.length - 1;
-                                while (left < right) {
-                                    char temp = s[left];
-                                    s[left] = s[right];
-                                    s[right] = temp;
+class Solution {
+    public void reverseString(char[] s) {
+        int left = 0, right = s.length - 1;
+        while (left < right) {
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
                                     left++;
-                                    right--;
-                                }
-                            }
-                        }
+            right--;
+        }
+    }
+}
                     `
             },
         }
@@ -9113,78 +9103,81 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int compress(vector<char>& c) {
-                                int n = c.size();
-                                if (n == 0) return 0;
-                                int w = 0,r = 0;
-                                while (r < n) {
-                                    char x = c[r];
-                                    int cnt = 0;
-                                    while (r < n && c[r] == x) {
-                                        r++,cnt++;
-                                    }
-                                    c[w++] = x;
-                                    if (cnt > 1) {
-                                        for (char d : to_string(cnt)) {
-                                            c[w++] = d;
-                                        }
-                                    }
-                                }
-                                return w;
-                            }
-                        };
+class Solution {
+public:
+    int compress(vector<char>& c) {
+        int n = c.size();
+        if (n == 0) return 0;
+        int w = 0,r = 0;
+        while (r < n) {
+            char x = c[r];
+            int cnt = 0;
+            while (r < n && c[r] == x) {
+                r++;
+                cnt++;
+            }
+
+            c[w++] = x;
+            if (cnt > 1) {
+                for (char d : to_string(cnt)) {
+                    c[w++] = d;
+                }
+            }
+        }
+        return w;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def compress(self, c: list[str]) -> int:
-                                n = len(c)
-                                if n == 0: return 0
-                                w = 0
-                                r = 0
-                                while r < n:
-                                    x = c[r]
-                                    cnt = 0
-                                    while r < n and c[r] == x:
-                                        r += 1
-                                        cnt += 1
-                                    c[w] = x
-                                    w += 1
-                                    if cnt > 1:
-                                        for d in str(cnt):
-                                            c[w] = d
-                                            w += 1
-                                return w
+class Solution:
+    def compress(self, c: list[str]) -> int:
+        n = len(c)
+        if n == 0: return 0
+        w = 0
+        r = 0
+        while r < n:
+            x = c[r]
+            cnt = 0
+            while r < n and c[r] == x:
+                r += 1
+                cnt += 1
+            c[w] = x
+            w += 1
+            if cnt > 1:
+                for d in str(cnt):
+                    c[w] = d
+                    w += 1
+        return w
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int compress(char[] c) {
-                                int n = c.length;
-                                if (n == 0) return 0;
-                                int w = 0;
-                                int r = 0;
-                                while (r < n) {
-                                    char x = c[r];
-                                    int cnt = 0;
-                                    while (r < n && c[r] == x) {
-                                        r++;
-                                        cnt++;
-                                    }
-                                    c[w++] = x;
-                                    if (cnt > 1) {
-                                        for (char d : Integer.toString(cnt).toCharArray()) {
-                                            c[w++] = d;
-                                        }
-                                    }
-                                }
-                                return w;
-                            }
-                        }
+class Solution {
+    public int compress(char[] c) {
+        int n = c.length;
+        if (n == 0) return 0;
+        int w = 0;
+        int r = 0;
+        while (r < n) {
+            char x = c[r];
+            int cnt = 0;
+            while (r < n && c[r] == x) {
+                r++;
+                cnt++;
+            }
+
+            c[w++] = x;
+            if (cnt > 1) {
+                for (char d : Integer.toString(cnt).toCharArray()) {
+                    c[wd;
+                }
+            }
+        }
+        return w;
+    }
+}
                     `
             },
         }
@@ -9200,120 +9193,98 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool checkInclusion(string s1, string s2) {
-                                if (s1.length() > s2.length()) {
-                                    return false;
-                                }
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        if (s1.length() > s2.length()) return false;
                                 
-                                unordered_map<char, int> s1Count;
-                                unordered_map<char, int> s2Count;
+        unordered_map<char, int> s1Count;
+        unordered_map<char, int> s2Count;
                                 
-                                for (int i = 0; i < s1.length(); i++) {
-                                    s1Count[s1[i]]++;
-                                    s2Count[s2[i]]++;
-                                }
+        for (int i = 0; i < s1.length(); i++) {
+            s1Count[s1[i]]++;
+            s2Count[s2[i]]++;
+        }                    
+        if (s1Count == s2Count) return true;
                                 
-                                if (s1Count == s2Count) {
-                                    return true;
-                                }
-                                
-                                int left = 0;
-                                for (int right = s1.length(); right < s2.length(); right++) {
-                                    s2Count[s2[right]]++;
-                                    s2Count[s2[left]]--;
+        int left = 0;
+        for (int right = s1.length(); right < s2.length(); right++) {
+            s2Count[s2[right]]++;
+            s2Count[s2[left]]--;
                                     
-                                    if (s2Count[s2[left]] == 0) {
-                                        s2Count.erase(s2[left]);
-                                    }
-                                    
-                                    left++;
-                                    
-                                    if (s1Count == s2Count) {
-                                        return true;
-                                    }
-                                }
+            if (s2Count[s2[left]] == 0) s2Count.erase(s2[left]);             
+            left++;
+            if (s1Count == s2Count) return true;
+        }
                                 
-                                return false;        
-                            }
-                        };
+        return false;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def checkInclusion(self, s1: str, s2: str) -> bool:
-                                if len(s1) > len(s2):
-                                    return False
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s1) > len(s2):
+            return False
 
-                                s1_count = {}
-                                s2_count = {}
+        s1_count = {}
+        s2_count = {}
 
-                                for i in range(len(s1)):
-                                    s1_count[s1[i]] = 1 + s1_count.get(s1[i], 0)
-                                    s2_count[s2[i]] = 1 + s2_count.get(s2[i], 0)
+        for i in range(len(s1)):
+            s1_count[s1[i]] = 1 + s1_count.get(s1[i], 0)
+            s2_count[s2[i]] = 1 + s2_count.get(s2[i], 0)
 
-                                if s1_count == s2_count:
-                                    return True
+        if s1_count == s2_count:
+            return True
 
-                                left = 0
-                                for right in range(len(s1), len(s2)):
-                                    s2_count[s2[right]] = 1 + s2_count.get(s2[right], 0)
-                                    s2_count[s2[left]] -= 1
+        left = 0
+        for right in range(len(s1), len(s2)):
+            s2_count[s2[right]] = 1 + s2_count.get(s2[right], 0)
+            s2_count[s2[left]] -= 1
 
-                                    if s2_count[s2[left]] == 0:
-                                        del s2_count[s2[left]]
+            if s2_count[s2[left]] == 0:
+                del s2_count[s2[left]]
 
-                                    left += 1
+            left += 1
 
-                                    if s1_count == s2_count:
-                                        return True
+            if s1_count == s2_count:
+                return True
 
-                                return False
+        return False
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public boolean checkInclusion(String s1, String s2) {
-                                if (s1.length() > s2.length()) {
-                                    return false;
-                                }
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if (s1.length() > s2.length()) return false;
                                 
-                                HashMap<Character, Integer> s1Count = new HashMap<>();
-                                HashMap<Character, Integer> s2Count = new HashMap<>();
+        HashMap<Character, Integer> s1Count = new HashMap<>();
+        HashMap<Character, Integer> s2Count = new HashMap<>();
                                 
-                                for (int i = 0; i < s1.length(); i++) {
-                                    s1Count.put(s1.charAt(i), s1Count.getOrDefault(s1.charAt(i), 0) + 1);
-                                    s2Count.put(s2.charAt(i), s2Count.getOrDefault(s2.charAt(i), 0) + 1);
-                                }
+        for (int i = 0; i < s1.length(); i++) {
+            s1Count.put(s1.charAt(i), s1Count.getOrDefault(s1.charAt(i), 0) + 1);
+            s2Count.put(s2.charAt(i), s2Count.getOrDefault(s2.charAt(i), 0) + 1);
+        }
+        if (s1Count.equals(s2Count)) return true;
                                 
-                                if (s1Count.equals(s2Count)) {
-                                    return true;
-                                }
-                                
-                                int left = 0;
-                                for (int right = s1.length(); right < s2.length(); right++) {
-                                    char charRight = s2.charAt(right);
-                                    s2Count.put(charRight, s2Count.getOrDefault(charRight, 0) + 1);
+        int left = 0;
+        for (int right = s1.length(); right < s2.length(); right++) {
+            char charRight = s2.charAt(right);
+            s2Count.put(charRight, s2Count.getOrDefault(charRight, 0) + 1);
                                     
-                                    char charLeft = s2.charAt(left);
-                                    s2Count.put(charLeft, s2Count.get(charLeft) - 1);
-                                    if (s2Count.get(charLeft) == 0) {
-                                        s2Count.remove(charLeft);
-                                    }
-                                    
-                                    left++;
-                                    
-                                    if (s1Count.equals(s2Count)) {
-                                        return true;
-                                    }
-                                }
+            char charLeft = s2.charAt(left);
+            s2Count.put(charLeft, s2Count.get(charLeft) - 1);
+            if (s2Count.get(charLeft) == 0) s2Count.remove(charLeft);       
+            left++;
+            if (s1Count.equals(s2Count)) return true;
+        }
                                 
-                                return false;        
-                            }
-                        }
+        return false;        
+    }
+}
                     `
             },
         }
@@ -9329,146 +9300,128 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                    `
-                        class Solution {
-                        public:
-                            int nextGreaterElement(int n) {
-                                string temp=to_string(n);
-                                int p=temp.size();
-                                bool flag=false;
-                                for(int i=0;i<temp.size()-1;i++){
-                                    if((int)temp[i]<(int)temp[i+1]){
-                                        flag=true;
-                                        break;
-                                    }
-                                }
-                                if(flag==false){
-                                    return -1;
-                                }
-                                int lastDigit=temp[temp.size()-1];
-                                int i=p-2;
-                                int j;
-                                for( i=p-2;i>=0;i--){
-                                    if((int)lastDigit>(int)temp[i]){
-                                        break;
-                                    }
-                                    lastDigit=temp[i];
-                                }
-                                if(i>=0){
-                                    for( j=p-1;j>i;j--){
-                                        if((int)temp[j]>(int)temp[i]){
-                                            swap(temp[i],temp[j]);
-                                            break;
+class Solution {
+public:
+    int nextGreaterElement(int n) {
+        string temp=to_string(n);
+        int p=temp.size();
+        bool flag=false;
+        for(int i=0;i<temp.size()-1;i++){
+            if((int)temp[i]<(int)temp[i+1]){
+                flag=true;
+                break;
+            }
+        }
 
-                                        }
-                                        
-                                    }
-                                }
-                                sort(temp.begin()+i+1,temp.end());
-                                // if(temp.size()>=10) return -1;
-                                long long xx=stol(temp);
-                                if(xx>INT_MAX){
-                                    return -1;
-                                }
-                                
-                                return xx;
-                            
-                                
+        if(flag==false) return -1;
+        int lastDigit=temp[temp.size()-1];
+        int i=p-2;
+        int j;
+        for( i=p-2;i>=0;i--){
+            if((int)lastDigit>(int)temp[i]) break;
+            lastDigit=temp[i];
+        }
 
-                            }
-                        };
+        if(i>=0){
+            for( j=p-1;j>i;j--){
+                if((int)temp[j]>(int)temp[i]){
+                    swap(temp[i],temp[j]);
+                    break;
+                }                      
+            }
+        }
+
+        sort(temp.begin()+i+1,temp.end());
+        long long xx=stol(temp);
+        if(xx > INT_MAX)return -1; 
+        return xx;
+    }
+};
                    `
                 ,
                 python:
                     `
-                        class Solution:
-                            def nextGreaterElement(self, n: int) -> int:
-                                temp = list(str(n))
-                                p = len(temp)
-                                flag = False
+class Solution:
+    def nextGreaterElement(self, n: int) -> int:
+        temp = list(str(n))
+        p = len(temp)
+        flag = False
 
-                                for i in range(p - 1):
-                                    if int(temp[i]) < int(temp[i + 1]):
-                                        flag = True
-                                        break
+        for i in range(p - 1):
+            if int(temp[i]) < int(temp[i + 1]):
+                flag = True
+                break
 
-                                if not flag:
-                                    return -1
+        if not flag:
+            return -1
 
-                                lastDigit = temp[-1]
-                                i = p - 2
+        lastDigit = temp[-1]
+        i = p - 2
 
-                                while i >= 0:
-                                    if int(lastDigit) > int(temp[i]):
-                                        break
-                                    lastDigit = temp[i]
-                                    i -= 1
+        while i >= 0:
+            if int(lastDigit) > int(temp[i]):
+                break
+            lastDigit = temp[i]
+            i -= 1
 
-                                if i >= 0:
-                                    for j in range(p - 1, i, -1):
-                                        if int(temp[j]) > int(temp[i]):
-                                            temp[i], temp[j] = temp[j], temp[i]
-                                            break
+        if i >= 0:
+            for j in range(p - 1, i, -1):
+                if int(temp[j]) > int(temp[i]):
+                    temp[i], temp[j] = temp[j], temp[i]
+                    break
 
-                                temp = temp[:i + 1] + sorted(temp[i + 1:])
-                                xx = int("".join(temp))
+        temp = temp[:i + 1] + sorted(temp[i + 1:])
+        xx = int("".join(temp))
 
-                                if xx > 2**31 - 1:
-                                    return -1
+        if xx > 2**31 - 1:
+            return -1
 
-                                return xx
+        return xx
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int nextGreaterElement(int n) {
-                                char[] temp = String.valueOf(n).toCharArray();
-                                int p = temp.length;
-                                boolean flag = false;
+class Solution {
+    public int nextGreaterElement(int n) {
+        char[] temp = String.valueOf(n).toCharArray();
+        int p = temp.length;
+        boolean flag = false;
 
-                                for (int i = 0; i < p - 1; i++) {
-                                    if (temp[i] < temp[i + 1]) {
-                                        flag = true;
-                                        break;
-                                    }
-                                }
+        for (int i = 0; i < p - 1; i++) {
+            if (temp[i] < temp[i + 1]) {
+                flag = true;
+                break;
+            }
+        }
 
-                                if (!flag) {
-                                    return -1;
-                                }
+        if (!flag) return -1;
+        int i = p - 2;
+        char lastDigit = temp[p - 1];
 
-                                int i = p - 2;
-                                char lastDigit = temp[p - 1];
+        while (i >= 0) {
+            if (lastDigit > temp[i]) break;
+            lastDigit = temp[i];
+            i--;
+        }
 
-                                while (i >= 0) {
-                                    if (lastDigit > temp[i]) {
-                                        break;
-                                    }
-                                    lastDigit = temp[i];
-                                    i--;
-                                }
+        if (i >= 0) {
+            for (int j = p - 1; j > i; j--) {
+                if (temp[j] > temp[i]) {
+                    char tempChar = temp[i];
+                    temp[i] = temp[j];
+                    temp[j] = tempChar;
+                    break;
+                }
+            }
+        }
 
-                                if (i >= 0) {
-                                    for (int j = p - 1; j > i; j--) {
-                                        if (temp[j] > temp[i]) {
-                                            char tempChar = temp[i];
-                                            temp[i] = temp[j];
-                                            temp[j] = tempChar;
-                                            break;
-                                        }
-                                    }
-                                }
+        Arrays.sort(temp, i + 1, p);
+        long xx = long.parseLong(new String(temp));
 
-                                Arrays.sort(temp, i + 1, p);
-                                long xx = Long.parseLong(new String(temp));
-
-                                if (xx > Integer.MAX_VALUE) {
-                                    return -1;
-                                }
-
-                                return (int) xx;
-                            }
-                        }
+        if (xx > Integer.MAX_VALUE) return -1;
+        return (int) xx;
+    }
+}
                     `
             },
         }
@@ -9484,100 +9437,87 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                    `
-                        class Solution {
-                        public:
-                            int findLengthOfShortestSubarray(vector<int>& arr) {
-                                int n = arr.size();
+class Solution {
+public:
+    int findLengthOfShortestSubarray(vector<int>& arr) {
+        int n = arr.size();                       
+        int left = 0;
+        while (left + 1 < n && arr[left] <= arr[left + 1]) left++;
                                 
-                                int left = 0;
-                                while (left + 1 < n && arr[left] <= arr[left + 1]) {
-                                    left++;
-                                }
+        if (left == n - 1) return 0;
+        int right = n - 1;
+        while (right > 0 && arr[right - 1] <= arr[right]) right--;
                                 
-                                if (left == n - 1) return 0;
-                                int right = n - 1;
-                                while (right > 0 && arr[right - 1] <= arr[right]) {
-                                    right--;
-                                }
+        int result = min(n - left - 1, right);
+        int i = 0, j = right;
+        while (i <= left && j < n) {
+            if (arr[i] <= arr[j]) {
+                result = min(result, j - i - 1);
+                i++;
+            } 
+            else j++;
+        }
                                 
-                                int result = min(n - left - 1, right);
-                                int i = 0, j = right;
-                                while (i <= left && j < n) {
-                                    if (arr[i] <= arr[j]) {
-                                        result = min(result, j - i - 1);
-                                        i++;
-                                    } else {
-                                        j++;
-                                    }
-                                }
-                                
-                                return result;
-                            }
-                        };
+        return result;
+    }
+};
                    `
                 ,
                 python:
                     `
-                        class Solution:
-                            def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
-                                n = len(arr)
+class Solution:
+    def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
+        n = len(arr)
                                 
-                                left = 0
-                                while left + 1 < n and arr[left] <= arr[left + 1]:
-                                    left += 1
+        left = 0
+        while left + 1 < n and arr[left] <= arr[left + 1]:
+            left += 1
                                 
-                                if left == n - 1:
-                                    return 0
+        if left == n - 1:
+            return 0
                                 
-                                right = n - 1
-                                while right > 0 and arr[right - 1] <= arr[right]:
-                                    right -= 1
+        right = n - 1
+        while right > 0 and arr[right - 1] <= arr[right]:
+            right -= 1
                                 
-                                result = min(n - left - 1, right)
+        result = min(n - left - 1, right)
                                 
-                                i, j = 0, right
-                                while i <= left and j < n:
-                                    if arr[i] <= arr[j]:
-                                        result = min(result, j - i - 1)
-                                        i += 1
-                                    else:
-                                        j += 1
+        i, j = 0, right
+        while i <= left and j < n:
+            if arr[i] <= arr[j]:
+                result = min(result, j - i - 1)
+                i += 1
+            else:
+                j += 1
                                 
-                                return result
+        return result
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int findLengthOfShortestSubarray(int[] arr) {
-                                int n = arr.length;
+class Solution {
+    public int findLengthOfShortestSubarray(int[] arr) {
+        int n = arr.length;
+        int left = 0;
+        while (left + 1 < n && arr[left] <= arr[left + 1]) left++;
                                 
-                                int left = 0;
-                                while (left + 1 < n && arr[left] <= arr[left + 1]) {
-                                    left++;
-                                }
+        if (left == n - 1) return 0;
+        int right = n - 1;
+        while (right > 0 && arr[right - 1] <= arr[right]) right--;
                                 
-                                if (left == n - 1) return 0;
-                                int right = n - 1;
-                                while (right > 0 && arr[right - 1] <= arr[right]) {
-                                    right--;
-                                }
+        int result = Math.min(n - left - 1, right);                
+        int i = 0, j = right;
+        while (i <= left && j < n) {
+            if (arr[i] <= arr[j]) {
+                result = Math.min(result, j - i - 1);
+                i++;
+            } 
+            else j++;
+        }
                                 
-                                int result = Math.min(n - left - 1, right);
-                                
-                                int i = 0, j = right;
-                                while (i <= left && j < n) {
-                                    if (arr[i] <= arr[j]) {
-                                        result = Math.min(result, j - i - 1);
-                                        i++;
-                                    } else {
-                                        j++;
-                                    }
-                                }
-                                
-                                return result;
-                            }
-                        }
+        return result;
+    }
+}
                     `
             },
         }
@@ -9593,94 +9533,87 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                    `
-                        class Solution {
-                        public:
-                            bool areSentencesSimilar(string sentence1, string sentence2) {
-                                auto splitWords = [](const string& sentence) {
-                                    vector<string> words;
-                                    string word = "";
-                                    for (char c : sentence) {
-                                        if (c == ' ') {
-                                            if (!word.empty()) {
-                                                words.push_back(word);
-                                                word = "";
-                                            }
-                                        } else {
-                                            word += c;
-                                        }
-                                    }
-                                    if (!word.empty()) words.push_back(word);
-                                    return words;
-                                };
+class Solution {
+public:
+    bool areSentencesSimilar(string sentence1, string sentence2) {
+        auto splitWords = [](const string& sentence) {
+            vector<string> words;
+            string word = "";
+            for (char c : sentence) {
+                if (c == ' ') {
+                    if (!word.empty()) {
+                        words.push_back(word);
+                        word = "";
+                    }
+                } 
+                else word += c;
+            }
 
-                                vector<string> words1 = splitWords(sentence1);
-                                vector<string> words2 = splitWords(sentence2);
+            if (!word.empty()) words.push_back(word);
+            return words;
+        };
+
+        vector<string> words1 = splitWords(sentence1);
+        vector<string> words2 = splitWords(sentence2);
                                 
-                                if (words1.size() < words2.size()) swap(words1, words2);
+        if (words1.size() < words2.siswap(words1, words2);    
+        int start = 0, end = 0;
+        int n1 = words1.size(), n2 = words2.size();
                                 
-                                int start = 0, end = 0;
-                                int n1 = words1.size(), n2 = words2.size();
-                                
-                                while (start < n2 && words1[start] == words2[start]) start++;
-                                while (end < n2 && words1[n1 - end - 1] == words2[n2 - end - 1]) end++;
-                                return start + end >= n2;
-                            }
-                        };
+        while (start < n2 && words1[start] == words2[start]) start++;
+        while (end < n2 && words1[n1 - end - 1] == words2[n2 - end - 1]) end++;
+        return start + end >= n2;
+    }
+};
                    `
                 ,
                 python:
                     `
-                        class Solution:
-                            def areSentencesSimilar(self, sentence1: str, sentence2: str) -> bool:
-                                words1 = sentence1.split()
-                                words2 = sentence2.split()
+class Solution:
+    def areSentencesSimilar(self, sentence1: str, sentence2: str) -> bool:
+        words1 = sentence1.split()
+        words2 = sentence2.split()
 
-                                if len(words1) < len(words2):
-                                    words1, words2 = words2, words1
+        if len(words1) < len(words2):
+            words1, words2 = words2, words1
                                 
-                                start, end = 0, 0
-                                n1, n2 = len(words1), len(words2)
+        start, end = 0, 0
+        n1, n2 = len(words1), len(words2)
                                 
-                                while start < n2 and words1[start] == words2[start]:
-                                    start += 1
+        while start < n2 and words1[start] == words2[start]:
+            start += 1
                                 
-                                while end < n2 and words1[n1 - end - 1] == words2[n2 - end - 1]:
-                                    end += 1
+        while end < n2 and words1[n1 - end - 1] == words2[n2 - end - 1]:
+            end += 1
                                 
-                                return start + end >= n2
+        return start + end >= n2
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            private String[] splitWords(String sentence) {
-                                return sentence.split(" ");
-                            }
+class Solution {
+    private String[] splitWords(String sentence) {
+        return sentence.split(" ");
+    }
 
-                            public boolean areSentencesSimilar(String sentence1, String sentence2) {
-                                String[] words1 = splitWords(sentence1);
-                                String[] words2 = splitWords(sentence2);
+    public boolean areSentencesSimilar(String sentence1, String sentence2) {
+        String[] words1 = splitWords(sentence1);
+        String[] words2 = splitWords(sentence2);
 
-                                if (words1.length < words2.length) {
-                                    String[] temp = words1;
-                                    words1 = words2;
-                                    words2 = temp;
-                                }
+        if (words1.length < words2.length) {
+            String[] temp = words1;
+            words1 = words2;
+            words2 = temp;
+        }
 
-                                int start = 0, end = 0;
-                                int n1 = words1.length, n2 = words2.length;
+        int start = 0, end = 0;
+        int n1 = words1.length, n2 = words2.length;
+        while (start < n2 && words1[start].equals(words2[start])) start++;
 
-                                while (start < n2 && words1[start].equals(words2[start])) {
-                                    start++;
-                                }
-
-                                while (end < n2 && words1[n1 - end - 1].equals(words2[n2 - end - 1])) {
-                                    end++;
-                                }
-
-                                return start + end >= n2;
-                            }
-                        }
+        while (end < n2 && words1[n1 - end - 1].equals(words2[n2 - end - 1])) end++;
+        return start + end >= n2;
+    }
+}
                     `
             },
         }
@@ -9696,95 +9629,83 @@ export const TwoPointerData = [
             code:{
                 cpp: 
                    `
-                        class MedianFinder {
-                        public:
-                            multiset<int> S;  
-                            multiset<int>::iterator mid;  
+class MedianFinder {
+public:
+    multiset<int> S;  
+    multiset<int>::iterator mid;  
 
-                            MedianFinder() {
-                            }
+    MedianFinder() {
+    }
                             
-                            void addNum(int num) {
-                                if(S.size() == 0) {
-                                    S.insert(num);
-                                    mid = S.begin();
-                                } 
-                                else {
-                                    S.insert(num);  
-                                    if(S.size() % 2 == 0) {
-                                        if(num < *mid) 
-                                            mid--;
-                                    } 
-                                    else {
-                                        if(num >= *mid) 
-                                            mid++;
-                                    }
-                                }
-                            }
+    void addNum(int num) {
+        if(S.size() == 0) {
+            S.insert(num);
+            mid = S.begin();
+        } 
+
+        else {
+            S.insert(num);  
+            if(S.size() % 2 == 0) {
+                if(num < *mid) mid--;
+            } 
+            else {
+                if(num >= *mid) mid++;
+            }
+        }
+    }
                             
-                            double findMedian() {
-                                if(S.size() % 2 == 0) {
-                                    auto midP = mid; 
-                                    midP++;
-                                    return (double)(*mid + *midP) / 2;
-                                } 
-                                else {
-                                    return *mid;
-                                }
-                            }
-                        };
+    double findMedian() {
+        if(S.size() % 2 == 0) {
+            auto midP = mid; 
+            midP++;
+            return (double)(*mid + *midP) / 2;
+        } 
+        else return *mid;
+    }
+};
                    `
                 ,
                 python:
                     `
-                        class MedianFinder:
-                            def __init__(self):
-                                self.nums = []
+class MedianFinder:
+    def __init__(self):
+        self.nums = []
 
-                            def addNum(self, num: int):
-                                bisect.insort(self.nums, num)
+    def addNum(self, num: int):
+        bisect.insort(self.nums, num)
 
-                            def findMedian(self) -> float:
-                                n = len(self.nums)
-                                if n % 2 == 0:
-                                    return (self.nums[n // 2 - 1] + self.nums[n // 2]) / 2
-                                else:
-                                    return self.nums[n // 2]
+    def findMedian(self) -> float:
+        n = len(self.nums)
+        if n % 2 == 0:
+            return (self.nums[n // 2 -self.nums[n // 2]) / 2
+        else:
+            return self.nums[n // 2]
                     `
                 ,
                 java:
                     `
-                        class MedianFinder {
-                            private PriorityQueue<Integer> lower;
-                            private PriorityQueue<Integer> upper;
+class MedianFinder {
+    private PriorityQueue<Integer> lower;
+    private PriorityQueue<Integer> upper;
 
-                            public MedianFinder() {
-                                lower = new PriorityQueue<>(Collections.reverseOrder());
-                                upper = new PriorityQueue<>();
-                            }
+    public MedianFinder() {
+        lower = new PriorityQueue<>(Collections.reverseOrder());
+        upper = new PriorityQueue<>();
+    }
 
-                            public void addNum(int num) {
-                                if (lower.isEmpty() || num <= lower.peek()) {
-                                    lower.offer(num);
-                                } else {
-                                    upper.offer(num);
-                                }
+    public void addNum(int num) {
+        if (lower.isEmpty() || num <= lower.peek()) lower.offer(num);
+        else upper.offer(num);
 
-                                if (lower.size() > upper.size() + 1) {
-                                    upper.offer(lower.poll());
-                                } else if (upper.size() > lower.size()) {
-                                    lower.offer(upper.poll());
-                                }
-                            }
+        if (lower.size() > upper.size() + 1) upper.offer(lower.poll());
+        else if (upper.size() > lower.size()) lower.offer(upper.poll());
+    }
 
-                            public double findMedian() {
-                                if (lower.size() == upper.size()) {
-                                    return (lower.peek() + upper.peek()) / 2.0;
-                                } else {
-                                    return lower.peek();
-                                }
-                            }
-                        }
+    public double findMedian() {
+        if (lower.size() == upper.size()) return (lower.peek() + upper.peek()) / 2.0;
+        else return lower.peek();
+    }
+}
                     `
             },
         }
@@ -9803,64 +9724,58 @@ export const PrefixSumData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int pivotIndex(vector<int>& nums) {
-                                int total = accumulate(nums.begin(), nums.end(), 0);
-                                int leftTotal = 0;
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        int total = accumulate(nums.begin(), nums.end(), 0);
+        int leftTotal = 0;
 
-                                for (int i = 0; i < nums.size(); ++i) {
-                                    int rightTotal = total - leftTotal - nums[i];
-                                    if (rightTotal == leftTotal) {
-                                        return i;
-                                    }
-                                    leftTotal += nums[i];
-                                }
+        for (int i = 0; i < nums.size(); ++i) {
+            int rightTotal = total - leftTotal - nums[i];
+            if (rightTotal == leftTotal) return i;
+            leftTotal += nums[i];
+        }
 
-                                return -1;        
-                            }
-                        };
+        return -1;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def pivotIndex(self, nums: List[int]) -> int:
-                                total = sum(nums)
-                                left_total = 0
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        total = sum(nums)
+        left_total = 0
 
-                                for i in range(len(nums)):
-                                    right_total = total - left_total - nums[i]
+        for i in range(len(nums)):
+            right_total = total - left_total - nums[i]
 
-                                    if right_total == left_total:
-                                        return i
+            if right_total == left_total:
+                return i
                                     
-                                    left_total += nums[i]
+            left_total += nums[i]
                                 
-                                return -1
+        return -1
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int pivotIndex(int[] nums) {
-                                int total = 0;
-                                for (int num : nums) {
-                                    total += num;
-                                }
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int total = 0;
+        for (int num : nums) total += num;
                                 
-                                int leftTotal = 0;
-                                for (int i = 0; i < nums.length; i++) {
-                                    int rightTotal = total - leftTotal - nums[i];
-                                    if (rightTotal == leftTotal) {
-                                        return i;
-                                    }
-                                    leftTotal += nums[i];
-                                }
+        int leftTotal = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int rightTotal = toleftTotal - nums[i];
+            if (rightTotal == leftTotal) return i;
+            leftTotal += nums[i];
+        }
 
-                                return -1;        
-                            }
-                        }
+        return -1;        
+    }
+}
                     `
             },
         }
@@ -9876,41 +9791,32 @@ export const PrefixSumData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<int> runningSum(vector<int>& nums) {
-                                for(int i=1;i<nums.size();i++){
-
-                                    nums[i]+=nums[i-1];
-
-                                }
-
-                                return nums;
-                            }
-                        };
+class Solution {
+public:
+    vector<int> runningSum(vector<int>& nums) {
+        for(int i=1;i<nums.size();i++) nums[i] += nums[i-1];
+        return nums;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution(object):
-                            def runningSum(self, nums):
-                                for i in range(1,len(nums)):
-                                    nums[i]+=nums[i-1]
-                                return nums
+class Solution(object):
+    def runningSum(self, nums):
+        for i in range(1,len(nums)):
+            nums[i]+=nums[i-1]
+        return nums
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int[] runningSum(int[] nums) {
-
-                                for(int i=1;i<nums.length;i++){
-                                    nums[i]=nums[i-1]+nums[i];
-
-                                }
-                                return nums;
-                            }
-                        }
+class Solution {
+    public int[] runningSum(int[] nums) {
+        for(int i=1;i<nums.length;i++) nums[i]=nums[i-1]+nums[i];
+        return nums;
+    }
+}
                     `
             },
         }
@@ -9926,52 +9832,49 @@ export const PrefixSumData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
+class Solution {
+public:
 
-                            int largestAltitude(vector<int>& gain) {
+    int largestAltitude(vector<int>& gain) {
+        int n = gain.size();
+        vector<int> prefixSum(n + 1, 0);    
 
-                                int n = gain.size();
+        for(int i = 1; i <= n; i++){
+            prefixSum[i] = prefixSum[i - 1] + gain[i - 1];
+        }
 
-                                vector<int> prefixSum(n + 1, 0);    
-
-                                for(int i = 1; i <= n; i++){
-                                    prefixSum[i] = prefixSum[i - 1] + gain[i - 1];
-                                }
-
-                                return *max_element(prefixSum.begin(), prefixSum.end());
-
-                            }
-                        };
+        return *max_element(prefixSum.begin(), prefixSum.end());
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def largestAltitude(self, gain: List[int]) -> int:
-                                n = len(gain)
-                                prefix_sum = [0] * (n + 1)
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        n = len(gain)
+        prefix_sum = [0] * (n + 1)
                                 
-                                for i in range(1, n + 1):
-                                    prefix_sum[i] = prefix_sum[i - 1] + gain[i - 1]
+        for i in range(1, n + 1):
+            prefix_sum[i] = prefix_sum[i - 1] + gain[i - 1]
                                 
-                                return max(prefix_sum)
+        return max(prefix_sum)
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int largestAltitude(int[] gain) {
-                                int n = gain.length;
-                                int[] prefixSum = new int[n + 1];
+class Solution {
+    public int largestAltitude(int[] gain) {
+        int n = gain.length;
+        int[] prefixSum = new int[n + 1];
 
-                                for (int i = 1; i <= n; i++) {
-                                    prefixSum[i] = prefixSum[i - 1] + gain[i - 1];
-                                }
+        for (int i = 1; i <= n; i++) {
+            prefixSum[i] = prefixSum[i - 1] + gain[i - 1];
+        }
 
-                                return Arrays.stream(prefixSum).max().getAsInt();
-                            }
-                        }
+        return Arrays.stream(prefixSum).max().getAsInt();
+    }
+}
                     `
             },
         }
@@ -9987,152 +9890,138 @@ export const PrefixSumData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int maxSumMinProduct(vector<int>& nums) {
-                                int mod = 1000000007;
-                                int n = nums.size();
-                                int lft[n], rgt[n];
-                                long long int sum[n + 1];
-                                sum[0] = 0;
-                                for (int i = 1; i < n + 1; i++)
-                                {
-                                    sum[i] = sum[i - 1] + nums[i - 1];
-                                }
+class Solution {
+public:
+    int maxSumMinProduct(vector<int>& nums) {
+        int mod = 1000000007;
+        int n = nums.size();
+        int lft[n], rgt[n];
+        long long int sum[n + 1];
+        sum[0] = 0;
+        for (int i = 1; i < n + 1; i++){
+            sum[i] = sum[i - 1] + nums[i - 1];
+        }
 
-                                stack<pair<int, int>> s1, s2;        
-                                lft[0] = 0;
-                                s1.push({nums[0], 0});
-                                for (int i = 1; i < n; i++)
-                                {
-                                    int cur = 0;
-                                    while(!s1.empty() && (s1.top().first) >= nums[i])
-                                    {
-                                        cur += s1.top().second + 1;
-                                        s1.pop();
-                                    }
-                                    s1.push({nums[i], cur});
-                                    lft[i] = cur;
-                                }
+        stack<pair<int, int>> s1, s2;        
+        lft[0] = 0;
+        s1.push({nums[0], 0});
+        for (int i = 1; i < n; i++){
+            int cur = 0;
+            while(!s1.empty() && (s1.top().first) >= nums[i]){
+                cur += s1.top().second + 1;
+                s1.pop();
+            }
+            s1.push({nums[i], cur});
+            lft[i] = cur;
+        }
                                 
-                                rgt[n - 1] = 0;
-                                s2.push({nums[n - 1], 0});
-                                for (int i = n - 2; i > -1; i--)
-                                {
-                                    int cur = 0;
-                                    while(!s2.empty() && (s2.top().first) >= nums[i])
+        rgt[n - 1] = 0;
+        s2.push({nums[n - 1], 0});
+        for (int i = n - 2; i > -1; i--){
+            int cur = 0;
+            while(!s2.empty() && (s2.top().first) >= nums[i])
                                     {
-                                        cur += s2.top().second + 1;
-                                        s2.pop();
-                                    }
-                                    s2.push({nums[i], cur});
-                                    rgt[i] = cur;
-                                }
+                cur += s2.top().second + 1;
+                s2.pop();
+            }
+            s2.push({nums[i], cur});
+            rgt[i] = cur;
+        }
 
-                                long long int ans = 0;
-                                for (int i = 0; i < n; i++)
+        long long int ans = 0;
+        for (int i = 0; i < n; i++)
                                 {
-                                    ans = max(ans, nums[i] * (sum[i + rgt[i] + 1] - sum[i - lft[i]]));
-                                }
-                                return ans % mod;           
-                            }
-                        }
+            ans = max(ans, nums[i] * (sum[i + rgt[i] + 1] - sum[i - lft[i]]));
+        }
+        return ans % mod;           
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def maxSumMinProduct(self, nums: List[int]) -> int:
-                                mod = 10**9 + 7
-                                n = len(nums)
+class Solution:
+    def maxSumMinProduct(self, nums: List[int]) -> int:
+        mod = 10**9 + 7
+        n = len(nums)
 
-                                # Calculate prefix sum
-                                prefix_sum = [0] * (n + 1)
-                                for i in range(1, n + 1):
-                                    prefix_sum[i] = prefix_sum[i - 1] + nums[i - 1]
+        prefix_sum = [0] * (n + 1)
+        for i in range(1, n + 1):
+            prefix_sum[i] = prefix_sum[i - 1] + nums[i - 1]
 
-                                # Calculate left boundaries
-                                left = [0] * n
-                                stack1 = []
-                                for i in range(n):
-                                    cur = 0
-                                    while stack1 and stack1[-1][0] >= nums[i]:
-                                        cur += stack1.pop()[1] + 1
-                                    stack1.append((nums[i], cur))
-                                    left[i] = cur
+        left = [0] * n
+        stack1 = []
+        for i in range(n):
+            cur = 0
+            while stack1 and stack1[-1][0] >= nums[i]:
+                cur += stack1.pop()[1] + 1
+            stack1.append((nums[i], cur))
+            left[i] = cur
 
-                                # Calculate right boundaries
-                                right = [0] * n
-                                stack2 = []
-                                for i in range(n - 1, -1, -1):
-                                    cur = 0
-                                    while stack2 and stack2[-1][0] >= nums[i]:
-                                        cur += stack2.pop()[1] + 1
-                                    stack2.append((nums[i], cur))
-                                    right[i] = cur
+        right = [0] * n
+        stack2 = []
+        for i in range(n - 1, -1, -1):
+            cur = 0
+            while stack2 and stack2[-1][0] >= nums[i]:
+                cur += stack2.pop()[1] + 1
+            stack2.append((nums[i], cur))
+            right[i] = cur
 
-                                # Calculate the maximum sum of minimum product
-                                max_product = 0
-                                for i in range(n):
-                                    range_sum = prefix_sum[i + right[i] + 1] - prefix_sum[i - left[i]]
-                                    max_product = max(max_product, nums[i] * range_sum)
+        max_product = 0
+        for i in range(n):
+            range_sum = prefix_sum[i + right[i] + 1] - prefix_sum[i - left[i]]
+            max_product = max(max_product, nums[i] * range_sum)
 
-                                return max_product % mod
+        return max_product % mod
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int maxSumMinProduct(int[] nums) {
-                                int mod = 1000000007;
-                                int n = nums.length;
+class Solution {
+    public int maxSumMinProduct(int[] nums) {
+        int mod = 1000000007;
+        int n = nums.length;
 
-                                int[] left = new int[n];
-                                int[] right = new int[n];
-                                long[] prefixSum = new long[n + 1];
+        int[] left = new int[n];
+        int[] right = new int[n];
+        long[] prefixSum = new long[n + 1];
+        for (int i = 1; i <= n; i++) {
+            prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+        }
 
-                                // Calculate prefix sum
-                                prefixSum[0] = 0;
-                                for (int i = 1; i <= n; i++) {
-                                    prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
-                                }
+        Stack<int[]> stack1 = new Stack<>();
+        left[0] = 0;
+        stack1.push(new int[] { nums[0], 0 });
+        for (int i = 1; i < n; i++) {
+            int cur = 0;
+            while (!stack1.isEmpty() && stack1.peek()[0] >= nums[i]){
+                cur += stack1.pop()[1] + 1;
+            }
+            stack1.push(new int[] { nums[i], cur });
+            left[i] = cur;
+        }
 
-                                // Calculate left boundaries
-                                Stack<int[]> stack1 = new Stack<>();
-                                left[0] = 0;
-                                stack1.push(new int[] { nums[0], 0 });
-                                for (int i = 1; i < n; i++) {
-                                    int cur = 0;
-                                    while (!stack1.isEmpty() && stack1.peek()[0] >= nums[i]) {
-                                        cur += stack1.pop()[1] + 1;
-                                    }
-                                    stack1.push(new int[] { nums[i], cur });
-                                    left[i] = cur;
-                                }
+        Stack<int[]> stack2 = new Stack<>();
+        right[n - 1] = 0;
+        stack2.push(new int[] { nums[n - 1], 0 });
+        for (int i = n - 2; i >= 0; i--) {
+            int cur = 0;
+            while (!stack2.isEmpty() && stack2.peek()[0] >= nums[i]){
+                cur += stack2.pop()[1] + 1;
+            }
+            stack2.push(new int[] { nums[i], cur });
+            right[i] = cur;
+        }
 
-                                // Calculate right boundaries
-                                Stack<int[]> stack2 = new Stack<>();
-                                right[n - 1] = 0;
-                                stack2.push(new int[] { nums[n - 1], 0 });
-                                for (int i = n - 2; i >= 0; i--) {
-                                    int cur = 0;
-                                    while (!stack2.isEmpty() && stack2.peek()[0] >= nums[i]) {
-                                        cur += stack2.pop()[1] + 1;
-                                    }
-                                    stack2.push(new int[] { nums[i], cur });
-                                    right[i] = cur;
-                                }
+        long ans = 0;
+        for (int i = 0; i < n; i++) {
+            long rangeSum = prefixSum[i + right[i] + 1] - prefixSum[i - left[i]];
+            ans = Math.max(ans, nums[i] * rangeSum);
+        }
 
-                                // Calculate the maximum sum of minimum product
-                                long ans = 0;
-                                for (int i = 0; i < n; i++) {
-                                    long rangeSum = prefixSum[i + right[i] + 1] - prefixSum[i - left[i]];
-                                    ans = Math.max(ans, nums[i] * rangeSum);
-                                }
-
-                                return (int) (ans % mod);
-                            }
-                        }
+        return (int) (ans % mod);
+    }
+}
                     `
             },
         }
@@ -10148,71 +10037,71 @@ export const PrefixSumData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<int> productExceptSelf(vector<int>& nums) {
-                                vector<int> output(nums.size(), 1);
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> output(nums.size(), 1);
 
-                                int left = 1;
-                                for (int i = 0; i < nums.size(); i++) {
-                                    output[i] *= left;
-                                    left *= nums[i];
-                                }
+        int left = 1;
+        for (int i = 0; i < nums.size(); i++) {
+            output[i] *= left;
+            left *= nums[i];
+        }
 
-                                int right = 1;
-                                for (int i = nums.size() - 1; i >= 0; i--) {
-                                    output[i] *= right;
-                                    right *= nums[i];
-                                }
+        int right = 1;
+        for (int i = nums.size() - 1; i >= 0; i--) {
+            output[i] *= right;
+            right *= nums[i];
+        }
 
-                                return output;        
-                            }
-                        };
+        return output;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def productExceptSelf(self, nums: List[int]) -> List[int]:
-                                output = [1] * len(nums)
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        output = [1] * len(nums)
                                 
-                                left = 1
-                                for i in range(len(nums)):
-                                    output[i] *= left
-                                    left *= nums[i]
+        left = 1
+        for i in range(len(nums)):
+            output[i] *= left
+            left *= nums[i]
                                 
-                                right = 1
-                                for i in range(len(nums) - 1, -1, -1):
-                                    output[i] *= right
-                                    right *= nums[i]
+        right = 1
+        for i in range(len(nums) - 1, -1, -1):
+            output[i] *= right
+            right *= nums[i]
                             
-                                return output        
+        return output        
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int[] productExceptSelf(int[] nums) {
-                                int[] output = new int[nums.length];
-                                for (int i = 0; i < nums.length; i++) {
-                                    output[i] = 1;
-                                }
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] output = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            output[i] = 1;
+        }
 
-                                int left = 1;
-                                for (int i = 0; i < nums.length; i++) {
-                                    output[i] *= left;
-                                    left *= nums[i];
-                                }
+        int left = 1;
+        for (int i = 0; i < nums.length; i++) {
+            output[i] *= left;
+            left *= nums[i];
+        }
 
-                                int right = 1;
-                                for (int i = nums.length - 1; i >= 0; i--) {
-                                    output[i] *= right;
-                                    right *= nums[i];
-                                }
+        int right = 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            output[i] *= right;
+            right *= nums[i];
+        }
 
-                                return output;        
-                            }
-                        }
+        return output;        
+    }
+}
                     `
             },
         }
@@ -10228,67 +10117,57 @@ export const PrefixSumData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int subarraySum(vector<int>& nums, int k) {
-                                unordered_map<int, int> subNum;
-                                subNum[0] = 1;
-                                int total = 0, count = 0;
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        unordered_map<int, int> subNum;
+        subNum[0] = 1;
+        int total = 0, count = 0;
 
-                                for (int n : nums) {
-                                    total += n;
+        for (int n : nums) {
+            total += n;
+            if (subNum.find(total - k) != subNum.end()) count += subNum[total - k];
+            subNum[total]++;
+        }
 
-                                    if (subNum.find(total - k) != subNum.end()) {
-                                        count += subNum[total - k];
-                                    }
-
-                                    subNum[total]++;
-                                }
-
-                                return count;
-                            }
-                        };
+        return count;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def subarraySum(self, nums: List[int], k: int) -> int:
-                                sub_num = {0:1}
-                                total = count = 0
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        sub_num = {0:1}
+        total = count = 0
 
-                                for n in nums:
-                                    total += n
-                                    
-                                    if total - k in sub_num:
-                                        count += sub_num[total-k]
-                                    
-                                    sub_num[total] = 1 + sub_num.get(total, 0)
+        for n in nums:
+            total += n                 
+            if total - k in sub_num:
+                count += sub_num[total-k]              
+            sub_num[total] = 1 + sub_num.get(total, 0)
                                 
-                                return count
+        return count
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int subarraySum(int[] nums, int k) {
-                                HashMap<Integer, Integer> subNum = new HashMap<>();
-                                subNum.put(0, 1);
-                                int total = 0, count = 0;
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        HashMap<Integer, Integer> subNum = new HashMap<>();
+        subNum.put(0, 1);
+        int total = 0, count = 0;
 
-                                for (int n : nums) {
-                                    total += n;
+        for (int n : nums) {
+            total += n;
+            if (subNum.containsKey(total - k)) count += subNum.get(total - k);
+            subNum.put(total, subNum.getOrDefault(total, 0) + 1);
+        }
 
-                                    if (subNum.containsKey(total - k)) {
-                                        count += subNum.get(total - k);
-                                    }
-
-                                    subNum.put(total, subNum.getOrDefault(total, 0) + 1);
-                                }
-
-                                return count;        
-                            }
-                        }
+        return count;        
+    }
+}
                     `
             },
         }
@@ -10304,78 +10183,74 @@ export const PrefixSumData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                                int minSubarray(vector<int>& A, int p) {
-                                int n = A.size(), res = n, need = 0, cur = 0;
-                                for (auto a : A)
-                                    need = (need + a) % p;
-                                unordered_map<int, int> last = {{0, -1}};
-                                for (int i = 0; i < n; ++i) {
-                                    cur = (cur + A[i]) % p;
-                                    last[cur] = i;
-                                    int want = (cur - need + p) % p;
-                                    if (last.count(want))
-                                        res = min(res, i - last[want]);
-                                }
-                                return res < n ? res : -1;
-                            }
-                        };
+class Solution {
+public:
+        int minSubarray(vector<int>& A, int p) {
+        int n = A.size(), res = n, need = 0, cur = 0;
+        for (auto a : A)
+            need = (need + a) % p;
+
+        unordered_map<int, int> last = {{0, -1}};
+        for (int i = 0; i < n; ++i) {
+            cur = (cur + A[i]) % p;
+            last[cur] = i;
+            int want = (cur - need + p) % p;
+            if (last.count(want)) res = min(res, i - last[want]);
+        }
+        return res < n ? res : -1;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def minSubarray(self, A: List[int], p: int) -> int:
-                                n = len(A)
-                                need = sum(A) % p
-                                if need == 0:
-                                    return 0
+class Solution:
+    def minSubarray(self, A: List[int], p: int) -> int:
+        n = len(A)
+        need = sum(A) % p
+        if need == 0:
+            return 0
                                 
-                                last = {0: -1}  # Store remainder and its last occurrence
-                                cur = 0
-                                res = n
+        last = {0: -1}
+        cur = 0
+        res = n
 
-                                for i, a in enumerate(A):
-                                    cur = (cur + a) % p
-                                    last[cur] = i
-                                    want = (cur - need + p) % p
-                                    if want in last:
-                                        res = min(res, i - last[want])
+        for i, a in enumerate(A):
+            cur = (cur + a) % p
+            last[cur] = i
+            want = (cur - need + p) % p
+            if want in last:
+                res = min(res, i - last[want])
                                 
-                                return res if res < n else -1
+        return res if res < n else -1
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int minSubarray(int[] A, int p) {
-                                int n = A.length;
-                                int need = 0;
-                                for (int a : A) {
-                                    need = (need + a) % p;
-                                }
-                                if (need == 0) {
-                                    return 0;
-                                }
+class Solution {
+    public int minSubarray(int[] A, int p) {
+        int n = A.length;
+        int need = 0;
+        for (int a : A) need = (need + a) % p;
+        if (need == 0) return 0;
 
-                                Map<Integer, Integer> last = new HashMap<>();
-                                last.put(0, -1); // Store remainder and its last occurrence
-                                int cur = 0;
-                                int res = n;
+        Map<Integer, Integer> last = new HashMap<>();
+        last.put(0, -1);
+        int cur = 0;
+        int res = n;
 
-                                for (int i = 0; i < n; ++i) {
-                                    cur = (cur + A[i]) % p;
-                                    last.put(cur, i);
-                                    int want = (cur - need + p) % p;
-                                    if (last.containsKey(want)) {
-                                        res = Math.min(res, i - last.get(want));
-                                    }
-                                }
+        for (int i = 0; i < n; ++i) {
+            cur = (cur + A[i]) % p;
+            last.put(cur, i);
+            int want = (cur - need + p) % p;
+            if (last.containsKey(want)) {
+                res = Math.min(res, i - last.get(want));
+            }
+        }
 
-                                return res < n ? res : -1;
-                            }
-                        }
+        return res < n ? res : -1;
+    }
+}
                     `
             },
         }
@@ -10391,123 +10266,102 @@ export const PrefixSumData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int subarraySum(vector<int>& nums, int k) {
-                                int count=0,sum=0;
-                                map<int,int>mp;
-                                for(int i=0;i<nums.size();i++)
-                                {
-                                    sum+=nums[i];
-                                    if(sum==k)
-                                    {
-                                        count++;
-                                    }
-                                    if(mp.find(sum-k)!=mp.end())
-                                    {
-                                    count+=mp[sum-k];  
-                                    }
-                                    mp[sum]++;
-                                }
-                                return count;
-                            }
-                            int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
-                            int count=0;
-                                for(int i=0; i<matrix.size(); i++){
-                                    
-                                    vector<int> sum(matrix[0].size(), 0);
-                                    for(int j=i; j<matrix.size(); j++){
-                                        for(int k=0; k<matrix[0].size(); k++){
-                                            sum[k] += matrix[j][k];
-                                        }
-                                        count += subarraySum(sum, target);
-                                    }
-                                }
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int count=0,sum=0;
+        map<int,int>mp;
+        for(int i=0;i<nums.size();i++)
+            sum+=nums[i];
+            if(sum==k) count++;
+            if(mp.find(sum-k)!=mp.end()) count+=mp[sum-k];  
+            mp[sum]++;
+        }
+
+        return count;
+    }
+
+    int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
+        int count = 0;
+        for(int i = 0; i < matrix.size(); i++){                   
+            vector<int> sum(matrix[0].size(), 0);
+            for(int j = i; j < matrix.size(); j++){
+                for(int k=0; k<matrix[0].size(); k++) sum[k] += matrix[j][k];
+                count += subarraySum(sum, target);
+            }
+        }
                             
-                            return count;
-                            }
-                        }; 
+    return count;
+    }
+}; 
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def subarraySum(self, nums: List[int], k: int) -> int:
-                                count = 0
-                                sum_val = 0
-                                mp = defaultdict(int)
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        count = 0
+        sum_val = 0
+        mp = defaultdict(int)
 
-                                for num in nums:
-                                    sum_val += num
+        for num in nums:
+            sum_val += num
+            if sum_val == k:
+                count += 1
 
-                                    if sum_val == k:
-                                        count += 1
+            if sum_val - k in mp:
+                count += mp[sum_val - k]
+            mp[sum_val] += 1
 
-                                    if sum_val - k in mp:
-                                        count += mp[sum_val - k]
+        return count
 
-                                    mp[sum_val] += 1
+    def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
+        count = 0
+        for i in range(len(matrix)):
+            sum_val = [0] * len(matrix[0])
 
-                                return count
+            for j in range(i, len(matrix)):
+                for k in range(len(matrix[0])):
+                    sum_val[k] += matrix[j][k]
 
-                            def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
-                                count = 0
+                count += self.subarraySum(sum_val, target)
 
-                                for i in range(len(matrix)):
-                                    sum_val = [0] * len(matrix[0])
-
-                                    for j in range(i, len(matrix)):
-                                        for k in range(len(matrix[0])):
-                                            sum_val[k] += matrix[j][k]
-
-                                        count += self.subarraySum(sum_val, target)
-
-                                return count
+        return count
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int subarraySum(int[] nums, int k) {
-                                int count = 0;
-                                int sum = 0;
-                                Map<Integer, Integer> mp = new HashMap<>();
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int count = 0;
+        int sum = 0;
+        Map<Integer, Integer> mp = new HashMap<>();
 
-                                for (int i = 0; i < nums.length; i++) {
-                                    sum += nums[i];
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum == k) count++;
 
-                                    if (sum == k) {
-                                        count++;
-                                    }
+            if (mp.containsKey(sum - k)) count += mp.get(sum - k);
+            mp.put(sum, mp.getOrDefault(sum, 0) + 1);
+        }
 
-                                    if (mp.containsKey(sum - k)) {
-                                        count += mp.get(sum - k);
-                                    }
+        return count;
+    }
 
-                                    mp.put(sum, mp.getOrDefault(sum, 0) + 1);
-                                }
+    public int numSubmatrixSumTarget(int[][] matrix, int target) {
+        int count = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            int[] sum = new int[matrix[0].length];
 
-                                return count;
-                            }
+            for (int j = i; j < matrix.length; j++) {
+                for (int k = 0; k < matrix[0].length; k++) sum[k] += matrix[j][k];
+                count += subarraySum(sum, target);
+            }
+        }
 
-                            public int numSubmatrixSumTarget(int[][] matrix, int target) {
-                                int count = 0;
-
-                                for (int i = 0; i < matrix.length; i++) {
-                                    int[] sum = new int[matrix[0].length];
-
-                                    for (int j = i; j < matrix.length; j++) {
-                                        for (int k = 0; k < matrix[0].length; k++) {
-                                            sum[k] += matrix[j][k];
-                                        }
-
-                                        count += subarraySum(sum, target);
-                                    }
-                                }
-
-                                return count;
-                            }
-                        }
+        return count;
+    }
+}
                     `
             },
         }
@@ -10523,126 +10377,101 @@ export const PrefixSumData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            int minMoves(vector<int>& nums, int k) {
-                                vector<int> pos;
-                                for (int i = 0; i < nums.size(); ++i) {
-                                    if (nums[i] == 1) {
-                                        pos.push_back(i);
-                                    }
-                                }
+class Solution {
+public:
+    int minMoves(vector<int>& nums, int k) {
+        vector<int> pos;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] == 1) pos.push_back(i);
+        }
 
-                                for (int i = 0; i < pos.size(); ++i) {
-                                    pos[i] -= i;
-                                }
+        for (int i = 0; i < pos.size(); ++i) pos[i] -= i;
+        int mid = k / 2;
+        int sizeLeft = mid;
+        int sizeRight = k - 1 - sizeLeft;
+        long long curLeft = 0, curRight = 0;
 
-                                int mid = k / 2;
-                                int sizeLeft = mid;
-                                int sizeRight = k - 1 - sizeLeft;
+        for (int i = 0; i < sizeLeft; ++i) curLeft += abs(pos[i] - pos[mid]);
+        for (int i = mid + 1; i < k; ++i) curRight += abs(pos[i] - pos[mid]);
 
-                                long long curLeft = 0, curRight = 0;
-                                for (int i = 0; i < sizeLeft; ++i) {
-                                    curLeft += abs(pos[i] - pos[mid]);
-                                }
-                                for (int i = mid + 1; i < k; ++i) {
-                                    curRight += abs(pos[i] - pos[mid]);
-                                }
+        long long minRes = curLeft + curRight;
 
-                                long long minRes = curLeft + curRight;
+        for (int ptr = 1; ptr <= pos.size() - k; ++ptr) {
+            curLeft -= (pos[ptr + mid - 1] - pos[ptr - 1]);
+            curLeft += (pos[ptr + mid] - pos[ptr + mid - 1]) * sizeLeft;
 
-                                for (int ptr = 1; ptr <= pos.size() - k; ++ptr) {
-                                    curLeft -= (pos[ptr + mid - 1] - pos[ptr - 1]);
-                                    curLeft += (pos[ptr + mid] - pos[ptr + mid - 1]) * sizeLeft;
+            curRight -= (pos[ptr + mid] - pos[ptr + mid - 1]) * sizeRight;
+            curRight += (pos[ptr + k - 1] - pos[ptr + mid]);
+            minRes = min(minRes, curLeft + curRight);
+        }
 
-                                    curRight -= (pos[ptr + mid] - pos[ptr + mid - 1]) * sizeRight;
-                                    curRight += (pos[ptr + k - 1] - pos[ptr + mid]);
-
-                                    minRes = min(minRes, curLeft + curRight);
-                                }
-
-                                return minRes;
-                            }
-                        };
+        return minRes;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def minMoves(self, nums: List[int], k: int) -> int:
-                                pos = [p for p,x in enumerate(nums) if x == 1]
-                                print(pos)
+class Solution:
+    def minMoves(self, nums: List[int], k: int) -> int:
+        pos = [p for p,x in enumerate(nums) if x == 1]
+        print(pos)
 
-                                pos = [p-i for i,p in enumerate(pos)]        
-                                print(pos)
+        pos = [p-i for i,p in enumerate(pos)]        
+        print(pos)
+        mid = k//2
+        sizeleft = mid
+        sizeright = k-1-sizeleft
                                 
-                                mid = k//2
-                                sizeleft = mid
-                                sizeright = k-1-sizeleft
+        curleft = sum(abs(x - pos[mid]) for x in pos[:sizeleft])
+        curright = sum(abs(x - pos[mid]) for x in pos[mid+1:k])        
+        minres = curleft + curright
                                 
-                                curleft = sum(abs(x - pos[mid]) for x in pos[:sizeleft])
-                                curright = sum(abs(x - pos[mid]) for x in pos[mid+1:k])        
-                                minres = curleft + curright
+        print(curleft, curright, minres)
+        for ptr in range(1, len(pos)-k+1):
+            curleft -= (pos[ptr+mid-1] - pos[ptr-1])
+            curleft += (pos[ptr+mid] - pos[ptr+mid-1])*sizeleft
                                 
-                                print(curleft, curright, minres)
-                                
-                                for ptr in range(1, len(pos)-k+1):
-                                    # print("ptr", ptr, ptr+mid, ptr+k)
-                                    curleft -= (pos[ptr+mid-1] - pos[ptr-1])
-                                    curleft += (pos[ptr+mid] - pos[ptr+mid-1])*sizeleft
-                                
-                                    curright -= (pos[ptr+mid] - pos[ptr+mid-1])*sizeright
-                                    curright += (pos[ptr+k-1] - pos[ptr+mid])
-                                
-                                    minres = min(minres, curleft+curright)
-                                    # print(curleft, curright, minres)
+            curright -= (pos[ptr+mid] - pos[ptr+mid-1])*sizeright
+            curright += (pos[ptr+k-1] - pos[ptr+mid])
+            minres = min(minres, curleft+curright)
                                     
-                                print()
-                                return minres
+        print()
+        return minres
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public int minMoves(int[] nums, int k) {
-                                List<Integer> pos = new ArrayList<>();
-                                for (int i = 0; i < nums.length; ++i) {
-                                    if (nums[i] == 1) {
-                                        pos.add(i);
-                                    }
-                                }
+class Solution {
+    public int minMoves(int[] nums, int k) {
+        List<Integer> pos = new ArrayList<>();
+        for (int i = 0; i < nums.length; ++i) {
+            if (nums[i] == 1) pos.add(i);
+        }
 
-                                for (int i = 0; i < pos.size(); ++i) {
-                                    pos.set(i, pos.get(i) - i);
-                                }
+        for (int i = 0; i < pos.size(); ++i) pos.set(i, pos.get(i) - i);
 
-                                int mid = k / 2;
-                                int sizeLeft = mid;
-                                int sizeRight = k - 1 - sizeLeft;
+        int mid = k / 2;
+        int sizeLeft = mid;
+        int sizeRight = k - 1 - sizeLeft;
+        long curLeft = 0, curRight = 0;
 
-                                long curLeft = 0, curRight = 0;
-                                for (int i = 0; i < sizeLeft; ++i) {
-                                    curLeft += Math.abs(pos.get(i) - pos.get(mid));
-                                }
-                                for (int i = mid + 1; i < k; ++i) {
-                                    curRight += Math.abs(pos.get(i) - pos.get(mid));
-                                }
+        for (int i = 0; i < sizeLeft; ++i) curLeft += Math.abs(pos.get(i) - pos.get(mid));
+        for (int i = mid + 1; i < k; ++i) curRight += Math.abs(pos.get(i) - pos.get(mid));
 
-                                long minRes = curLeft + curRight;
+        long minRes = curLeft + curRight;
+        for (int ptr = 1; ptr <= pos.size() - k; ++ptr) {
+            curLeft -= (pos.get(ptr + mid - 1) - pos.get(ptr - 1));
+            curLeft += (pos.get(ptr + mid) - pos.get(ptr + mid - 1)) * sizeLeft;
 
-                                for (int ptr = 1; ptr <= pos.size() - k; ++ptr) {
-                                    curLeft -= (pos.get(ptr + mid - 1) - pos.get(ptr - 1));
-                                    curLeft += (pos.get(ptr + mid) - pos.get(ptr + mid - 1)) * sizeLeft;
+            curRight -= (pos.get(ptr + mid) - pos.get(ptr + mid - 1)) * sizeRight;
+            curRight += (pos.get(ptr + k - 1) - pos.get(ptr + mid));
+            minRes = Math.min(minRes, curLeft + curRight);
+        }
 
-                                    curRight -= (pos.get(ptr + mid) - pos.get(ptr + mid - 1)) * sizeRight;
-                                    curRight += (pos.get(ptr + k - 1) - pos.get(ptr + mid));
-
-                                    minRes = Math.min(minRes, curLeft + curRight);
-                                }
-
-                                return (int) minRes;
-                            }
-                        }
+        return (int) minRes;
+    }
+}
                     `
             },
         }
@@ -10656,7 +10485,7 @@ export const LinkedListData = [
         img: share,
         level: "Easy",
         url: "https://leetcode.com/problems/remove-duplicates-from-sorted-list/",
-                solution: {
+        solution: {
             description: "Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.",
             code:{
                 cpp: 
@@ -10674,11 +10503,8 @@ public:
     ListNode* deleteDuplicates(ListNode* head) {
         ListNode* current = head;
         while (current && current->next) {
-            if (current->val == current->next->val) {
-                current->next = current->next->next; // Skip the duplicate node
-            } else {
-                current = current->next; // Move to the next node
-            }
+            if (current->val == current->next->val) current->next = current->next->next;
+            else current = current->next; 
         }
         return head;
     }
@@ -10718,11 +10544,8 @@ class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         ListNode current = head;
         while (current != null && current.next != null) {
-            if (current.val == current.next.val) {
-                current.next = current.next.next; // Skip the duplicate node
-            } else {
-                current = current.next; // Move to the next node
-            }
+            if (current.val == current.next.val) current.next = current.next.next;
+            else current = current.next;
         }
         return head;
     }
@@ -12618,6 +12441,7 @@ public class Solution {
     },
 ]
 
+// Needs to change
 export const BacktrackingData = [
     {
         id: 1,
