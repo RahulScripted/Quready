@@ -31,6 +31,7 @@ import { useEffect, useState } from "react"
 import Preloader from "./components/Preloader/Preloader"
 import Test from "./components/Test/Test"
 import Solution from "./components/Solution/Solution"
+import Chatbot from "./components/Chatbot/chatbot"
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
             <div className="z-10">
               <Navbar />
               <ScrollToTop />
+              <Chatbot />
               <Routes onNavigate={() => window.scrollTo(0,0)}>
                 <Route path="/" element={<Home />} />
                 <Route path="/contact" element={<Contact />} />

@@ -12441,7 +12441,6 @@ public class Solution {
     },
 ]
 
-// Needs to change
 export const BacktrackingData = [
     {
         id: 1,
@@ -12454,85 +12453,85 @@ export const BacktrackingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-                                vector<vector<int>> res;
-                                vector<int> comb;
-                                makeCombination(candidates, target, 0, comb, 0, res);
-                                return res;        
-                            }
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> res;
+        vector<int> comb;
+        makeCombination(candidates, target, 0, comb, 0, res);
+        return res;        
+    }
 
-                        private:
-                            void makeCombination(std::vector<int>& candidates, int target, int idx, vector<int>& comb, int total, vector<vector<int>>& res) {
-                                if (total == target) {
-                                    res.push_back(comb);
-                                    return;
-                                }
+private:
+    void makeCombination(std::vector<int>& candidates, int target, int idx, vector<int>& comb, int total, vector<vector<int>>& res){
+        if (total == target) {
+            res.push_back(comb);
+            return;
+        }
 
-                                if (total > target || idx >= candidates.size()) {
-                                    return;
-                                }
+        if (total > target || idx >= candidates.size()) {
+            return;
+        }
 
-                                comb.push_back(candidates[idx]);
-                                makeCombination(candidates, target, idx, comb, total + candidates[idx], res);
-                                comb.pop_back();
-                                makeCombination(candidates, target, idx + 1, comb, total, res);
-                            }    
-                        };
+        comb.push_back(candidates[idx]);
+        makeCombination(candidates, target, idx, comb, total + candidates[idx], res);
+        comb.pop_back();
+        makeCombination(candidates, target, idx + 1, comb, total, res);
+    }    
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
                                     
-                                res = []
+        res = []
 
-                                def make_combination(idx, comb, total):
-                                    if total == target:
-                                        res.append(comb[:])
-                                        return
+        def make_combination(idx, comb, total):
+            if total == target:
+                res.append(comb[:])
+                return
                                     
-                                    if total > target or idx >= len(candidates):
-                                        return
+            if total > target or idx >= len(candidates):
+                return
                                     
-                                    comb.append(candidates[idx])
-                                    make_combination(idx, comb, total + candidates[idx])
-                                    comb.pop()
-                                    make_combination(idx+1, comb, total)
+            comb.append(candidates[idx])
+            make_combination(idx, comb, total + candidates[idx])
+            comb.pop()
+            make_combination(idx+1, comb, total)
 
-                                    return res
+            return res
 
-                                return make_combination(0, [], 0)
+        return make_combination(0, [], 0)
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public List<List<Integer>> combinationSum(int[] candidates, int target) {
-                                List<List<Integer>> res = new ArrayList<>();
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
 
-                                makeCombination(candidates, target, 0, new ArrayList<>(), 0, res);
-                                return res;        
-                            }
+        makeCombination(candidates, target, 0, new ArrayList<>(), 0, res);
+        return res;        
+    }
 
-                            private void makeCombination(int[] candidates, int target, int idx, List<Integer> comb, int total, List<List<Integer>> res) {
-                                if (total == target) {
-                                    res.add(new ArrayList<>(comb));
-                                    return;
-                                }
+    private void makeCombination(int[] candidates, int target, int idx, List<Integer> comb, int total, List<List<Integer>> res) {
+        if (total == target) {
+            res.add(new ArrayList<>(comb));
+            return;
+        }
 
-                                if (total > target || idx >= candidates.length) {
-                                    return;
-                                }
+        if (total > target || idx >= candidates.length) {
+            return;
+        }
 
-                                comb.add(candidates[idx]);
-                                makeCombination(candidates, target, idx, comb, total + candidates[idx], res);
-                                comb.remove(comb.size() - 1);
-                                makeCombination(candidates, target, idx + 1, comb, total, res);
-                            }    
-                        }
+        comb.add(candidates[idx]);
+        makeCombination(candidates, target, idx, comb, total + candidates[idx], res);
+        comb.remove(comb.size() - 1);
+        makeCombination(candidates, target, idx + 1, comb, total, res);
+    }    
+}
                     `
             },
         }
@@ -12548,94 +12547,94 @@ export const BacktrackingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<vector<int>> permute(vector<int>& nums) {
-                                vector<vector<int>> res;
-                                if (nums.size() == 1) {
-                                    vector<int> singleList;
-                                    singleList.push_back(nums[0]);
-                                    res.push_back(singleList);
-                                    return res;
-                                }
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> res;
+        if (nums.size() == 1) {
+            vector<int> singleList;
+            singleList.push_back(nums[0]);
+            res.push_back(singleList);
+            return res;
+        }
 
-                                for (int i = 0; i < nums.size(); i++) {
-                                    int n = nums[i];
-                                    vector<int> remainingNums;
-                                    for (int j = 0; j < nums.size(); j++) {
-                                        if (j != i) {
-                                            remainingNums.push_back(nums[j]);
-                                        }
-                                    }
+        for (int i = 0; i < nums.size(); i++) {
+            int n = nums[i];
+            vector<int> remainingNums;
+            for (int j = 0; j < nums.size(); j++) {
+                if (j != i) {
+                    remainingNums.push_back(nums[j]);
+                }
+             }
                                     
-                                    vector<vector<int>> perms = permute(remainingNums);
-                                    for (vector<int> p : perms) {
-                                        p.insert(p.begin(), n);  // Insert n at the beginning of the permutation
-                                        res.push_back(p);  // Append the modified permutation to the result
-                                    }
-                                }
+            vector<vector<int>> perms = permute(remainingNums);
+            for (vector<int> p : perms) {
+                p.insert(p.begin(), n);
+                res.push_back(p);
+            }
+        }
                                 
-                                return res;    
-                            }
-                        };
+        return res;    
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def permute(self, nums: List[int]) -> List[List[int]]:
-                                if len(nums) == 1:
-                                    return [nums[:]]
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) == 1:
+            return [nums[:]]
                                 
-                                res = []
+        res = []
 
-                                for _ in range(len(nums)):
-                                    n = nums.pop(0)
-                                    perms = self.permute(nums)
+        for _ in range(len(nums)):
+            n = nums.pop(0)
+            perms = self.permute(nums)
 
-                                    for p in perms:
-                                        p.append(n)
+            for p in perms:
+                p.append(n)
                                     
-                                    res.extend(perms)
-                                    nums.append(n)
+            res.extend(perms)
+            nums.append(n)
                                 
-                                return res
+        return res
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public List<List<Integer>> permute(int[] nums) {
-                                List<List<Integer>> res = new ArrayList<>();
-                                if (nums.length == 1) {
-                                    List<Integer> singleList = new ArrayList<>();
-                                    singleList.add(nums[0]);
-                                    res.add(singleList);
-                                    return res;
-                                }
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums.length == 1) {
+            List<Integer> singleList = new ArrayList<>();
+            singleList.add(nums[0]);
+            res.add(singleList);
+            return res;
+        }
 
-                                for (int i = 0; i < nums.length; i++) {
-                                    int n = nums[i];
-                                    int[] remainingNums = new int[nums.length - 1];
-                                    int index = 0;
-                                    for (int j = 0; j < nums.length; j++) {
-                                        if (j != i) {
-                                            remainingNums[index] = nums[j];
-                                            index++;
-                                        }
-                                    }
+        for (int i = 0; i < nums.length; i++) {
+            int n = nums[i];
+            int[] remainingNums = new int[nums.length - 1];
+            int index = 0;
+            for (int j = 0; j < nums.length; j++) {
+                if (j != i) {
+                    remainingNums[index] = nums[j];
+                    index++;
+                }
+            }
                                     
-                                    List<List<Integer>> perms = permute(remainingNums);
-                                    for (List<Integer> p : perms) {
-                                        p.add(n);
-                                    }
+            List<List<Integer>> perms = permute(remainingNums);
+            for (List<Integer> p : perms) {
+                p.add(n);
+            }
                                     
-                                    res.addAll(perms);
-                                }
+            res.addAll(perms);
+        }
                                 
-                                return res;        
-                            }
-                        }
+        return res;        
+    }
+}
                     `
             },
         }
@@ -12651,77 +12650,77 @@ export const BacktrackingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<vector<int>> combine(int n, int k) {
-                                std::vector<std::vector<int>> res;
-                                std::vector<int> comb;
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        std::vector<std::vector<int>> res;
+        std::vector<int> comb;
 
-                                backtrack(1, comb, res, n, k);
-                                return res;        
-                            }
+        backtrack(1, comb, res, n, k);
+        return res;        
+    }
 
-                        private:
-                            void backtrack(int start, std::vector<int>& comb, std::vector<std::vector<int>>& res, int n, int k) {
-                                if (comb.size() == k) {
-                                    res.push_back(comb);
-                                    return;
-                                }
+private:
+    void backtrack(int sstd::vector<int>& std::vector<std::vector<int>>& res, int n, int k) {
+        if (comb.size() == k) {
+            res.push_back(comb);
+            return;
+        }
 
-                                for (int num = start; num <= n; num++) {
-                                    comb.push_back(num);
-                                    backtrack(num + 1, comb, res, n, k);
-                                    comb.pop_back();
-                                }
-                            }    
-                        };
+        for (int num = start; num <= n; num++) {
+            comb.push_back(num);
+            backtrack(num + 1, comb, res, n, k);
+            comb.pop_back();
+        }
+    }    
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def combine(self, n: int, k: int) -> List[List[int]]:
-                                res = []
-                                comb = []
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res = []
+        comb = []
 
-                                def backtrack(start):
-                                    if len(comb) == k:
-                                        res.append(comb[:])
-                                        return
+        def backtrack(start):
+            if len(comb) == k:
+                res.append(comb[:])
+                return
                                     
-                                    for num in range(start, n + 1):
-                                        comb.append(num)
-                                        backtrack(num + 1)
-                                        comb.pop()
+            for num in range(start, n + 1):
+                comb.append(num)
+                backtrack(num + 1)
+                comb.pop()
 
-                                backtrack(1)
-                                return res
+        backtrack(1)
+        return res
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public List<List<Integer>> combine(int n, int k) {
-                                List<List<Integer>> res = new ArrayList<>();
-                                List<Integer> comb = new ArrayList<>();
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> comb = new ArrayList<>();
 
-                                backtrack(1, comb, res, n, k);
-                                return res;
-                            }
+        backtrack(1, comb, res, n, k);
+        return res;
+    }
 
-                            private void backtrack(int start, List<Integer> comb, List<List<Integer>> res, int n, int k) {
-                                if (comb.size() == k) {
-                                    res.add(new ArrayList<>(comb));
-                                    return;
-                                }
+    private void backtrack(int start, List<Integer> comb, List<List<Integer>> res, int n, int k) {
+        if (comb.size() == k) {
+            res.add(new ArrayList<>(comb));
+            return;
+        }
 
-                                for (int num = start; num <= n; num++) {
-                                    comb.add(num);
-                                    backtrack(num + 1, comb, res, n, k);
-                                    comb.remove(comb.size() - 1);
-                                }
-                            } 
-                        }
+        for (int num = start; num <= n; num++) {
+            comb.add(num);
+            backtrack(num + 1, comb, res, n, k);
+            comb.remove(comb.size() - 1);
+        }
+    } 
+}
                     `
             },
         }
@@ -12737,77 +12736,77 @@ export const BacktrackingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<vector<int>> subsets(vector<int>& nums) {
-                                vector<vector<int>> res;
-                                vector<int> subset;
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> subset;
 
-                                createSubset(nums, 0, res, subset);
-                                return res;        
-                            }
+        createSubset(nums, 0, res, subset);
+        return res;        
+    }
 
-                            void createSubset(vector<int>& nums, int index, vector<vector<int>>& res, vector<int>& subset) {
-                                if (index == nums.size()) {
-                                    res.push_back(subset);
-                                    return;
-                                }
+    void createSubset(vector<int>& nums, int index, vector<vector<int>>& res, vector<int>& subset) {
+        if (index == nums.size()) {
+            res.push_back(subset);
+            return;
+        }
 
-                                subset.push_back(nums[index]);
-                                createSubset(nums, index + 1, res, subset);
+        subset.push_back(nums[index]);
+        createSubset(nums, index + 1, res, subset);
 
-                                subset.pop_back();
-                                createSubset(nums, index + 1, res, subset);
-                            }    
-                        };
+        subset.pop_back();
+        createSubset(nums, index + 1, res, subset);
+    }    
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def subsets(self, nums: List[int]) -> List[List[int]]:
-                                res = []
-                                subset = []
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        subset = []
 
-                                def create_subset(i):
-                                    if i == len(nums):
-                                        res.append(subset[:])
-                                        return
+        def create_subset(i):
+            if i == len(nums):
+                res.append(subset[:])
+                return
                                     
-                                    subset.append(nums[i])
-                                    create_subset(i+1)
+            subset.append(nums[i])
+            create_subset(i+1)
 
-                                    subset.pop()
-                                    create_subset(i+1)
+            subset.pop()
+            create_subset(i+1)
 
-                                create_subset(0)
-                                return res
+        create_subset(0)
+        return res
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            public List<List<Integer>> subsets(int[] nums) {
-                                List<List<Integer>> res = new ArrayList<>();
-                                List<Integer> subset = new ArrayList<>();
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> subset = new ArrayList<>();
 
-                                createSubset(nums, 0, res, subset);
-                                return res;        
-                            }
+        createSubset(nums, 0, res, subset);
+        return res;        
+    }
 
-                            private void createSubset(int[] nums, int index, List<List<Integer>> res, List<Integer> subset) {
-                                if (index == nums.length) {
-                                    res.add(new ArrayList<>(subset));
-                                    return;
-                                }
+    private void createSubset(int[] nums, int index, List<List<Integer>> res, List<Integer> subset) {
+        if (index == nums.length) {
+            res.add(new ArrayList<>(subset));
+            return;
+        }
 
-                                subset.add(nums[index]);
-                                createSubset(nums, index + 1, res, subset);
+        subset.add(nums[index]);
+        createSubset(nums, index + 1, res, subset);
 
-                                subset.remove(subset.size() - 1);
-                                createSubset(nums, index + 1, res, subset);
-                            }    
-                        }
+        subset.remove(subset.size() - 1);
+        createSubset(nums, index + 1, res, subset);
+    }    
+}
                     `
             },
         }
@@ -12823,134 +12822,127 @@ export const BacktrackingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            bool exist(vector<vector<char>>& board, string word) {
-                                int rows = board.size();
-                                int cols = board[0].size();
-                                unordered_set<string> visited;
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        int rows = board.size();
+        int cols = board[0].size();
+        unordered_set<string> visited;
 
-                                auto dfs = [&](int r, int c, int k, auto& dfs) -> bool {
-                                    if (k == word.length()) {
-                                        return true;
-                                    }
+        auto dfs = [&](int r, int c, int k, auto& dfs) -> bool {
+            if (k == word.length()) return true;
 
-                                    if (r < 0 || r >= rows || c < 0 || c >= cols || visited.count(to_string(r) + "," + to_string(c)) || board[r][c] != word[k]) {
-                                        return false;
-                                    }
+            if (r < 0 || r >= rows || c < 0 || c >= cols || visited.count(to_string(r) + "," + to_string(c)) || board[r][c] != word[k]) {
+                return false;
+            }
 
-                                    visited.insert(to_string(r) + "," + to_string(c));
-                                    bool res = dfs(r + 1, c, k + 1, dfs) || dfs(r - 1, c, k + 1, dfs) || dfs(r, c + 1, k + 1, dfs) || dfs(r, c - 1, k + 1, dfs);
-                                    visited.erase(to_string(r) + "," + to_string(c));
-                                    return res;
-                                };
+            visited.insert(to_string(r) + "," + to_string(c));
+            bool res = dfs(r + 1, c, k + 1, dfs) || dfs(r - 1, c, k + 1, dfs) || dfs(r, c + 1, k + 1, dfs) || dfs(r, c - 1, k + 1, dfs);
+            visited.erase(to_string(r) + "," + to_string(c));
+            return res;
+        };
 
-                                unordered_map<char, int> count;
-                                for (char c : word) {
-                                    count[c]++;
-                                }
+        unordered_map<char, int> count;
+        for (char c : word) count[c]++;
 
-                                if (count[word[0]] > count[word.back()]) {
-                                    reverse(word.begin(), word.end());
-                                }
+        if (count[word[0]] > count[word.back()]) {
+            reverse(word.begin(), word.end());
+        }
 
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (dfs(r, c, 0, dfs)) {
-                                            return true;
-                                        }
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (dfs(r, c, 0, dfs)) return true;
+            }
+        }
 
-                                return false;        
-                            }
-                        };
+        return false;        
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def exist(self, board: List[List[str]], word: str) -> bool:
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
                             
-                                rows, cols = len(board), len(board[0])
-                                visited = set()
+        rows, cols = len(board), len(board[0])
+        visited = set()
 
-                                def dfs(r, c, k):
-                                    if k == len(word):
-                                        return True
+        def dfs(r, c, k):
+            if k == len(word):
+                return True
 
-                                    if not (0 <= r < rows) or not (0 <= c < cols) or (r,c) in visited or board[r][c] != word[k]:
-                                        return False
+            if not (0 <= r < rows) or not (0 <= c < cols) or (r,c) in visited or board[r][c] != word[k]:
+                return False
                                     
-                                    visited.add((r,c))
-                                    res = dfs(r+1, c, k+1) or dfs(r-1, c, k+1) or dfs(r, c+1, k+1) or dfs(r, c-1, k+1)
+            visited.add((r,c))
+            res = dfs(r+1, c, k+1) or dfs(r-1, c, k+1) or dfs(r, c+1, k+1) or dfs(r, c-1, k+1)
                                     visited.remove((r,c))
-                                    return res
+            return res
                                     
-                                count = {}
-                                for c in word:
-                                    count[c] = 1 + count.get(c, 0)
+        count = {}
+        for c in word:
+            count[c] = 1 + count.get(c, 0)
                                 
-                                if count[word[0]] > count[word[-1]]:
-                                    word = word[::-1]
+        if count[word[0]] > count[word[-1]]:
+            word = word[::-1]
                                 
-                                for r in range(rows):
-                                    for c in range(cols):
-                                        if dfs(r, c, 0): return True
+        for r in range(rows):
+            for c in range(cols):
+                if dfs(r, c, 0): return True
                                 
-                                return False
+        return False
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            private int rows;
-                            private int cols;
-                            private Set<String> visited;
+class Solution {
+    private int rows;
+    private int cols;
+    private Set<String> visited;
 
-                            public boolean exist(char[][] board, String word) {
-                                rows = board.length;
-                                cols = board[0].length;
-                                visited = new HashSet<>();
+    public boolean exist(char[][] board, String word) {
+        rows = board.length;
+        cols = board[0].length;
+        visited = new HashSet<>();
 
-                                Map<Character, Integer> count = new HashMap<>();
-                                for (char c : word.toCharArray()) {
-                                    count.put(c, count.getOrDefault(c, 0) + 1);
-                                }
+        Map<Character, Integer> count = new HashMap<>();
+        for (char c : word.toCharArray()) {
+            count.put(c, count.getOrDefault(c, 0) + 1);
+        }
 
-                                if (count.getOrDefault(word.charAt(0), 0) > count.getOrDefault(word.charAt(word.length() - 1), 0)) {
-                                    word = new StringBuilder(word).reverse().toString();
-                                }
+        if (count.getOrDefault(word.charAt(0), 0) > count.getOrDefaultcharAt(word.length() - 1), 0)) {
+            word = new StringBuilder(reverse().toString();
+        }
 
-                                for (int r = 0; r < rows; r++) {
-                                    for (int c = 0; c < cols; c++) {
-                                        if (dfs(board, word, r, c, 0)) {
-                                            return true;
-                                        }
-                                    }
-                                }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (dfs(board, word, r, c, 0)) return true;
+            }
+        }
 
-                                return false;
-                            }
+        return false;
+    }
 
-                            private boolean dfs(char[][] board, String word, int r, int c, int k) {
-                                if (k == word.length()) {
-                                    return true;
-                                }
+    private boolean dfs(char[][] board, String word, int r, int c, int k) {
+        if (k == word.length()) {
+            return true;
+        }
 
-                                if (r < 0 || r >= rows || c < 0 || c >= cols || visited.contains(r + "," + c) || board[r][c] != word.charAt(k)) {
-                                    return false;
-                                }
+        if (r < 0 || r >= rows || c < 0 || c >= cols || visited.contains(r + "," + c) || board[r][c] != word.charAt(k)) {
+            return false;
+        }
 
-                                visited.add(r + "," + c);
-                                boolean res = dfs(board, word, r + 1, c, k + 1) ||
-                                            dfs(board, word, r - 1, c, k + 1) ||
-                                            dfs(board, word, r, c + 1, k + 1) ||
-                                            dfs(board, word, r, c - 1, k + 1);
-                                visited.remove(r + "," + c);
-                                return res;
-                            }    
-                        }
+        visited.add(r + "," + c);
+        boolean res = dfs(board, word, r + 1, c, k + 1) 
+                      || dfs(board, word, r - 1, c, k + 1)
+                      || dfs(board, word, r, c + 1, k + 1)
+                      || dfs(board, word, r, c - 1, k + 1);
+
+        visited.remove(r + "," + c);
+        return res;
+    }    
+}
                     `
             },
         }
@@ -12966,143 +12958,143 @@ export const BacktrackingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        private: 
-                            bool isSafePlace(int n, vector<string>& nQueens, int row, int col){
-                                for(int i=0; i<n; i++){
-                                    if(nQueens[i][col] == 'Q'){
-                                        return false;
-                                    }
-                                }
-                                for(int i=row-1, j=col-1; i>=0 && j>=0; i--, j--){
-                                    if(nQueens[i][j] == 'Q'){
-                                        return false;
-                                    }
-                                }
-                                for(int i=row-1, j=col+1; i>=0 && j<n; i--, j++){
-                                    if(nQueens[i][j] == 'Q'){
-                                        return false;
-                                    }
-                                }
-                                return true;
-                            }
-                            void solveNQueens(int n, vector<vector<string>>& output, vector<string>& nQueens, int row){
-                                if(row == n){
-                                    output.push_back(nQueens);
-                                    return;
-                                }
-                                for(int col=0; col<n; col++){
-                                    if(isSafePlace(n, nQueens, row, col)){
-                                        nQueens[row][col] = 'Q';
-                                        solveNQueens(n, output, nQueens, row+1);
-                                        nQueens[row][col] = '.';
-                                    }
-                                }
-                            }
-                        public:
-                            vector<vector<string>> solveNQueens(int n) {
-                                vector<vector<string>> output;
-                                vector<string> nQueens(n , string(n, '.'));
-                                solveNQueens(n, output, nQueens, 0);
+class Solution {
+private: 
+    bool isSafePlace(int n, vector<string>& nQueens, int row, int col){
+        for(int i=0; i<n; i++){
+            if(nQueens[i][col] == 'Q'){
+                return false;
+            }
+        }
+        for(int i=row-1, j=col-1; i>=0 && j>=0; i--, j--){
+            if(nQueens[i][j] == 'Q'){
+                return false;
+            }
+        }
+        for(int i=row-1, j=col+1; i>=0 && j<n; i--, j++){
+            if(nQueens[i][j] == 'Q'){
+                return false;
+            }
+        }
+        return true;
+    }
+    void solveNQueens(int n, vector<vector<string>>& output, vector<string>& nQueens, int row){
+        if(row == n){
+            output.push_back(nQueens);
+            return;
+        }
+        for(int col=0; col<n; col++){
+            if(isSafePlace(n, nQueens, row, col)){
+                nQueens[row][col] = 'Q';
+                solveNQueens(n, output, nQueens, row+1);
+                nQueens[row][col] = '.';
+            }
+        }
+    }
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> output;
+        vector<string> nQueens(n , string(n, '.'));
+        solveNQueens(n, output, nQueens, 0);
                                 return output;
-                            }
-                        };
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def solveNQueens(self, n: int) -> List[List[str]]:
-                                def backtrack(r):
-                                    if r == n:
-                                        copy = board[:]
-                                        sol = []
-                                        for c in copy:
-                                            sol.append("".join(c[:]))
-                                        ans.append(sol)
-                                        return
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        def backtrack(r):
+            if r == n:
+                copy = board[:]
+                sol = []
+                for c in copy:
+                    sol.append("".join(c[:]))
+                ans.append(sol)
+                return
 
-                                    for c in range(n):
-                                        if c in placedCol or r + c in placedPos or r - c in placedNeg: continue
+            for c in range(n):
+                if c in placedCol or r + c in placedPos or r - c in placedNeg: continue
 
-                                        board[r][c] = "Q"
-                                        placedCol.add(c)
-                                        placedPos.add(r + c)
-                                        placedNeg.add(r - c)
+                board[r][c] = "Q"
+                placedCol.add(c)
+                placedPos.add(r + c)
+                placedNeg.add(r - c)
 
-                                        backtrack(r + 1)
+                backtrack(r + 1)
 
-                                        board[r][c] = "."
-                                        placedCol.remove(c)
-                                        placedPos.remove(r + c)
-                                        placedNeg.remove(r - c)
+                board[r][c] = "."
+                placedCol.remove(c)
+                placedPos.remove(r + c)
+                placedNeg.remove(r - c)
 
-                                board = [["."] * n for _ in range(n)]
+        board = [["."] * n for _ in range(n)]
                                 
-                                placedCol = set()
-                                placedPos = set()
-                                placedNeg = set()
-                                ans = []
-                                backtrack(0)
-                                return ans
+        placedCol = set()
+        placedPos = set()
+        placedNeg = set()
+        ans = []
+        backtrack(0)
+        return ans
                     `
                 ,
                 java:
                     `
-                        class Solution {
-                            private boolean isSafePlace(int n, char[][] nQueens, int row, int col) {
-                                for (int i = 0; i < n; i++) {
-                                    if (nQueens[i][col] == 'Q') {
-                                        return false;
-                                    }
-                                }
+class Solution {
+    private boolean isSafePlace(int n, char[][] nQueens, int row, int col) {
+        for (int i = 0; i < n; i++) {
+            if (nQueens[i][col] == 'Q') {
+                return false;
+            }
+        }
 
-                                for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
-                                    if (nQueens[i][j] == 'Q') {
-                                        return false;
-                                    }
-                                }
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (nQueens[i][j] == 'Q') {
+                return false;
+            }
+        }
 
-                                for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
-                                    if (nQueens[i][j] == 'Q') {
-                                        return false;
-                                    }
-                                }
+        for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
+            if (nQueens[i][j] == 'Q') {
+                return false;
+            }
+        }
 
-                                return true;
-                            }
+        return true;
+    }
 
-                            private void solveNQueens(int n, List<List<String>> output, char[][] nQueens, int row) {
-                                if (row == n) {
-                                    List<String> solution = new ArrayList<>();
-                                    for (char[] rowArray : nQueens) {
-                                        solution.add(new String(rowArray));
-                                    }
-                                    output.add(solution);
-                                    return;
-                                }
+    private void solveNQueens(int n, List<List<String>> output, char[][] nQueens, int row) {
+        if (row == n) {
+            List<String> solution = new ArrayList<>();
+            for (char[] rowArray : nQueens) {
+                solution.add(new String(rowArray));
+            }
+            output.add(solution);
+            return;
+        }
 
-                                for (int col = 0; col < n; col++) {
-                                    if (isSafePlace(n, nQueens, row, col)) {
-                                        nQueens[row][col] = 'Q';
-                                        solveNQueens(n, output, nQueens, row + 1);
-                                        nQueens[row][col] = '.';
-                                    }
-                                }
-                            }
+        for (int col = 0; col < n; col++) {
+            if (isSafePlace(n, nQueens, row, col)) {
+                nQueens[row][col] = 'Q';
+                solveNQueens(n, output, nQueens, row + 1);
+                nQueens[row][col] = '.';
+            }
+        }
+    }
 
-                            public List<List<String>> solveNQueens(int n) {
-                                List<List<String>> output = new ArrayList<>();
-                                char[][] nQueens = new char[n][n];
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> output = new ArrayList<>();
+        char[][] nQueens = new char[n][n];
                                 
-                                for (int i = 0; i < n; i++) {
-                                    Arrays.fill(nQueens[i], '.');
-                                }
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(nQueens[i], '.');
+        }
                                 
-                                solveNQueens(n, output, nQueens, 0);
-                                return output;
-                            }
-                        }
+        solveNQueens(n, output, nQueens, 0);
+        return output;
+    }
+}
                     `
             },
         }
@@ -13118,136 +13110,137 @@ export const BacktrackingData = [
             code:{
                 cpp: 
                     `
-                        class Solution {
-                        public:
-                            vector<string> removeInvalidParentheses(string s) {
-                                vector<string> res;
-                                if (s.empty()) return res;
-                                unordered_set<string> visited;
-                                queue<string> q;
-                                q.push(s);
-                                visited.insert(s);
-                                bool found = false;
+class Solution {
+public:
+    vector<string> removeInvalidParentheses(string s) {
+        vector<string> res;
+        if (s.empty()) return res;
+        unordered_set<string> visited;
+        queue<string> q;
+        q.push(s);
+        visited.insert(s);
+        bool found = false;
 
-                                while (!q.empty()) {
-                                    s = q.front();
-                                    q.pop();
-                                    if (isValid(s)) {
-                                        res.push_back(s);
-                                        found = true;
-                                    }
-                                    if (found) continue;
-                                    for (int i = 0; i < s.size(); i++) {
-                                        if (s[i] != '(' && s[i] != ')') continue;
-                                        string t = s.substr(0, i) + s.substr(i + 1);
-                                        if (visited.find(t) == visited.end()) {
-                                            q.push(t);
-                                            visited.insert(t);
-                                        }
-                                    }
-                                }
-                                return res;
-                            }
+        while (!q.empty()) {
+            s = q.front();
+            q.pop();
+            if (isValid(s)) {
+                res.push_back(s);
+                found = true;
+            }
+            if (found) continue;
+            for (int i = 0; i < s.size(); i++) {
+                if (s[i] != '(' && s[i] != ')') continue;
+                string t = s.substr(0,s.substr(i + 1);
+                if (visited.find(t) == visited.end()) {
+                    q.push(t);
+                    visited.insert(t);
+                }
+            }
+        }
+        return res;
+    }
 
-                        private:
-                            bool isValid(const string& s) {
-                                int count = 0;
-                                for (char c : s) {
-                                    if (c == '(') count++;
-                                    if (c == ')' && count-- == 0) return false;
-                                }
-                                return count == 0;
-                            }
-                        };
+private:
+    bool isValid(const string& s) {
+        int count = 0;
+        for (char c : s) {
+            if (c == '(') count++;
+            if (c == ')' && count-- return false;
+        }
+        return count == 0;
+    }
+};
                     `
                 ,
                 python:
                     `
-                        class Solution:
-                            def removeInvalidParentheses(self, s: str) -> list:
-                                res = []
-                                if not s:
-                                    return res
-                                visited = set()
-                                queue = deque([s])
-                                visited.add(s)
-                                found = False
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> list:
+        res = []
+        if not s:
+            return res
+        visited = set()
+        queue = deque([s])
+        visited.add(s)
+        found = False
 
-                                while queue:
-                                    s = queue.popleft()
-                                    if self.isValid(s):
-                                        res.append(s)
-                                        found = True
-                                    if found:
-                                        continue
-                                    for i in range(len(s)):
-                                        if s[i] not in '()':
-                                            continue
-                                        t = s[:i] + s[i+1:]
-                                        if t not in visited:
-                                            queue.append(t)
-                                            visited.add(t)
-                                return res
+        while queue:
+            s = queue.popleft()
+            if self.isValid(s):
+                res.append(s)
+                found = True
+            if found:
+                continue
+            for i in range(len(s)):
+                if s[i] not in '()':
+                    continue
+                t = s[:i] + s[i+1:]
+                if t not in visited:
+                    queue.append(t)
+                    visited.add(t)
+        return res
 
-                            def isValid(self, s: str) -> bool:
-                                count = 0
-                                for c in s:
-                                    if c == '(':
-                                        count += 1
-                                    if c == ')':
-                                        count -= 1
-                                    if count < 0:
-                                        return False
-                                return count == 0
+    def isValid(self, s: str) -> bool:
+        count = 0
+        for c in s:
+            if c == '(':
+                count += 1
+            if c == ')':
+                count -= 1
+            if count < 0:
+                return False
+        return count == 0
                     `
                 ,
                 java:
                     `
-                        public class Solution {
-                            public List<String> removeInvalidParentheses(String s) {
-                                List<String> res = new ArrayList<>();
-                                if (s == null) return res;
-                                Set<String> visited = new HashSet<>();
-                                Queue<String> queue = new LinkedList<>();
-                                queue.add(s);
-                                visited.add(s);
-                                boolean found = false;
+public class Solution {
+    public List<StremoveInvalidParentheses(String s) {
+        List<String> res = new ArrayList<>();
+        if (s == null) return res;
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue LinkedList<>();
+        queue.add(s);
+        visited.add(s);
+        boolean found = false;
 
-                                while (!queue.isEmpty()) {
-                                    s = queue.poll();
-                                    if (isValid(s)) {
-                                        res.add(s);
-                                        found = true;
-                                    }
-                                    if (found) continue;
-                                    for (int i = 0; i < s.length(); i++) {
-                                        if (s.charAt(i) != '(' && s.charAt(i) != ')') continue;
-                                        String t = s.substring(0, i) + s.substring(i + 1);
-                                        if (!visited.contains(t)) {
-                                            queue.add(t);
-                                            visited.add(t);
-                                        }
-                                    }
-                                }
-                                return res;
-                            }
+        while (!queue.isEmpty()) {
+            s = queue.poll();
+            if (isValid(s)) {
+                res.add(s);
+                found = true;
+            }
+            if (found) continue;
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) != '(' && s.charAt(i) != ')') continue;
+                String t = s.substring(0, i) + s.substring(i + 1);
+                if (!visited.contains(t)) {
+                    queue.add(t);
+                    visited.add(t);
+                }
+            }
+        }
+        return res;
+    }
 
-                            boolean isValid(String s) {
-                                int count = 0;
-                                for (int i = 0; i < s.length(); i++) {
-                                    char c = s.charAt(i);
-                                    if (c == '(') count++;
-                                    if (c == ')' && count-- == 0) return false;
-                                }
-                                return count == 0;
-                            }
-                        }
+    boolean isValid(String s) {
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') count++;
+            if (c == ')' && count-- return false;
+        }
+        return count == 0;
+    }
+}
                     `
             },
         }
     },
 ]
 
+// Needs to change
 export const TreesData = [
     {
         id: 1,
