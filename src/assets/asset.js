@@ -8787,7 +8787,6 @@ class Solution {
     },
 ]
 
-
 export const TwoPointerData = [
     {
         id: 1,
@@ -13240,6 +13239,713 @@ public class Solution {
     },
 ]
 
+export const HeapData = [
+    {
+        id: 1,
+        name: "Kth Largest Element in an Array",
+        img: share,
+        level: "Medium",
+        url: "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+        solution: {
+            description: "Given an integer array nums and an integer k, return the kth largest element in the array.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, greater<int>> minHeap;
+
+        for (int num : nums) {
+            minHeap.push(num);
+            if (minHeap.size() > k) minHeap.pop();
+        }
+
+        return minHeap.top();        
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        min_heap = []
+
+        for num in nums:
+            heapq.heappush(min_heap, num)
+            if len(min_heap) > k:
+                heapq.heappop(min_heap)
+
+        return min_heap[0]
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+        for (int num : nums) {
+            minHeap.add(num);
+            if (minHeap.size() > k) minHeap.poll();
+        }
+
+        return minHeap.peek();        
+    }
+}
+                    `
+            },
+        }
+    },
+    {
+        id: 2,
+        name: "Top K Frequent Elements",
+        img: share,
+        level: "Medium",
+        url: "https://leetcode.com/problems/top-k-frequent-elements/",
+        solution: {
+            description: "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> counter;
+        for (int n : nums) {
+            counter[n]++;
+        }
+        
+        vector<vector<int>> freq(nums.size() + 1);
+        for (auto& entry : counter) {
+            freq[entry.second].push_back(entry.first);
+        }
+        
+        vector<int> res;
+        for (int i = freq.size() - 1; i >= 0; i--) {
+            for (int num : freq[i]) {
+                res.push_back(num);
+                if (res.size() == k) return res;
+            }
+        }
+        
+        return {};        
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        counter = {}
+
+        for n in nums:
+            counter[n] = 1 + counter.get(n, 0)
+        
+        freq = [[] for _ in range(len(nums) + 1)]
+
+        for n, f in counter.items():
+            freq[f].append(n)
+        
+        res = []
+
+        for i in range(len(freq) - 1, -1, -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> counter = new HashMap<>();
+        for (int n : nums) {
+            counter.put(n, counter.getOrDefault(n, 0) + 1);
+        }
+        
+        List<Integer>[] freq = new ArrayList[nums.length + 1];
+        for (int i = 0; i < freq.length; i++) {
+            freq[i] = new ArrayList<>();
+        }
+        
+        for (Map.Entry<Integer, Integer> entry : counter.entrySet()) {
+            int frequency = entry.getValue();
+            freq[frequency].add(entry.getKey());
+        }
+        
+        int[] res = new int[k];
+        int idx = 0;
+        for (int i = freq.length - 1; i >= 0; i--) {
+            for (int num : freq[i]) {
+                res[idx++] = num;
+                if (idx == k) return res;
+            }
+        }
+        
+        return new int[0];        
+    }
+}
+                    `
+            },
+        }
+    },
+    {
+        id: 3,
+        name: "Find K Pairs with Smallest Sums",
+        img: share,
+        level: "Medium",
+        url: "https://leetcode.com/problems/find-k-pairs-with-smallest-sums/",
+        solution: {
+            description: "You are given two integer arrays nums1 and nums2 sorted in non-decreasing order and an integer k. Define a pair (u, v) which consists of one element from the first array and one element from the second array. Return the k pairs (u1, v1), (u2, v2), ..., (uk, vk) with the smallest sums.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+        vector<vector<int>> ans;
+        int n1 = nums1.size(), n2 = nums2.size();
+        //first find sum for kth smallest
+        long long lo = nums1[0]+nums2[0], hi = nums1[n1-1]+nums2[n2-1];
+        while(lo < hi){
+            long long mid = (lo+hi)>>1;
+            long long ct = 0,j = 0;
+            for(int i = 0, j = n2 - 1; i < n1; ++i) {
+                while(j >= 0 && nums1[i] + nums2[j] > mid) j--;
+                ct += j + 1;
+            }
+            if(ct < k) lo = mid+1;
+            else hi = mid;
+        }
+        for(long long i=0;i<n1;i++){
+            for(long long j=0;(j<n2) && (nums1[i]+nums2[j] < lo);j++){
+                ans.push_back({nums1[i],nums2[j]});
+            }
+        }
+        unordered_map<int,int> mp;
+        for(auto it:nums2) mp[it]++;
+        for(int i=0;i<n1;i++){
+            int sz=mp[lo-nums1[i]];
+            while(sz>0 && ans.size()<k){
+                sz--;
+                ans.push_back({nums1[i],(int)(lo-nums1[i])});
+            }
+        }
+        return ans;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def kSmallestPairs(self, nums1, nums2, k):
+        ans = []
+        n1, n2 = len(nums1), len(nums2)
+        lo, hi = nums1[0] + nums2[0], nums1[-1] + nums2[-1]
+        while lo < hi:
+            mid = (lo + hi) // 2
+            ct, j = 0, 0
+            for i in range(n1):
+                while j < n2 and nums1[i] + nums2[j] <= mid:
+                    j += 1
+                ct += j
+            if ct < k:
+                lo = mid + 1
+            else:
+                hi = mid
+        for i in range(n1):
+            for j in range(n2):
+                if nums1[i] + nums2[j] < lo:
+                    ans.append([nums1[i], nums2[j]])
+        mp = {x: nums2.count(x) for x in nums2}
+        for i in range(n1):
+            sz = mp.get(lo - nums1[i], 0)
+            while sz > 0 and len(ans) < k:
+                sz -= 1
+                ans.append([nums1[i], lo - nums1[i]])
+        return ans
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int n1 = nums1.length, n2 = nums2.length;
+        long lo = nums1[0] + nums2[0], hi = nums1[n1 - 1] + nums2[n2 - 1];
+        while (lo < hi) {
+            long mid = (lo + hi) / 2, ct = 0, j = 0;
+            for (int i = 0, idx = 0; i < n1; ++i) {
+                while (idx < n2 && nums1[i] + nums2[idx] <= mid) idx++;
+                ct += idx;
+            }
+            if (ct < k) lo = mid + 1;
+            else hi = mid;
+        }
+        for (int i = 0; i < n1; i++) {
+            for (int j = 0; j < n2 && nums1[i] + nums2[j] < lo; j++) {
+                ans.add(Arrays.asList(nums1[i], nums2[j]));
+            }
+        }
+        Map<Integer, Integer> mp = new HashMap<>();
+        for (int num : nums2) mp.put(num, mp.getOrDefault(num, 0) + 1);
+        for (int i = 0; i < n1; i++) {
+            int sz = mp.getOrDefault((int) (lo - nums1[i]), 0);
+            while (sz > 0 && ans.size() < k) {
+                sz--;
+                ans.add(Arrays.asList(nums1[i], (int) (lo - nums1[i])));
+            }
+        }
+        return ans;
+    }
+}
+                    `
+            },
+        }
+    },
+    {
+        id: 4,
+        name: "Sort an Array",
+        img: share,
+        level: "Medium",
+        url: "https://leetcode.com/problems/sort-an-array/",
+        solution: {
+            description: "Given an array of integers nums, sort the array in ascending order and return it.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        vector<int> counting(2 * 50000 + 1, 0);
+        for (int num : nums) {
+            // we add 5 * 10^4 because for smallest possible element -5 * 10^4 index must be 0
+            counting[num + 50000]++;
+        }
+        int write_ind = 0;
+        for (int number_ind = 0; number_ind < counting.size(); ++number_ind) {
+            int freq = counting[number_ind];
+            while (freq != 0) {
+                nums[write_ind] = number_ind - 50000;
+                write_ind++;
+                freq--;
+            }
+        }
+        return nums;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def sortArray(self, nums):
+        counting = [0] * (2 * 50000 + 1)
+        for num in nums:
+            counting[num + 50000] += 1
+        write_ind = 0
+        for number_ind in range(len(counting)):
+            freq = counting[number_ind]
+            while freq:
+                nums[write_ind] = number_ind - 50000
+                write_ind += 1
+                freq -= 1
+        return nums
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int[] counting = new int[2 * 50000 + 1];
+        for (int num : nums) {
+            counting[num + 50000]++;
+        }
+        int writeInd = 0;
+        for (int numberInd = 0; numberInd < counting.length; numberInd++) {
+            int freq = counting[numberInd];
+            while (freq != 0) {
+                nums[writeInd] = numberInd - 50000;
+                writeInd++;
+                freq--;
+            }
+        }
+        return nums;
+    }
+}
+                    `
+            },
+        }
+    },
+    {
+        id: 5,
+        name: "Sliding Window Maximum",
+        img: share,
+        level: "Hard",
+        url: "https://leetcode.com/problems/sliding-window-maximum/",
+        solution: {
+            description: "You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> res;
+        deque<int> deque;
+
+        for (int idx = 0; idx < nums.size(); idx++) {
+            int num = nums[idx];
+            while (!deque.empty() && deque.back() < num) deque.pop_back();
+            deque.push_back(num);
+
+            if (idx >= k && nums[idx - k] == deque.front()) deque.pop_front();
+            if (idx >= k - 1) res.push_back(deque.front());
+        }
+
+        return res;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def maxSlidingWindow(self, nums, k):
+        res, deque = [], []
+        for idx, num in enumerate(nums):
+            while deque and deque[-1] < num:
+                deque.pop()
+            deque.append(num)
+            if idx >= k and nums[idx - k] == deque[0]:
+                deque.pop(0)
+            if idx >= k - 1:
+                res.append(deque[0])
+        return res
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int[] res = new int[nums.length - k + 1];
+        Deque<Integer> deque = new ArrayDeque<>();
+        int idx = 0;
+        for (int i = 0; i < nums.length; i++) {
+            while (!deque.isEmpty() && deque.getLast() < nums[i]) {
+                deque.pollLast();
+            }
+            deque.addLast(nums[i]);
+            if (i >= k && nums[i - k] == deque.getFirst()) {
+                deque.pollFirst();
+            }
+            if (i >= k - 1) {
+                res[idx++] = deque.getFirst();
+            }
+        }
+        return res;
+    }
+}
+                    `
+            },
+        }
+    },
+    {
+        id: 6,
+        name: "Strong Password Checker",
+        img: share,
+        level: "Hard",
+        url: "https://leetcode.com/problems/strong-password-checker/",
+        solution: {
+            description: "Given a string password, return the minimum number of steps required to make password strong. if password is already strong, return 0.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    int strongPasswordChecker(string password) {
+        int n = password.size();
+        bool digit = false;
+        bool lower = false;
+        bool upper = false;
+        for(char ch : password){
+            if(isdigit(ch)) digit = true;
+            if(islower(ch)) lower = true;
+            if(isupper(ch)) upper = true;
+        }
+
+        int missing = !digit + !lower + !upper;
+        if(n < 6) return max(6 - n, missing);
+        int excess = max(0, n - 20);
+        int replacements = 0;
+        
+        vector<int> repeating;
+        for(int i = 0; i < n;){
+            int j = i;
+            while(j < n && password[j] == password[i]) j++;
+            if(j - i >= 3) repeating.push_back(j - i);
+            i = j;
+        }
+
+        int deletions = excess;
+        int i = 0;
+        int m = repeating.size();
+        while(i < m && excess > 0){
+            if(repeating[i] % 3 == 0){
+                repeating[i]--;
+                excess--;
+            }
+            i++;
+        }
+
+        i = 0;
+        while(i < repeating.size() && excess > 0){
+            if(repeating[i] % 3 == 1 && excess >= 2){
+                repeating[i] -= 2;
+                excess -= 2;
+            }
+            i++;
+        }
+
+        for(auto it : repeating){
+            if(excess > 0){
+                int remove = min(it - 2, excess);
+                it -= remove;
+                excess -= remove;
+            }
+            replacements += it / 3;
+        }
+        int ans = deletions + max(missing, replacements);
+        return ans;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def strongPasswordChecker(self, password):
+        n = len(password)
+        digit = lower = upper = False
+        for ch in password:
+            if ch.isdigit():
+                digit = True
+            if ch.islower():
+                lower = True
+            if ch.isupper():
+                upper = True
+
+        missing = int(not digit) + int(not lower) + int(not upper)
+        if n < 6:
+            return max(6 - n, missing)
+        excess = max(0, n - 20)
+        replacements = 0
+        repeating = []
+        i = 0
+
+        while i < n:
+            j = i
+            while j < n and password[j] == password[i]:
+                j += 1
+            if j - i >= 3:
+                repeating.append(j - i)
+            i = j
+
+        deletions = excess
+        i = 0
+        while i < len(repeating) and excess > 0:
+            if repeating[i] % 3 == 0:
+                repeating[i] -= 1
+                excess -= 1
+            i += 1
+
+        i = 0
+        while i < len(repeating) and excess > 0:
+            if repeating[i] % 3 == 1 and excess >= 2:
+                repeating[i] -= 2
+                excess -= 2
+            i += 1
+
+        for it in repeating:
+            if excess > 0:
+                remove = min(it - 2, excess)
+                it -= remove
+                excess -= remove
+            replacements += it // 3
+        return deletions + max(missing, replacements)
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int strongPasswordChecker(String password){
+        int n = password.length();
+        boolean digit = false, lower = false, upper = false;
+        for (char ch : password.toCharArray()) {
+            if (Character.isDigit(ch)) digit = true;
+            if (Character.isLowerCase(ch)) lower = true;
+            if (Character.isUpperCase(ch)) upper = true;
+        }
+
+        int missing = (digit ? 0 : 1) + (lower ? 0 : 1) + (upper ? 0 : 1);
+        if (n < 6) return Math.max(6 - n, missing);
+        int excess = Math.max(0, n - 20);
+        int replacements = 0;
+
+        List<Integer> repeating = new ArrayList<>();
+        for (int i = 0; i < n;) {
+            int j = i;
+            while (j < n && password.charAt(j) == password.charAt(i)) j++;
+            if (j - i >= 3) repeating.add(j - i);
+            i = j;
+        }
+
+        int deletions = excess, i = 0;
+        while (i < repeating.size() && excess > 0) {
+            if (repeating.get(i) % 3 == 0) {
+                repeating.set(i, repeating.get(i) - 1);
+                excess--;
+            }
+            i++;
+        }
+
+        i = 0;
+        while (i < repeating.size() && excess > 0) {
+            if (repeating.get(i) % 3 == 1 && excess >= 2) {
+                repeating.set(i, repeating.get(i) - 2);
+                excess -= 2;
+            }
+            i++;
+        }
+
+        for (int it : repeating) {
+            if (excess > 0) {
+                int remove = Math.min(it - 2, excess);
+                it -= remove;
+                excess -= remove;
+            }
+            replacements += it / 3;
+        }
+        return deletions + Math.max(missing, replacements);
+    }
+}
+                    `
+            },
+        }
+    },
+    {
+        id: 7,
+        name: "Smallest Range Covering Elements from K Lists",
+        img: share,
+        level: "Hard",
+        url: "https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/",
+        solution: {
+            description: "You have k lists of sorted integers in non-decreasing order. Find the smallest range that includes at least one number from each of the k lists.",
+            code:{
+                cpp: 
+                    `
+class Solution {
+public:
+    vector<int> smallestRange(vector<vector<int>>& nums) {
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> minHeap;
+        int curMax = numeric_limits<int>::min();
+
+        for (int i = 0; i < nums.size(); i++) {
+            minHeap.push({nums[i][0], i, 0});
+            curMax = max(curMax, nums[i][0]);
+        }
+            
+        vector<int> smallRange = {0, numeric_limits<int>::max()};
+        while (!minHeap.empty()) {
+            vector<int> curr = minHeap.top();
+            minHeap.pop();
+            int curMin = curr[0], listIdx = curr[1], elemIdx = curr[2];
+
+            if ((curMax - curMin < smallRange[1] - smallRange[0]) ||
+                (curMax - curMin == smallRange[1] - smallRange[0] && curMin < smallRange[0])) {
+                smallRange[0] = curMin;
+                smallRange[1] = curMax;
+            }
+
+            if (elemIdx + 1 < nums[listIdx].size()) {
+                int nextVal = nums[listIdx][elemIdx + 1];
+                minHeap.push({nextVal, listIdx, elemIdx + 1});
+                curMax = max(curMax, nextVal);
+            } 
+            else break;
+        }
+        return smallRange;
+    }
+};
+                    `
+                ,
+                python:
+                    `
+class Solution:
+    def smallestRange(self, nums):
+        min_heap = []
+        cur_max = float('-inf')
+        for i in range(len(nums)):
+            heapq.heappush(min_heap, (nums[i][0], i, 0))
+            cur_max = max(cur_max, nums[i][0])
+        small_range = [0, float('inf')]
+
+        while min_heap:
+            cur_min, list_idx, elem_idx = heapq.heappop(min_heap)
+            if (cur_max - cur_min < small_range[1] - small_range[0]) or (
+                cur_max - cur_min == small_range[1] - small_range[0] and cur_min < small_range[0]):
+                small_range = [cur_min, cur_max]
+            if elem_idx + 1 < len(nums[list_idx]):
+                next_val = nums[list_idx][elem_idx + 1]
+                heapq.heappush(min_heap, (next_val, list_idx, elem_idx + 1))
+                cur_max = max(cur_max, next_val)
+            else:
+                break
+        return small_range
+                    `
+                ,
+                java:
+                    `
+class Solution {
+    public int[] smallestRange(List<List<Integer>> nums) {
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+        int curMax = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.size(); i++) {
+            minHeap.offer(new int[]{nums.get(i).get(0), i, 0});
+            curMax = Math.max(curMax, nums.get(i).get(0));
+        }
+
+        int[] smallRange = {0, Integer.MAX_VALUE};
+        while (!minHeap.isEmpty()) {
+            int[] curr = minHeap.poll();
+            int curMin = curr[0], listIdx = curr[1], elemIdx = curr[2];
+            if ((curMax - curMin < smallRange[1] - smallRange[0]) || 
+                (curMax - curMin == smallRange[1] - smallRange[0] && curMin < smallRange[0])) {
+                smallRange[0] = curMin;
+                smallRange[1] = curMax;
+            }
+
+            if (elemIdx + 1 < nums.get(listIdx).size()) {
+                int nextVal = nums.get(listIdx).get(elemIdx + 1);
+                minHeap.offer(new int[]{nextVal, listIdx, elemIdx + 1});
+                curMax = Math.max(curMax, nextVal);
+            } 
+            else break;
+        }
+        return smallRange;
+    }
+}
+                    `
+            },
+        }
+    },
+]
+
 // Needs to change
 export const TreesData = [
     {
@@ -13458,58 +14164,6 @@ export const TreesData = [
         img: share,
         level: "Hard",
         url: "https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/"
-    },
-]
-
-export const HeapData = [
-    {
-        id: 1,
-        name: "Kth Largest Element in an Array",
-        img: share,
-        level: "Medium",
-        url: "https://leetcode.com/problems/kth-largest-element-in-an-array/"
-    },
-    {
-        id: 2,
-        name: "Top K Frequent Elements",
-        img: share,
-        level: "Medium",
-        url: "https://leetcode.com/problems/top-k-frequent-elements/"
-    },
-    {
-        id: 3,
-        name: "Find K Pairs with Smallest Sums",
-        img: share,
-        level: "Medium",
-        url: "https://leetcode.com/problems/find-k-pairs-with-smallest-sums/"
-    },
-    {
-        id: 4,
-        name: "Sort an Array",
-        img: share,
-        level: "Medium",
-        url: "https://leetcode.com/problems/sort-an-array/"
-    },
-    {
-        id: 5,
-        name: "Sliding Window Maximum",
-        img: share,
-        level: "Hard",
-        url: "https://leetcode.com/problems/sliding-window-maximum/"
-    },
-    {
-        id: 6,
-        name: "Strong Password Checker",
-        img: share,
-        level: "Hard",
-        url: "https://leetcode.com/problems/strong-password-checker/"
-    },
-    {
-        id: 7,
-        name: "Smallest Range Covering Elements from K Lists",
-        img: share,
-        level: "Hard",
-        url: "https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/"
     },
 ]
 
